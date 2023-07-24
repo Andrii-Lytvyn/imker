@@ -1,36 +1,70 @@
+import { FormEvent, useRef } from "react";
+import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
 
-// Import all of Bootstrap's JS
-// import * as bootstrap from 'bootstrap'
+interface RequestDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  questionText: string;
+}
 
 export default function Contacts(): JSX.Element {
+  const firstNameInput = useRef<HTMLInputElement>(null);
+  const emailInput = useRef<HTMLInputElement>(null);
+  const lastNameInput = useRef<HTMLInputElement>(null);
+  const phoneNumberInput = useRef<HTMLInputElement | null>(null);
+  const questionTextInput = useRef<HTMLTextAreaElement>(null);
+
+  const handleCreateRequest = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    const requestDto: RequestDto = {
+      firstName: firstNameInput.current ? firstNameInput.current.value : "none",
+      lastName: lastNameInput.current!.value,
+      email: emailInput.current!.value,
+      phoneNumber: phoneNumberInput.current!.value,
+      questionText: questionTextInput.current
+        ? questionTextInput.current.value
+        : "none",
+    };
+    console.log(requestDto);
+  };
+
   return (
     <>
-        <div className={styles.topImgContainer}>
-          <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
-        </div>
+      <div className={styles.topImgContainer}>
+        <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
+      </div>
 
       <div className="container">
-        <form>
+        <form onSubmit={handleCreateRequest}>
           <p className={styles.askText + " " + "text-center mb-4"}>
             Have a question for us?
           </p>
 
           <div className="row">
             <div className="col-md-5 d-flex align-items-center">
-              <label htmlFor="firstNameInput" className="col-md-2 me-2 text-end">
+              <label
+                htmlFor="firstNameInput"
+                className="col-md-2 me-2 text-end"
+              >
                 First Name:
               </label>
               <input
                 type="text"
                 id="firstNameInput"
                 className="form-control"
+                ref={firstNameInput}
                 required
               />
             </div>
 
             <div className="col-md-7 d-flex align-items-center">
-              <label htmlFor="emailInput" className="col-md-4 form-label me-2 text-end">
+              <label
+                htmlFor="emailInput"
+                className="col-md-4 form-label me-2 text-end"
+              >
                 Email address:
               </label>
               <input
@@ -38,6 +72,7 @@ export default function Contacts(): JSX.Element {
                 className="form-control"
                 id="emailInput"
                 placeholder="name@example.com"
+                ref={emailInput}
                 required
               />
             </div>
@@ -52,29 +87,42 @@ export default function Contacts(): JSX.Element {
                 type="text"
                 id="lastNameInput"
                 className="form-control"
+                ref={lastNameInput}
                 required
               />
             </div>
 
             <div className="col-md-7 d-flex align-items-center">
-              <label htmlFor="phoneNumberInput" className="col-md-4 me-2 text-end">
+              <label
+                htmlFor="phoneNumberInput"
+                className="col-md-4 me-2 text-end"
+              >
                 Phone number:
               </label>
-              <input
-                type="number"
-                id="phoneNumberInput"
+              <InputMask
+                mask="+4 9(999) 999-9999"
+                id="phoneInput"
                 className="form-control"
+                type="tel"
+                name="phone"
+                inputRef={(input: HTMLInputElement) =>
+                  (phoneNumberInput.current = input)
+                }
+                placeholder="+4 _(___) ___-____"
               />
             </div>
           </div>
-          <p className="form-text text-center mt-4">We'll never share your data with anyone else</p>
+          <p className="form-text text-center mt-4">
+            We'll never share your data with anyone else
+          </p>
           <div className="mb-3 mt-4">
             <textarea
               className="form-control"
               id="questionTextInput"
               rows={4}
               placeholder="leave your question here..."
-            ></textarea>
+              ref={questionTextInput}
+            />
           </div>
           <div className="d-flex justify-content-center">
             <button type="submit" className="btn btn-primary ">

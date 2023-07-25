@@ -15,6 +15,8 @@ import { IFormData, initialFormData } from "./interface/IFormData";
 import { validationSchemaYup } from "./helpers/validationYupShema/validationSchemaYup";
 
 import axios from "axios";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 const loginNewUser = async (createNewUser: IFormData) => {
@@ -65,6 +67,7 @@ const Login: FC = () => {
   //использую библиотеку Chakra UI для формы
   return (
     <ChakraProvider>
+      <Header />
       <div className={css.container}>
         <div className={css.wrapper}>
           <h2 className={css.login_title}>{wait ? "" : "Login"}</h2>
@@ -151,6 +154,7 @@ const Login: FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </ChakraProvider>
   );
 };

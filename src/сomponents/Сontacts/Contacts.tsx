@@ -1,4 +1,6 @@
 import styles from "./Contacts.module.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // Import all of Bootstrap's JS
 // import * as bootstrap from 'bootstrap'
@@ -6,6 +8,7 @@ import styles from "./Contacts.module.css";
 export default function Contacts(): JSX.Element {
   return (
     <>
+      <Header />
         <div className={styles.topImgContainer}>
           <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
         </div>
@@ -89,6 +92,7 @@ export default function Contacts(): JSX.Element {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
+      <Footer />
     </>
   );
 }

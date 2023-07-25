@@ -1,17 +1,36 @@
 import "./index.css";
 import "./App.css";
-// import Contacts from './сomponents/Сontacts/Contacts'
-// import Login from "./сomponents/UserLogin/Login";
-import AboutUs from "./сomponents/AboutUs/AboutUs";
+
+import MainPage from "./сomponents/MainPage/MainPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Contacts from "./сomponents/Сontacts/Contacts";
+import Login from "./сomponents/UserLogin/Login";
 
 function App(): JSX.Element {
   return (
-    <>
-      <h1>Hello Imker</h1>
-      {/* <Contacts /> */}
-      {/* <Login /> */}
-      <AboutUs/>
-    </>
+    <BrowserRouter>
+            <Routes>
+                <Route
+                    path='/imker'
+                    element={<MainPage />}
+                    exact
+                >
+                </Route>
+                <Route
+                    path='/imker/login'
+                    element={<Login />}
+                    exact
+                >
+                </Route>
+                <Route
+                    path='/imker/contact'
+                    element={<Contacts />}
+                    exact
+                >
+                </Route>
+            </Routes>
+    </BrowserRouter>
+
   );
 }
 

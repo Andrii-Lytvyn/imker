@@ -1,5 +1,6 @@
 import "./index.css";
 import "./App.css";
+
 import MainPage from "./сomponents/MainPage/MainPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Contacts from "./сomponents/Сontacts/Contacts";
@@ -29,6 +30,7 @@ function App(): JSX.Element {
                 </Route>
             </Routes>
     </BrowserRouter>
+
   );
 }
 

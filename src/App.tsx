@@ -12,25 +12,25 @@ function App(): JSX.Element {
             <Routes>
                 <Route
                     path='/imker'
-                    element={<MainPage />}
+                    component={MainPage}
                     exact
                 >
                 </Route>
                 <Route
                     path='/imker/login'
-                    element={<Login />}
+                    component={Login}
                     exact
                 >
                 </Route>
                 <Route
                     path='/imker/contact'
-                    element={<Contacts />}
+                    component={Contacts}
                     exact
                 >
                 </Route>
                 <Route
                     path='/imker/about'
-                    element={<AboutUs />}
+                    component={AboutUs}
                     exact
                 >
                 </Route>

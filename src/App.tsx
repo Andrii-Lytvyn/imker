@@ -2,14 +2,13 @@ import "./index.css";
 import "./App.css";
 
 import MainPage from "./сomponents/MainPage/MainPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Contacts from "./сomponents/Сontacts/Contacts";
 import Login from "./сomponents/UserLogin/Login";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
             <Routes>
                 <Route
                     path='/imker'
@@ -36,7 +35,7 @@ function App(): JSX.Element {
                 >
                 </Route>
             </Routes>
-    </BrowserRouter>
+
 
   );
 }

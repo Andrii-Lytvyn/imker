@@ -1,35 +1,59 @@
-import { FormEvent, useRef } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
-
-interface RequestDto {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  questionText: string;
-}
+import { initContacUsForm } from "./interfaces/IContactUsForm";
 
 export default function Contacts(): JSX.Element {
-  const firstNameInput = useRef<HTMLInputElement>(null);
-  const emailInput = useRef<HTMLInputElement>(null);
-  const lastNameInput = useRef<HTMLInputElement>(null);
-  const phoneNumberInput = useRef<HTMLInputElement | null>(null);
-  const questionTextInput = useRef<HTMLTextAreaElement>(null);
+  const [contactFormData, setContactFormData] =
+    useState(initContacUsForm);
 
-  const handleCreateRequest = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const requestDto: RequestDto = {
-      firstName: firstNameInput.current ? firstNameInput.current.value : "none",
-      lastName: lastNameInput.current!.value,
-      email: emailInput.current!.value,
-      phoneNumber: phoneNumberInput.current!.value,
-      questionText: questionTextInput.current
-        ? questionTextInput.current.value
-        : "none",
-    };
-    console.log(requestDto);
+  const collectAboutUsData = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setContactFormData((prev) => ({...prev, [name]:value}));
   };
+
+  const BOT_TOKEN = "6300117312:AAFuAe05tNIO58jo1Z1cGwjU54vQG888Cm0";
+  const CHAT_ID = "-1001767992658";
+
+  const sendMessageToTelegram = async (message: string) => {
+    try {
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+        }),
+      });
+      console.log("Notification successfully sent to Telegram");
+    } catch (error) {
+      console.error(
+        "There was an error when sending a notification to Telegram:",
+        error
+      );
+    }
+  };
+
+  const handleCreateRequest = (event:FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    console.log(contactFormData);
+
+    const message ="There is a new request:"
+    +"\n  First name: "+ contactFormData.firstName
+    +"\n  Last name: "+ contactFormData.lastName
+    +"\n  Email: "+ contactFormData.email
+    +"\n  PhoneNumber: "+ contactFormData.phoneNumber
+    +"\n\n  Request text: "+ contactFormData.questionText;
+    sendMessageToTelegram(message);
+
+    setContactFormData(initContacUsForm);
+  }
+
 
   return (
     <>
@@ -38,11 +62,12 @@ export default function Contacts(): JSX.Element {
       </div>
 
       <div className="container">
-        <form onSubmit={handleCreateRequest}>
+
           <p className={styles.askText + " " + "text-center mb-4"}>
             Have a question for us?
           </p>
 
+        <form onSubmit={handleCreateRequest}>
           <div className="row">
             <div className="col-md-5 d-flex align-items-center">
               <label
@@ -52,10 +77,10 @@ export default function Contacts(): JSX.Element {
                 First Name:
               </label>
               <input
-                type="text"
-                id="firstNameInput"
                 className="form-control"
-                ref={firstNameInput}
+                name="firstName"
+                value={contactFormData.firstName}
+                onChange={collectAboutUsData}
                 required
               />
             </div>
@@ -70,9 +95,10 @@ export default function Contacts(): JSX.Element {
               <input
                 type="email"
                 className="form-control"
-                id="emailInput"
                 placeholder="name@example.com"
-                ref={emailInput}
+                name="email"
+                value={contactFormData.email}
+                onChange={collectAboutUsData}
                 required
               />
             </div>
@@ -85,9 +111,10 @@ export default function Contacts(): JSX.Element {
               </label>
               <input
                 type="text"
-                id="lastNameInput"
                 className="form-control"
-                ref={lastNameInput}
+                name="lastName"
+                value={contactFormData.lastName}
+                onChange={collectAboutUsData}
                 required
               />
             </div>
@@ -101,14 +128,12 @@ export default function Contacts(): JSX.Element {
               </label>
               <InputMask
                 mask="+4 9(999) 999-9999"
-                id="phoneInput"
                 className="form-control"
                 type="tel"
-                name="phone"
-                inputRef={(input: HTMLInputElement) =>
-                  (phoneNumberInput.current = input)
-                }
                 placeholder="+4 _(___) ___-____"
+                name="phoneNumber"
+                value={contactFormData.phoneNumber}
+                onChange={collectAboutUsData}
               />
             </div>
           </div>
@@ -121,7 +146,9 @@ export default function Contacts(): JSX.Element {
               id="questionTextInput"
               rows={4}
               placeholder="leave your question here..."
-              ref={questionTextInput}
+              name="questionText"
+              value={contactFormData.questionText}
+              onChange={collectAboutUsData}
             />
           </div>
           <div className="d-flex justify-content-center">

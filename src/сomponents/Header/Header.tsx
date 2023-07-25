@@ -17,6 +17,9 @@ export default function Header(): JSX.Element {
 					<li>
 						<Link to="/imker/contact" >CONTACT</Link>
 					</li>
+					<li>
+						<Link to="/imker/about" >ABOUT</Link>
+					</li>
 				</ul>
 			</div>
 		</>

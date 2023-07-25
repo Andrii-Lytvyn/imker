@@ -1,0 +1,117 @@
+body {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #383838;
+    background-color: #f7f3f0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    margin: 0;
+}
+
+.title_container {
+    position: relative;
+    background-image: url(../public/img/about_us_top.jpg);
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    text-align: center;
+    height: 355px;
+    color: #FFFFFF;
+}
+
+.title {
+    position: relative;
+    display: inline-block;
+    font-size: 2.5em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.description_container {
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    min-height: 1px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.description_right_and_left {
+    position: relative;
+    display: flex;
+    width: 100%;
+    vertical-align: top;
+    min-height: 1px;
+    float:inherit;
+    max-width: 1260px;
+    margin: 10px auto;
+    padding: 70px 0px 102px 0px;
+}
+
+.description_left {
+    display: flex;
+    flex-direction: column;
+    vertical-align: top;
+    min-height: 1px;
+    float: left;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.description_left_img {
+    display: flex;
+}
+
+.description_right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    vertical-align: top;
+    min-height: 1px;
+    float: left;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.description_right_middle_img {
+    display: flex;
+}
+
+.description_img {
+    width: 95%;
+}
+
+.team_container {
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.team_title{
+    display: flex;
+    width: 100%;
+    vertical-align: top;
+    /* float: left; */
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.members {
+    display: flex; 
+}
+
+members_networks {
+    
+}
+
+.memeber_img {
+    width: 300px;
+  /* margin: 15px; */
+}

@@ -1,3 +1,6 @@
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 export default function AboutUs(): JSX.Element {
 
 
@@ -5,6 +8,7 @@ export default function AboutUs(): JSX.Element {
 
     return (
         <>
+            <Header />
             <div>
             <div>
                     <span>ABOUT US</span>
@@ -94,6 +98,7 @@ export default function AboutUs(): JSX.Element {
                         </div> */}
                     </div>
             </div>
+            <Footer />
         </>
     );
 }

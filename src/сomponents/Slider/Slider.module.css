@@ -1,0 +1,6 @@
+.slider{
+    height: 100px;
+    width: 100%;
+    background-color: var(--text-color);
+    text-align: center;
+}

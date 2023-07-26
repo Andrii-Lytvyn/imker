@@ -8,8 +8,5 @@
     --text-color: #5b5858;
     --bg-color: #f7f3f0;
     --bold-text: #131313;
-    --boredr-color: #545050;
-}
-h1{
-    color: var(--terracotta) ;
+    --border-color: #545050;
 }

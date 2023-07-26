@@ -3,6 +3,8 @@ import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
 import { Toast } from "bootstrap";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 export default function Contacts(): JSX.Element {
   const [contactFormData, setContactFormData] = useState(initContacUsForm);
@@ -71,9 +73,10 @@ export default function Contacts(): JSX.Element {
 
   return (
     <>
-      <div className={styles.topImgContainer}>
-        <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
-      </div>
+      <Header />
+        <div className={styles.topImgContainer}>
+          <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
+        </div>
 
       <div className="container">
         <p className={styles.askText + " " + "text-center mb-4"}>
@@ -177,7 +180,6 @@ export default function Contacts(): JSX.Element {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-
       <div className="toast-container position-fixed bottom-0 end-0 p-3">
         <div
           id="liveToast"
@@ -191,6 +193,7 @@ export default function Contacts(): JSX.Element {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

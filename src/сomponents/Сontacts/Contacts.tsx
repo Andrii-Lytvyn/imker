@@ -2,16 +2,25 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
+import { Toast } from "bootstrap";
 
 export default function Contacts(): JSX.Element {
-  const [contactFormData, setContactFormData] =
-    useState(initContacUsForm);
+  const [contactFormData, setContactFormData] = useState(initContacUsForm);
+
+  const toastTrigger = document.getElementById("liveToastBtn");
+  const toastLiveExample = document.getElementById("liveToast");
+  if (toastTrigger && toastLiveExample) {
+    const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample);
+    toastTrigger.addEventListener("click", () => {
+      toastBootstrap.show();
+    });
+  }
 
   const collectAboutUsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setContactFormData((prev) => ({...prev, [name]:value}));
+    setContactFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const BOT_TOKEN = "6300117312:AAFuAe05tNIO58jo1Z1cGwjU54vQG888Cm0";
@@ -38,22 +47,27 @@ export default function Contacts(): JSX.Element {
     }
   };
 
-  const handleCreateRequest = (event:FormEvent<HTMLFormElement>) => {
+  const handleCreateRequest = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     console.log(contactFormData);
 
-    const message ="There is a new request:"
-    +"\n  First name: "+ contactFormData.firstName
-    +"\n  Last name: "+ contactFormData.lastName
-    +"\n  Email: "+ contactFormData.email
-    +"\n  PhoneNumber: "+ contactFormData.phoneNumber
-    +"\n\n  Request text: "+ contactFormData.questionText;
+    const message =
+      "There is a new request:" +
+      "\n  First name: " +
+      contactFormData.firstName +
+      "\n  Last name: " +
+      contactFormData.lastName +
+      "\n  Email: " +
+      contactFormData.email +
+      "\n  PhoneNumber: " +
+      contactFormData.phoneNumber +
+      "\n\n  Request text: " +
+      contactFormData.questionText;
     sendMessageToTelegram(message);
 
     setContactFormData(initContacUsForm);
-  }
-
+  };
 
   return (
     <>
@@ -62,10 +76,9 @@ export default function Contacts(): JSX.Element {
       </div>
 
       <div className="container">
-
-          <p className={styles.askText + " " + "text-center mb-4"}>
-            Have a question for us?
-          </p>
+        <p className={styles.askText + " " + "text-center mb-4"}>
+          Have a question for us?
+        </p>
 
         <form onSubmit={handleCreateRequest}>
           <div className="row">
@@ -152,7 +165,7 @@ export default function Contacts(): JSX.Element {
             />
           </div>
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary ">
+            <button id="liveToastBtn" type="submit" className="btn btn-primary ">
               Send request
             </button>
           </div>
@@ -164,6 +177,20 @@ export default function Contacts(): JSX.Element {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
+
+      <div className="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+          id="liveToast"
+          className="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div className="toast-body">
+            ✔️ Your request has been successfully sent!
+          </div>
+        </div>
+      </div>
     </>
   );
 }

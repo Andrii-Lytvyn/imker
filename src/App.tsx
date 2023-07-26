@@ -6,7 +6,6 @@ import Login from "./сomponents/UserLogin/Login";
 import Contacts from "./сomponents/Сontacts/Contacts";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 
-
 function App(): JSX.Element {
   return (
           <Routes>

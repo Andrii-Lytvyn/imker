@@ -7,7 +7,6 @@ import Contacts from "./сomponents/Сontacts/Contacts";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 import NoPage from "./сomponents/NoPage/NoPage";
 
-
 function App(): JSX.Element {
   return (
           <Routes>

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
@@ -6,13 +5,14 @@ import { initContacUsForm } from "./interfaces/IContactUsForm";
 import { Toast } from "bootstrap";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { chat_id, telegramBaseURL } from "./constants/constants";
 
 export default function Contacts(): JSX.Element {
   const [
     { firstName, lastName, email, phoneNumber, questionText },
     setContactFormData,
   ] = useState(initContacUsForm);
+  const maxLength = 500;
+  const [charLeft, setCharLeft] = useState(maxLength);
 
   const toastTrigger = document.getElementById("liveToastBtn");
   const toastLiveExample = document.getElementById("liveToast");
@@ -28,17 +28,31 @@ export default function Contacts(): JSX.Element {
   ) => {
     const { name, value } = event.target;
     setContactFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (value.length <= maxLength) {
+      setCharLeft(maxLength - value.length);
+    }
   };
 
-  const sendMessageToTelegram = async (message: string) => {
-    const contactInfoRequest = { chat_id, text: message };
-
+  const sendRequestToBack = async () => {
     try {
-      await axios.post(`${telegramBaseURL}`, contactInfoRequest);
-      console.log("Notification successfully sent to Telegram");
+      await fetch("http://localhost:8080/api/requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phoneNumber: phoneNumber,
+          questionText: questionText,
+        }),
+      });
+      console.log("Notification successfully sent to Back");
     } catch (error) {
       console.error(
-        "There was an error when sending a notification to Telegram:",
+        "There was an error when sending a notification to Back:",
         error
       );
     }
@@ -47,14 +61,7 @@ export default function Contacts(): JSX.Element {
   const handleCreateRequest = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const message = `There is a new request:
-    First name: ${firstName}
-    Last name: ${lastName}
-    Email: ${email}
-    PhoneNumber: ${phoneNumber}
-    Request text: ${questionText}
-    `;
-    sendMessageToTelegram(message);
+    sendRequestToBack();
 
     setContactFormData(initContacUsForm);
   };
@@ -149,11 +156,13 @@ export default function Contacts(): JSX.Element {
               className="form-control"
               id="questionTextInput"
               rows={4}
+              maxLength={maxLength}
               placeholder="leave your question here..."
               name="questionText"
               value={questionText}
               onChange={collectAboutUsData}
             />
+            <p className="form-text m-2">{charLeft} characters remaining</p>
           </div>
           <div className="d-flex justify-content-center">
             <button

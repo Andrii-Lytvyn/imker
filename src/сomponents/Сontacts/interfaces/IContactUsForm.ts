@@ -1,11 +1,11 @@
 export interface IContactUsForm {
-[key:string]:string
+  [key: string]: string;
 }
 
-export const initContacUsForm:IContactUsForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phoneNumber: '',
-  questionText: '',
-}
+export const initContacUsForm: IContactUsForm = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+  questionText: "",
+};

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./Contacts.module.css";
@@ -5,9 +6,13 @@ import { initContacUsForm } from "./interfaces/IContactUsForm";
 import { Toast } from "bootstrap";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import { chat_id, telegramBaseURL } from "./constants/constants";
 
 export default function Contacts(): JSX.Element {
-  const [contactFormData, setContactFormData] = useState(initContacUsForm);
+  const [
+    { firstName, lastName, email, phoneNumber, questionText },
+    setContactFormData,
+  ] = useState(initContacUsForm);
 
   const toastTrigger = document.getElementById("liveToastBtn");
   const toastLiveExample = document.getElementById("liveToast");
@@ -25,21 +30,11 @@ export default function Contacts(): JSX.Element {
     setContactFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const BOT_TOKEN = "6300117312:AAFuAe05tNIO58jo1Z1cGwjU54vQG888Cm0";
-  const CHAT_ID = "-1001767992658";
-
   const sendMessageToTelegram = async (message: string) => {
+    const contactInfoRequest = { chat_id, text: message };
+
     try {
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message,
-        }),
-      });
+      await axios.post(`${telegramBaseURL}`, contactInfoRequest);
       console.log("Notification successfully sent to Telegram");
     } catch (error) {
       console.error(
@@ -52,20 +47,13 @@ export default function Contacts(): JSX.Element {
   const handleCreateRequest = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(contactFormData);
-
-    const message =
-      "There is a new request:" +
-      "\n  First name: " +
-      contactFormData.firstName +
-      "\n  Last name: " +
-      contactFormData.lastName +
-      "\n  Email: " +
-      contactFormData.email +
-      "\n  PhoneNumber: " +
-      contactFormData.phoneNumber +
-      "\n\n  Request text: " +
-      contactFormData.questionText;
+    const message = `There is a new request:
+    First name: ${firstName}
+    Last name: ${lastName}
+    Email: ${email}
+    PhoneNumber: ${phoneNumber}
+    Request text: ${questionText}
+    `;
     sendMessageToTelegram(message);
 
     setContactFormData(initContacUsForm);
@@ -74,9 +62,9 @@ export default function Contacts(): JSX.Element {
   return (
     <>
       <Header />
-        <div className={styles.topImgContainer}>
-          <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
-        </div>
+      <div className={styles.topImgContainer}>
+        <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
+      </div>
 
       <div className="container">
         <p className={styles.askText + " " + "text-center mb-4"}>
@@ -95,7 +83,7 @@ export default function Contacts(): JSX.Element {
               <input
                 className="form-control"
                 name="firstName"
-                value={contactFormData.firstName}
+                value={firstName}
                 onChange={collectAboutUsData}
                 required
               />
@@ -113,7 +101,7 @@ export default function Contacts(): JSX.Element {
                 className="form-control"
                 placeholder="name@example.com"
                 name="email"
-                value={contactFormData.email}
+                value={email}
                 onChange={collectAboutUsData}
                 required
               />
@@ -129,7 +117,7 @@ export default function Contacts(): JSX.Element {
                 type="text"
                 className="form-control"
                 name="lastName"
-                value={contactFormData.lastName}
+                value={lastName}
                 onChange={collectAboutUsData}
                 required
               />
@@ -148,7 +136,7 @@ export default function Contacts(): JSX.Element {
                 type="tel"
                 placeholder="+4 _(___) ___-____"
                 name="phoneNumber"
-                value={contactFormData.phoneNumber}
+                value={phoneNumber}
                 onChange={collectAboutUsData}
               />
             </div>
@@ -163,12 +151,16 @@ export default function Contacts(): JSX.Element {
               rows={4}
               placeholder="leave your question here..."
               name="questionText"
-              value={contactFormData.questionText}
+              value={questionText}
               onChange={collectAboutUsData}
             />
           </div>
           <div className="d-flex justify-content-center">
-            <button id="liveToastBtn" type="submit" className="btn btn-primary ">
+            <button
+              id="liveToastBtn"
+              type="submit"
+              className="btn btn-primary "
+            >
               Send request
             </button>
           </div>

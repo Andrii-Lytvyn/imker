@@ -10,7 +10,7 @@ function App(): JSX.Element {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/contact" element={<Contacts />} />
+      <Route path="/contacts" element={<Contacts />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/*" element={<NoPage />} />
     </Routes>

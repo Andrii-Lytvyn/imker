@@ -36,7 +36,7 @@ export default function Header(): JSX.Element {
             <Link to="/">Products</Link>
             <Link to="/">Blog</Link>
             <Link to="/">Gallery</Link>
-            <Link to="/">Contact</Link>
+            <Link to="/contacts">Contact Us</Link>
             <Link to="/404">Page 404</Link>
             <Link to="/login">
               <span>LogIn</span>

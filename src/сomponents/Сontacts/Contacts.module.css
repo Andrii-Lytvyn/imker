@@ -1,17 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Actor&family=Archivo+Black&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Actor&family=Archivo+Black&display=swap");
 
-
-.topImgContainer{
+.topImgContainer {
   height: 250px;
-  background-image: url('../../../public/img/topIMG.png');
+  background-image: url("../topImg.png");
   background-size: contain;
   background-position: bottom;
   animation: expand 1s ease;
 }
 
-.topImgText{
+.topImgText {
   padding-top: 10px;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: "Archivo Black", sans-serif;
   font-size: 3em;
   color: white;
   text-shadow: 4px 4px 3px #e67425;
@@ -26,9 +25,8 @@
   }
 }
 
-
-.askText{
-  font-family: 'Actor', sans-serif;
+.askText {
+  font-family: "Actor", sans-serif;
   font-size: 2em;
 }
 
@@ -37,8 +35,7 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-
-.map{
+.map {
   margin-top: 50px;
   width: 100%;
   height: 400px;

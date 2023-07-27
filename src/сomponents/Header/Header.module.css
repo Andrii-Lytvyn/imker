@@ -1,6 +1,33 @@
-.header{
-    height: 100px;
+.navbarMy{
+
     width: 100%;
+}
+.linkMenu{
+    width: 60%;
+    color: red;
+    height: 110px;
+}
+.linkMenu a{
+    font-family: 'Actor', sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.linkMenu a:hover{
+    color: var(--terracotta);
+}
+.linkMenu span{
     background-color: var(--terracotta);
-    text-align: center;
+    color: white;
+    border-radius: 7px;
+    padding: 10px;
+}
+.linkMenu span:hover{
+    background-color: var(--yellow);
+}
+.contact-button{
+    background-color: var(--terracotta);
+    color: #ffffff;
+    padding: 15px 30px!important;
 }

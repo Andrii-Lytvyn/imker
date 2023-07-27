@@ -31,3 +31,8 @@
     color: #ffffff;
     padding: 15px 30px!important;
 }
+.logo a{
+    color: var(--terracotta);
+    text-decoration: none;
+    font-size: 2em;
+}

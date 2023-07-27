@@ -11,9 +11,18 @@ export default function Header(): JSX.Element {
 			<Container>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-					<Nav>
+					<Nav className={styles.logo}>
 						<Link to="/imker">
-							<img src='/img/logo.png' width='235px'/>
+							<span >LOGO</span>
+						</Link>
+
+					</Nav>
+					<Nav className="d-flex justify-content-evenly">
+						<Link to="/imker">
+							<img src="/img/flags/en_50.png" width='50%' />
+						</Link>
+						<Link to="/imker">
+							<img src="/img/flags/de_50.png" width='50%' />
 						</Link>
 
 					</Nav>

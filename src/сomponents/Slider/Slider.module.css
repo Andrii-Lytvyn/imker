@@ -4,3 +4,6 @@
     background-color: var(--text-color);
     text-align: center;
 }
+.my_slider{
+    height: 500px;
+}

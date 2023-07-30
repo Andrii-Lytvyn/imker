@@ -2,10 +2,10 @@ import * as Yup from "yup";
 
 //схема валидации полей 
 export const validationSchemaYup = Yup.object().shape({
-    name: Yup.string()
-        .matches(/^[a-zA-Zа-яА-Я\s]+$/, "Name can only contain letters")
-        .min(2)
-        .trim(),
+    // name: Yup.string()
+    //     .matches(/^[a-zA-Zа-яА-Я\s]+$/, "Name can only contain letters")
+    //     .min(2)
+    //     .trim(),
     email: Yup.string()
         .email("Invalid email")
         .matches(

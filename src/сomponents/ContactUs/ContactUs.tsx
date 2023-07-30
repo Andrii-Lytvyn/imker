@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
-import styles from "./Contacts.module.css";
+import styles from "./ContactUs.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
-import { Toast } from "bootstrap";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Contacts(): JSX.Element {
   const [
@@ -14,56 +15,48 @@ export default function Contacts(): JSX.Element {
   const maxLength = 500;
   const [charLeft, setCharLeft] = useState(maxLength);
 
-  const toastTrigger = document.getElementById("liveToastBtn");
-  const toastLiveExample = document.getElementById("liveToast");
-  if (toastTrigger && toastLiveExample) {
-    const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample);
-    toastTrigger.addEventListener("click", () => {
-      toastBootstrap.show();
-    });
-  }
-
   const collectAboutUsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setContactFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (value.length <= maxLength) {
-      setCharLeft(maxLength - value.length);
+    if (questionText.length <= maxLength) {
+      setCharLeft(maxLength - questionText.length);
     }
   };
 
-  const sendRequestToBack = async () => {
+  const handleCreateRequest = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     try {
-      await fetch("http://localhost:8080/api/requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          phoneNumber: phoneNumber,
-          questionText: questionText,
-        }),
+      await axios.post("http://localhost:8080/api/requests", {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        questionText,
       });
-      console.log("Notification successfully sent to Back");
     } catch (error) {
       console.error(
         "There was an error when sending a notification to Back:",
         error
       );
     }
-  };
 
-  const handleCreateRequest = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    sendRequestToBack();
+    toast.success("✔️ Your request has been successfully sent!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    });
 
     setContactFormData(initContacUsForm);
+    setCharLeft(maxLength);
   };
 
   return (
@@ -85,7 +78,7 @@ export default function Contacts(): JSX.Element {
                 htmlFor="firstNameInput"
                 className="col-md-2 me-2 text-end"
               >
-                First Name:
+                First Name*:
               </label>
               <input
                 className="form-control"
@@ -101,7 +94,7 @@ export default function Contacts(): JSX.Element {
                 htmlFor="emailInput"
                 className="col-md-4 form-label me-2 text-end"
               >
-                Email address:
+                Email address*:
               </label>
               <input
                 type="email"
@@ -118,7 +111,7 @@ export default function Contacts(): JSX.Element {
           <div className="row mt-3">
             <div className="col-md-5 d-flex align-items-center">
               <label htmlFor="lastNameInput" className="col-md-2 me-2 text-end">
-                Last Name:
+                Last Name*:
               </label>
               <input
                 type="text"
@@ -161,6 +154,7 @@ export default function Contacts(): JSX.Element {
               name="questionText"
               value={questionText}
               onChange={collectAboutUsData}
+              required
             />
             <p className="form-text m-2">{charLeft} characters remaining</p>
           </div>
@@ -181,19 +175,6 @@ export default function Contacts(): JSX.Element {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-      <div className="toast-container position-fixed bottom-0 end-0 p-3">
-        <div
-          id="liveToast"
-          className="toast"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div className="toast-body">
-            ✔️ Your request has been successfully sent!
-          </div>
-        </div>
-      </div>
       <Footer />
     </>
   );

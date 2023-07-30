@@ -1,7 +1,6 @@
 import MainPage from "./сomponents/MainPage/MainPage";
 import { Route, Routes } from "react-router-dom";
 import Login from "./сomponents/UserLogin/Login";
-import Contacts from "./сomponents/Сontacts/Contacts";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 import NoPage from "./сomponents/NoPage/NoPage";
 import { ToastContainer } from "react-toastify";

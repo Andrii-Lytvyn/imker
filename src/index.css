@@ -1,13 +1,13 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "react-toastify/dist/ReactToastify.css";
 @import "assets/reset.css";
 
-
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    --yellow: #d3a863;
-    --terracotta: #c74817;
-    --text-color: #5b5858;
-    --bg-color: #f7f3f0;
-    --bold-text: #131313;
-    --border-color: #545050;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --yellow: #d3a863;
+  --terracotta: #c74817;
+  --text-color: #5b5858;
+  --bg-color: #f7f3f0;
+  --bold-text: #131313;
+  --border-color: #545050;
 }

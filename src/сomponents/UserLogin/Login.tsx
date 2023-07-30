@@ -17,6 +17,7 @@ import { validationSchemaYup } from "./helpers/validationYupShema/validationSche
 import axios from "axios";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import { toast } from "react-toastify";
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 const loginNewUser = async (createNewUser: IFormData) => {
@@ -48,6 +49,7 @@ const Login: FC = () => {
       loginNewUser(createNewUser);
       resetForm();
       setWait(true);
+      toast.success("User Logined!");
     },
   });
 

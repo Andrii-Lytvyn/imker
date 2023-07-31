@@ -1,6 +1,6 @@
 export const STATUS = {
-    idle: "idle",
-    loading: "loading",
-    success: "success",
-    error: "error"
+    NOT_CONFIRMED: "NOT_CONFIRMED",
+    CONFIRMED: "CONFIRMED",
+    BANNED: "BANNED",
+    DELETED: "DELETED"
 } as const;

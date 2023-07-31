@@ -1,6 +1,6 @@
-import { ROLE } from "../statusAndRole/role";
+import { ROLE } from "../../statusAndRole/role";
 
-export interface IFormData {
+export interface IRegister {
     id: string | number | null;
     name: string;
     email: string;
@@ -13,16 +13,16 @@ export interface IFormData {
     address: string;
     token: string
 }
-export const initialFormData = {
+export const initRegisterData = {
     id: null,
     name: "",
     email: "",
     password: "",
     isLogin: false,
-    role: ROLE.guest,
+    role: ROLE.USER,
     phone: "",
     image: "",
-    coordinates: "",
+    plz: "",
     address: "",
     token: ""
 }

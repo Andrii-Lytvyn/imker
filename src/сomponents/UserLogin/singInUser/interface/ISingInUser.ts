@@ -1,12 +1,9 @@
+
 export interface ISignInUser {
-    email: string;
-    password: string;
-    isLogin: boolean;
-    secretQuestion?: string;
+    [key: string]: string
 }
-export const initialSingInUser = {
+export const initSingInUserData = {
     email: "",
     password: "",
-    isLogin: false,
     secretQuestion: "",
 }

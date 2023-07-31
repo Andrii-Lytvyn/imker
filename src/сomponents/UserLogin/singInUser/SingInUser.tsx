@@ -4,7 +4,7 @@ import { BiLeftArrowCircle } from "react-icons/bi";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { validationSchemaYup } from "../helpers/validationYupShema/validationSchemaYup";
+import { validationSchemaSingUpYup } from "../helpers/validationYupShema/validationSchemaYup";
 import {
   Button,
   FormControl,
@@ -14,8 +14,10 @@ import {
   InputRightElement,
   WrapItem,
   Flex,
+
 } from "@chakra-ui/react";
-import { ISignInUser, initialSingInUser } from "./interface/ISingInUser";
+import { ISignInUser,initSingInUserData } from "./interface/ISingInUser";
+
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
@@ -27,8 +29,12 @@ const loginNewUser = async (createNewUser: ISignInUser) => {
     console.log("🚀  error:", error);
   }
 };
+export interface IForm {
+  swichForm: boolean
+  setSwichForm: (newValue: boolean) => void;
+}
 
-const SingInUser = (): JSX.Element => {
+const SingInUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
   const [forgot, setForgot] = useState(true);
   const [secretWord, setSecretWord] = useState("");
   const [flag, setFlag] = useState(false);
@@ -44,10 +50,13 @@ const SingInUser = (): JSX.Element => {
     handleBlur,
     resetForm,
   } = useFormik({
-    initialValues: initialSingInUser,
-    validationSchema: validationSchemaYup,
+    initialValues: initSingInUserData,
+    validationSchema: validationSchemaSingUpYup,
     onSubmit: (createNewUser) => {
-      loginNewUser(createNewUser);
+      // loginNewUser(createNewUser);
+
+      console.log("🚀  createNewUser:", createNewUser);
+      
       resetForm();
       toast.success("User Logined!");
     },
@@ -69,7 +78,7 @@ const SingInUser = (): JSX.Element => {
   };
 
   // Обьект одинаковых настроек для всех инпутов
-  const inputSettings = {
+    const inputSettings = {
     fontSize: "20",
     p: "6",
     boxShadow: "2xl",
@@ -132,21 +141,30 @@ const SingInUser = (): JSX.Element => {
           <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
             <Flex direction="row" gap="10px">
               <Button colorScheme="red" type="submit">
-                Join Us
+                Beitreten 
               </Button>
               <Button
                 colorScheme="red"
                 type="button"
                 onClick={() => setForgot((prev) => !prev)}
               >
-                Forgot password ?
+                Passwort vergessen ?
               </Button>
             </Flex>
           </WrapItem>
+          <Flex justifyContent="end">
+            <Button type="button" mt="4" colorScheme='blue'
+              variant='link' size='sm'
+              onClick={()=> setSwichForm(!swichForm)}>
+              Neues Konto registrieren
+            </Button>
+            </Flex>
         </form>
       ) : (
+          <div className={css.title}>
+            <h4>Model your first car ?</h4> 
         <form onSubmit={getSecretAnswer}>
-          <FormControl mt="4" isInvalid={flag}>
+          <FormControl mt="2" isInvalid={flag}>
             <Input
               value={secretWord}
               placeholder="Enter secret answer"
@@ -178,7 +196,8 @@ const SingInUser = (): JSX.Element => {
               </Button>
             </Flex>
           </WrapItem>
-        </form>
+            </form>
+            </div>
       )}
     </>
   );

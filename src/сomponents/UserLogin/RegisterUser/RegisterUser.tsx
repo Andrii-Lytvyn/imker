@@ -1,25 +1,26 @@
 import css from "./RegisterUser.module.css";
+import { toast } from "react-toastify";
+import axios from "axios";
 import { Button, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputRightElement, WrapItem } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import { IRegisterUser, initRegisterData } from "./interface/IRegisterUser";
 import { validationSchemaRegistrationYup } from "../helpers/validationYupShema/validationSchemaYup";
 import { useState } from "react";
-import { IForm } from "../SingInUser/SingInUser";
-import { toast } from "react-toastify";
-import axios from "axios";
+import { ISingInForm } from "../SingInUser/interface/ISecretRestore";
+
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 const loginNewUser = async (createNewUser: IRegisterUser) => {
   try {
-    const { data } = await axios.post(`${baseURL}/user_login`, createNewUser);
+    const  data  = await axios.post(`${baseURL}/user_login`, createNewUser);
     console.log("🚀  data:", data);
   } catch (error) {
-    console.log("🚀  error:", error);
+    toast.error(`Ошибка сервера ${error}`)
   }
 };
 
-const RegisterUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
+const RegisterUser = ({setSwichForm ,swichForm}:ISingInForm): JSX.Element => {
   const [show, setShow] = useState(false);
 
 
@@ -36,8 +37,8 @@ const RegisterUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
     validationSchema: validationSchemaRegistrationYup,
     onSubmit: (createNewUser) => {
 
-    console.log("🚀  createNewUser:", createNewUser);
-    //   loginNewUser(createNewUser);
+    console.log("🚀  createNewUser:", createNewUser);//Log для бека
+      loginNewUser(createNewUser);
       resetForm();
       toast.success("User create!");
     },
@@ -142,8 +143,8 @@ const RegisterUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
         </FormControl>
         <FormControl mt="4" >
                   <Input
-                    name="secretQuestion"
-                    value={values.secretQuestion}
+                    name="question"
+                    value={values.question}
                     placeholder="Model your first car ?"
                     focusBorderColor= "lime"
                       {...inputSettings}

@@ -1,10 +1,10 @@
-import MainPage from "./сomponents/MainPage/MainPage";
+import { ToastContainer } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
+import MainPage from "./сomponents/MainPage/MainPage";
 import Login from "./сomponents/UserLogin/Login";
 import Contacts from "./сomponents/Сontacts/Contacts";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 import NoPage from "./сomponents/NoPage/NoPage";
-import { ToastContainer } from "react-toastify";
 
 function App(): JSX.Element {
   return (
@@ -18,7 +18,7 @@ function App(): JSX.Element {
       </Routes>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick

@@ -1,5 +1,3 @@
-import { STATUS } from "../../statusAndRole/status";
-
 export interface IRegisterUser {
     name: string;
     email: string;
@@ -8,7 +6,7 @@ export interface IRegisterUser {
     phone: string;
     image: string;
     plz: string;
-    secretQuestion?: string;
+    question?: string;
     // token: string
 }
 export const initRegisterData = {
@@ -16,10 +14,9 @@ export const initRegisterData = {
     email: "",
     password: "",
     isLogin: false,
-    status: STATUS.NOT_CONFIRMED,
     phone: "+49",
     image: "",
     plz: "",
-    secretQuestion: "",
+    question: "",
     // token: ""
 }

@@ -5,5 +5,7 @@ export interface ISignInUser {
 export const initSingInUserData = {
     email: "",
     password: "",
-    secretQuestion: "",
+}
+export const initSingInUserquestion = {
+    question: "",
 }

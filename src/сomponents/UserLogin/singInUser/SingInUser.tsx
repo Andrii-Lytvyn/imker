@@ -1,9 +1,8 @@
 import axios from "axios";
 import css from "./SingInUser.module.css";
-import { BiLeftArrowCircle } from "react-icons/bi";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { toast } from "react-toastify";
 import { useFormik } from "formik";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { validationSchemaSingUpYup } from "../helpers/validationYupShema/validationSchemaYup";
 import {
   Button,
@@ -14,9 +13,11 @@ import {
   InputRightElement,
   WrapItem,
   Flex,
-
 } from "@chakra-ui/react";
 import { ISignInUser,initSingInUserData } from "./interface/ISingInUser";
+import { ISingInForm } from "./interface/ISecretRestore";
+import RestorePassword from "./RestorePassword/RestorePassword";
+import SecretAnswer from "./SecretAnswer/SecretAnswer";
 
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
@@ -29,15 +30,10 @@ const loginNewUser = async (createNewUser: ISignInUser) => {
     console.log("🚀  error:", error);
   }
 };
-export interface IForm {
-  swichForm: boolean
-  setSwichForm: (newValue: boolean) => void;
-}
 
-const SingInUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
+const SingInUser = ({ setSwichForm, swichForm }: ISingInForm): JSX.Element => {
   const [forgot, setForgot] = useState(true);
-  const [secretWord, setSecretWord] = useState("");
-  const [flag, setFlag] = useState(false);
+  const [restorePassword, setRestorePassword] = useState(true)
   const [show, setShow] = useState(false);
 
   //Валинация полей формы с помощью validationSchemaYup
@@ -53,29 +49,14 @@ const SingInUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
     initialValues: initSingInUserData,
     validationSchema: validationSchemaSingUpYup,
     onSubmit: (createNewUser) => {
-      // loginNewUser(createNewUser);
+      loginNewUser(createNewUser);
 
-      console.log("🚀  createNewUser:", createNewUser);
-      
+      console.log("🚀  createNewUser:", createNewUser);//Log для бека
       resetForm();
       toast.success("User Logined!");
+      
     },
   });
-
-  const handleSecretAnswer = (event: ChangeEvent<HTMLInputElement>) => {
-    setSecretWord(event.target.value);
-  };
-  const getSecretAnswer = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (secretWord !== "") {
-      console.log(secretWord);
-      setFlag(false);
-    } else {
-      setFlag(true);
-    }
-
-    setSecretWord("");
-  };
 
   // Обьект одинаковых настроек для всех инпутов
     const inputSettings = {
@@ -162,41 +143,18 @@ const SingInUser = ({setSwichForm ,swichForm}:IForm): JSX.Element => {
         </form>
       ) : (
           <div className={css.title}>
-            <h4>Model your first car ?</h4> 
-        <form onSubmit={getSecretAnswer}>
-          <FormControl mt="2" isInvalid={flag}>
-            <Input
-              value={secretWord}
-              placeholder="Enter secret answer"
-              fontSize="20"
-              p="6"
-              boxShadow="2xl"
-              bg="white"
-              border="1px"
-              //   borderRadius="2"
-              autoComplete="on"
-              focusBorderColor="lime"
-              onChange={handleSecretAnswer}
-            />
-            <FormErrorMessage>{flag ? "Required" : ""}</FormErrorMessage>
-          </FormControl>
-          <WrapItem mt="4">
-            <Flex direction="row" gap="50">
-              <Button
-                colorScheme="red"
-                type="button"
-                onClick={() => setForgot((prev) => !prev)}
-                borderRadius="50"
-                p="1"
-              >
-                <BiLeftArrowCircle style={{ fontSize: "30px" }} />
-              </Button>
-              <Button colorScheme="red" type="submit">
-                Join Us
-              </Button>
-            </Flex>
-          </WrapItem>
-            </form>
+            <h4>{restorePassword ? "Model your first car ?" : "Enter new password "}</h4> 
+            {restorePassword ?
+              <SecretAnswer
+                forgot={forgot}
+                setForgot={setForgot}
+                setRestorePassword={setRestorePassword}
+                restorePassword={restorePassword}
+              />
+              :
+              <RestorePassword
+                setRestorePassword={setRestorePassword}
+                restorePassword={restorePassword} />}
             </div>
       )}
     </>

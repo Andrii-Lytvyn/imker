@@ -1,5 +1,13 @@
 import * as Yup from "yup";
 
+//схема валидации поля RestorePassword
+export const validationSchemaRestorePasswordYup = Yup.object().shape({
+    password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required")
+        .trim(),
+});
+
 //схема валидации полей SingUp
 export const validationSchemaSingUpYup = Yup.object().shape({
     email: Yup.string()

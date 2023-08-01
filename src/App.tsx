@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import ContactUs from "./сomponents/ContactUs/ContactUs";
 import PostsCreationAdmin from "./сomponents/AdminPage/PostsAdmin/PostsCreationAdmin";
 import ContactUsAdmin from "./сomponents/AdminPage/contactUsAdmin/ContactUsAdmin";
+import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
+import PostsListAdmin from "./сomponents/AdminPage/PostsAdmin/PostsListAdmin";
 
 function App(): JSX.Element {
   return (
@@ -16,7 +18,9 @@ function App(): JSX.Element {
         <Route path="/login" element={<Login />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/contactusadm" element={<ContactUsAdmin />} />
-        <Route path="/postsadm" element={<PostsCreationAdmin />} />
+        <Route path="/post" element={<PostSingle />} />
+        <Route path="/postsadd" element={<PostsCreationAdmin />} />
+        <Route path="/postsedit" element={<PostsListAdmin />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/*" element={<NoPage />} />
       </Routes>

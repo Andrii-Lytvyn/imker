@@ -13,7 +13,6 @@ export default function ContactUsAdmin(): JSX.Element {
         const requestsDto = response.data;
         const reversedRequests = requestsDto.requests.slice().reverse();
         setRequests(reversedRequests);
-        console.log(reversedRequests);
       } catch (error) {
         console.error("Error during request execution:", error);
       }

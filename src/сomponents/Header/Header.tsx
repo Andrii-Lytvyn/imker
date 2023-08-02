@@ -33,11 +33,14 @@ export default function Header(): JSX.Element {
             }
           >
             <Link to="/">Pages</Link>
-            <Link to="/">Products</Link>
+            {/* <Link to="/">Products</Link>
             <Link to="/">Blog</Link>
-            <Link to="/">Gallery</Link>
-            <Link to="/contactus">Contact Us</Link>
-            <Link to="/contactusadm">Contact Us Adm</Link>
+            <Link to="/">Gallery</Link> */}
+            <Link to="/contactus">ContactUs</Link>
+            <Link to="/contactusadm">ContactUsAdm</Link>
+            <Link to="/post">Post</Link>
+            <Link to="/postsadd">PostsAdd</Link>
+            <Link to="/postsedit">PostsEdit</Link>
             <Link to="/404">Page 404</Link>
             <Link to="/login">
               <span>LogIn</span>

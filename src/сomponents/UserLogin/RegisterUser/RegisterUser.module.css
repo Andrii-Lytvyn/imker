@@ -1,0 +1,7 @@
+.register_title {
+  text-transform: uppercase;
+  color: var(--bold-text);
+  font-size: 40px;
+  line-height: 18px;
+  margin: 25px 0;
+}

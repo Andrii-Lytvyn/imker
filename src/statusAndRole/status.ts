@@ -1,0 +1,6 @@
+export const STATUS = {
+    NOT_CONFIRMED: "NOT_CONFIRMED",
+    CONFIRMED: "CONFIRMED",
+    BANNED: "BANNED",
+    DELETED: "DELETED"
+} as const;

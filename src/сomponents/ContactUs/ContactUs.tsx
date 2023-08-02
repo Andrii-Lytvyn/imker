@@ -44,7 +44,7 @@ export default function Contacts(): JSX.Element {
       );
     }
 
-    toast.success("✔️ Your request has been successfully sent!", {
+    toast.success("Your request has been successfully sent!", {
       position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -170,7 +170,7 @@ export default function Contacts(): JSX.Element {
         </form>
       </div>
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2496.0557492735993!2d9.550200215761414!3d51.273292879597356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4171b847e72346ef%3A0x75016efb7b949f29!2sPaseka%20Alexander%20Dr.med.!5e0!3m2!1sru!2sde!4v1690137506768!5m2!1sru!2sde"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2416.3096482125134!2d9.61041657185848!3d52.72660458996256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b05c9680b0b6d1%3A0x56f0e67cfd5ecb98!2sWalsroder%20Str.%203%2C%2029693%20Eickeloh!5e0!3m2!1sru!2sde!4v1690814421367!5m2!1sru!2sde"
         className={styles.map}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

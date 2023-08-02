@@ -2,7 +2,7 @@
 
 .topImgContainer {
   height: 250px;
-  background-image: url("../../../public/img/topImg.png");
+  background-image: url("/img/topImg.png");
   background-size: contain;
   background-position: bottom;
   animation: expand 1s ease;

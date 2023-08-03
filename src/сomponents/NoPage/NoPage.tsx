@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export default function NoPage(): JSX.Element {
   return (
     <>
-      <Header />
       <div className={styles.noPage}>
         <img className={styles.bee} src="public/img/bee-2.png" width={100} />
         <div
@@ -23,7 +22,6 @@ export default function NoPage(): JSX.Element {
           <Link to="/">to Home page</Link>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

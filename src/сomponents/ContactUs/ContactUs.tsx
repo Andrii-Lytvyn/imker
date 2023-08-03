@@ -61,7 +61,6 @@ export default function Contacts(): JSX.Element {
 
   return (
     <>
-      <Header />
       <div className={styles.topImgContainer}>
         <p className={styles.topImgText + " " + "text-center"}>CONTACT US</p>
       </div>
@@ -175,7 +174,6 @@ export default function Contacts(): JSX.Element {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-      <Footer />
     </>
   );
 }

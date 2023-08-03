@@ -8,7 +8,6 @@ export default function AboutUs(): JSX.Element {
 
     return (
         <>
-            <Header />
             <div>
             <div>
                     <span>ABOUT US</span>
@@ -98,7 +97,6 @@ export default function AboutUs(): JSX.Element {
                         </div> */}
                     </div>
             </div>
-            <Footer />
         </>
     );
 }

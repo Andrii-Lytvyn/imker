@@ -8,7 +8,6 @@ export default function NoPage(): JSX.Element {
     <>
       <Header />
       <div className={styles.noPage}>
-        <img className={styles.bee} src="public/img/bee-2.png" width={100} />
         <div
           className={
             styles.pageTop +

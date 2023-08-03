@@ -1,6 +1,59 @@
 .footer{
-    height: 100px;
+    height: 100%;
     width: 100%;
     background-color: var(--yellow);
     text-align: center;
+    z-index: 100;
+}
+.logo_footer{
+    height: 80px;
+    margin-top: -30px;
+    background-color: var(--yellow);
+    padding: 15px;
+    border-radius: 30%;
+    z-index: 100;
+}
+.my_card{
+    background-color: var(--yellow)!important;
+    border: none !important;
+}
+.card_title{
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.footer_contact_text{
+    margin: 0 0 10px 10px;
+    font-size: 1.3em;
+    text-align: left;
+}
+.footer_data{
+    color: var(--text-color);
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+.footer_name_event{
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-align: left;
+}
+.about_links{
+    font-size: 1.2em;
+    margin: 15px 0;
+    text-transform: uppercase;
+    text-align: left;
+}
+.social{
+    height: 50px;
+    margin: 20px 0;
+}
+.social svg{
+    margin: 0 10px;
+    padding: 7px;
+    background-color: var(--terracotta);
+    border-radius: 50%;
+    cursor: pointer;
 }

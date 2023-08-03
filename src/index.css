@@ -11,3 +11,11 @@
   --bold-text: #131313;
   --border-color: #545050;
 }
+a{
+  color: var(--terracotta);
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover{
+  color: var(--border-color);
+}

@@ -8,48 +8,7 @@
     background-size: cover;
     text-align: center;
     color: white;
-    position: relative;
 }
-.bee{
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    animation-name: bee-shake;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-}
-@keyframes bee-shake {
-    0%{
-        transform: scale(-1, 1);
-        top: 0%;
-    }
-    30%{
-        transform: scale(-1, 1);
-        top: 10%;
-        left: 25%;
-    }
-    50%{
-        top: 25%;
-        left: 45%;
-        transform: scale(-1, 1);
-    }
-    80%{
-        top: 50%;
-        left: 55%;
-        transform: scale(-1, 1);
-    }
-    93%{
-        top: 15%;
-        left: 75%;
-        transform: scale(-1, 1);
-    }
-    100%{
-        top: 70%;
-        left: 100%;
-        transform: scale(-1, 1);
-    }
-}
-
 .pageTop{
     z-index: 1;
     width: 50%;

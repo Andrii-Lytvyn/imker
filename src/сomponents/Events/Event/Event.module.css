@@ -1,0 +1,32 @@
+.evt_base {
+  padding: 20px;
+}
+.evt_container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  margin-bottom: 66px;
+}
+.img_container {
+  float: left;
+  margin-right: 20px;
+}
+.item_container {
+  width: 160px;
+  border-left: 2px dotted #ff0000; /* 2 пиксельная красная граница слева */
+  padding-left: 20px;
+}
+.title {
+  margin-bottom: 10px;
+}
+.item {
+  margin-bottom: 20px;
+}
+.map {
+  width: 220px;
+  height: 150px;
+}
+.title_event {
+  margin-bottom: 30px;
+}

@@ -11,7 +11,6 @@ const Login = (): JSX.Element => {
 
   return (
     <ChakraProvider>
-      <Header />
       <div className={css.container}>
         <div className={css.wrapper}>
           {swichForm ?
@@ -20,7 +19,6 @@ const Login = (): JSX.Element => {
             <RegisterUser setSwichForm={setSwichForm} swichForm={swichForm}/>}
         </div>
       </div>
-      <Footer />
     </ChakraProvider>
   );
 };

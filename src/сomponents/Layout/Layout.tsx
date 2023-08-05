@@ -1,11 +1,17 @@
-import styles from './Layout.module.css'
 
-export default function Layout(): JSX.Element {
-	return (
+import {  Link, Outlet } from 'react-router-dom';
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
+const Layout = () =>{
+	return(
 		<>
-			<div className={styles.footer}>
-				<h1>Das ist FOOTER</h1>
-			</div>
+			<Header />
+			<Outlet />
+			<Footer />
 		</>
-	);
+	)
 }
+
+export {Layout}
+

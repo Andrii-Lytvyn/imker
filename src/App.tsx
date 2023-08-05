@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import { Layout } from "./сomponents/Layout/Layout";
 import MainPage from "./сomponents/MainPage/MainPage";
-import Login from "./сomponents/UserLogin/Login";
 import AboutUs from "./сomponents/AboutUs/AboutUs";
 import NoPage from "./сomponents/NoPage/NoPage";
 import ContactUs from "./сomponents/ContactUs/ContactUs";
@@ -11,7 +11,7 @@ import PostsListAdmin from "./сomponents/AdminPage/PostsAdmin/PostsListAdmin";
 import TostContainer from "./сomponents/TostContainer/TostContainer";
 import Events from "./сomponents/Events/Events";
 import Event from "./сomponents/Events/Event/Event";
-import { Layout } from "./сomponents/Layout/Layout";
+import Login from "./сomponents/UserLogin/Login";
 
 function App(): JSX.Element {
   return (

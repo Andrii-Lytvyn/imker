@@ -1,0 +1,30 @@
+.cont {
+  padding: 40px;
+}
+
+.day {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: blanchedalmond;
+}
+.event_list {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  grid-auto-flow: column;
+}
+.list {
+  display: flex;
+  gap: 10px;
+}
+.time_event {
+  display: flex;
+  flex-direction: column;
+}
+.time {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+}

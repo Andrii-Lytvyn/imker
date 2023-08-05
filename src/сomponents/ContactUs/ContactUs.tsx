@@ -2,8 +2,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./ContactUs.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
 

@@ -5,7 +5,7 @@
   padding: 0 20px;
   background-color: var(--bg-color);
   /* background-image: url("./img/honey_login.png"); */
-  background-image: url("./sot.png"),
+  background-image: url("/sot.png"),
     linear-gradient(180deg, #f8f9fa 0%, #f7f3f0 30%);
   box-shadow: 0 -44px 25px -14px #795548 inset;
   background-size: cover;

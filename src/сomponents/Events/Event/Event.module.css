@@ -13,7 +13,6 @@
   margin-right: 20px;
 }
 .item_container {
-  width: 160px;
   border-left: 2px dotted #ff0000; /* 2 пиксельная красная граница слева */
   padding-left: 20px;
 }
@@ -29,4 +28,9 @@
 }
 .title_event {
   margin-bottom: 30px;
+}
+.icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
 }

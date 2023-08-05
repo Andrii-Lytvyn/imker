@@ -119,7 +119,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
             setValue(newValue);
             setText(editor.getContent({ format: "html" }));
           }}
-          onInit={(evt, editor) => {
+          onInit={(_, editor) => {
             setText(editor.getContent({ format: "html" }));
           }}
           initialValue={initText}

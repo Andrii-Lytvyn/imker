@@ -46,7 +46,7 @@ export default function PostsCreationAdmin(): JSX.Element {
             setValue(newValue);
             setText(editor.getContent({ format: "html" }));
           }}
-          onInit={(evt, editor) => {
+          onInit={(_, editor) => {
             setText(editor.getContent({ format: "html" }));
           }}
           initialValue={initText}

@@ -1,6 +1,4 @@
 import styles from "./NoPage.module.css";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 
 export default function NoPage(): JSX.Element {

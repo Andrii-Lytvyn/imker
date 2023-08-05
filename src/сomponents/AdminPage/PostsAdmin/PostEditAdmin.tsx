@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
@@ -11,16 +11,40 @@ interface PostEditAdminProps {
 }
 
 export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
-  const { textOfPost } = props.location.state;
+  const [
+    {
+      idPost,
+      titlePost,
+      linkToImg,
+      shortPostDescription,
+      textOfPost,
+      authorId,
+    },
+    setNewEditFormData,
+  ] = useState<IPostDto>(props.location.state);
   const [text, setText] = useState("");
   const initText = textOfPost;
   const [value, setValue] = useState<string>();
 
+  const collectNewPostData = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewEditFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      textOfPost: text,
+      authorId: "1",
+    }));
+  };
+
   async function handlerSavePost() {
     if (text.trim()) {
       try {
-        await axios.post("http://localhost:8080/api/posts", {
+        await axios.put(`http://localhost:8080/api/posts/update/${idPost}`, {
+          titlePost,
+          linkToImg,
+          shortPostDescription,
           textOfPost: text,
+          authorId,
         });
       } catch (error) {
         console.error(
@@ -41,19 +65,61 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
       });
     }
     setValue("");
+    window.location.reload();
   }
 
   return (
     <>
-      <h2>Edit post:</h2>
-      <div className="container">
+      <div className="container containerPostCreate">
+        <div className="d-flex align-items-center fs-4 m-2">
+          <label htmlFor="titlePost" className="col-md-2 me-2 text-end">
+            Title:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="titlePost"
+            defaultValue={titlePost}
+            onChange={collectNewPostData}
+            required
+          />
+        </div>
+
+        <div className="d-flex align-items-center fs-4 m-2">
+          <label htmlFor="linkToImg" className="col-md-2 me-2 text-end">
+            Link to Img:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="linkToImg"
+            defaultValue={linkToImg}
+            onChange={collectNewPostData}
+            required
+          />
+        </div>
+
+        <div className="d-flex align-items-center fs-4 m-2">
+          <label
+            htmlFor="shortPostDescription"
+            className="col-md-2 me-2 text-end"
+          >
+            Short description:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="shortPostDescription"
+            defaultValue={shortPostDescription}
+            onChange={collectNewPostData}
+            required
+          />
+        </div>
+
         <Editor
           apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
           onEditorChange={(newValue, editor) => {
             setValue(newValue);
             setText(editor.getContent({ format: "html" }));
           }}
-          onInit={(_, editor) => {
+          onInit={(evt, editor) => {
             setText(editor.getContent({ format: "html" }));
           }}
           initialValue={initText}

@@ -28,7 +28,7 @@ export default function Header(): JSX.Element {
             <Link to="/events">Veranstaltungen</Link>
             <NavDropdown title="Über uns" id="basic-nav-dropdown">
               <NavDropdown.Item>
-                <Link to="/contactUs">Kontakt</Link>
+                <Link to="/contactUs">Kontaktieren Sie uns</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
@@ -42,7 +42,12 @@ export default function Header(): JSX.Element {
                 Сюда вставляем ссылки для тестирования компонентов. Не забываем поменять в App.tsx
                 После тестирования, пожалуйста, очистите за собой App.tsx
                 */}
-                <Link to="/contacts">Test link</Link>
+                <Link to="/contactusadm">ContactUsAdmin</Link>
+
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+
+                <Link to="/postsadm">PostsAdmin</Link>
 
               </NavDropdown.Item>
             </NavDropdown>

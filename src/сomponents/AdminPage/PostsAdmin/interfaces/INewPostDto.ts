@@ -1,3 +1,11 @@
-export interface INewPostDto{
-  textOfPost:string
+export interface INewPostDto {
+  [key: string]: string;
 }
+
+export const initINewPostDto: INewPostDto = {
+  titlePost: "",
+  linkToImg: "",
+  shortPostDescription: "",
+  textOfPost: "",
+  authorId: "",
+};

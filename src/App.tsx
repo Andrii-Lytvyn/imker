@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import MainPage from "./сomponents/MainPage/MainPage";
 import Login from "./сomponents/UserLogin/Login";
@@ -9,20 +8,21 @@ import PostsCreationAdmin from "./сomponents/AdminPage/PostsAdmin/PostsCreation
 import ContactUsAdmin from "./сomponents/AdminPage/contactUsAdmin/ContactUsAdmin";
 import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
 import PostsListAdmin from "./сomponents/AdminPage/PostsAdmin/PostsListAdmin";
+import TostContainer from "./сomponents/TostContainer/TostContainer";
+import Events from "./сomponents/Events/Events";
+import Event from "./сomponents/Events/Event/Event";
 import { Layout } from "./сomponents/Layout/Layout";
-import Gallery from "./сomponents/Gallery/Gallery";
-
 
 function App(): JSX.Element {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout/>}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route path="posts" element={<NoPage />} />
           <Route path="posts/{post-id}" element={<MainPage />} />
-          <Route path="events" element={<NoPage />} />
-          <Route path="events/{event-id}" element={<MainPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<Event />} />
           <Route path="login" element={<Login />} />
           <Route path="aboutUs" element={<AboutUs />} />
           <Route path="contactUs" element={<ContactUs />} />
@@ -31,22 +31,11 @@ function App(): JSX.Element {
           <Route path="postsadd" element={<PostsCreationAdmin />} />
           <Route path="postsedit" element={<PostsListAdmin />} />
           <Route path="about" element={<AboutUs />} />
-          <Route path="gallery" element={<Gallery />} />
+          {/* <Route path="gallery" element={<Gallery />} /> */}
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <TostContainer />
     </>
   );
 }

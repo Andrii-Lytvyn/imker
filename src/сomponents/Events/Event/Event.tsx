@@ -4,6 +4,7 @@ import { dataEventov } from "../eventObj";
 import { BiTimeFive } from "react-icons/bi";
 import { BsCalendar2Week } from "react-icons/bs";
 import { MdOutlinePlace } from "react-icons/md";
+import { formatDate } from "../helpers/formattedDate";
 
 const Event = (): JSX.Element => {
   const { id } = useParams();
@@ -46,20 +47,22 @@ const Event = (): JSX.Element => {
           <ul>
             <li className={css.item}>
               <h4 className={css.title}> Date :</h4>
-              <span>
-                <BsCalendar2Week /> {event?.date}
+              <span className={css.icon}>
+                <BsCalendar2Week style={{ color: "#c74817" }} />
+                {formatDate(event?.date)}
               </span>
             </li>
             <li className={css.item}>
               <h4 className={css.title}> Time :</h4>
-              <span>
-                <BiTimeFive /> {`${event?.start} - ${event?.end}`}
+              <span className={css.icon}>
+                <BiTimeFive style={{ color: "#c74817" }} />
+                {`${event?.start} - ${event?.end}`}
               </span>
             </li>
             <li className={css.item}>
               <h4 className={css.title}>Place :</h4>
-              <span>
-                <MdOutlinePlace /> {event?.address}
+              <span className={css.icon}>
+                <MdOutlinePlace style={{ color: "#c74817" }} /> {event?.address}
               </span>
             </li>
             <li className={css.item}>

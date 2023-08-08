@@ -19,3 +19,21 @@ a {
 a:hover {
   color: var(--border-color);
 }
+h1{
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 3em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.page-link{
+  background-color: var(--terracotta)!important;
+  color: var(--bg-color)!important;
+  font-weight: 200;
+}
+.active>.page-link, .page-link.active{
+  border-color: var(--yellow)!important;
+  border: 2px solid;
+  font-weight: 700;
+}

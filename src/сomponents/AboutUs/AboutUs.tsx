@@ -1,51 +1,79 @@
 import styles from "./AboutUs.module.css";
-import {Container} from "react-bootstrap";
-import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
+import { Container } from "react-bootstrap";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { IMember } from "./IMembers";
+
 export default function AboutUs(): JSX.Element {
+
+  const [member, setMember] = useState<IMember[]>([]);
+  console.log("🚀 ~ file: AboutUs.tsx:9 ~ AboutUs ~ member:", member)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/members");
+        const memberDto = await response.data;
+        setMember(memberDto.members);
+        console.log("🚀 ~ file: AboutUs.tsx:28 ~ fetchData ~ memberDto:", memberDto)
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
-
       <Container>
         <h1>Über uns</h1>
       </Container>
       <Container className="d-flex flex-column">
-                     <h4>WAS SIND HONIGBIENEN?</h4>
-                <div className="mb-3">
-                    <p className={styles.about_text}>Lorem ipsum dolor sit amet, ad nec scripta volumus, eu viris salutatus dissentias sit, ex enim Duo magna nostro persequeris ne Eam tritani maiorum ne, quod ne legere quodsi phaedrum ad per, in malis.</p>
-                    <p className={styles.about_text}>Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus.</p>
-                </div>
-                <div className="d-flex justify-content-around">
-                      <div className={styles.about_img +" d-flex flex-column justify-around p-3"}>
-                          <img src="img/about_1.jpg" width="90%" />
-                          <caption>"Bright as a sunflower."</caption>
-                      </div>
-                        <div className={styles.about_img +" d-flex flex-column justify-around p-3"}>
-                        <img src="img/about_2.jpg" width="90%" />
-                        <caption>"Bright as a sunflower."</caption>
-                    </div>
-                </div>
-          <div>
-              <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
-              <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
+        <h4>WAS SIND HONIGBIENEN?</h4>
+        <div className="mb-3">
+          <p className={styles.about_text}>Lorem ipsum dolor sit amet, ad nec scripta volumus, eu viris salutatus dissentias sit, ex enim Duo magna nostro persequeris ne Eam tritani maiorum ne, quod ne legere quodsi phaedrum ad per, in malis.</p>
+          <p className={styles.about_text}>Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus.</p>
+        </div>
+        <div className="d-flex justify-content-around">
+          <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+            <img src="img/about_1.jpg" width="90%" />
+            <caption>"Bright as a sunflower."</caption>
           </div>
+          <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+            <img src="img/about_2.jpg" width="90%" />
+            <caption>"Bright as a sunflower."</caption>
+          </div>
+        </div>
+        <div>
+          <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
+          <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
+        </div>
       </Container>
       <div className={styles.our_team}>
-          <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
-          <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
+        <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
+        <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
       </div>
       <Container className="d-flex">
-          <div className={styles.about_members}>
-                <img src="img/team1.jpg"/>
-              <p className={styles.about_position}>BEEKEEPER</p>
-              <p className={styles.about_position_name}>GREGORY SILVA</p>
-              <p className={styles.about_position_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatupteoccaecat cupidatat not perspiciatis unde omnise natus error sit voluptatem accus.</p>
-              <div className={styles.social}>
-                  <a href="#"><FaFacebook className={styles.social_icons} /></a>
-                  <a href="#"><FaInstagram className={styles.social_icons} /></a>
-                  <a href="#"><FaTwitter className={styles.social_icons} /></a>
-              </div>
-          </div>
-          <div className={styles.about_members}>
+        <ul>
+          {member?.map((element, index) => (
+            element.state === "SHOW" ?
+              <li key={index}>
+                <div className={styles.about_members}>
+                  <img src="{element.image}" />
+                  <p className={styles.about_position}>{element.position}</p>
+                  <p className={styles.about_position_name}>{element.name}</p>
+                  <p className={styles.about_position_text}>{element.description}</p>
+                  <div className={styles.social}>
+                    <a href={element.facebook}><FaFacebook className={styles.social_icons} /></a>
+                    <a href={element.instagram}><FaInstagram className={styles.social_icons} /></a>
+                    <a href={element.email}><FaTwitter className={styles.social_icons} /></a>
+                  </div>
+                </div>
+              </li>
+              : ""
+          ))}
+        </ul>
+        {/* <div className={styles.about_members}>
               <img src="img/team2.jpg"/>
               <p className={styles.about_position}>FIELD TECHNICIAN</p>
               <p className={styles.about_position_name}>ROGER PORTER</p>
@@ -66,7 +94,7 @@ export default function AboutUs(): JSX.Element {
                   <a href="#"><FaInstagram className={styles.social_icons} /></a>
                   <a href="#"><FaTwitter className={styles.social_icons} /></a>
               </div>
-          </div>
+          </div> */}
       </Container>
     </>
   );

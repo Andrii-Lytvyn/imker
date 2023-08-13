@@ -1,6 +1,5 @@
 import styles from "./Footer.module.css";
 import { Card, Container } from "react-bootstrap";
-import {FaHome, FaPhoneAlt} from "react-icons/fa";
 import {SlEnvolope, SlHome, SlPhone} from "react-icons/sl";
 import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
 

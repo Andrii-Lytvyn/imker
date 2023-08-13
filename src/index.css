@@ -32,9 +32,24 @@ h1 {
   font-weight: 700;
   text-transform: uppercase;
 }
-.page-link {
-  background-color: var(--terracotta) !important;
-  color: var(--bg-color) !important;
+h2{
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2.5em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+h4{
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.page-link{
+  background-color: var(--terracotta)!important;
+  color: var(--bg-color)!important;
   font-weight: 200;
 }
 .active > .page-link,

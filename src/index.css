@@ -1,6 +1,11 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "react-toastify/dist/ReactToastify.css";
+@import "react-datepicker/dist/react-datepicker.css";
 @import "assets/reset.css";
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -19,7 +24,7 @@ a {
 a:hover {
   color: var(--border-color);
 }
-h1{
+h1 {
   color: var(--terracotta);
   text-align: center;
   margin: 20px 0;
@@ -47,8 +52,18 @@ h4{
   color: var(--bg-color)!important;
   font-weight: 200;
 }
-.active>.page-link, .page-link.active{
-  border-color: var(--yellow)!important;
+.active > .page-link,
+.page-link.active {
+  border-color: var(--yellow) !important;
   border: 2px solid;
   font-weight: 700;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #d3a863 !important;
+  color: white;
 }

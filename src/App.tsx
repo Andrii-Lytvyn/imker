@@ -12,6 +12,8 @@ import Login from "./сomponents/UserLogin/Login";
 import Posts from "./сomponents/Posts/Posts";
 import PostsAdmin from "./сomponents/AdminPage/PostsAdmin/PostsAdmin";
 import Gallery from "./сomponents/Gallery/Gallery";
+import EventsAdmin from "./сomponents/AdminPage/EventsAdmin/EventsAdmin";
+import EventsEditAdmin from "./сomponents/AdminPage/EventsAdmin/EventsEditAdmin";
 
 function App(): JSX.Element {
   return (
@@ -28,6 +30,8 @@ function App(): JSX.Element {
           <Route path="contactusadm" element={<ContactUsAdmin />} />
           <Route path="posts" element={<Posts />} />
           <Route path="postsadm" element={<PostsAdmin />} />
+          <Route path="eventsadm" element={<EventsAdmin />} />
+          <Route path="eventsadm/edit" element={<EventsEditAdmin />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="*" element={<NoPage />} />

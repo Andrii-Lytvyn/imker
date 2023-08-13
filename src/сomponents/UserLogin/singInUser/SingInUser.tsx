@@ -21,7 +21,7 @@ import RestorePassword from "./RestorePassword/RestorePassword";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
-const loginNewUser = async (createNewUser: ISignInUser) => {
+const singInUser = async (createNewUser: ISignInUser) => {
   try {
     const { data } = await axios.post(`${baseURL}/user_login`, createNewUser);
     console.log("🚀  data:", data);
@@ -48,7 +48,7 @@ const SingInUser = ({ setSwichForm, swichForm }: ISingInForm): JSX.Element => {
     initialValues: initSingInUserData,
     validationSchema: validationSchemaSingUpYup,
     onSubmit: (createNewUser) => {
-      loginNewUser(createNewUser);
+      singInUser(createNewUser);
 
       console.log("🚀  createNewUser:", createNewUser); //Log для бека
       resetForm();

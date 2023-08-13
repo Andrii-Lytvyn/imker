@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-import {NavDropdown} from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 
 export default function Header(): JSX.Element {
   return (
@@ -16,7 +16,7 @@ export default function Header(): JSX.Element {
         >
           <Nav className={styles.logo}>
             <Link to="/">
-              <img src='img/logo.png' height='50px'/>
+              <img src="img/logo.png" height="50px" />
             </Link>
           </Nav>
           <Nav
@@ -37,18 +37,17 @@ export default function Header(): JSX.Element {
             <Link to="/gallery">Galerie</Link>
             <NavDropdown title="Für test" id="basic-nav-dropdown">
               <NavDropdown.Item>
-
                 {/*
                 Сюда вставляем ссылки для тестирования компонентов. Не забываем поменять в App.tsx
                 После тестирования, пожалуйста, очистите за собой App.tsx
                 */}
                 <Link to="/contactusadm">ContactUsAdmin</Link>
-
               </NavDropdown.Item>
               <NavDropdown.Item>
-
                 <Link to="/postsadm">PostsAdmin</Link>
-
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/eventsadm">EventsAdmin</Link>
               </NavDropdown.Item>
             </NavDropdown>
             <Link to="/login">

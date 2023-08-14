@@ -1,7 +1,26 @@
-.evt_base {
-  padding: 20px;
+.breadcrumbs{
+  color: var(--terracotta);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+.breadcrumbs span{
+  margin: 0 10px;
+}
+.event_description{
+  position: absolute;
+  bottom: -3.5em;
+  left: 0;
+}
+.event_description p{
+  color: var(--bold-text)!important;
+}
+.event_description span{
+  color: var(--terracotta);
 }
 .evt_container {
+  position: relative;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 1fr;
@@ -11,26 +30,34 @@
 .img_container {
   float: left;
   margin-right: 20px;
+  width: 300px;
 }
 .item_container {
-  border-left: 2px dotted #ff0000; /* 2 пиксельная красная граница слева */
+  border-left: 1px solid #dbdbdb;
   padding-left: 20px;
 }
+.evt_container p{
+    color: var(--text-color);
+    text-align: justify;
+}
 .title {
-  margin-bottom: 10px;
+    font-size: 1.2em;
+    margin-top: 1em;
 }
 .item {
-  margin-bottom: 20px;
+
 }
 .map {
-  width: 220px;
-  height: 150px;
+  height: 300px;
 }
 .title_event {
-  margin-bottom: 30px;
+  text-align: left;
+  text-decoration: underline;
+  color: var(--terracotta);
+  font-weight: 500;
 }
 .icon {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
+  /*display: flex;*/
+  /*align-items: flex-end;*/
+  /*gap: 10px;*/
 }

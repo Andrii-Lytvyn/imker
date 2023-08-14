@@ -1,5 +1,7 @@
 import { DateTimeFormatOptions } from 'intl';
 
+export const currentDate = () => new Date().toISOString().slice(0, 10);
+
 export const formattedDate = (date: string) => {
     const dateConvert = new Date(date);
 
@@ -26,3 +28,4 @@ export const formatDate = (inputDate: string | undefined) => {
     return null
 
 }
+

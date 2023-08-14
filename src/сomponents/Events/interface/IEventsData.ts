@@ -1,4 +1,4 @@
-const EVENT_STATUS = {
+export const EVENT_STATUS = {
     EXPECTED: "EXPECTED",
     ENDED: "ENDED",
     ARCHIVE: "ARCHIVE"
@@ -6,7 +6,7 @@ const EVENT_STATUS = {
 
 export type EventStatus = keyof typeof EVENT_STATUS;
 
-export interface IEvent {
+export interface IEvents {
     [key: string]: string
 }
 

@@ -28,3 +28,9 @@
   margin-top: 10px;
   gap: 10px;
 }
+
+.event_loader {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}

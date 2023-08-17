@@ -9,4 +9,7 @@ export type EventStatus = keyof typeof EVENT_STATUS;
 export interface IEvents {
     [key: string]: string
 }
+export interface IEventDate {
+    date: string;
+}
 

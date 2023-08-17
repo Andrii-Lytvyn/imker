@@ -1,10 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import css from "./EventsAdmin.module.css";
+import axios from "axios";
+import styles from "./EventsAdmin.module.css";
 import DatePicker from "react-datepicker";
 import { EVENT_STATUS, EventStatus } from "../../Events/interface/IEventsData";
 import type { Dayjs } from "dayjs";
 import { TimePicker } from "antd";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ICreateEvents } from "./interface/ICreateEvents";
 
 const eventData = {
   name: "",
@@ -20,8 +23,20 @@ const eventData = {
   end: "",
 };
 
+const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+
+//Функция отправки на бек
+const newEventCreate = async (createNewEvent: ICreateEvents) => {
+  try {
+    const data = await axios.post(`${baseURL}/user_login`, createNewEvent);
+    console.log("🚀  data:", data);
+  } catch (error) {
+    console.log("🚀  newEventCreate", error);
+  }
+};
+
 const EventsAdmin = (): JSX.Element => {
-  const [evtForm, setEvtForm] = useState(eventData);
+  const [eventForm, setEvtForm] = useState(eventData);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
@@ -43,105 +58,110 @@ const EventsAdmin = (): JSX.Element => {
   const eventFormData = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const updatedEvtForm = {
-      ...evtForm,
+    const createNewEvent = {
+      ...eventForm,
       date: selectedDate?.toISOString().substring(0, 10),
       start: timeStart?.format("HH:mm") || "",
       end: timeEnd?.format("HH:mm") || "",
     };
-    console.log(updatedEvtForm);
+    console.log(createNewEvent);
+    toast.success("createNewEvent");
+    newEventCreate(createNewEvent); // Отправка на бек
 
-    setEvtForm(eventData);
-    setSelectedDate(null);
+    //////////////////////
+    setEvtForm(eventData); //обнуляет поля
+    setSelectedDate(null); //обнуляет поля
+    setTimeStart(null); //обнуляет поля
+    setTimeEnd(null); //обнуляет поля
   };
 
   return (
-    <div className={css.form_container}>
+    <div className={styles.form_container}>
       <h2>Create New Event</h2>
       <button type="button">
         {" "}
         <Link to="edit">Edit Event</Link>
       </button>
-      <form className={css.form} onSubmit={eventFormData}>
-        <div className={css.item}>
-          <div className={css.form_field}>
+      <form className={styles.form} onSubmit={eventFormData}>
+        <div className={styles.item}>
+          <div className={styles.form_field}>
             <label>Event Name</label>
             <input
               type="text"
               name="name"
-              value={evtForm.name}
+              value={eventForm.name}
               onChange={collectEventsData}
             />
           </div>
-          <div className={css.form_field}>
+          <div className={styles.form_field}>
             <label>Event Address</label>
             <input
               type="text"
               name="address"
-              value={evtForm.address}
+              value={eventForm.address}
               onChange={collectEventsData}
             />
           </div>
-          <div className={css.form_field}>
+          <div className={styles.form_field}>
             <label>Event author</label>
             <input
               type="text"
               name="author"
-              value={evtForm.author}
+              value={eventForm.author}
               onChange={collectEventsData}
             />
           </div>
         </div>
-        <div className={css.location}>
+        <div className={styles.location}>
           <label>Event Location Link</label>
           <input
             type="text"
             name="location"
-            value={evtForm.location}
+            value={eventForm.location}
             onChange={collectEventsData}
           />
         </div>
-        <div className={css.status_container}>
+        <div className={styles.status_container}>
           <label>Event status</label>
-          <div className={css.status}>
+          <div className={styles.status}>
             <input
               type="radio"
               id="option1"
               name="status"
               onChange={collectEventsData}
               value="EXPECTED"
-              checked={evtForm.status === "EXPECTED"}
+              checked={eventForm.status === "EXPECTED"}
             />
             <label htmlFor="option1">EXPECTED</label>
           </div>
-          <div className={css.status}>
+          <div className={styles.status}>
             <input
               type="radio"
               id="option2"
               name="status"
               value="ENDED"
               onChange={collectEventsData}
-              checked={evtForm.status === ("ENDED" as EventStatus)}
+              checked={eventForm.status === ("ENDED" as EventStatus)}
             />
             <label htmlFor="option2">ENDED</label>
           </div>
-          <div className={css.status}>
+          <div className={styles.status}>
             <input
               type="radio"
               id="option3"
               name="status"
               value="ARCHIVE"
               onChange={collectEventsData}
-              checked={evtForm.status === ("ARCHIVE" as EventStatus)}
+              checked={eventForm.status === ("ARCHIVE" as EventStatus)}
             />
             <label htmlFor="option3">ARCHIVE</label>
           </div>
         </div>
         <div>
-          <div className={css.time}>
+          <div className={styles.time}>
             <div>
               <DatePicker
-                className={css.date_picker}
+                className={styles.date_picker}
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 dateFormat="yyyy-MM-dd"
@@ -153,7 +173,7 @@ const EventsAdmin = (): JSX.Element => {
                 value={timeStart}
                 onChange={onChangeStart}
                 placeholder="Event start"
-                className={css.time_border}
+                className={styles.time_border}
               />
             </div>
             <div>
@@ -161,21 +181,25 @@ const EventsAdmin = (): JSX.Element => {
                 value={timeEnd}
                 onChange={onChangeEnd}
                 placeholder="Event end"
-                className={css.time_border}
+                className={styles.time_border}
               />
             </div>
           </div>
         </div>
-        <div className={css.description}>
+        <div className={styles.description}>
           <label>Description</label>
           <textarea
             name="description"
             rows={10}
-            value={evtForm.description}
+            value={eventForm.description}
             onChange={collectEventsData}
           />
         </div>
-        <button type="submit" className={css.create_btn}>
+
+        <div className={styles.photo}>
+          <input type="file" accept=".jpg, .jpeg, .png" />
+        </div>
+        <button type="submit" className={styles.create_btn}>
           Create
         </button>
       </form>

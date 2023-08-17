@@ -17,11 +17,12 @@ import { validationSchemaRegistrationYup } from "../helpers/validationYupShema/v
 import { useState } from "react";
 import { ISingInForm } from "../SingInUser/interface/ISecretRestore";
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+const baseURL = "http://localhost:8080/api/users";
 
 const loginNewUser = async (createNewUser: IRegisterUser) => {
   try {
-    const data = await axios.post(`${baseURL}/user_login`, createNewUser);
+    const data = await axios.post(`${baseURL}`, createNewUser);
     console.log("🚀  data:", data);
   } catch (error) {
     toast.error(`Ошибка сервера ${error}`);
@@ -159,7 +160,7 @@ const RegisterUser = ({
             <Button
               colorScheme="red"
               type="submit"
-              // _hover={{ bg: "#d3a863", color: "red" }}
+            // _hover={{ bg: "#d3a863", color: "red" }}
             >
               Beitreten
             </Button>

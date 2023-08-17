@@ -42,9 +42,13 @@
     color: #fff;
 }
 .about_members {
-    width: 33%;
+    width: 32%;
+    float: left;
     overflow:hidden;
-    margin: 5px;
+    margin: 8px;
+}
+.about_ul{
+    width: 100%;
 }
 .about_members img{
     overflow:hidden;

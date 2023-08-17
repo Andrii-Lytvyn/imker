@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./Posts.module.css";
 import axios from "axios";
 import { IPostDto } from "./interfaces/IPostDTO";
 import { IPostsDto } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
@@ -73,7 +74,7 @@ export default function Posts() {
                 // textOfPost,
                 // authorId,
               }) => (
-                <div key={idPost}>
+                <div className={styles.testclass} key={idPost}>
                   <hr />
                   <p>Post id: {idPost}</p>
                   <p>Created: {creationTimePost}</p>

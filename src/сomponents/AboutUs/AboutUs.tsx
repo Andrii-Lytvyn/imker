@@ -54,12 +54,12 @@ export default function AboutUs(): JSX.Element {
         <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
       </div>
       <Container className="d-flex">
-        <ul>
+        <ul className={styles.about_ul}>
           {member?.map((element, index) => (
             element.state === "SHOW" ?
               <li key={index}>
                 <div className={styles.about_members}>
-                  <img src="{element.image}" />
+                  <img src={element.image} />
                   <p className={styles.about_position}>{element.position}</p>
                   <p className={styles.about_position_name}>{element.name}</p>
                   <p className={styles.about_position_text}>{element.description}</p>
@@ -73,28 +73,6 @@ export default function AboutUs(): JSX.Element {
               : ""
           ))}
         </ul>
-        {/* <div className={styles.about_members}>
-              <img src="img/team2.jpg"/>
-              <p className={styles.about_position}>FIELD TECHNICIAN</p>
-              <p className={styles.about_position_name}>ROGER PORTER</p>
-              <p className={styles.about_position_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatupteoccaecat cupidatat not perspiciatis unde omnise natus error sit voluptatem accus.</p>
-              <div className={styles.social}>
-                  <a href="#"><FaFacebook className={styles.social_icons} /></a>
-                  <a href="#"><FaInstagram className={styles.social_icons} /></a>
-                  <a href="#"><FaTwitter className={styles.social_icons} /></a>
-              </div>
-          </div>
-          <div className={styles.about_members}>
-              <img src="img/team3.jpg"/>
-              <p className={styles.about_position}>GARDENER</p>
-              <p className={styles.about_position_name}>WALTER HARRIS</p>
-              <p className={styles.about_position_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatupteoccaecat cupidatat not perspiciatis unde omnise natus error sit voluptatem accus.</p>
-              <div className={styles.social}>
-                  <a href="#"><FaFacebook className={styles.social_icons} /></a>
-                  <a href="#"><FaInstagram className={styles.social_icons} /></a>
-                  <a href="#"><FaTwitter className={styles.social_icons} /></a>
-              </div>
-          </div> */}
       </Container>
     </>
   );

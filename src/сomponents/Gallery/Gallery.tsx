@@ -1,11 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import css from "./Gallery.module.css";
+import styles from "./Gallery.module.css";
 import axios from "axios";
-// import { imageObjRequest } from "./imgObj";
+import { imageObjRequest } from "./imgObj";
 import { useSearchParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 import { IImgData } from "./interfaces/IImgData";
 import Modal from "./Modal/Modal";
+import {Container} from "react-bootstrap";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
@@ -21,7 +22,7 @@ const imgDataFromMockApi = async () => {
 };
 
 const Gallery = (): JSX.Element => {
-  const imagesPerPage = 9;
+  const imagesPerPage = 16;
   const [data, setDataImages] = useState<IImgData[]>([]);
   const [modalHide, setModalHide] = useState(false);
   const [modalImage, setModalImage] = useState<string | undefined>("");
@@ -30,8 +31,8 @@ const Gallery = (): JSX.Element => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      setDataImages(await imgDataFromMockApi()); //получаем каринки запросом
-      // setDataImages(imageObjRequest.data); //получаем каринки из файла
+      // setDataImages(await imgDataFromMockApi()); //получаем каринки запросом
+       setDataImages(imageObjRequest.data); //получаем картинки из файла
     };
     fetchImages();
   }, []);
@@ -49,17 +50,22 @@ const Gallery = (): JSX.Element => {
   return (
     <div>
       <h2>Our gallery</h2>
+      <Container>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi esse repellendus ratione molestias sit magni soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi esse repellendus ratione molestias sit magni soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi esse repellendus ratione molestias sit magni soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi esse repellendus ratione molestias sit magni soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi esse repellendus ratione molestias
 
-      <div className={css.gallery_container}>
-        <ul className={css.grid}>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+      </Container>
+      <Container>
+      <div className={styles.gallery_container}>
+        <ul className={styles.grid}>
           {data
             .map((item) => (
-              <li key={item.id} className={css.card}>
+              <li key={item.id} className={styles.card}>
                 <img
                   id={item.id}
                   src={item.img}
                   alt={item.id}
-                  className={css.card_item}
+                  className={styles.card_item}
                   onClick={() => modalShow(item.id)}
                 />
               </li>
@@ -70,7 +76,7 @@ const Gallery = (): JSX.Element => {
             )}
         </ul>
 
-        <div className={css.pagination_container}>
+        <div className={styles.pagination_container}>
           <Pagination
             count={Math.ceil(+data.length / imagesPerPage)}
             page={+pageNumber}
@@ -84,6 +90,7 @@ const Gallery = (): JSX.Element => {
       ) : (
         ""
       )}
+        </Container>
     </div>
   );
 };

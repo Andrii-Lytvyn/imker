@@ -2,6 +2,7 @@ import styles from "./Footer.module.css";
 import { Card, Container } from "react-bootstrap";
 import {SlEnvolope, SlHome, SlPhone} from "react-icons/sl";
 import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
+import {Link} from "react-router-dom";
 
 export default function Footer(): JSX.Element {
   return (
@@ -52,36 +53,13 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Nachrichten</h3>
                 <div>
+
+                  {/*Макс, тут нужно вставить блок с эвентами. Не весь компонент. Нужны всего 4 элемента:*/}
+                  {/*Дата, время, картинка, название. CSS делать не нужно. Я все поправлю.*/}
+
                   <p className={styles.footer_data}>April 27, 2023</p>
                   <p className={styles.footer_name_event}>
-                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/">
-                      {" "}
-                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
-                    </a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/">
-                      {" "}
-                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
-                    </a>
+                    <Link to="/"> BEEKEEPER – BEES AND BEEKEEPING</Link>
                   </p>
                   <hr />
                 </div>
@@ -94,24 +72,24 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Über uns</h3>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/posts">
                     BLOG
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/events">
                     VERANSTALTUNGEN
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/aboutUs">
                     Mitglieder der Gemeinschaft
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/gallery">
                     GALERIE
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Card.Body>

@@ -15,7 +15,7 @@
   overflow: hidden;
   max-width: 300px;
   max-height: 350px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -28,6 +28,6 @@
   justify-content: center;
 }
 .pagination_container li [aria-current="true"] {
-background-color: var(--yellow);
+  background-color: var(--yellow);
 }
 

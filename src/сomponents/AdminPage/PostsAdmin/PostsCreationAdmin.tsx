@@ -10,9 +10,24 @@ export default function PostsCreationAdmin(): JSX.Element {
   const [text, setText] = useState("");
   const initText = "";
   const [value, setValue] = useState(initText);
-  const [{ titlePost, linkToImg, shortPostDescription }, setNewPostFormData] =
+  const [{ titlePost, shortPostDescription }, setNewPostFormData] =
     useState<INewPostDto>(initINewPostDto);
   const [isValid, setIsValid] = useState(true);
+  const [imageData, setImageData] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const linkToServer = "http://localhost:8080";
+  const width = 1000;
+  const height = 300;
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageData(url);
+    }
+  };
 
   const collectPostData = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -25,35 +40,49 @@ export default function PostsCreationAdmin(): JSX.Element {
       setIsValid(false);
       return;
     }
-
+  
+    let linkVar: string | undefined = undefined;
+  
+    if (imageData && selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+  
+      try {
+        const response = await axios.post(`${linkToServer}/files/upload?width=${width}&height=${height}`, formData);
+        linkVar = response.data.id.toString();
+        console.log("File uploaded:", linkVar);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+    }
+  
+    if (linkVar){
     try {
-      await axios.post("http://localhost:8080/api/posts", {
+      await axios.post(`${linkToServer}/api/posts`, {
         titlePost,
-        linkToImg,
+        linkToImg: linkVar,
         shortPostDescription,
         textOfPost: text,
         authorId: "1",
       });
+  
+      toast.success("Your post has been successfully sent!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+  
+      setValue("");
+      window.location.reload();
     } catch (error) {
-      console.error(
-        "There was an error when sending a posts data to Back:",
-        error
-      );
+      console.error("There was an error when sending a posts data to Back:", error);
     }
-
-    toast.success("Your post has been successfully sent!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: "light",
-    });
-
-    setValue("");
-    window.location.reload();
+  }
   };
 
   return (
@@ -77,13 +106,11 @@ export default function PostsCreationAdmin(): JSX.Element {
             <label htmlFor="linkToImg" className="col-md-2 me-2 text-end">
               Link to Img:
             </label>
-            <input
-              className="form-control fs-5"
-              name="linkToImg"
-              value={linkToImg}
-              onChange={collectPostData}
-              required
-            />
+            <div>
+              <input type="file" onChange={handleFileChange} />
+              <br />
+              {imageData && <img src={imageData} alt="Image" />}
+            </div>
           </div>
 
           <div className="d-flex align-items-center fs-4 m-2">

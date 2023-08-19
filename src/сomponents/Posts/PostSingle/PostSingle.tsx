@@ -13,6 +13,7 @@ export default function PostSingle(): JSX.Element {
         const response = await axios.get("http://localhost:8080/api/posts/24");
         const postDto = response.data;
         setPost(postDto);
+        console.log(postDto);
       } catch (error) {
         console.error("Error during request execution:", error);
       }

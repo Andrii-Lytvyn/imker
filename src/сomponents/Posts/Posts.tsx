@@ -11,11 +11,12 @@ export default function Posts() {
   const [arrPages, setArrPages] = useState<IPostDto[][]>([]);
   const [arrPagesNum, setArrPagesNum] = useState<number[]>([]);
   const pages: IPostDto[][] = [];
+  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts");
+        const response = await axios.get(`${linkToServer}/api/posts`);
         const postsData: IPostsDto = await response.data;
         // setPosts(postsData);
 
@@ -37,9 +38,7 @@ export default function Posts() {
 
   async function handleLoadPost(idPost: number) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/posts/${idPost}`
-      );
+      const response = await axios.get(`${linkToServer}/api/posts/${idPost}`);
       setPost(response.data);
     } catch (error) {
       console.error("Error during request execution:", error);
@@ -78,7 +77,10 @@ export default function Posts() {
                   <p>Post id: {idPost}</p>
                   <p>Created: {creationTimePost}</p>
                   <div>{titlePost}</div>
-                  <img src={linkToImg} alt="post img" />
+                  <img
+                    src={linkToServer + "/files/" + linkToImg}
+                    alt={"post img" + idPost}
+                  />
                   <div>{shortPostDescription}</div>
                   <button onClick={() => handleLoadPost(+idPost)}>
                     Open this post

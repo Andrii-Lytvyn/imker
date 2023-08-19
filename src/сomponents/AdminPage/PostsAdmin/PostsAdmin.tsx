@@ -13,11 +13,13 @@ export default function PostsAdmin() {
   const [isCreateShow, setIsCreateShow] = useState<boolean>(false);
   const [isListShow, setIsListShow] = useState<boolean>(true);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const linkToServer = "http://localhost:8080";
+
 
   useEffect(() => {
     async function getListOfPosts() {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts");
+        const response = await axios.get(`${linkToServer}/api/posts`);
         setPosts(await response.data);
       } catch (error) {
         console.error("Error during request execution:", error);
@@ -29,7 +31,7 @@ export default function PostsAdmin() {
   async function handleLoadData(idPost: number) {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/posts/${idPost}`
+        `${linkToServer}/api/posts/${idPost}`
       );
       setPost(await response.data);
       setIsLoaded(true);
@@ -92,13 +94,14 @@ export default function PostsAdmin() {
               idPost,
               creationTimePost,
               titlePost,
-              // linkToImg,
+              linkToImg,
               shortPostDescription,
               // textOfPost,
               // authorId,
             }) => (
               <div key={idPost} className={styles.postContainer}>
                 <p className={styles.postData}>Post id: {idPost}</p>
+                <p className={styles.postData}>Image id: {linkToImg}</p>
                 <p className={styles.postCreated}>
                   Created: {creationTimePost}
                 </p>

@@ -2,26 +2,16 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import styles from "./EventsAdmin.module.css";
 import DatePicker from "react-datepicker";
-import { EVENT_STATUS, EventStatus } from "../../Events/interface/IEventsData";
+import { EventStatus } from "../../Events/interface/IEventsData";
 import type { Dayjs } from "dayjs";
 import { TimePicker } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ICreateEvents } from "./interface/ICreateEvents";
-
-const eventData = {
-  name: "",
-  members: "",
-  address: "",
-  location: "",
-  description: "",
-  author: "",
-  photo: "",
-  status: EVENT_STATUS.EXPECTED,
-  date: "",
-  start: "",
-  end: "",
-};
+import { srcLinkFromIframe } from "./helpers/srcMapValue";
+import { eventData } from "../../Events/helpers/eventData";
+import { currentDate } from "../../Events/helpers/formattedDate";
+import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
@@ -34,9 +24,15 @@ const newEventCreate = async (createNewEvent: ICreateEvents) => {
     console.log("🚀  newEventCreate", error);
   }
 };
-
 const EventsAdmin = (): JSX.Element => {
+  const { editId } = useParams();
+
+  console.log("🚀  editId:", editId);
+  const { event } = useEventsSelector();
+
+  console.log("🚀  event:", event);
   const [eventForm, setEvtForm] = useState(eventData);
+  const [eventLocation, setEventLocation] = useState<string | null>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
@@ -46,6 +42,11 @@ const EventsAdmin = (): JSX.Element => {
   };
   const onChangeEnd = (time: Dayjs | null) => {
     setTimeEnd(time);
+  };
+  const getLocation = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const { value } = event.target;
+    setEventLocation(srcLinkFromIframe(value));
   };
 
   const collectEventsData = (
@@ -57,30 +58,38 @@ const EventsAdmin = (): JSX.Element => {
 
   const eventFormData = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const choosedDate = selectedDate?.toISOString().substring(0, 10);
 
-    const createNewEvent = {
-      ...eventForm,
-      date: selectedDate?.toISOString().substring(0, 10),
-      start: timeStart?.format("HH:mm") || "",
-      end: timeEnd?.format("HH:mm") || "",
-    };
-    console.log(createNewEvent);
-    toast.success("createNewEvent");
-    newEventCreate(createNewEvent); // Отправка на бек
+    if (choosedDate !== undefined && choosedDate > currentDate()) {
+      const createNewEvent = {
+        ...eventForm,
+        date: choosedDate,
+        location: eventLocation,
+        startTime: timeStart?.format("HH:mm") || "",
+        endTime: timeEnd?.format("HH:mm") || "",
+      };
+      // console.log(createNewEvent);
+      toast.success("createNewEvent");
+      newEventCreate(createNewEvent); // Отправка на бек
 
-    //////////////////////
-    setEvtForm(eventData); //обнуляет поля
-    setSelectedDate(null); //обнуляет поля
-    setTimeStart(null); //обнуляет поля
-    setTimeEnd(null); //обнуляет поля
+      //////////////////////
+      setEvtForm(eventData); //обнуляет поля
+      setSelectedDate(null); //обнуляет поля
+      setTimeStart(null); //обнуляет поля
+      setTimeEnd(null); //обнуляет поля
+      setEventLocation("");
+    } else {
+      toast.warning("Datum kleiner als das aktuelle Datum", {
+        autoClose: 3000,
+      });
+    }
   };
 
   return (
     <div className={styles.form_container}>
       <h2>Create New Event</h2>
       <button type="button">
-        {" "}
-        <Link to="edit">Edit Event</Link>
+        <Link to="/eventsadm-edit">Edit Event</Link>
       </button>
       <form className={styles.form} onSubmit={eventFormData}>
         <div className={styles.item}>
@@ -88,8 +97,8 @@ const EventsAdmin = (): JSX.Element => {
             <label>Event Name</label>
             <input
               type="text"
-              name="name"
-              value={eventForm.name}
+              name="title"
+              value={eventForm.title}
               onChange={collectEventsData}
             />
           </div>
@@ -117,12 +126,12 @@ const EventsAdmin = (): JSX.Element => {
           <input
             type="text"
             name="location"
-            value={eventForm.location}
-            onChange={collectEventsData}
+            value={eventLocation || ""}
+            onChange={getLocation}
           />
         </div>
         <div className={styles.status_container}>
-          <label>Event status</label>
+          <label>Event status : </label>
           <div className={styles.status}>
             <input
               type="radio"

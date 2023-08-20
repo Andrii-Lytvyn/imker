@@ -30,6 +30,10 @@
   gap: 16px;
 }
 .status {
+  display: flex;
+  align-items: center;
+  /* align-content: center; */
+  gap: 4px;
   margin: 10px 0;
 }
 .date_picker {

@@ -31,7 +31,8 @@ function App(): JSX.Element {
           <Route path="posts" element={<Posts />} />
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="eventsadm" element={<EventsAdmin />} />
-          <Route path="eventsadm/edit" element={<EventsEditAdmin />} />
+          <Route path="eventsadm-edit" element={<EventsEditAdmin />} />
+          <Route path="eventsadm-edit/:editId" element={<EventsAdmin />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="*" element={<NoPage />} />

@@ -1,10 +1,45 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
-import {SlEnvolope, SlHome, SlPhone} from "react-icons/sl";
-import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
-import {Link} from "react-router-dom";
+import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import { currentDate, formatDate } from "../Events/helpers/formattedDate";
+import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
+
+const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+
+// Получение  всех Events
+const getAllEventsFooter = async () => {
+  try {
+    const { data } = await axios.get(`${baseURL}/user_login`);
+
+    return data;
+  } catch (error) {
+    toast.error(`Ошибка сервера getAllEventsFooter ${error}`);
+  }
+};
 
 export default function Footer(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { events } = useEventsSelector();
+
+  useEffect(() => {
+    const getEvt = async () => {
+      try {
+        const requestEvent = await getAllEventsFooter();
+        dispatch(getEvents(requestEvent));
+      } catch (error) {
+        console.log("🚀  error:", error);
+      }
+    };
+    getEvt();
+  }, [dispatch]);
+
   return (
     <>
       <div className={styles.footer}>
@@ -36,7 +71,7 @@ export default function Footer(): JSX.Element {
                   </p>
                 </div>
                 <div className="d-flex flex-row">
-                <SlEnvolope className={styles.icons} />
+                  <SlEnvolope className={styles.icons} />
                   <p className={styles.footer_contact_text}>
                     E-mail:
                     <a href="mailto: Imkerverein-Ahlden@t-online.de">
@@ -53,16 +88,26 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Nachrichten</h3>
                 <div>
-                  {/*Макс, сюда нужно 4 элемента из Эвента. Не весь компонент, а только 4 элемента:*/}
-                  {/*Дата, время, картинка и название. И линк конечно Css не делай. Я все поправлю*/}
-
-                  <p className={styles.footer_data}>April 27, 2023</p>  {/* дата*/}
-                  <p className={styles.footer_data}>April 27, 2023</p> {/* время */}
-                  {/* - картинка*/}
-                  <p className={styles.footer_name_event}>
-                    <Link to="/"> BEEKEEPER – BEES AND BEEKEEPING</Link> {/* название и линк*/}
-                  </p>
-                  <hr />
+                  <ul>
+                    {events
+                      .map(({ id, date, title, startTime }) =>
+                        date > currentDate() ? (
+                          <li key={id}>
+                            <p className={styles.footer_data}>
+                              {`${formatDate(date)?.month} 
+                            ${formatDate(date)?.day}, 
+                              ${formatDate(date)?.year}  ${startTime}`}
+                            </p>
+                            <p className={styles.footer_name_event}>
+                              <Link to={`/events/${id}`}>{title}</Link>
+                            </p>
+                          </li>
+                        ) : (
+                          ""
+                        )
+                      )
+                      .slice(0, 4)}
+                  </ul>
                 </div>
               </div>
             </Card.Body>

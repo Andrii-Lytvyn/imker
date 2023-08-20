@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
       linkToImg,
       shortPostDescription,
       textOfPost,
-      authorId,
+      authorName,
     },
     setNewEditFormData,
   ] = useState<IPostDto>(props.location.state);
@@ -31,7 +31,6 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
   const width = 1000;
   const height = 300;
 
-
   const collectNewPostData = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setNewEditFormData((prev) => ({
@@ -43,14 +42,13 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
   };
 
   const handleSavePost = async () => {
-    // e.preventDefault();
     if (text.trim() != "") {
       let linkVar: string | undefined = undefined;
 
       if (imageData && selectedFile) {
         const formData = new FormData();
         formData.append("file", selectedFile);
-  
+
         try {
           const response = await axios.post(
             `${linkToServer}/files/upload?width=${width}&height=${height}`,
@@ -63,14 +61,13 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
         }
       }
 
-
       try {
         await axios.put(`${linkToServer}/api/posts/update/${idPost}`, {
           titlePost,
           linkToImg: linkVar || linkToImg,
           shortPostDescription,
           textOfPost: text,
-          authorId,
+          authorName,
         });
       } catch (error) {
         console.error(
@@ -92,7 +89,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
       setValue("");
       window.location.reload();
     }
-  }
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -121,27 +118,6 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
         </div>
 
         <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="linkToImg" className="col-md-2 me-2 text-end">
-            Link to Img: {linkToImg}
-          </label>
-          <div>
-              <input type="file" onChange={handleFileChange} />
-              <br />
-              {imageData && <img src={imageData} alt="Image" />}
-            </div>
-
-
-
-          {/* <input
-            className="form-control fs-5"
-            name="linkToImg"
-            defaultValue={linkToImg}
-            onChange={collectNewPostData}
-            required
-          /> */}
-        </div>
-
-        <div className="d-flex align-items-center fs-4 m-2">
           <label
             htmlFor="shortPostDescription"
             className="col-md-2 me-2 text-end"
@@ -157,6 +133,60 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
           />
         </div>
 
+        <div className="d-flex align-items-center fs-4 m-2">
+          <label
+            htmlFor="authorName"
+            className="col-md-2 me-2 text-end"
+          >
+            Author name:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="authorName"
+            defaultValue={authorName}
+            onChange={collectNewPostData}
+          />
+        </div>
+
+        <div className="d-flex align-items-center m-2">
+          <div className="col-md-12 me-2 text-end">
+            <p className="mb-2 text-start fs-5">Image Id: {linkToImg}</p>
+            <img
+              src={linkToServer + "/files/" + linkToImg}
+              alt="image"
+              style={{
+                width: "100%",
+                maxWidth: "100%",
+                height: "auto",
+              }}
+            />
+          </div>
+        </div>
+
+        <label htmlFor="fileInput" className="file-upload">
+          Choose another image
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          onChange={handleFileChange}
+          accept=".jpg, .jpeg, .png"
+          required
+          style={{ display: "none" }}
+        />
+        <br />
+        {imageData && (
+          <img
+            src={imageData}
+            alt="Image"
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
+        )}
+
         <Editor
           apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
           onEditorChange={(newValue, editor) => {
@@ -170,16 +200,16 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
           value={value}
           init={{
             plugins:
-                "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
-              toolbar1:
-                "undo redo| removeformat fontfamily fontsize blocks bold italic strikethrough underline subscript superscript | alignleft aligncenter alignright alignjustify alignnone lineheight indent outdent | fullscreen help",
-              toolbar2:
-                "preview selectall copy cut paste pastetext searchreplace spellcheckdialog spellchecker | insertdatetime charmap checklist bullist numlist casechange | pagebreak | ltr rtl | visualblocks visualchars | hr wordcount",
-              toolbar3:
-                "table tableinsertdialog advtablerownumbering tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader tableofcontents tableofcontentsupdate",
-              toolbar4:
-                "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
-            }}
+              "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
+            toolbar1:
+              "undo redo| removeformat fontfamily fontsize blocks bold italic strikethrough underline subscript superscript | alignleft aligncenter alignright alignjustify alignnone lineheight indent outdent | fullscreen help",
+            toolbar2:
+              "preview selectall copy cut paste pastetext searchreplace spellcheckdialog spellchecker | insertdatetime charmap checklist bullist numlist casechange | pagebreak | ltr rtl | visualblocks visualchars | hr wordcount",
+            toolbar3:
+              "table tableinsertdialog advtablerownumbering tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader tableofcontents tableofcontentsupdate",
+            toolbar4:
+              "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
+          }}
         />
 
         <button

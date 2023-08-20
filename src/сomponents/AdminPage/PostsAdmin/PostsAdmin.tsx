@@ -15,7 +15,6 @@ export default function PostsAdmin() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const linkToServer = "http://localhost:8080";
 
-
   useEffect(() => {
     async function getListOfPosts() {
       try {
@@ -30,9 +29,7 @@ export default function PostsAdmin() {
 
   async function handleLoadData(idPost: number) {
     try {
-      const response = await axios.get(
-        `${linkToServer}/api/posts/${idPost}`
-      );
+      const response = await axios.get(`${linkToServer}/api/posts/${idPost}`);
       setPost(await response.data);
       setIsLoaded(true);
       setIsEditShow(true);
@@ -96,12 +93,15 @@ export default function PostsAdmin() {
               titlePost,
               linkToImg,
               shortPostDescription,
+              authorName,
               // textOfPost,
-              // authorId,
             }) => (
               <div key={idPost} className={styles.postContainer}>
                 <p className={styles.postData}>Post id: {idPost}</p>
                 <p className={styles.postData}>Image id: {linkToImg}</p>
+                {authorName && (
+                  <p className={styles.postData}>Author name: {authorName}</p>
+                )}
                 <p className={styles.postCreated}>
                   Created: {creationTimePost}
                 </p>

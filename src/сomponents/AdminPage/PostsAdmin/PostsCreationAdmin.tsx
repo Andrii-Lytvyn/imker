@@ -6,11 +6,11 @@ import { toast } from "react-toastify";
 import { INewPostDto, initINewPostDto } from "./interfaces/INewPostDto";
 
 export default function PostsCreationAdmin(): JSX.Element {
-  // { titlePost, linkToImg, shortPostDescription, textOfPost, authorId }
+  // { titlePost, linkToImg, shortPostDescription, textOfPost, authorName }
   const [text, setText] = useState("");
   const initText = "";
   const [value, setValue] = useState(initText);
-  const [{ titlePost, shortPostDescription }, setNewPostFormData] =
+  const [{ titlePost, shortPostDescription, authorName }, setNewPostFormData] =
     useState<INewPostDto>(initINewPostDto);
   const [isValid, setIsValid] = useState(true);
   const [imageData, setImageData] = useState<string | null>(null);
@@ -66,7 +66,7 @@ export default function PostsCreationAdmin(): JSX.Element {
           linkToImg: linkVar,
           shortPostDescription,
           textOfPost: text,
-          authorId: "1",
+          authorName,
         });
 
         toast.success("Your post has been successfully sent!", {
@@ -110,7 +110,7 @@ export default function PostsCreationAdmin(): JSX.Element {
 
           <div className="d-flex align-items-center fs-4 m-2">
             <label htmlFor="linkToImg" className="col-md-2 me-2 text-end">
-              Link to Img:
+              Image:
             </label>
             <div>
               <input type="file" onChange={handleFileChange} required/>
@@ -135,13 +135,28 @@ export default function PostsCreationAdmin(): JSX.Element {
             />
           </div>
 
+          <div className="d-flex align-items-center fs-4 m-2">
+            <label
+              htmlFor="authorName"
+              className="col-md-2 me-2 text-end"
+            >
+              Author name:
+            </label>
+            <input
+              className="form-control fs-5"
+              name="authorName"
+              value={authorName}
+              onChange={collectPostData}
+            />
+          </div>
+
           <Editor
             apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
             onEditorChange={(newValue, editor) => {
               setValue(newValue);
               setText(editor.getContent({ format: "html" }));
             }}
-            onInit={(evt, editor) => {
+            onInit={(_, editor) => {
               setText(editor.getContent({ format: "html" }));
             }}
             initialValue={initText}

@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { IPostDto } from "./interfaces/IPostDTO";
 import { IPostsDto } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
-import PostSingle from "./PostSingle/PostSingle";
+import { Link } from "react-router-dom";
 
 export default function Posts() {
   // const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
-  const [post, setPost] = useState<IPostDto>();
   const [currentPage, setCurrentPage] = useState(1);
   const [arrPages, setArrPages] = useState<IPostDto[][]>([]);
   const [arrPagesNum, setArrPagesNum] = useState<number[]>([]);
@@ -36,15 +35,6 @@ export default function Posts() {
     getListOfPosts();
   }, []);
 
-  async function handleLoadPost(idPost: number) {
-    try {
-      const response = await axios.get(`${linkToServer}/api/posts/${idPost}`);
-      setPost(response.data);
-    } catch (error) {
-      console.error("Error during request execution:", error);
-    }
-  }
-
   return (
     <>
       {arrPagesNum.map((pageNum) => (
@@ -70,27 +60,27 @@ export default function Posts() {
                 linkToImg,
                 shortPostDescription,
                 // textOfPost,
-                // authorId,
+                // authorName,
               }) => (
                 <div key={idPost}>
                   <hr />
                   <p>Post id: {idPost}</p>
                   <p>Created: {creationTimePost}</p>
-                  <div>{titlePost}</div>
+                  <Link to={`/posts/${idPost}`} className="fs-4">{titlePost}</Link>
+                  <br />
                   <img
                     src={linkToServer + "/files/" + linkToImg}
                     alt={"post img" + idPost}
                   />
                   <div>{shortPostDescription}</div>
-                  <button onClick={() => handleLoadPost(+idPost)}>
+                  <Link to={`/posts/${idPost}`} className="btn btn-primary">
                     Open this post
-                  </button>
+                  </Link>
                 </div>
               )
             )}
         </div>
       )}
-      {post && <PostSingle />}
     </>
   );
 }

@@ -109,17 +109,6 @@ export default function PostsCreationAdmin(): JSX.Element {
           </div>
 
           <div className="d-flex align-items-center fs-4 m-2">
-            <label htmlFor="linkToImg" className="col-md-2 me-2 text-end">
-              Image:
-            </label>
-            <div>
-              <input type="file" onChange={handleFileChange} required/>
-              <br />
-              {imageData && <img src={imageData} alt="Image" />}
-            </div>
-          </div>
-
-          <div className="d-flex align-items-center fs-4 m-2">
             <label
               htmlFor="shortPostDescription"
               className="col-md-2 me-2 text-end"
@@ -136,10 +125,7 @@ export default function PostsCreationAdmin(): JSX.Element {
           </div>
 
           <div className="d-flex align-items-center fs-4 m-2">
-            <label
-              htmlFor="authorName"
-              className="col-md-2 me-2 text-end"
-            >
+            <label htmlFor="authorName" className="col-md-2 me-2 text-end">
               Author name:
             </label>
             <input
@@ -148,6 +134,32 @@ export default function PostsCreationAdmin(): JSX.Element {
               value={authorName}
               onChange={collectPostData}
             />
+          </div>
+
+          <div className="d-flex align-items-center fs-4 m-2">
+            <label htmlFor="linkToImg" className="col-md-2 me-2 fs-4 text-end">
+              Image:
+            </label>
+            <div>
+              <input
+                type="file"
+                className="btn btn-outline-primary m-2"
+                onChange={handleFileChange}
+                required
+              />
+              <br />
+              {imageData && (
+                <img
+                  src={imageData}
+                  alt="Image"
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
+                />
+              )}
+            </div>
           </div>
 
           <Editor

@@ -10,14 +10,15 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { toast } from "react-toastify";
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+//const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+const baseURL = "http://localhost:8080/api/events";
 
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
-    const { data } = await axios.get(`${baseURL}/user_login`);
+    const { data } = await axios.get(`${baseURL}?orderBy=description&desc=false&page=0`);
 
-    return data;
+    return data.events;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);
   }
@@ -66,18 +67,18 @@ const Events = (): JSX.Element => {
         ) : (
           <ul className={css.event_list}>
             {
-              events.map(({ name, id, date, start, end }) =>
+              events.map(({ title, id, date, startTime, endTime }, index) =>
                 date > currentDate() ? (
-                  <li key={id} className={css.list}>
+                  <li key={index} className={css.list}>
                     <div className={css.day}>
                       <span>{formattedDate(date).month}</span>
                       <h4>{formattedDate(date).day}</h4>
                     </div>
                     <div className={css.time_event}>
-                      <Link to={`/events/${id}`}>{name}</Link>
+                      <Link to={`/events/${id}`}>{title}</Link>
                       <div className={css.time}>
                         <FcAlarmClock size={20} />
-                        <span>{`${start} - ${end}`}</span>
+                        <span>{`${startTime} - ${endTime}`}</span>
                         <ImLocation size={20} style={{ color: "red" }} />
                       </div>
                     </div>

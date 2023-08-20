@@ -2,7 +2,7 @@ import { EventStatus } from "../../../Events/interface/IEventsData";
 
 export interface ICreateEvents {
     id?: string | number,
-    name: string,
+    title: string,
     members: string,
     address: string,
     location: string,
@@ -11,6 +11,6 @@ export interface ICreateEvents {
     photo: string,
     status: EventStatus,
     date: string | undefined,
-    start: string,
-    end: string,
+    startTime: string,
+    endTime: string,
 }

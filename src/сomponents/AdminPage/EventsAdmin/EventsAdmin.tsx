@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { ICreateEvents } from "./interface/ICreateEvents";
 
 const eventData = {
-  name: "",
+  title: "",
   members: "",
   address: "",
   location: "",
@@ -19,16 +19,17 @@ const eventData = {
   photo: "",
   status: EVENT_STATUS.EXPECTED,
   date: "",
-  start: "",
-  end: "",
+  startTime: "",
+  endTime: "",
 };
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+//const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+const baseURL = "http://localhost:8080";
 
 //Функция отправки на бек
 const newEventCreate = async (createNewEvent: ICreateEvents) => {
   try {
-    const data = await axios.post(`${baseURL}/user_login`, createNewEvent);
+    const data = await axios.post(`${baseURL}/api/events`, createNewEvent);
     console.log("🚀  data:", data);
   } catch (error) {
     console.log("🚀  newEventCreate", error);
@@ -61,8 +62,8 @@ const EventsAdmin = (): JSX.Element => {
     const createNewEvent = {
       ...eventForm,
       date: selectedDate?.toISOString().substring(0, 10),
-      start: timeStart?.format("HH:mm") || "",
-      end: timeEnd?.format("HH:mm") || "",
+      startTime: timeStart?.format("HH:mm") || "",
+      endTime: timeEnd?.format("HH:mm") || "",
     };
     console.log(createNewEvent);
     toast.success("createNewEvent");
@@ -88,8 +89,8 @@ const EventsAdmin = (): JSX.Element => {
             <label>Event Name</label>
             <input
               type="text"
-              name="name"
-              value={eventForm.name}
+              name="title"
+              value={eventForm.title}
               onChange={collectEventsData}
             />
           </div>

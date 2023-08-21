@@ -3,15 +3,23 @@ import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
 
+import { useParams } from "react-router-dom";
+
+
 export default function PostSingle(): JSX.Element {
   const [post, setPost] = useState<IPostDto | undefined>();
+  const { id } = useParams();
+  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts/2");
+
+        const response = await axios.get(`${linkToServer}/api/posts/${id}`);
+
         const postDto = response.data;
         setPost(postDto);
+        console.log(postDto);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -25,7 +33,10 @@ export default function PostSingle(): JSX.Element {
       <div className="container">
         <p>{post?.creationTimePost}</p>
         <p>{post?.titlePost}</p>
-        <img src={post?.linkToImg} alt="imgPost" />
+        <img
+                    src={linkToServer + "/files/" + post?.linkToImg}
+                    alt={"post img" + post?.idPost}
+                  />
         <p>{post?.shortPostDescription}</p>
       </div>
       <div

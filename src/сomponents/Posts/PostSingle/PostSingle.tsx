@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
-import Header from "../../Header/Header";
 
 export default function PostSingle(): JSX.Element {
   const [post, setPost] = useState<IPostDto | undefined>();
@@ -10,7 +9,7 @@ export default function PostSingle(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts/24");
+        const response = await axios.get("http://localhost:8080/api/posts/2");
         const postDto = response.data;
         setPost(postDto);
       } catch (error) {
@@ -23,7 +22,6 @@ export default function PostSingle(): JSX.Element {
 
   return (
     <>
-      <Header />
       <div className="container">
         <p>{post?.creationTimePost}</p>
         <p>{post?.titlePost}</p>

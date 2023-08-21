@@ -1,4 +1,6 @@
+
 import { ChangeEvent, useEffect, useState } from "react";
+
 import axios from "axios";
 import {
   IPostsDto,
@@ -54,6 +56,7 @@ export default function Posts() {
 
       {posts && (
         <div className="container">
+
           {posts.posts.map(
             ({
               idPost,
@@ -86,6 +89,7 @@ export default function Posts() {
               </div>
             )
           )}
+
         </div>
       )}
     </>

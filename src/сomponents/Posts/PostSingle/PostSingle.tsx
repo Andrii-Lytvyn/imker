@@ -2,7 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
+
 import { useParams } from "react-router-dom";
+
 
 export default function PostSingle(): JSX.Element {
   const [post, setPost] = useState<IPostDto | undefined>();
@@ -12,7 +14,9 @@ export default function PostSingle(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const response = await axios.get(`${linkToServer}/api/posts/${id}`);
+
         const postDto = response.data;
         setPost(postDto);
         console.log(postDto);

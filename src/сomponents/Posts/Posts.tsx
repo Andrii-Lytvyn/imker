@@ -62,12 +62,15 @@ export default function Posts() {
               linkToImg,
               shortPostDescription,
               // textOfPost,
-              // authorName,
+              authorName,
             }) => (
               <div key={idPost}>
                 <hr />
                 <p>Post id: {idPost}</p>
                 <p>Created: {creationTimePost}</p>
+                {authorName && (
+                  <p>Author name: {authorName}</p>
+                )}
                 <Link to={`/posts/${idPost}`} className="fs-4">
                   {titlePost}
                 </Link>

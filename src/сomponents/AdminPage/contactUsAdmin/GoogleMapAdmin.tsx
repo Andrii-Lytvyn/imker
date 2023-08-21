@@ -60,6 +60,7 @@ export default function GoogleMapAdmin(): JSX.Element {
         disabled={btnDisabled}
       >Save new link</button>
     </div>
+    
     {googleMapLink && <iframe
           src={googleMapLink}
           loading="lazy"

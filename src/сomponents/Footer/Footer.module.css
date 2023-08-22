@@ -3,6 +3,7 @@
     background-color: var(--yellow);
     text-align: center;
     z-index: 100;
+    margin-top: 5em;
 }
 .logo_footer{
     height: 80px;

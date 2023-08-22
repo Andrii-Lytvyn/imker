@@ -15,6 +15,7 @@ import Gallery from "./сomponents/Gallery/Gallery";
 import EventsAdmin from "./сomponents/AdminPage/EventsAdmin/EventsAdmin";
 import EventsEditAdmin from "./сomponents/AdminPage/EventsAdmin/EventsEditAdmin";
 import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
+import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
 
 function App(): JSX.Element {
   return (
@@ -33,6 +34,7 @@ function App(): JSX.Element {
           <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="eventsadm" element={<EventsAdmin />} />
+          <Route path="filesadm" element={<FilesUploadAdmin />} />
           <Route path="eventsadm/edit" element={<EventsEditAdmin />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />

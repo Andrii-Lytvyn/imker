@@ -5,5 +5,5 @@ export interface IPostDto {
   linkToImg: string;
   shortPostDescription: string;
   textOfPost: string;
-  authorId: string;
+  authorName: string;
 }

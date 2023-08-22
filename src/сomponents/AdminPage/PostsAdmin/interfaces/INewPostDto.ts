@@ -7,5 +7,5 @@ export const initINewPostDto: INewPostDto = {
   linkToImg: "",
   shortPostDescription: "",
   textOfPost: "",
-  authorId: "",
+  authorName: "",
 };

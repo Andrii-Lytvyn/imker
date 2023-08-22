@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import styles from "./ContactUs.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
@@ -12,6 +12,23 @@ export default function Contacts(): JSX.Element {
   ] = useState(initContacUsForm);
   const maxLength = 500;
   const [charLeft, setCharLeft] = useState(maxLength);
+  const [googleMap, setGoogleMap] = useState("");
+  const linkToServer = "http://localhost:8080";
+
+
+  useEffect(() => {
+    const getGoogleMapLink = async () => {
+      try {
+        const response = await axios.get(`${linkToServer}/api/googlemap`);
+        const { googleMapLink } = response.data;
+        setGoogleMap(googleMapLink );
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+    };
+
+    getGoogleMapLink();
+  }, []);
 
   const collectAboutUsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -166,8 +183,10 @@ export default function Contacts(): JSX.Element {
           </div>
         </form>
       </div>
+
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2416.3096482125134!2d9.61041657185848!3d52.72660458996256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b05c9680b0b6d1%3A0x56f0e67cfd5ecb98!2sWalsroder%20Str.%203%2C%2029693%20Eickeloh!5e0!3m2!1sru!2sde!4v1690814421367!5m2!1sru!2sde"
+        src={googleMap}
+        // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2416.3096482125134!2d9.61041657185848!3d52.72660458996256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b05c9680b0b6d1%3A0x56f0e67cfd5ecb98!2sWalsroder%20Str.%203%2C%2029693%20Eickeloh!5e0!3m2!1sru!2sde!4v1690814421367!5m2!1sru!2sde"
         className={styles.map}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

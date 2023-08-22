@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { IRequestDto } from "../../ContactUs/interfaces/IRequestDto";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import GoogleMapAdmin from "./GoogleMapAdmin";
 
 export default function ContactUsAdmin(): JSX.Element {
   const [requests, setRequests] = useState<IRequestDto[]>([]);
@@ -40,14 +41,17 @@ export default function ContactUsAdmin(): JSX.Element {
   return (
     <>
       <div className="container">
-        <h2>Requests received from users:</h2>
+
+        <GoogleMapAdmin />
+
+        <h2 className="mt-5">Requests received from users:</h2>
         {!requests.length && (
           <div className="container fs-4">
             [ There are no requests in the database ]
           </div>
         )}
 
-        <div className="accordion m-4" id="myAccordion">
+        <div className="accordion m-4 mb-5" id="myAccordion">
           {requests.map(
             ({
               idRequest,
@@ -66,12 +70,14 @@ export default function ContactUsAdmin(): JSX.Element {
                   <button
                     type="button"
                     className="btn btn-warning m-2"
+                    title="Delete this request from Data Base"
                     onClick={() => handleDeleteRequest(+idRequest)}
                   >
                     X
                   </button>
                   <button
                     type="button"
+                    title="Click here to see request details"
                     className="accordion-button collapsed fs-5"
                     data-bs-toggle="collapse"
                     data-bs-target={`#collapse${idRequest}`}

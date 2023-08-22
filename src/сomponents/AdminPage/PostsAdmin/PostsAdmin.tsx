@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
+import { Pagination } from "@mui/material";
 import { IPostsDto, initIPostsDto } from "./interfaces/IPostsDto";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import PostEditAdmin from "./PostEditAdmin";
@@ -7,18 +8,25 @@ import PostsCreationAdmin from "./PostsCreationAdmin";
 import styles from "./PostAdmin.module.css";
 
 export default function PostsAdmin() {
-  const [{ posts, count }, setPosts] = useState<IPostsDto>(initIPostsDto);
+  const [{ posts, count, pages }, setPosts] =
+    useState<IPostsDto>(initIPostsDto);
   const [post, setPost] = useState<IPostDto>();
   const [isEditShow, setIsEditShow] = useState<boolean>(false);
   const [isCreateShow, setIsCreateShow] = useState<boolean>(false);
   const [isListShow, setIsListShow] = useState<boolean>(true);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsOnPage = 5;
+  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts");
-        setPosts(await response.data);
+        const response = await axios.get(
+          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+        );
+        setPosts(response.data);
+        setCurrentPage(1);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -28,9 +36,7 @@ export default function PostsAdmin() {
 
   async function handleLoadData(idPost: number) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/posts/${idPost}`
-      );
+      const response = await axios.get(`${linkToServer}/api/posts/${idPost}`);
       setPost(await response.data);
       setIsLoaded(true);
       setIsEditShow(true);
@@ -40,6 +46,21 @@ export default function PostsAdmin() {
       console.error("Error during request execution:", error);
     }
   }
+
+  const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
+    try {
+      const response = await axios.get(
+        `${linkToServer}/api/posts?page=${
+          value - 1
+        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+      );
+      const postsData: IPostsDto = await response.data;
+      setPosts(postsData);
+      setCurrentPage(value);
+    } catch (error) {
+      console.error("Error during request execution:", error);
+    }
+  };
 
   return (
     <>
@@ -87,18 +108,30 @@ export default function PostsAdmin() {
       {isListShow && (
         <div className={styles.container}>
           <p className={styles.totalCount}>Total count of posts: {count}</p>
+
+          <Pagination
+            count={pages}
+            page={currentPage}
+            size="large"
+            onChange={getAnotherPage}
+          />
+
           {posts.map(
             ({
               idPost,
               creationTimePost,
               titlePost,
-              // linkToImg,
+              linkToImg,
               shortPostDescription,
+              authorName,
               // textOfPost,
-              // authorId,
             }) => (
               <div key={idPost} className={styles.postContainer}>
                 <p className={styles.postData}>Post id: {idPost}</p>
+                <p className={styles.postData}>Image id: {linkToImg}</p>
+                {authorName && (
+                  <p className={styles.postData}>Author name: {authorName}</p>
+                )}
                 <p className={styles.postCreated}>
                   Created: {creationTimePost}
                 </p>
@@ -116,6 +149,12 @@ export default function PostsAdmin() {
               </div>
             )
           )}
+          <Pagination
+            count={pages}
+            page={currentPage}
+            size="large"
+            onChange={getAnotherPage}
+          />
         </div>
       )}
     </>

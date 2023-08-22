@@ -53,14 +53,36 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Nachrichten</h3>
                 <div>
-                  {/*Макс, сюда нужно 4 элемента из Эвента. Не весь компонент, а только 4 элемента:*/}
-                  {/*Дата, время, картинка и название. И линк конечно Css не делай. Я все поправлю*/}
-
-                  <p className={styles.footer_data}>April 27, 2023</p>  {/* дата*/}
-                  <p className={styles.footer_data}>April 27, 2023</p> {/* время */}
-                  {/* - картинка*/}
+                  <p className={styles.footer_data}>April 27, 2023</p>
                   <p className={styles.footer_name_event}>
-                    <Link to="/"> BEEKEEPER – BEES AND BEEKEEPING</Link> {/* название и линк*/}
+                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
+                  </p>
+                  <hr />
+                </div>
+                <div>
+                  <p className={styles.footer_data}>April 27, 2023</p>
+                  <p className={styles.footer_name_event}>
+                    <a href="/">
+                      {" "}
+                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
+                    </a>
+                  </p>
+                  <hr />
+                </div>
+                <div>
+                  <p className={styles.footer_data}>April 27, 2023</p>
+                  <p className={styles.footer_name_event}>
+                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
+                  </p>
+                  <hr />
+                </div>
+                <div>
+                  <p className={styles.footer_data}>April 27, 2023</p>
+                  <p className={styles.footer_name_event}>
+                    <a href="/">
+                      {" "}
+                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
+                    </a>
                   </p>
                   <hr />
                 </div>
@@ -73,24 +95,24 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Über uns</h3>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/posts">
+                  <a className={styles.about_links} href="/">
                     BLOG
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/events">
+                  <a className={styles.about_links} href="/">
                     VERANSTALTUNGEN
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/aboutUs">
+                  <a className={styles.about_links} href="/">
                     Mitglieder der Gemeinschaft
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/gallery">
+                  <a className={styles.about_links} href="/">
                     GALERIE
-                  </Link>
+                  </a>
                 </p>
               </div>
             </Card.Body>

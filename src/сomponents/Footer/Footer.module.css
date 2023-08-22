@@ -3,6 +3,7 @@
     background-color: var(--yellow);
     text-align: center;
     z-index: 100;
+    margin-top: 5em;
 }
 .logo_footer{
     height: 80px;
@@ -64,4 +65,7 @@
 .social_icons{
     font-size: 3em;
     color: #fff;
+}
+.footer_events{
+    display: flex;
 }

@@ -81,6 +81,10 @@ export default function Posts() {
                 <img
                   src={linkToServer + "/files/" + linkToImg}
                   alt={"post img" + idPost}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/img/imgNotFound.png";
+                  }}
                 />
                 <div>{shortPostDescription}</div>
                 <Link to={`/posts/${idPost}`} className="btn btn-primary">

@@ -1,13 +1,16 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function GoogleMapAdmin(): JSX.Element {
   const htmlString =
-    '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d9710.93895466906!2d13.392481562341327!3d52.52013943017145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sde!4v1692571824083!5m2!1sru!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+    '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2416.311059522423!2d9.607656377097939!3d52.726579120913996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b05c9680b0b6d1%3A0x56f0e67cfd5ecb98!2sWalsroder%20Str.%203%2C%2029693%20Eickeloh!5e0!3m2!1sru!2sde!4v1692663876682!5m2!1sru!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
 
   const [googleMapLink, setGoogleMapLink] = useState<string | null>(null);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [wrongLink, setWrongLink] = useState(false);
+  const linkToServer = "http://localhost:8080";
+
 
   const getGoogleMapLink = (html: string): string | null => {
     const parser = new DOMParser();
@@ -17,7 +20,19 @@ export default function GoogleMapAdmin(): JSX.Element {
     return src;
   };
 
-  const updateGoogleMapLink = () => {
+  const updateGoogleMapLink = async () => {
+    try {
+      await axios.put(`${linkToServer}/api/googlemap`, {
+        id: 1,
+        googleMapLink
+      });
+    } catch (error) {
+      console.error(
+        "There was an error when sending a googleMapLink to Back:",
+        error
+      );
+    }
+
     setBtnDisabled(true);
     setGoogleMapLink(null);
 

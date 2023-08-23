@@ -32,6 +32,8 @@ const EditEventAdmin = (): JSX.Element => {
   const navigate = useNavigate();
   const { event_edit } = useEventsSelector();
   const [eventEditForm, setEventEditForm] = useState(event_edit);
+
+  console.log("🚀  eventEditForm:", eventEditForm);
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
@@ -48,16 +50,16 @@ const EditEventAdmin = (): JSX.Element => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setEventEditForm((prev: IEvent) => ({ ...prev, [name]: value }));
+    setEventEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const eventFormData = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
-    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10);
+    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
 
     if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
-      const editEvent = {
+      const editEvent: IEvent = {
         ...eventEditForm,
         dateStart: choosedDateStart,
         dateEnd: choosedDateEnd,
@@ -123,7 +125,7 @@ const EditEventAdmin = (): JSX.Element => {
           <input
             type="text"
             name="location"
-            value={eventEditForm.location}
+            value={eventEditForm.location.trim()}
             onChange={collectEventsData}
           />
         </div>

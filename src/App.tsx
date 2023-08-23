@@ -15,6 +15,10 @@ import Gallery from "./сomponents/Gallery/Gallery";
 import AddEventAdmin from "./сomponents/AdminPage/EventsAdmin/AddEventAdmin";
 import EditEventAdmin from "./сomponents/AdminPage/EventsAdmin/EditEventAdmin";
 import EditAllEvents from "./сomponents/AdminPage/EventsAdmin/EditAllEvents";
+import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
+import TeamEditAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditAdmin";
+import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember";
+import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
 
 function App(): JSX.Element {
   return (

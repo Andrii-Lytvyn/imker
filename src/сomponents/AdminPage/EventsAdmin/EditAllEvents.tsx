@@ -2,19 +2,27 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import styles from "./EventsAdmin.module.css";
-
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import { getEvents, getOneEvent } from "../../../redux/eventsStore/eventsSlice";
-
 import { IEvent } from "../../Events/interface/IEventsData";
+
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+
+// const baseURL = "http://localhost:8080/api/events"; для Бека Андрея
 
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
-    const { data } = await axios.get(`${baseURL}/user_login`);
+    //для Бека
+    // const { data } = await axios.get(
+    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
+    // );
+    // return data.events;
 
+    //////////////////////////////////
+    //для Макса
+    const { data } = await axios.get(`${baseURL}/user_login`);
     return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);

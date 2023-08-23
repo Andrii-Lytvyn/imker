@@ -15,7 +15,7 @@ import { IEvent } from "../interface/IEventsData";
 const Event = (): JSX.Element => {
   const { id } = useParams();
   const { events } = useEventsSelector();
-  const [oneEvent, setOneEvent] = useState<IEvent>(eventData);
+  const [oneEvent, setOneEvent] = useState<IEvent | undefined>(eventData);
 
   useEffect(() => {
     const requestEvent = events.find((event) => event.id === id);

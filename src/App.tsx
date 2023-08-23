@@ -12,13 +12,9 @@ import Login from "./сomponents/UserLogin/Login";
 import Posts from "./сomponents/Posts/Posts";
 import PostsAdmin from "./сomponents/AdminPage/PostsAdmin/PostsAdmin";
 import Gallery from "./сomponents/Gallery/Gallery";
-import EventsAdmin from "./сomponents/AdminPage/EventsAdmin/EventsAdmin";
-import EventsEditAdmin from "./сomponents/AdminPage/EventsAdmin/EventsEditAdmin";
-import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
-import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
-import TeamEditAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditAdmin";
-import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember";
-import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
+import AddEventAdmin from "./сomponents/AdminPage/EventsAdmin/AddEventAdmin";
+import EditEventAdmin from "./сomponents/AdminPage/EventsAdmin/EditEventAdmin";
+import EditAllEvents from "./сomponents/AdminPage/EventsAdmin/EditAllEvents";
 
 function App(): JSX.Element {
   return (
@@ -32,16 +28,22 @@ function App(): JSX.Element {
           <Route path="login" element={<Login />} />
           <Route path="aboutUs" element={<AboutUs />} />
           <Route path="aboutusadmin" element={<TeamAdmin />} />
-          <Route path="aboutusadmin/addmember" element={<TeamAddMemberAdmin />} />
-          <Route path="aboutusadmin/teameditadmin" element={<TeamEditAdmin />} />
+          <Route
+            path="aboutusadmin/addmember"
+            element={<TeamAddMemberAdmin />}
+          />
+          <Route
+            path="aboutusadmin/teameditadmin"
+            element={<TeamEditAdmin />}
+          />
           <Route path="contactUs" element={<ContactUs />} />
           <Route path="contactusadm" element={<ContactUsAdmin />} />
           <Route path="posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="postsadm" element={<PostsAdmin />} />
-          <Route path="eventsadm" element={<EventsAdmin />} />
-          <Route path="filesadm" element={<FilesUploadAdmin />} />
-          <Route path="eventsadm/edit" element={<EventsEditAdmin />} />
+          <Route path="eventsadm" element={<AddEventAdmin />} />
+          <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
+          <Route path="eventsadm-edit" element={<EditAllEvents />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="*" element={<NoPage />} />

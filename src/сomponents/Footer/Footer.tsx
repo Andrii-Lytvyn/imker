@@ -1,10 +1,46 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
-import {SlEnvolope, SlHome, SlPhone} from "react-icons/sl";
-import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
-import {Link} from "react-router-dom";
+import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import { currentDate, formatDate } from "../Events/helpers/formattedDate";
+import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
+import { EVENT_STATUS } from "../Events/interface/IEventsData";
+
+const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+
+// Получение  всех Events
+const getAllEventsFooter = async () => {
+  try {
+    const { data } = await axios.get(`${baseURL}/user_login`);
+
+    return data;
+  } catch (error) {
+    toast.error(`Ошибка сервера getAllEventsFooter ${error}`);
+  }
+};
 
 export default function Footer(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { events } = useEventsSelector();
+
+  useEffect(() => {
+    const getEvt = async () => {
+      try {
+        const requestEvent = await getAllEventsFooter();
+        dispatch(getEvents(requestEvent));
+      } catch (error) {
+        console.log("🚀  error:", error);
+      }
+    };
+    getEvt();
+  }, [dispatch]);
+
   return (
     <>
       <div className={styles.footer}>
@@ -36,7 +72,7 @@ export default function Footer(): JSX.Element {
                   </p>
                 </div>
                 <div className="d-flex flex-row">
-                <SlEnvolope className={styles.icons} />
+                  <SlEnvolope className={styles.icons} />
                   <p className={styles.footer_contact_text}>
                     E-mail:
                     <a href="mailto: Imkerverein-Ahlden@t-online.de">
@@ -53,38 +89,28 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Nachrichten</h3>
                 <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/">
-                      {" "}
-                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
-                    </a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/"> BEEKEEPER – BEES AND BEEKEEPING</a>
-                  </p>
-                  <hr />
-                </div>
-                <div>
-                  <p className={styles.footer_data}>April 27, 2023</p>
-                  <p className={styles.footer_name_event}>
-                    <a href="/">
-                      {" "}
-                      BEEKEEPER – BEES AND BEEKEEPING BEES AND BEEKEEPING
-                    </a>
-                  </p>
-                  <hr />
+                  <ul>
+                    {events
+                      .map(({ id, dateStart, title, startTime, status }) =>
+                        dateStart > currentDate() &&
+                        status === EVENT_STATUS.EXPECTED ? (
+                          <li key={id}>
+                            <p className={styles.footer_data}>
+                              {`${formatDate(dateStart)?.day} ${
+                                formatDate(dateStart)?.month
+                              }, 
+                              ${formatDate(dateStart)?.year}  ${startTime}`}
+                            </p>
+                            <p className={styles.footer_name_event}>
+                              <Link to={`/events/${id}`}>{title}</Link>
+                            </p>
+                          </li>
+                        ) : (
+                          ""
+                        )
+                      )
+                      .slice(0, 4)}
+                  </ul>
                 </div>
               </div>
             </Card.Body>

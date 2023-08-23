@@ -22,8 +22,11 @@ export const formatDate = (inputDate: string | undefined) => {
         const day = date.getDate();
         const month = months[date.getMonth()];
         const year = date.getFullYear();
+        const dataObjectDate = {
+            day, month, year
+        }
 
-        return `${day} ${month} ${year}`;
+        return dataObjectDate;
     }
     return null
 

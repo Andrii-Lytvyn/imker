@@ -6,10 +6,11 @@ export const EVENT_STATUS = {
 
 export type EventStatus = keyof typeof EVENT_STATUS;
 
-export interface IEvents {
-    [key: string]: string
+export interface IEvent {
+    [key: string]: string,
 }
 export interface IEventDate {
-    date: string;
+    dateStart: string;
+    dateEnd: string;
 }
 

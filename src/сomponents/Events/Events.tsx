@@ -1,14 +1,16 @@
-import css from "./Events.module.css";
-import { useEffect, useState } from "react";
+import styles from "./Events.module.css";
 import { currentDate, formattedDate } from "./helpers/formattedDate";
 import { FcAlarmClock } from "react-icons/fc";
 import { ImLocation } from "react-icons/im";
 import { Link } from "react-router-dom";
-// import { dataEventov } from "./eventObj";
-import { IEvents } from "./interface/IEventsData";
-import axios from "axios";
 import Loader from "../Loader/Loader";
+import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
+import { useEffect } from "react";
+import axios from "axios";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { EVENT_STATUS } from "./interface/IEventsData";
 
 //const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 const baseURL = "http://localhost:8080/api/events";
@@ -16,7 +18,9 @@ const baseURL = "http://localhost:8080/api/events";
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
-    const { data } = await axios.get(`${baseURL}?orderBy=dateStart&desc=false&page=0`);
+    const { data } = await axios.get(
+      `${baseURL}?orderBy=dateStart&desc=false&page=0`
+    );
 
     return data.events;
   } catch (error) {
@@ -25,67 +29,53 @@ const getAllEvents = async () => {
 };
 
 const Events = (): JSX.Element => {
-  const [events, setEvents] = useState<IEvents[]>([]);
-  // const [currentData, setCurrentData] = useState("");
-
-  // Старый вариант
-  // useEffect(() => {
-  //   try {
-  //     const filteredDataEvents = dataEventov.filter(
-  //       ({ date }) => date < currentDate()
-  //     );
-  //     setEvents(filteredDataEvents);
-  //     console.log("🚀  filteredDataEvents:", filteredDataEvents);
-  //   } catch (error) {
-  //     console.log("🚀  error:", error);
-  //   }
-  // }, []);
+  const { events } = useEventsSelector();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getEvt = async () => {
       try {
         const requestEvent = await getAllEvents();
-
-        console.log("🚀  requestEvent:", requestEvent);
-
-        setEvents(requestEvent);
+        dispatch(getEvents(requestEvent));
       } catch (error) {
         console.log("🚀  error:", error);
       }
     };
     getEvt();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      <h2> Our Events</h2>
-      <div className={css.cont}>
+      <h2>Our Events</h2>
+      <div className={styles.cont}>
         {events.length === 0 ? (
-          <div className={css.event_loader}>
+          <div className={styles.event_loader}>
             <Loader />
           </div>
         ) : (
-          <ul className={css.event_list}>
+          <ul className={styles.event_list}>
             {
-              events.map(({ title, id, date, startTime, endTime }, index) =>
-                date > currentDate() ? (
-                  <li key={index} className={css.list}>
-                    <div className={css.day}>
-                      <span>{formattedDate(date).month}</span>
-                      <h4>{formattedDate(date).day}</h4>
-                    </div>
-                    <div className={css.time_event}>
-                      <Link to={`/events/${id}`}>{title}</Link>
-                      <div className={css.time}>
-                        <FcAlarmClock size={20} />
-                        <span>{`${startTime} - ${endTime}`}</span>
-                        <ImLocation size={20} style={{ color: "red" }} />
+              events.map(
+                ({ title, id, dateStart, startTime, endTime, status }) =>
+                  dateStart > currentDate() &&
+                  status === EVENT_STATUS.EXPECTED ? (
+                    <li key={id} className={styles.list}>
+                      <div className={styles.day}>
+                        <span>{formattedDate(dateStart).month}</span>
+                        <h4>{formattedDate(dateStart).day}</h4>
                       </div>
-                    </div>
-                  </li>
-                ) : (
-                  ""
-                )
+                      <div className={styles.time_event}>
+                        <Link to={`/events/${id}`}>{title}</Link>
+                        <div className={styles.time}>
+                          <FcAlarmClock size={20} />
+                          <span>{`${startTime} - ${endTime}`}</span>
+                          <ImLocation size={20} style={{ color: "red" }} />
+                        </div>
+                      </div>
+                    </li>
+                  ) : (
+                    ""
+                  )
               )
               // .slice(4)
             }

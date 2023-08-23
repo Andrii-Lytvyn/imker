@@ -16,7 +16,7 @@ const baseURL = "http://localhost:8080/api/events";
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
-    const { data } = await axios.get(`${baseURL}?orderBy=description&desc=false&page=0`);
+    const { data } = await axios.get(`${baseURL}?orderBy=dateStart&desc=false&page=0`);
 
     return data.events;
   } catch (error) {

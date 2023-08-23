@@ -5,40 +5,40 @@ import { ImLocation } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
+import { useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { getEvents } from "../../redux/eventsStore/eventsSlice";
 
-// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
-// // Получение  всех Events
-// const getAllEvents = async () => {
-//   try {
-//     const { data } = await axios.get(`${baseURL}/user_login`);
+// Получение  всех Events
+const getAllEvents = async () => {
+  try {
+    const { data } = await axios.get(`${baseURL}/user_login`);
 
-//     return data;
-//   } catch (error) {
-//     toast.error(`Ошибка сервера getAllEvents ${error}`);
-//   }
-// };
+    return data;
+  } catch (error) {
+    toast.error(`Ошибка сервера getAllEvents ${error}`);
+  }
+};
 
 const Events = (): JSX.Element => {
   const { events } = useEventsSelector();
+  const dispatch = useAppDispatch();
 
-  // const dispatch = useAppDispatch();
-  // const [events, setEvents] = useState<IEvents[]>([]);
-
-  // useEffect(() => {
-  //   const getEvt = async () => {
-  //     try {
-  //       const requestEvent = await getAllEvents();
-  //       dispatch(getEvents(requestEvent));
-  //       console.log("🚀  requestEvent:", requestEvent);
-
-  //       setEvents(requestEvent);
-  //     } catch (error) {
-  //       console.log("🚀  error:", error);
-  //     }
-  //   };
-  //   getEvt();
-  // }, [dispatch]);
+  useEffect(() => {
+    const getEvt = async () => {
+      try {
+        const requestEvent = await getAllEvents();
+        dispatch(getEvents(requestEvent));
+      } catch (error) {
+        console.log("🚀  error:", error);
+      }
+    };
+    getEvt();
+  }, [dispatch]);
 
   return (
     <>
@@ -50,12 +50,12 @@ const Events = (): JSX.Element => {
           </div>
         ) : (
           <ul className={styles.event_list}>
-            {events.map(({ title, id, date, startTime, endTime }) =>
-              date > currentDate() ? (
+            {events.map(({ title, id, dateStart, startTime, endTime }) =>
+              dateStart > currentDate() ? (
                 <li key={id} className={styles.list}>
                   <div className={styles.day}>
-                    <span>{formattedDate(date).month}</span>
-                    <h4>{formattedDate(date).day}</h4>
+                    <span>{formattedDate(dateStart).month}</span>
+                    <h4>{formattedDate(dateStart).day}</h4>
                   </div>
                   <div className={styles.time_event}>
                     <Link to={`/events/${id}`}>{title}</Link>

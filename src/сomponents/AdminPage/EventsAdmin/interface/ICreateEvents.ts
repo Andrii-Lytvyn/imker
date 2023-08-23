@@ -10,7 +10,8 @@ export interface ICreateEvents {
     author: string,
     photo: string,
     status: EventStatus,
-    date: string | undefined,
+    dateStart: string | undefined,
+    dateEnd: string | undefined,
     startTime: string,
     endTime: string,
 }

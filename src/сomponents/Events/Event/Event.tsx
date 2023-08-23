@@ -1,4 +1,5 @@
 import styles from "./Event.module.css";
+import { srcLinkFromIframe } from "./helpers/srcMapValue";
 import { Link, useParams } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { BsCalendar2Week } from "react-icons/bs";
@@ -9,16 +10,15 @@ import { FaHome } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { eventData } from "../helpers/eventData";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
-import { IEvents } from "../interface/IEventsData";
+import { IEvent } from "../interface/IEventsData";
 
 const Event = (): JSX.Element => {
   const { id } = useParams();
   const { events } = useEventsSelector();
-  const [oneEvent, setOneEvent] = useState<IEvents | undefined>(eventData);
+  const [oneEvent, setOneEvent] = useState<IEvent>(eventData);
 
   useEffect(() => {
     const requestEvent = events.find((event) => event.id === id);
-    // console.log("🚀  requestEvent:", requestEvent);
     setOneEvent(requestEvent);
   }, [events, id]);
 
@@ -85,9 +85,9 @@ const Event = (): JSX.Element => {
                 {
                   title: "Date",
                   icon: <BsCalendar2Week />,
-                  content: `${formatDate(oneEvent?.date)?.day} ${
-                    formatDate(oneEvent?.date)?.month
-                  } ${formatDate(oneEvent?.date)?.year}`,
+                  content: `${formatDate(oneEvent?.dateStart)?.day} ${
+                    formatDate(oneEvent?.dateStart)?.month
+                  } ${formatDate(oneEvent?.dateStart)?.year}`,
                 },
                 {
                   title: "Time",
@@ -117,7 +117,7 @@ const Event = (): JSX.Element => {
                         <Link to={item.mapSrc}>Проверить ссылку</Link>
                       </Nav>
                       <iframe
-                        src={item.mapSrc}
+                        src={srcLinkFromIframe(item.mapSrc)}
                         className={styles.map}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"

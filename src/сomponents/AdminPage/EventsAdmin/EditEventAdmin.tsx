@@ -1,39 +1,39 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import axios from "axios";
 import styles from "./EventsAdmin.module.css";
 import DatePicker from "react-datepicker";
-import { EventStatus } from "../../Events/interface/IEventsData";
 import type { Dayjs } from "dayjs";
 import { TimePicker } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ICreateEvents } from "./interface/ICreateEvents";
-import { srcLinkFromIframe } from "./helpers/srcMapValue";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
+import axios from "axios";
+import { IEvent } from "../../Events/interface/IEventsData";
+// import { ICreateEvents } from "./interface/ICreateEvents";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
-//Функция отправки на бек
-const newEventCreate = async (createNewEvent: ICreateEvents) => {
+// Редактирование Eventа
+const editedEvent = async (editEvent: IEvent) => {
   try {
-    const data = await axios.post(`${baseURL}/user_login`, createNewEvent);
-    console.log("🚀  data:", data);
+    const { data } = await axios.put(
+      `${baseURL}/user_login/${editEvent.id}`,
+      editEvent
+    );
+
+    console.log("🚀 editedEvent:", data);
   } catch (error) {
-    console.log("🚀  newEventCreate", error);
+    toast.error(`Ошибка сервера getAllEvents ${error}`);
   }
 };
-const EventsAdmin = (): JSX.Element => {
-  const { editId } = useParams();
 
-  console.log("🚀  editId:", editId);
-  const { event } = useEventsSelector();
-
-  console.log("🚀  event:", event);
-  const [eventForm, setEvtForm] = useState(eventData);
-  const [eventLocation, setEventLocation] = useState<string | null>("");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const EditEventAdmin = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { event_edit } = useEventsSelector();
+  const [eventEditForm, setEventEditForm] = useState(event_edit);
+  const [dateStartField, setDateStartField] = useState<Date | null>(null);
+  const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
 
@@ -43,41 +43,34 @@ const EventsAdmin = (): JSX.Element => {
   const onChangeEnd = (time: Dayjs | null) => {
     setTimeEnd(time);
   };
-  const getLocation = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const { value } = event.target;
-    setEventLocation(srcLinkFromIframe(value));
-  };
 
   const collectEventsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setEvtForm((prev) => ({ ...prev, [name]: value }));
+    setEventEditForm((prev: IEvent) => ({ ...prev, [name]: value }));
   };
 
   const eventFormData = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const choosedDate = selectedDate?.toISOString().substring(0, 10);
+    const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
+    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10);
 
-    if (choosedDate !== undefined && choosedDate > currentDate()) {
-      const createNewEvent = {
-        ...eventForm,
-        date: choosedDate,
-        location: eventLocation,
+    if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
+      const editEvent = {
+        ...eventEditForm,
+        dateStart: choosedDateStart,
+        dateEnd: choosedDateEnd,
         startTime: timeStart?.format("HH:mm") || "",
         endTime: timeEnd?.format("HH:mm") || "",
       };
-      // console.log(createNewEvent);
-      toast.success("createNewEvent");
-      newEventCreate(createNewEvent); // Отправка на бек
-
+      console.log("🚀  editEvent:", editEvent);
       //////////////////////
-      setEvtForm(eventData); //обнуляет поля
-      setSelectedDate(null); //обнуляет поля
-      setTimeStart(null); //обнуляет поля
-      setTimeEnd(null); //обнуляет поля
-      setEventLocation("");
+
+      editedEvent(editEvent);
+
+      navigate("/eventsadm");
+      resetForm();
     } else {
       toast.warning("Datum kleiner als das aktuelle Datum", {
         autoClose: 3000,
@@ -85,12 +78,16 @@ const EventsAdmin = (): JSX.Element => {
     }
   };
 
+  const resetForm = () => {
+    setDateStartField(null);
+    setDateEndField(null);
+    setTimeStart(null);
+    setTimeEnd(null);
+    setEventEditForm(eventData);
+  };
   return (
     <div className={styles.form_container}>
-      <h2>Create New Event</h2>
-      <button type="button">
-        <Link to="/eventsadm-edit">Edit Event</Link>
-      </button>
+      <h2>Edit Event</h2>
       <form className={styles.form} onSubmit={eventFormData}>
         <div className={styles.item}>
           <div className={styles.form_field}>
@@ -98,7 +95,7 @@ const EventsAdmin = (): JSX.Element => {
             <input
               type="text"
               name="title"
-              value={eventForm.title}
+              value={eventEditForm.title}
               onChange={collectEventsData}
             />
           </div>
@@ -107,7 +104,7 @@ const EventsAdmin = (): JSX.Element => {
             <input
               type="text"
               name="address"
-              value={eventForm.address}
+              value={eventEditForm.address}
               onChange={collectEventsData}
             />
           </div>
@@ -116,7 +113,7 @@ const EventsAdmin = (): JSX.Element => {
             <input
               type="text"
               name="author"
-              value={eventForm.author}
+              value={eventEditForm.author}
               onChange={collectEventsData}
             />
           </div>
@@ -126,8 +123,8 @@ const EventsAdmin = (): JSX.Element => {
           <input
             type="text"
             name="location"
-            value={eventLocation || ""}
-            onChange={getLocation}
+            value={eventEditForm.location}
+            onChange={collectEventsData}
           />
         </div>
         <div className={styles.status_container}>
@@ -139,7 +136,7 @@ const EventsAdmin = (): JSX.Element => {
               name="status"
               onChange={collectEventsData}
               value="EXPECTED"
-              checked={eventForm.status === "EXPECTED"}
+              checked={eventEditForm.status === "EXPECTED"}
             />
             <label htmlFor="option1">EXPECTED</label>
           </div>
@@ -150,7 +147,7 @@ const EventsAdmin = (): JSX.Element => {
               name="status"
               value="ENDED"
               onChange={collectEventsData}
-              checked={eventForm.status === ("ENDED" as EventStatus)}
+              checked={eventEditForm.status === "ENDED"}
             />
             <label htmlFor="option2">ENDED</label>
           </div>
@@ -161,20 +158,31 @@ const EventsAdmin = (): JSX.Element => {
               name="status"
               value="ARCHIVE"
               onChange={collectEventsData}
-              checked={eventForm.status === ("ARCHIVE" as EventStatus)}
+              checked={event_edit.status === "ARCHIVE"}
             />
             <label htmlFor="option3">ARCHIVE</label>
           </div>
         </div>
         <div>
           <div className={styles.time}>
+            <div className={styles.required}>
+              <span style={{ color: "red" }}> Required *</span>
+              <DatePicker
+                className={styles.date_picker}
+                selected={dateStartField}
+                onChange={(date) => setDateStartField(date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Select date start"
+              />
+            </div>
+
             <div>
               <DatePicker
                 className={styles.date_picker}
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                selected={dateEndField}
+                onChange={(date) => setDateEndField(date)}
                 dateFormat="yyyy-MM-dd"
-                placeholderText="Select event date"
+                placeholderText="Select date end"
               />
             </div>
             <div>
@@ -187,7 +195,7 @@ const EventsAdmin = (): JSX.Element => {
             </div>
             <div>
               <TimePicker
-                value={timeEnd}
+                value={eventEditForm.description === "" ? null : timeEnd}
                 onChange={onChangeEnd}
                 placeholder="Event end"
                 className={styles.time_border}
@@ -200,7 +208,7 @@ const EventsAdmin = (): JSX.Element => {
           <textarea
             name="description"
             rows={10}
-            value={eventForm.description}
+            value={eventEditForm.description}
             onChange={collectEventsData}
           />
         </div>
@@ -208,12 +216,22 @@ const EventsAdmin = (): JSX.Element => {
         <div className={styles.photo}>
           <input type="file" accept=".jpg, .jpeg, .png" />
         </div>
-        <button type="submit" className={styles.create_btn}>
-          Create
-        </button>
+        <div>
+          <button type="submit" className={styles.create_btn}>
+            Save
+          </button>
+
+          <button
+            type="button"
+            className={styles.create_btn}
+            onClick={() => navigate("/eventsadm")}
+          >
+            back
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default EventsAdmin;
+export default EditEventAdmin;

@@ -3,13 +3,13 @@ import { IEvents } from "../../сomponents/Events/interface/IEventsData";
 
 export interface EventsState {
     events: IEvents[] | [];
-    event: IEvents;
+    event_edit: IEvents;
     count: string;
 }
 
 export const initEventsState: EventsState = {
     events: [],
-    event: {},
+    event_edit: {},
     count: ""
 }
 const eventsSlice = createSlice({
@@ -17,12 +17,13 @@ const eventsSlice = createSlice({
     initialState: initEventsState,
     reducers: {
         getEvents: (state, { payload }) => ({ ...state, events: [...payload] }),
+        addEvent: (state, { payload }) => ({ ...state, event_edit: {}, events: [...state.events, payload] }),
         getOneEvent: (state, { payload }) => {
             const foundEvent = state.events.find((item) => item.id === payload);
             if (foundEvent) {
-                return { ...state, event: foundEvent };
+                return { ...state, event_edit: foundEvent };
             }
-            return state; // Если событие не найдено, вернуть текущее состояние
+            return state;
         }
     }
 });
@@ -30,6 +31,7 @@ export const eventsReducer = eventsSlice.reducer;
 
 export const {
     getEvents,
-    getOneEvent
+    addEvent,
+    getOneEvent,
 } = eventsSlice.actions;
 

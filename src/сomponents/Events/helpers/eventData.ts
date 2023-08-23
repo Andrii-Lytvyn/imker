@@ -9,7 +9,8 @@ export const eventData = {
     author: "",
     photo: "",
     status: EVENT_STATUS.EXPECTED,
-    date: "",
+    dateStart: "",
+    dateEnd: "",
     startTime: "",
     endTime: "",
 };

@@ -13,10 +13,19 @@ import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
 import { EVENT_STATUS } from "../Events/interface/IEventsData";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+// const baseURL = "http://localhost:8080/api/events"; для Бека Андрея
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
   try {
+    //для Бека
+    // const { data } = await axios.get(
+    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
+    // );
+    // return data.events;
+
+    //////////////////////////////////
+    //для Макса
     const { data } = await axios.get(`${baseURL}/user_login`);
 
     return data;

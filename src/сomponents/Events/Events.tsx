@@ -12,17 +12,23 @@ import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { EVENT_STATUS } from "./interface/IEventsData";
 
-//const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-const baseURL = "http://localhost:8080/api/events";
+const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+// const baseURL = "http://localhost:8080/api/events";
 
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
-    const { data } = await axios.get(
-      `${baseURL}?orderBy=dateStart&desc=false&page=0`
-    );
+    //для Бека
+    // const { data } = await axios.get(
+    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
+    // );
+    // return data.events;
 
-    return data.events;
+    //////////////////////////////////
+    //для Макса
+    const { data } = await axios.get(`${baseURL}/user_login`);
+
+    return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);
   }

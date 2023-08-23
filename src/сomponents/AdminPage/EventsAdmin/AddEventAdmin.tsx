@@ -117,7 +117,7 @@ const AddEventAdmin = (): JSX.Element => {
             />
           </div>
         </div>
-        <div className={styles.location}>
+        <div className={styles.location.trim()}>
           <label style={{ color: "red" }}>Event Location Link Required *</label>
           <input
             type="text"

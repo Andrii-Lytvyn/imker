@@ -121,24 +121,24 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Über uns</h3>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/posts">
+                  <a className={styles.about_links} href="/">
                     BLOG
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/events">
+                  <a className={styles.about_links} href="/">
                     VERANSTALTUNGEN
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/aboutUs">
+                  <a className={styles.about_links} href="/">
                     Mitglieder der Gemeinschaft
-                  </Link>
+                  </a>
                 </p>
                 <p className={styles.about_links}>
-                  <Link className={styles.about_links} to="/gallery">
+                  <a className={styles.about_links} href="/">
                     GALERIE
-                  </Link>
+                  </a>
                 </p>
               </div>
             </Card.Body>

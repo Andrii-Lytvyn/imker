@@ -27,9 +27,19 @@ function App(): JSX.Element {
           <Route path="/events/:id" element={<Event />} />
           <Route path="login" element={<Login />} />
           <Route path="aboutUs" element={<AboutUs />} />
+          <Route path="aboutusadmin" element={<TeamAdmin />} />
+          <Route
+            path="aboutusadmin/addmember"
+            element={<TeamAddMemberAdmin />}
+          />
+          <Route
+            path="aboutusadmin/teameditadmin"
+            element={<TeamEditAdmin />}
+          />
           <Route path="contactUs" element={<ContactUs />} />
           <Route path="contactusadm" element={<ContactUsAdmin />} />
           <Route path="posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />

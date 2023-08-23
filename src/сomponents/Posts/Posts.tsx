@@ -1,33 +1,27 @@
-import { useEffect, useState } from "react";
-import styles from "./Posts.module.css";
+
+import { ChangeEvent, useEffect, useState } from "react";
+
 import axios from "axios";
-import { IPostDto } from "./interfaces/IPostDTO";
-import { IPostsDto } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
-import PostSingle from "./PostSingle/PostSingle";
+import {
+  IPostsDto,
+  initIPostsDto,
+} from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
+import { Link } from "react-router-dom";
+import { Pagination } from "@mui/material";
 
 export default function Posts() {
-  // const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
-  const [post, setPost] = useState<IPostDto>();
+  const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
   const [currentPage, setCurrentPage] = useState(1);
-  const [arrPages, setArrPages] = useState<IPostDto[][]>([]);
-  const [arrPagesNum, setArrPagesNum] = useState<number[]>([]);
-  const pages: IPostDto[][] = [];
+  const itemsOnPage = 3;
+  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {
       try {
-        const response = await axios.get("http://localhost:8080/api/posts");
-        const postsData: IPostsDto = await response.data;
-        // setPosts(postsData);
-
-        while (postsData.posts.length > 0) {
-          pages.push(postsData.posts.splice(0, 6));
-        }
-
-        setArrPages(pages);
-        setArrPagesNum(
-          Array.from({ length: pages.length }, (_, index) => index + 1)
+        const response = await axios.get(
+          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
         );
+        setPosts(response.data);
         setCurrentPage(1);
       } catch (error) {
         console.error("Error during request execution:", error);
@@ -36,60 +30,72 @@ export default function Posts() {
     getListOfPosts();
   }, []);
 
-  async function handleLoadPost(idPost: number) {
+  const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/posts/${idPost}`
+        `${linkToServer}/api/posts?page=${
+          value - 1
+        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
       );
-      setPost(response.data);
+      const postsData: IPostsDto = await response.data;
+      setPosts(postsData);
+      setCurrentPage(value);
     } catch (error) {
       console.error("Error during request execution:", error);
     }
-  }
+  };
 
   return (
     <>
-      {arrPagesNum.map((pageNum) => (
-        <button
-          key={pageNum}
-          className={`btn btn-primary ${
-            currentPage === pageNum ? "active" : ""
-          }`}
-          onClick={() => setCurrentPage(pageNum)}
-        >
-          {pageNum}
-        </button>
-      ))}
+      <Pagination
+        count={posts.pages}
+        page={currentPage}
+        size="large"
+        onChange={getAnotherPage}
+      />
 
-      {true && (
+      {posts && (
         <div className="container">
-          {arrPages[currentPage - 1] &&
-            arrPages[currentPage - 1].map(
-              ({
-                idPost,
-                creationTimePost,
-                titlePost,
-                linkToImg,
-                shortPostDescription,
-                // textOfPost,
-                // authorId,
-              }) => (
-                <div className={styles.testclass} key={idPost}>
-                  <hr />
-                  <p>Post id: {idPost}</p>
-                  <p>Created: {creationTimePost}</p>
-                  <div>{titlePost}</div>
-                  <img src={linkToImg} alt="post img" />
-                  <div>{shortPostDescription}</div>
-                  <button onClick={() => handleLoadPost(+idPost)}>
-                    Open this post
-                  </button>
-                </div>
-              )
-            )}
+
+          {posts.posts.map(
+            ({
+              idPost,
+              creationTimePost,
+              titlePost,
+              linkToImg,
+              shortPostDescription,
+              // textOfPost,
+              authorName,
+            }) => (
+              <div key={idPost}>
+                <hr />
+                <p>Post id: {idPost}</p>
+                <p>Created: {creationTimePost}</p>
+                {authorName && (
+                  <p>Author name: {authorName}</p>
+                )}
+                <Link to={`/posts/${idPost}`} className="fs-4">
+                  {titlePost}
+                </Link>
+                <br />
+                <img
+                  src={linkToServer + "/files/" + linkToImg}
+                  alt={"post img" + idPost}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/img/imgNotFound.png";
+                  }}
+                />
+                <div>{shortPostDescription}</div>
+                <Link to={`/posts/${idPost}`} className="btn btn-primary">
+                  Open this post
+                </Link>
+              </div>
+            )
+          )}
+
         </div>
       )}
-      {post && <PostSingle />}
     </>
   );
 }

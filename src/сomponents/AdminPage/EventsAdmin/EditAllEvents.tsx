@@ -1,3 +1,5 @@
+import axios from "axios";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import styles from "./EventsAdmin.module.css";
 
@@ -5,10 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import { getEvents, getOneEvent } from "../../../redux/eventsStore/eventsSlice";
 
-import axios from "axios";
-import { toast } from "react-toastify";
-
-import { IEvents } from "../../Events/interface/IEventsData";
+import { IEvent } from "../../Events/interface/IEventsData";
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 // Получение  всех Events
@@ -22,10 +21,10 @@ const getAllEvents = async () => {
   }
 };
 
-const EditEvents = (): JSX.Element => {
+const EditAllEvents = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [events, setEvents] = useState<IEvents[] | null>([]);
+  const [events, setEvents] = useState<IEvent[] | null>([]);
 
   useEffect(() => {
     const getEvt = async () => {
@@ -68,4 +67,4 @@ const EditEvents = (): JSX.Element => {
   );
 };
 
-export default EditEvents;
+export default EditAllEvents;

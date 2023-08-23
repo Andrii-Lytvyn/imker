@@ -10,6 +10,7 @@ import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
+import { EVENT_STATUS } from "../Events/interface/IEventsData";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
@@ -90,12 +91,14 @@ export default function Footer(): JSX.Element {
                 <div>
                   <ul>
                     {events
-                      .map(({ id, dateStart, title, startTime }) =>
-                        dateStart > currentDate() ? (
+                      .map(({ id, dateStart, title, startTime, status }) =>
+                        dateStart > currentDate() &&
+                        status === EVENT_STATUS.EXPECTED ? (
                           <li key={id}>
                             <p className={styles.footer_data}>
-                              {`${formatDate(dateStart)?.month} 
-                            ${formatDate(dateStart)?.day}, 
+                              {`${formatDate(dateStart)?.day} ${
+                                formatDate(dateStart)?.month
+                              }, 
                               ${formatDate(dateStart)?.year}  ${startTime}`}
                             </p>
                             <p className={styles.footer_name_event}>

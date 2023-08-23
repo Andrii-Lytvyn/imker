@@ -13,8 +13,8 @@ import Posts from "./сomponents/Posts/Posts";
 import PostsAdmin from "./сomponents/AdminPage/PostsAdmin/PostsAdmin";
 import Gallery from "./сomponents/Gallery/Gallery";
 import AddEventAdmin from "./сomponents/AdminPage/EventsAdmin/AddEventAdmin";
-import EventsEdit from "./сomponents/AdminPage/EventsAdmin/EventsEdit";
 import EditEventAdmin from "./сomponents/AdminPage/EventsAdmin/EditEventAdmin";
+import EditAllEvents from "./сomponents/AdminPage/EventsAdmin/EditAllEvents";
 
 function App(): JSX.Element {
   return (
@@ -33,7 +33,7 @@ function App(): JSX.Element {
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
-          <Route path="eventsadm-edit" element={<EventsEdit />} />
+          <Route path="eventsadm-edit" element={<EditAllEvents />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="*" element={<NoPage />} />

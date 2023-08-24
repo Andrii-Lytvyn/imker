@@ -19,7 +19,7 @@ const eventsSlice = createSlice({
         getEvents: (state, { payload }) => ({ ...state, event_edit: {}, events: [...payload] }),
         addEvent: (state, { payload }) => ({ ...state, event_edit: {}, events: [...state.events, payload] }),
         getOneEvent: (state, { payload }) => {
-            const foundEvent = state.events.find(({ id }) => id === payload);
+            const foundEvent = state.events.find(({ idEvent }) => idEvent === payload);
             if (foundEvent) {
                 return { ...state, event_edit: foundEvent };
             }

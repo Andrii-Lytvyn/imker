@@ -28,8 +28,8 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const linkToServer = "http://localhost:8080";
-  const width = 1000;
-  const height = 300;
+  const width = 900;
+  const height = 350;
 
   const collectNewPostData = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -51,7 +51,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
 
         try {
           const response = await axios.post(
-            `${linkToServer}/files/upload?width=${width}&height=${height}`,
+            `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
             formData
           );
           linkVar = response.data.id.toString();
@@ -134,10 +134,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
         </div>
 
         <div className="d-flex align-items-center fs-4 m-2">
-          <label
-            htmlFor="authorName"
-            className="col-md-2 me-2 text-end"
-          >
+          <label htmlFor="authorName" className="col-md-2 me-2 text-end">
             Author name:
           </label>
           <input
@@ -151,8 +148,11 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
         <div className="d-flex align-items-center m-2">
           <div className="col-md-12 me-2 text-end">
             <p className="mb-2 text-start fs-5">Image Id: {linkToImg}</p>
+            <p className="mb-2 text-start fs-6">
+              Recommended resolution: {width}x{height}px
+            </p>
             <img
-              src={linkToServer + "/files/" + linkToImg}
+              src={linkToServer + "/api/files/" + linkToImg}
               alt="image"
               style={{
                 width: "100%",

@@ -17,7 +17,7 @@ export default function FilesUploadAdmin(): JSX.Element {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `${linkToServer}/files?page=0&items=${itemsOnPage}`
+          `${linkToServer}/api/files?page=0&items=${itemsOnPage}`
         );
         setFilesList(response.data);
         setCurrentPage(1);
@@ -31,7 +31,7 @@ export default function FilesUploadAdmin(): JSX.Element {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/files?page=${value - 1}&items=${itemsOnPage}`
+        `${linkToServer}/api/files?page=${value - 1}&items=${itemsOnPage}`
       );
       setFilesList(await response.data);
       setCurrentPage(value);
@@ -43,12 +43,12 @@ export default function FilesUploadAdmin(): JSX.Element {
   const handleDelete = async () => {
     if (selectedFileId !== null) {
       try {
-        await axios.delete(`${linkToServer}/files/delete/${selectedFileId}`);
+        await axios.delete(`${linkToServer}/api/files/delete/${selectedFileId}`);
         setShowConfirmModal(false);
         setSelectedFileId(null);
 
         const response = await axios.get(
-          `${linkToServer}/files?page=${currentPage - 1}&items=${itemsOnPage}`
+          `${linkToServer}/api/files?page=${currentPage - 1}&items=${itemsOnPage}`
         );
         setFilesList(await response.data);
       } catch (error) {
@@ -85,7 +85,7 @@ export default function FilesUploadAdmin(): JSX.Element {
             <div className="col-md-12 d-flex align-items-center mt-3 mb-4">
               <div className="col-md-5 m-2">
                 <img
-                  src={linkToServer + "/files/" + id}
+                  src={linkToServer + "/api/files/" + id}
                   alt="image"
                   style={{
                     maxWidth: "100%",

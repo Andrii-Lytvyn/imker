@@ -31,7 +31,7 @@ export default function PostSingle(): JSX.Element {
         <p>{post?.creationTimePost}</p>
         <p>{post?.titlePost}</p>
         <img
-                    src={linkToServer + "/files/" + post?.linkToImg}
+                    src={linkToServer + "/api/files/" + post?.linkToImg}
                     alt={"post img" + post?.idPost}
                   />
         <p>{post?.shortPostDescription}</p>

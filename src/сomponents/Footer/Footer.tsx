@@ -5,7 +5,7 @@ import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
 import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import {FaCalendarDays, FaFacebook, FaInstagram, FaRegClock, FaTwitter} from "react-icons/fa6";
 import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
@@ -53,9 +53,9 @@ export default function Footer(): JSX.Element {
   return (
     <>
       <div className={styles.footer}>
-        <div>
+{/*        <div>
           <img className={styles.logo_footer} src="img/logo.png" />
-        </div>
+        </div>*/}
         <Container className="d-flex justify-content-between pt-3">
           {/*Contacts*/}
           <Card className={styles.my_card}>
@@ -103,6 +103,7 @@ export default function Footer(): JSX.Element {
                       .map(({ idEvent, dateStart, title, startTime, status }) =>
                         dateStart > currentDate() &&
                         status === EVENT_STATUS.EXPECTED ? (
+
                           <li key={`${idEvent}`}>
                             <p className={styles.footer_data}>
                               {`${formatDate(dateStart)?.day} ${
@@ -110,15 +111,18 @@ export default function Footer(): JSX.Element {
                               }, 
                               ${formatDate(dateStart)?.year}  ${startTime}`}
                             </p>
+
                             <p className={styles.footer_name_event}>
                               <Link to={`/events/${idEvent}`}>{title}</Link>
                             </p>
+                            <hr />
                           </li>
                         ) : (
                           ""
                         )
                       )
-                      .slice(0, 4)}
+                      .slice(0, 6)}
+
                   </ul>
                 </div>
               </div>

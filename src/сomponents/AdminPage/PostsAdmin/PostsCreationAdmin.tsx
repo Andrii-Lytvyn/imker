@@ -16,8 +16,8 @@ export default function PostsCreationAdmin(): JSX.Element {
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const linkToServer = "http://localhost:8080";
-  const width = 1000;
-  const height = 300;
+  const width = 900;
+  const height = 350;
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -49,7 +49,7 @@ export default function PostsCreationAdmin(): JSX.Element {
 
       try {
         const response = await axios.post(
-          `${linkToServer}/files/upload?width=${width}&height=${height}`,
+          `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
           formData
         );
         linkVar = response.data.id.toString();
@@ -135,6 +135,10 @@ export default function PostsCreationAdmin(): JSX.Element {
               onChange={collectPostData}
             />
           </div>
+
+          <p className="col-md-7 mt-4 text-center fs-6">
+              Recommended resolution: {width}x{height}px
+            </p>
 
           <div className="d-flex align-items-center fs-4 m-2">
             <label htmlFor="linkToImg" className="col-md-2 me-2 fs-4 text-end">

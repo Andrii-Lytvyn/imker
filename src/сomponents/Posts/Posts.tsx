@@ -79,7 +79,7 @@ export default function Posts() {
                 </Link>
                 <br />
                 <img
-                  src={linkToServer + "/files/" + linkToImg}
+                  src={linkToServer + "/api/files/" + linkToImg}
                   alt={"post img" + idPost}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;

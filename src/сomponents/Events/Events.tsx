@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { EVENT_STATUS } from "./interface/IEventsData";
+import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 
 const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 // const baseURL = "http://localhost:8080/api/events";
@@ -52,6 +53,9 @@ const Events = (): JSX.Element => {
 
   return (
     <>
+
+      <PostsPanel />
+
       <h2>Our Events</h2>
       <div className={styles.cont}>
         {events.length === 0 ? (

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function PostsPanel() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
-  const itemsOnPage = 3;
+  const itemsOnPage = 6;
   const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function PostsPanel() {
               idPost,
               creationTimePost,
               titlePost,
-              linkToImg,
+              // linkToImg,
               shortPostDescription,
               // textOfPost,
               authorName,
@@ -48,14 +48,14 @@ export default function PostsPanel() {
                   {titlePost}
                 </Link>
                 <br />
-                <img
+                {/* <img
                   src={linkToServer + "/api/files/" + linkToImg}
                   alt={"post img" + idPost}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = "/img/imgNotFound.png";
                   }}
-                />
+                /> */}
                 <div>{shortPostDescription}</div>
               </div>
             )

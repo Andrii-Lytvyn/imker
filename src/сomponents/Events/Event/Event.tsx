@@ -37,7 +37,7 @@ const Event = (): JSX.Element => {
             <Link to="/events">VERANSTALTUNGEN</Link>
           </Nav>
           <span> | </span>
-          {oneEvent?.title} - ОБУДИТЬ НЕОБХОДИМОСТЬ!
+          {oneEvent?.title}
         </div>
         <h2>{oneEvent?.title}</h2>
         <hr />
@@ -114,7 +114,7 @@ const Event = (): JSX.Element => {
                   {item.mapSrc && (
                     <div className={styles.map}>
                       <Nav>
-                        <Link to={item.mapSrc}>Проверить ссылку</Link>
+                        <Link to={item.mapSrc}>Auf der Karte anzeigen</Link>
                       </Nav>
                       <iframe
                         src={srcLinkFromIframe(item.mapSrc)}

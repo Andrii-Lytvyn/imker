@@ -5,30 +5,30 @@ import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
 import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import {FaCalendarDays, FaFacebook, FaInstagram, FaRegClock, FaTwitter} from "react-icons/fa6";
 import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
 import { EVENT_STATUS } from "../Events/interface/IEventsData";
+import linkToServer from "../globalLinkToServer";
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-// const baseURL = "http://localhost:8080/api/events"; для Бека Андрея
+// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
   try {
     //для Бека
-    // const { data } = await axios.get(
-    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
-    // );
-    // return data.events;
+    const { data } = await axios.get(
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=0`
+    );
+    return data.events;
 
     //////////////////////////////////
     //для Макса
-    const { data } = await axios.get(`${baseURL}/user_login`);
+    // const { data } = await axios.get(`${baseURL}/user_login`);
 
-    return data;
+    // return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEventsFooter ${error}`);
   }
@@ -53,9 +53,9 @@ export default function Footer(): JSX.Element {
   return (
     <>
       <div className={styles.footer}>
-        <div>
+{/*        <div>
           <img className={styles.logo_footer} src="img/logo.png" />
-        </div>
+        </div>*/}
         <Container className="d-flex justify-content-between pt-3">
           {/*Contacts*/}
           <Card className={styles.my_card}>
@@ -100,25 +100,29 @@ export default function Footer(): JSX.Element {
                 <div>
                   <ul>
                     {events
-                      .map(({ id, dateStart, title, startTime, status }) =>
+                      .map(({ idEvent, dateStart, title, startTime, status }) =>
                         dateStart > currentDate() &&
                         status === EVENT_STATUS.EXPECTED ? (
-                          <li key={id}>
+
+                          <li key={`${idEvent}`}>
                             <p className={styles.footer_data}>
                               {`${formatDate(dateStart)?.day} ${
                                 formatDate(dateStart)?.month
                               }, 
                               ${formatDate(dateStart)?.year}  ${startTime}`}
                             </p>
+
                             <p className={styles.footer_name_event}>
-                              <Link to={`/events/${id}`}>{title}</Link>
+                              <Link to={`/events/${idEvent}`}>{title}</Link>
                             </p>
+                            <hr />
                           </li>
                         ) : (
                           ""
                         )
                       )
-                      .slice(0, 4)}
+                      .slice(0, 6)}
+
                   </ul>
                 </div>
               </div>

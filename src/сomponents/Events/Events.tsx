@@ -1,5 +1,5 @@
 import styles from "./Events.module.css";
-import { currentDate, formattedDate } from "./helpers/formattedDate";
+import { currentDate, formatDate } from "./helpers/formattedDate";
 import { FcAlarmClock } from "react-icons/fc";
 import { ImLocation } from "react-icons/im";
 import { Link } from "react-router-dom";
@@ -9,27 +9,28 @@ import { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
-import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { getEvents, getOneEvent } from "../../redux/eventsStore/eventsSlice";
 import { EVENT_STATUS } from "./interface/IEventsData";
 import PostsPanel from "../Posts/PostsPanel/PostsPanel";
+import linkToServer from "../globalLinkToServer";
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 // const baseURL = "http://localhost:8080/api/events";
 
 // Получение  всех Events
 const getAllEvents = async () => {
   try {
     //для Бека
-    // const { data } = await axios.get(
-    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
-    // );
-    // return data.events;
+    const { data } = await axios.get(
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=0`
+    );
+    return data.events;
 
     //////////////////////////////////
     //для Макса
-    const { data } = await axios.get(`${baseURL}/user_login`);
+    // const { data } = await axios.get(`${baseURL}/user_login`);
 
-    return data;
+    // return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);
   }
@@ -66,16 +67,24 @@ const Events = (): JSX.Element => {
           <ul className={styles.event_list}>
             {
               events.map(
-                ({ title, id, dateStart, startTime, endTime, status }) =>
+                ({ title, idEvent, dateStart, startTime, endTime, status }) =>
                   dateStart > currentDate() &&
                   status === EVENT_STATUS.EXPECTED ? (
-                    <li key={id} className={styles.list}>
+                    <li key={`${idEvent}`} className={styles.list}>
                       <div className={styles.day}>
-                        <span>{formattedDate(dateStart).month}</span>
-                        <h4>{formattedDate(dateStart).day}</h4>
+                        <span>{formatDate(dateStart)?.day}</span>
+                        <h4>{formatDate(dateStart)?.month}</h4>
                       </div>
                       <div className={styles.time_event}>
-                        <Link to={`/events/${id}`}>{title}</Link>
+                        <Link
+                          to={`/events/${idEvent}`}
+                          onClick={() => {
+                            dispatch(getOneEvent(idEvent));
+                          }}
+                        >
+                          {title}
+                        </Link>
+
                         <div className={styles.time}>
                           <FcAlarmClock size={20} />
                           <span>{`${startTime} - ${endTime}`}</span>

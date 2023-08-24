@@ -11,14 +11,16 @@ import { useEffect, useState } from "react";
 import { eventData } from "../helpers/eventData";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import { IEvent } from "../interface/IEventsData";
+import linkToServer from "../../globalLinkToServer";
 
 const Event = (): JSX.Element => {
   const { id } = useParams();
+  // const { event_edit } = useEventsSelector();
   const { events } = useEventsSelector();
   const [oneEvent, setOneEvent] = useState<IEvent | undefined>(eventData);
 
   useEffect(() => {
-    const requestEvent = events.find((event) => event.id === id);
+    const requestEvent = events.find((event) => `${event.idEvent}` === id);
     setOneEvent(requestEvent);
   }, [events, id]);
 
@@ -37,7 +39,7 @@ const Event = (): JSX.Element => {
             <Link to="/events">VERANSTALTUNGEN</Link>
           </Nav>
           <span> | </span>
-          {oneEvent?.title} - ОБУДИТЬ НЕОБХОДИМОСТЬ!
+          {oneEvent?.title}
         </div>
         <h2>{oneEvent?.title}</h2>
         <hr />
@@ -45,7 +47,7 @@ const Event = (): JSX.Element => {
           <div className={styles.container}>
             <img
               className={styles.img_container}
-              src={`${oneEvent?.photo}`}
+              src={`${linkToServer}/api/files/${oneEvent?.photo}`}
               alt={oneEvent?.title}
             />
             <p>
@@ -113,9 +115,11 @@ const Event = (): JSX.Element => {
                   )}
                   {item.mapSrc && (
                     <div className={styles.map}>
+
                       <Nav>
-                        <Link to={item.mapSrc}>Проверить ссылку</Link>
+                        <Link to={item.mapSrc}>Auf der Karte anzeigen</Link>
                       </Nav>
+
                       <iframe
                         src={srcLinkFromIframe(item.mapSrc)}
                         className={styles.map}

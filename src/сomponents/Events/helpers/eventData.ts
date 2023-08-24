@@ -2,10 +2,11 @@ import { EVENT_STATUS } from "../interface/IEventsData";
 
 export const eventData = {
     title: "",
-    members: "",
+    quantityOfMembers: "",
     address: "",
     location: "",
     description: "",
+    shortEventDescription: "",
     author: "",
     photo: "",
     status: EVENT_STATUS.EXPECTED,

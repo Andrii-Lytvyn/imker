@@ -10,13 +10,14 @@ import { toast } from "react-toastify";
 import { ICreateEvents } from "./interface/ICreateEvents";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
+import linkToServer from "../../globalLinkToServer";
 
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
 
 //Функция отправки на бек
 const createNewEvent = async (createNewEvent: ICreateEvents) => {
   try {
-    const data = await axios.post(`${baseURL}/user_login`, createNewEvent);
+    const data = await axios.post(`${linkToServer}/api/events`, createNewEvent);
     console.log("🚀  data:", data);
   } catch (error) {
     console.log("🚀  newEventCreate", error);
@@ -30,6 +31,11 @@ const AddEventAdmin = (): JSX.Element => {
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
+  const [imageData, setImageData] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const width = 900;
+  const height = 350;
 
   const onChangeStart = (time: Dayjs | null) => {
     setTimeStart(time);
@@ -48,24 +54,55 @@ const AddEventAdmin = (): JSX.Element => {
   const eventFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
-    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10);
+    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
 
     if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
-      const newEvent = {
-        ...eventForm,
-        dateStart: choosedDateStart,
-        dateEnd: choosedDateEnd,
-        startTime: timeStart?.format("HH:mm") || "",
-        endTime: timeEnd?.format("HH:mm") || "",
-      };
-      toast.success("createNewEvent");
-      createNewEvent(newEvent); // Отправка на бек
-      //////////////////////
-      resetForm();
+      let linkVar: string = "";
+
+      if (imageData && selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        try {
+          const response = await axios.post(
+            `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+            formData
+          );
+          linkVar = response.data.id.toString();
+          console.log("File uploaded:", linkVar);
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        }
+        const newEvent = {
+          ...eventForm,
+          dateStart: choosedDateStart,
+          dateEnd: choosedDateEnd,
+          photo: linkVar,
+          startTime: timeStart?.format("HH:mm") || "",
+          endTime: timeEnd?.format("HH:mm") || "",
+        };
+        toast.success("createNewEvent");
+        createNewEvent(newEvent); // Отправка на бек
+        console.log("🚀  newEvent:", newEvent);
+        //////////////////////
+        resetForm();
+      } else {
+        toast.warning("Datum kleiner als das aktuelle Datum", {
+          autoClose: 3000,
+        });
+      }
+    }
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageData(url);
     } else {
-      toast.warning("Datum kleiner als das aktuelle Datum", {
-        autoClose: 3000,
-      });
+      setImageData("");
     }
   };
 
@@ -117,12 +154,12 @@ const AddEventAdmin = (): JSX.Element => {
             />
           </div>
         </div>
-        <div className={styles.location.trim()}>
+        <div className={styles.location}>
           <label style={{ color: "red" }}>Event Location Link Required *</label>
           <input
             type="text"
             name="location"
-            value={eventForm.location}
+            value={eventForm.location.trim()}
             onChange={collectEventsData}
           />
         </div>
@@ -203,6 +240,15 @@ const AddEventAdmin = (): JSX.Element => {
             </div>
           </div>
         </div>
+        <div className={styles.location}>
+          <label>Short Event Description </label>
+          <input
+            type="text"
+            name="shortEventDescription"
+            value={eventForm.shortEventDescription}
+            onChange={collectEventsData}
+          />
+        </div>
         <div className={styles.description}>
           <label>Description</label>
           <textarea
@@ -214,7 +260,29 @@ const AddEventAdmin = (): JSX.Element => {
         </div>
 
         <div className={styles.photo}>
-          <input type="file" accept=".jpg, .jpeg, .png" />
+          <label htmlFor="fileInput" className="file-upload">
+            Choose image
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            accept=".jpg, .jpeg, .png"
+            required
+            style={{ display: "none" }}
+          />
+          <br />
+          {imageData && (
+            <img
+              src={imageData}
+              alt="Image"
+              style={{
+                width: "50%",
+                maxWidth: "50%",
+                height: "auto",
+              }}
+            />
+          )}
         </div>
         <button type="submit" className={styles.create_btn}>
           Create

@@ -3,9 +3,10 @@ import { EventStatus } from "../../../Events/interface/IEventsData";
 export interface ICreateEvents {
     id?: string | number,
     title: string,
-    members: string,
+    quantityOfMembers: string | null,
     address: string,
     location: string | null,
+    shortEventDescription: string,
     description: string,
     author: string,
     photo: string,

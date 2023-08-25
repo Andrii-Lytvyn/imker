@@ -69,7 +69,7 @@ export default function FilesUploadAdmin(): JSX.Element {
         />
       </div>
       {files.map(
-        ({ id, creationTime, originalName, storedName, fileType, size }) => (
+        ({ id, creationTime, category, originalName, storedName, fileType, size }) => (
           <div key={id}>
             <hr />
             <button
@@ -101,7 +101,11 @@ export default function FilesUploadAdmin(): JSX.Element {
                   <span style={{ fontWeight: "bold" }}>Image id:</span> {id}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>Created:</span> {creationTime}
+                  <span style={{ fontWeight: "bold" }}>Category:</span> {category}
+                </p>
+                <p style={{ marginTop: "5px" }}>
+                  <span style={{ fontWeight: "bold" }}>Created: </span> 
+                  {new Date(creationTime).toLocaleString()}
                 </p>
                 <p style={{ marginTop: "5px" }}>
                   <span style={{ fontWeight: "bold" }}>Original name:</span> {originalName}

@@ -1,43 +1,50 @@
 import { Avatar } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import linkToServer from "../globalLinkToServer";
-import { IUserAccountInfo, initIUserAccountInfo } from "./interfaces/IUserAccountInfo";
+import {
+  IUserAccountInfo,
+  initIUserAccountInfo,
+} from "./interfaces/IUserAccountInfo";
 import axios from "axios";
+import AccountTabs from "./AccountTabs";
+import { motion } from "framer-motion";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
+    "&::after": {
+      position: "absolute",
       top: 0,
       left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
       content: '""',
     },
   },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
       opacity: 1,
     },
-    '100%': {
-      transform: 'scale(2.4)',
+    "100%": {
+      transform: "scale(2.4)",
       opacity: 0,
     },
   },
 }));
 
 export default function AccountPage(): JSX.Element {
-  const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(initIUserAccountInfo);
-  const id = 1;
+  const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
+    initIUserAccountInfo
+  );
+  const id = 3;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,24 +60,38 @@ export default function AccountPage(): JSX.Element {
     fetchData();
   }, [id]);
 
-
   return (
     <>
-    <StyledBadge
-  overlap="circular"
-  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  variant="dot"
->
-      <Avatar
-        alt={userInfo?.name}
-        src={linkToServer + "/api/files/" + 5}
-        variant="rounded"
-        sx={{ width: 200, height: 250, margin: 5 }}
-        />
-        </StyledBadge>
+      <div className="container d-flex">
+        <div className="ssss">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ rotate: 360, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 60,
+              damping: 10,
+            }}
+          >
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                alt={userInfo?.name}
+                src={linkToServer + "/api/files/" + 5}
+                variant="rounded"
+                sx={{ width: 200, height: 250, margin: 5 }}
+              />
+            </StyledBadge>
+          </motion.div>
 
-      <p>{userInfo?.name}</p>
+          <p>{userInfo?.name}</p>
+        </div>
 
+          <AccountTabs />
+      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { IFilesListDto, initIFilesListDto } from "./interfaces/IFilesListDto";
 import { Pagination } from "@mui/material";
 import axios from "axios";
+import linkToServer from "../../globalLinkToServer";
 
 export default function FilesUploadAdmin(): JSX.Element {
   const [{ files, count, pages }, setFilesList] =
@@ -11,7 +12,6 @@ export default function FilesUploadAdmin(): JSX.Element {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedFileId, setSelectedFileId] = useState<number | null>(null);
   const itemsOnPage = 5;
-  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfFiles() {

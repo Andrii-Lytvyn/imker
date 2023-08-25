@@ -2,14 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
-
 import { useParams } from "react-router-dom";
+import linkToServer from "../../globalLinkToServer";
 
 
 export default function PostSingle(): JSX.Element {
   const [post, setPost] = useState<IPostDto | undefined>();
   const { id } = useParams();
-  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     const fetchData = async () => {

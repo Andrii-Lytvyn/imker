@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import linkToServer from "../../globalLinkToServer";
 
 export default function GoogleMapAdmin(): JSX.Element {
   const htmlString =
@@ -9,8 +10,6 @@ export default function GoogleMapAdmin(): JSX.Element {
   const [googleMapLink, setGoogleMapLink] = useState<string | null>(null);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [wrongLink, setWrongLink] = useState(false);
-  const linkToServer = "http://localhost:8080";
-
 
   const getGoogleMapLink = (html: string): string | null => {
     const parser = new DOMParser();

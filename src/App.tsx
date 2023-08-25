@@ -20,6 +20,7 @@ import TeamEditAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditAdmin";
 import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember";
 import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
 import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
+import AccountPage from "./сomponents/AccountPage/AccountPage";
 
 function App(): JSX.Element {
   return (
@@ -47,6 +48,7 @@ function App(): JSX.Element {
           <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="filesadm" element={<FilesUploadAdmin />} />
+          <Route path="accountpage" element={<AccountPage />} />
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />

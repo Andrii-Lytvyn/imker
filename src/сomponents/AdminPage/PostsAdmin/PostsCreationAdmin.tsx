@@ -4,6 +4,7 @@ import "./PostCreationAdmin.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { INewPostDto, initINewPostDto } from "./interfaces/INewPostDto";
+import linkToServer from "../../globalLinkToServer";
 
 export default function PostsCreationAdmin(): JSX.Element {
   // { titlePost, linkToImg, shortPostDescription, textOfPost, authorName }
@@ -15,7 +16,6 @@ export default function PostsCreationAdmin(): JSX.Element {
   const [isValid, setIsValid] = useState(true);
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const linkToServer = "http://localhost:8080";
   const width = 900;
   const height = 350;
 

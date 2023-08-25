@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
+import linkToServer from "../../globalLinkToServer";
 
 interface PostEditAdminProps {
   location: {
@@ -27,7 +28,6 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
   const [value, setValue] = useState<string>();
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const linkToServer = "http://localhost:8080";
   const width = 900;
   const height = 350;
 

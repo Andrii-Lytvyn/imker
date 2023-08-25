@@ -51,11 +51,10 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
 
         try {
           const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=POST`,
             formData
           );
           linkVar = response.data.id.toString();
-          console.log("File uploaded:", linkVar);
         } catch (error) {
           console.error("Error uploading file:", error);
         }

@@ -6,7 +6,7 @@ export const MEMBER_STATE = {
 
 export type MemberState = keyof typeof MEMBER_STATE;
 
-export interface IAddNewMember {
+export interface IMemberDate {
    id?: string | number,
    state: MemberState ,
    name: string,

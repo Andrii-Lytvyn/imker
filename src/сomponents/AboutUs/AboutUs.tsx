@@ -3,26 +3,27 @@ import { Container } from "react-bootstrap";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IMember } from "./IMembers";
+import { IMember } from "./interfaces/IMembers";
+import baseURL from "../globalLinkToServer";
+
 
 export default function AboutUs(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
-  console.log("🚀 ~ file: AboutUs.tsx:9 ~ AboutUs ~ member:", member)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/members");
+        const response = await axios.get(`${baseURL}/api/members`);
         const memberDto = await response.data;
         setMember(memberDto.members);
-        console.log("🚀 ~ file: AboutUs.tsx:28 ~ fetchData ~ memberDto:", memberDto)
       } catch (error) {
         console.error("Error during request execution:", error);
       }
     };
     fetchData();
   }, []);
+  
   return (
     <>
       <Container>

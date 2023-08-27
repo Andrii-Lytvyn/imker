@@ -16,7 +16,7 @@ import AddEventAdmin from "./сomponents/AdminPage/EventsAdmin/AddEventAdmin";
 import EditEventAdmin from "./сomponents/AdminPage/EventsAdmin/EditEventAdmin";
 import EditAllEvents from "./сomponents/AdminPage/EventsAdmin/EditAllEvents";
 import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
-import TeamEditAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditAdmin";
+import TeamEditMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin";
 import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember";
 import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
 import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
@@ -39,8 +39,8 @@ function App(): JSX.Element {
             element={<TeamAddMemberAdmin />}
           />
           <Route
-            path="aboutusadmin/teameditadmin"
-            element={<TeamEditAdmin />}
+            path="aboutusadmin/teameditmemberadmin/:id"
+            element={<TeamEditMemberAdmin />}
           />
           <Route path="contactUs" element={<ContactUs />} />
           <Route path="contactusadm" element={<ContactUsAdmin />} />

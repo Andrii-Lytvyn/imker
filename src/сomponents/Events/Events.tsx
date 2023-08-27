@@ -2,35 +2,30 @@ import styles from "./Events.module.css";
 import { currentDate, formatDate } from "./helpers/formattedDate";
 import { FcAlarmClock } from "react-icons/fc";
 import { ImLocation } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { getEvents, getOneEvent } from "../../redux/eventsStore/eventsSlice";
 import { EVENT_STATUS } from "./interface/IEventsData";
-import PostsPanel from "../Posts/PostsPanel/PostsPanel";
+// import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 import linkToServer from "../globalLinkToServer";
-
-// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-// const baseURL = "http://localhost:8080/api/events";
+import { Pagination } from "@mui/material";
 
 // Получение  всех Events
-const getAllEvents = async () => {
+const getAllEvents = async (page: number) => {
   try {
     //для Бека
     const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=0`
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=${page}`
     );
-    return data.events;
 
-    //////////////////////////////////
-    //для Макса
-    // const { data } = await axios.get(`${baseURL}/user_login`);
+    console.log("🚀  data:", data);
 
-    // return data;
+    return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);
   }
@@ -39,23 +34,30 @@ const getAllEvents = async () => {
 const Events = (): JSX.Element => {
   const { events } = useEventsSelector();
   const dispatch = useAppDispatch();
+  const [count, setCount] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page") ?? 1;
 
   useEffect(() => {
     const getEvt = async () => {
       try {
-        const requestEvent = await getAllEvents();
-        dispatch(getEvents(requestEvent));
+        const requestEvent = await getAllEvents(Number(page) - 1);
+        setCount(requestEvent.count);
+        dispatch(getEvents(requestEvent.events));
       } catch (error) {
         console.log("🚀  error:", error);
       }
     };
     getEvt();
-  }, [dispatch]);
+  }, [dispatch, page]);
+
+  const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
+    setSearchParams({ page: value.toString() });
+  };
 
   return (
     <>
-
-      <PostsPanel />
+      {/* <PostsPanel /> */}
 
       <h2>Our Events</h2>
       <div className={styles.cont}>
@@ -64,9 +66,9 @@ const Events = (): JSX.Element => {
             <Loader />
           </div>
         ) : (
-          <ul className={styles.event_list}>
-            {
-              events.map(
+          <div>
+            <ul className={styles.event_list}>
+              {events.map(
                 ({ title, idEvent, dateStart, startTime, endTime, status }) =>
                   dateStart > currentDate() &&
                   status === EVENT_STATUS.EXPECTED ? (
@@ -95,10 +97,15 @@ const Events = (): JSX.Element => {
                   ) : (
                     ""
                   )
-              )
-              // .slice(4)
-            }
-          </ul>
+              )}
+            </ul>
+            <Pagination
+              count={count !== null ? Math.ceil(count / 3) : 0}
+              page={Number(page)}
+              size="large"
+              onChange={getLinkParams}
+            />
+          </div>
         )}
       </div>
     </>

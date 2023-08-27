@@ -12,8 +12,6 @@ import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import linkToServer from "../../globalLinkToServer";
 
-// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-
 //Функция отправки на бек
 const createNewEvent = async (createNewEvent: ICreateEvents) => {
   try {
@@ -33,7 +31,6 @@ const AddEventAdmin = (): JSX.Element => {
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const width = 900;
   const height = 350;
 
@@ -53,44 +50,54 @@ const AddEventAdmin = (): JSX.Element => {
 
   const eventFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
-    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
+    if (eventForm.shortDescription !== "") {
+      const choosedDateStart =
+        dateStartField?.toISOString().substring(0, 10) ?? "";
+      const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
 
-    if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
-      let linkVar: string = "";
+      if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
+        let linkVar: string = "";
 
-      if (imageData && selectedFile) {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
+        if (imageData && selectedFile) {
+          const formData = new FormData();
+          formData.append("file", selectedFile);
 
-        try {
-          const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
-            formData
-          );
-          linkVar = response.data.id.toString();
-          console.log("File uploaded:", linkVar);
-        } catch (error) {
-          console.error("Error uploading file:", error);
+          try {
+            const response = await axios.post(
+              `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+              formData
+            );
+            linkVar = response.data.id.toString();
+            console.log("File uploaded:", linkVar);
+          } catch (error) {
+            console.error("Error uploading file:", error);
+          }
+          const newEvent = {
+            ...eventForm,
+            dateStart: choosedDateStart,
+            dateEnd: choosedDateEnd,
+            photo: linkVar,
+            startTime: timeStart?.format("HH:mm") || "",
+            endTime: timeEnd?.format("HH:mm") || "",
+          };
+          toast.success("createNewEvent");
+          createNewEvent(newEvent); // Отправка на бек
+          console.log("🚀  newEvent:", newEvent);
+          //////////////////////
+          resetForm();
+        } else {
+          toast.warning("Datum kleiner als das aktuelle Datum", {
+            autoClose: 3000,
+          });
         }
-        const newEvent = {
-          ...eventForm,
-          dateStart: choosedDateStart,
-          dateEnd: choosedDateEnd,
-          photo: linkVar,
-          startTime: timeStart?.format("HH:mm") || "",
-          endTime: timeEnd?.format("HH:mm") || "",
-        };
-        toast.success("createNewEvent");
-        createNewEvent(newEvent); // Отправка на бек
-        console.log("🚀  newEvent:", newEvent);
-        //////////////////////
-        resetForm();
-      } else {
-        toast.warning("Datum kleiner als das aktuelle Datum", {
-          autoClose: 3000,
-        });
       }
+    } else {
+      toast.warning(
+        "Füllen Sie das Feld Kurze Ereignisbeschreibung mit maximal 250 Zeichen aus.",
+        {
+          autoClose: 3000,
+        }
+      );
     }
   };
 
@@ -111,6 +118,7 @@ const AddEventAdmin = (): JSX.Element => {
     setDateStartField(null);
     setDateEndField(null);
     setTimeEnd(null);
+    setImageData(null);
     setEventForm(eventData);
   };
 
@@ -131,7 +139,7 @@ const AddEventAdmin = (): JSX.Element => {
             <input
               type="text"
               name="title"
-              value={eventForm.title}
+              value={eventForm.title.trim()}
               onChange={collectEventsData}
             />
           </div>
@@ -140,7 +148,7 @@ const AddEventAdmin = (): JSX.Element => {
             <input
               type="text"
               name="address"
-              value={eventForm.address}
+              value={eventForm.address.trim()}
               onChange={collectEventsData}
             />
           </div>
@@ -149,7 +157,7 @@ const AddEventAdmin = (): JSX.Element => {
             <input
               type="text"
               name="author"
-              value={eventForm.author}
+              value={eventForm.author.trim()}
               onChange={collectEventsData}
             />
           </div>
@@ -244,8 +252,8 @@ const AddEventAdmin = (): JSX.Element => {
           <label>Short Event Description </label>
           <input
             type="text"
-            name="shortEventDescription"
-            value={eventForm.shortEventDescription}
+            name="shortDescription"
+            value={eventForm.shortDescription.trim()}
             onChange={collectEventsData}
           />
         </div>

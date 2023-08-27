@@ -1,28 +1,20 @@
 import styles from "./Event.module.css";
 import { srcLinkFromIframe } from "./helpers/srcMapValue";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { BsCalendar2Week } from "react-icons/bs";
 import { MdOutlinePlace } from "react-icons/md";
 import { formatDate } from "../helpers/formattedDate";
 import { Container, Nav } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import { eventData } from "../helpers/eventData";
+import { useEffect } from "react";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
-import { IEvent } from "../interface/IEventsData";
 import linkToServer from "../../globalLinkToServer";
 
 const Event = (): JSX.Element => {
-  const { id } = useParams();
-  // const { event_edit } = useEventsSelector();
-  const { events } = useEventsSelector();
-  const [oneEvent, setOneEvent] = useState<IEvent | undefined>(eventData);
+  const { event_edit } = useEventsSelector();
 
-  useEffect(() => {
-    const requestEvent = events.find((event) => `${event.idEvent}` === id);
-    setOneEvent(requestEvent);
-  }, [events, id]);
+  useEffect(() => {}, [event_edit]);
 
   return (
     <>
@@ -39,16 +31,16 @@ const Event = (): JSX.Element => {
             <Link to="/events">VERANSTALTUNGEN</Link>
           </Nav>
           <span> | </span>
-          {oneEvent?.title}
+          {event_edit?.title}
         </div>
-        <h2>{oneEvent?.title}</h2>
+        <h2>{event_edit?.title}</h2>
         <hr />
         <div className={styles.evt_container}>
           <div className={styles.container}>
             <img
               className={styles.img_container}
-              src={`${linkToServer}/api/files/${oneEvent?.photo}`}
-              alt={oneEvent?.title}
+              src={`${linkToServer}/api/files/${event_edit?.photo}`}
+              alt={event_edit?.title}
             />
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -73,7 +65,7 @@ const Event = (): JSX.Element => {
             </p>
             <div className={styles.event_description}>
               <p>
-                Kontakt: <span>{oneEvent?.author}</span>
+                Kontakt: <span>{event_edit?.author}</span>
               </p>
               <p>
                 Tel: <span>0160-235-65-91</span>
@@ -87,23 +79,23 @@ const Event = (): JSX.Element => {
                 {
                   title: "Date",
                   icon: <BsCalendar2Week />,
-                  content: `${formatDate(oneEvent?.dateStart)?.day} ${
-                    formatDate(oneEvent?.dateStart)?.month
-                  } ${formatDate(oneEvent?.dateStart)?.year}`,
+                  content: `${formatDate(event_edit?.dateStart)?.day} ${
+                    formatDate(event_edit?.dateStart)?.month
+                  } ${formatDate(event_edit?.dateStart)?.year}`,
                 },
                 {
                   title: "Time",
                   icon: <BiTimeFive />,
-                  content: `${oneEvent?.startTime} - ${oneEvent?.endTime}`,
+                  content: `${event_edit?.startTime} - ${event_edit?.endTime}`,
                 },
                 {
                   title: "Place",
                   icon: <MdOutlinePlace />,
-                  content: oneEvent?.address,
+                  content: event_edit?.address,
                 },
                 {
                   title: "Map",
-                  mapSrc: oneEvent?.location,
+                  mapSrc: event_edit?.location,
                 },
               ].map((item, index) => (
                 <li key={index} className={styles.item}>
@@ -115,7 +107,6 @@ const Event = (): JSX.Element => {
                   )}
                   {item.mapSrc && (
                     <div className={styles.map}>
-
                       <Nav>
                         <Link to={item.mapSrc}>Auf der Karte anzeigen</Link>
                       </Nav>

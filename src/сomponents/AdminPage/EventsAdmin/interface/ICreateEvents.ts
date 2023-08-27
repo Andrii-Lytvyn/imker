@@ -6,7 +6,7 @@ export interface ICreateEvents {
     quantityOfMembers: string | null,
     address: string,
     location: string | null,
-    shortEventDescription: string,
+    shortDescription: string,
     description: string,
     author: string,
     photo: string,

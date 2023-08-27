@@ -19,9 +19,6 @@ const memberData = {
   instagram: "",
 };
 
-const width = 300;
-const height = 300;
-
 const addNewMember = async (newMember: IMemberDate) => {
   try {
     const data = await axios.post(`${baseURL}/api/members`, newMember);
@@ -36,19 +33,9 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   const [memberForm, setMemberForm] = useState(memberData);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-
-  let linkVar: string;
-  //  | undefined = undefined;
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setSelectedFile(file);
-
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImageData(url);
-    }
-  };
+  const width = 300;
+  const height = 300;
+  const category = "AVATAR";
 
   const collectMembersData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -57,12 +44,10 @@ const TeamAddMemberAdmin = (): JSX.Element => {
     setMemberForm((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // let linkVar: string;
-    // //  | undefined = undefined;
+    let linkVar: string  = "";
 
     if (imageData && selectedFile) {
       const formData = new FormData();
@@ -70,7 +55,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
       try {
         const response = await axios.post(
-          `${baseURL}/files/upload?width=${width}&height=${height}`,
+          `${baseURL}/api/files/upload?width=${width}&height=${height}&category=${category}`,
           formData
         );
         linkVar = response.data.id.toString();
@@ -82,25 +67,24 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
     const createNewMember = {
       ...memberForm,
-
-    // : IAddNewMember = {
-    //   state,
-    //   name,
-    //   position,
-    //   description,
-    //   image: linkVar,
-    //   phone,
-    //   email,
-    //   facebook,
-    //   instagram,
-      // image: linkVar;
-      // createNewMember.image = linkVar;
+      image: linkVar,
     };
+    console.log("🚀 69 createNewMember:", createNewMember)
 
     toast.success("New Member created");
     addNewMember(createNewMember);
-
     setMemberForm(memberData);
+    console.log("🚀 76 memberData:", memberData)
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageData(url);
+    }
   };
 
   return (
@@ -221,7 +205,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             accept=".jpg, .jpeg, .png"
             name="image"
             onChange={handleFileChange} />
-          <br />
+          <br /> <br />
           {imageData && (
             <img
               src={imageData}
@@ -234,9 +218,9 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             />
           )}
         </div>
-
+        <br /> <br />
         <button type="submit" className={styles.create_btn}>
-          Add
+          Add New Member
         </button>
       </form>
     </div>

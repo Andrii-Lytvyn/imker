@@ -28,6 +28,7 @@ export default function UserInfo():JSX.Element {
 
   return (
     <div>
+      
       <p>E-mail: {userInfo?.email}</p>
       <p>Phone: {userInfo?.phone}</p>
       <p>PLZ: {userInfo?.plz}</p>

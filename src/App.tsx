@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
-import MainPage from "./сomponents/MainPage/MainPage";
+const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
+
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
 );

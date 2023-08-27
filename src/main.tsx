@@ -4,14 +4,14 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store.ts";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <BrowserRouter basename="/imker">
-      <Suspense>
-        <App />
-      </Suspense>
+      {/* <Suspense> */}
+      <App />
+      {/* </Suspense> */}
     </BrowserRouter>
   </Provider>
 );

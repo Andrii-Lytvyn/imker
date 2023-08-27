@@ -7,10 +7,11 @@ const LoaderStart = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        marginTop: "40px",
+        // height: "100vh",
       }}
     >
-      <CircleLoader color="#d3a863" size={380} />
+      <CircleLoader color="#d3a863" size={280} />
     </div>
   );
 };

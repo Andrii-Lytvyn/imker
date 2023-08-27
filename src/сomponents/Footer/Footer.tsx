@@ -10,6 +10,7 @@ import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
 import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
+import {FaRegCalendarAlt} from "react-icons/fa";
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
@@ -63,7 +64,7 @@ export default function Footer(): JSX.Element {
                       target="_blank"
                       href="https://goo.gl/maps/SfWkxnTKU4PFnHZu8"
                     >
-                      Walsroder Straße, 3 Eickeloh, 29693
+                       Walsroder Straße, 3 Eickeloh, 29693
                     </a>
                   </p>
                 </div>
@@ -78,7 +79,7 @@ export default function Footer(): JSX.Element {
                   <p className={styles.footer_contact_text}>
                     E-mail:
                     <a href="mailto: Imkerverein-Ahlden@t-online.de">
-                      Imkerverein-Ahlden@t-online.de
+                       Imkerverein-Ahlden@t-online.de
                     </a>
                   </p>
                 </div>
@@ -97,12 +98,15 @@ export default function Footer(): JSX.Element {
                         dateStart > currentDate() &&
                         status === EVENT_STATUS.EXPECTED ? (
                           <li key={`${idEvent}`}>
+                            <div className="d-flex">
+                              <p> <FaRegCalendarAlt className={styles.icons} /></p>
                             <p className={styles.footer_data}>
                               {`${formatDate(dateStart)?.day} ${
                                 formatDate(dateStart)?.month
                               }, 
                               ${formatDate(dateStart)?.year}  ${startTime}`}
                             </p>
+                            </div>
 
                             <p className={styles.footer_name_event}>
                               <Link to={`/events/${idEvent}`}>{title}</Link>
@@ -125,24 +129,24 @@ export default function Footer(): JSX.Element {
               <div>
                 <h3 className={styles.card_title}>Über uns</h3>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/posts">
                     BLOG
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/events">
                     VERANSTALTUNGEN
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/aboutUs">
                     Mitglieder der Gemeinschaft
-                  </a>
+                  </Link>
                 </p>
                 <p className={styles.about_links}>
-                  <a className={styles.about_links} href="/">
+                  <Link className={styles.about_links} to="/gallery">
                     GALERIE
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Card.Body>

@@ -17,6 +17,7 @@
 .my_card{
     background-color: var(--yellow)!important;
     border: none !important;
+    width: 33%;
 }
 .card_title{
     font-size: 1.5em;
@@ -26,7 +27,7 @@
 }
 .footer_contact_text{
     margin: 0 0 10px 10px;
-    font-size: 1.2em;
+    font-size: 1.0em;
     text-align: left;
 }
 .footer_data{
@@ -38,12 +39,12 @@
 }
 .footer_name_event{
     margin-bottom: 15px;
-    font-size: 1.2em;
+    font-size: 1.0em;
     text-align: left;
     text-transform: uppercase;
 }
 .about_links{
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin: 15px 0;
     text-transform: uppercase;
     text-align: left;

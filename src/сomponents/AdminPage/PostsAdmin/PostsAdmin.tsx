@@ -6,6 +6,7 @@ import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import PostEditAdmin from "./PostEditAdmin";
 import PostsCreationAdmin from "./PostsCreationAdmin";
 import styles from "./PostAdmin.module.css";
+import linkToServer from "../../globalLinkToServer";
 
 export default function PostsAdmin() {
   const [{ posts, count, pages }, setPosts] =
@@ -17,7 +18,6 @@ export default function PostsAdmin() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsOnPage = 5;
-  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {

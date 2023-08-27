@@ -4,6 +4,7 @@ import styles from "./ContactUs.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
 import axios from "axios";
 import { toast } from "react-toastify";
+import linkToServer from "../globalLinkToServer";
 
 export default function Contacts(): JSX.Element {
   const [
@@ -13,8 +14,6 @@ export default function Contacts(): JSX.Element {
   const maxLength = 500;
   const [charLeft, setCharLeft] = useState(maxLength);
   const [googleMap, setGoogleMap] = useState("");
-  const linkToServer = "http://localhost:8080";
-
 
   useEffect(() => {
     const getGoogleMapLink = async () => {

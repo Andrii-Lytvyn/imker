@@ -8,12 +8,12 @@ import {
 } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
 import { Pagination } from "@mui/material";
+import linkToServer from "../globalLinkToServer";
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsOnPage = 3;
-  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {

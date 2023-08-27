@@ -3,6 +3,7 @@ import axios from "axios";
 import { IRequestDto } from "../../ContactUs/interfaces/IRequestDto";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import GoogleMapAdmin from "./GoogleMapAdmin";
+import linkToServer from "../../globalLinkToServer";
 
 export default function ContactUsAdmin(): JSX.Element {
   const [requests, setRequests] = useState<IRequestDto[]>([]);
@@ -11,7 +12,7 @@ export default function ContactUsAdmin(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/requests");
+        const response = await axios.get(`${linkToServer}/api/requests`);
         const requestsDto = response.data;
         const reversedRequests = requestsDto.requests.slice().reverse();
         setRequests(reversedRequests);
@@ -27,7 +28,7 @@ export default function ContactUsAdmin(): JSX.Element {
     const fetchData = async () => {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/requests/${idRequest}`
+          `${linkToServer}/api/requests/${idRequest}`
         );
         setReloadPage(response.data);
       } catch (error) {

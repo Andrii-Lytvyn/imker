@@ -60,7 +60,7 @@ export default function AboutUs(): JSX.Element {
             element.state === "SHOW" ?
               <li key={index}>
                 <div className={styles.about_members}>
-                  <img src={element.image} />
+                  <img src={baseURL + "/api/files/" + element.image} />
                   <p className={styles.about_position}>{element.position}</p>
                   <p className={styles.about_position_name}>{element.name}</p>
                   <p className={styles.about_position_text}>{element.description}</p>

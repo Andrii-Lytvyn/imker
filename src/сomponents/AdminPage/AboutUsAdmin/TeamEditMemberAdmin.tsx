@@ -35,7 +35,12 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [memberEditForm, setMemberEditForm] = useState(initMember);
-  console.log("🚀 memberEditForm:", memberEditForm)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageData, setImageData] = useState<string | null>(null);
+  const width = 300;
+  const height = 300;
+  const category = "AVATAR";
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,9 +65,27 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    let linkVar: string  = "";
+
+    if (imageData && selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      try {
+        const response = await axios.post(
+          `${baseURL}/api/files/upload?width=${width}&height=${height}&category=${category}`,
+          formData
+        );
+        linkVar = response.data.id.toString();
+        console.log("🚀 File uploaded:", linkVar);
+      } catch (error) {
+        console.error("🚀Error uploading file:🚀 ", error);
+      }
+    }
 
     const editMember = {
       ...memberEditForm, 
+      image: linkVar,
     };
     console.log("🚀row 67 editMember:", editMember);
 
@@ -70,10 +93,21 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
     navigate("/aboutusadmin");
     resetForm();
+    window.location.reload();
   };
 
   const resetForm = () => {
     setMemberEditForm(initMember);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageData(url);
+    }
   };
 
   return (
@@ -81,11 +115,10 @@ const TeamEditMemberAdmin = (): JSX.Element => {
       <button type="button">
         <Link to="/aboutusadmin">Back</Link>
       </button>
-      <h2>Add Edit Member</h2>
+      <h2>Edit Member</h2>
       
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
-        {/* <p>Member ID: {id}</p> */}
         <div className={styles.form_field}>
             <label>id</label>
             <input
@@ -199,8 +232,8 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         <div className={styles.photo}>
           <label>Photo </label>
           <img
-              src= {memberEditForm.image}
-              alt="image"
+              src= {baseURL + "/api/files/" + memberEditForm.image} 
+              alt={memberEditForm.name + memberEditForm.position}               
               style={{
                 width: "100%",
                 maxWidth: "100%",
@@ -212,6 +245,26 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         <label htmlFor="fileInput" className="file-upload">
           Choose another image
         </label>
+        <input
+          type="file"
+          id="fileInput"
+          onChange={handleFileChange}
+          accept=".jpg, .jpeg, .png"
+          required
+          style={{ display: "none" }}
+        />
+        <br />
+        {imageData && (
+          <img
+            src={imageData}
+            alt="Image"
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
+        )}
 
         <button type="submit" className={styles.create_btn}>
           Save changes

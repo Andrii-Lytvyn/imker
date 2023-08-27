@@ -1,28 +1,25 @@
 import axios from "axios";
+import { Pagination } from "@mui/material";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./EventsAdmin.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import { getEvents, getOneEvent } from "../../../redux/eventsStore/eventsSlice";
-import { IEvent } from "../../Events/interface/IEventsData";
-
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-
-// const baseURL = "http://localhost:8080/api/events"; для Бека Андрея
+import linkToServer from "../../globalLinkToServer";
+import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
+import Loader from "../../Loader/Loader";
 
 // Получение  всех Events
-const getAllEvents = async () => {
+const getAllEvents = async (page: number) => {
   try {
     //для Бека
-    // const { data } = await axios.get(
-    //   `${baseURL}?orderBy=dateStart&desc=false&page=0`
-    // );
-    // return data.events;
+    const { data } = await axios.get(
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=${page}`
+    );
 
-    //////////////////////////////////
-    //для Макса
-    const { data } = await axios.get(`${baseURL}/user_login`);
+    console.log("🚀  data:", data);
+
     return data;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEvents ${error}`);
@@ -32,24 +29,30 @@ const getAllEvents = async () => {
 const EditAllEvents = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [events, setEvents] = useState<IEvent[] | null>([]);
+  const { events } = useEventsSelector();
+  const [count, setCount] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page") ?? 1;
 
   useEffect(() => {
     const getEvt = async () => {
       try {
-        const requestEvent = await getAllEvents();
-        setEvents(requestEvent);
-        dispatch(getEvents(requestEvent));
+        const requestEvent = await getAllEvents(Number(page) - 1);
+        setCount(requestEvent.count);
+        dispatch(getEvents(requestEvent.events));
       } catch (error) {
         console.log("🚀  error:", error);
       }
     };
     getEvt();
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   const editCurrentEvent = (id: string) => {
     dispatch(getOneEvent(id));
     navigate(`/eventsadm-edit/${id}`);
+  };
+  const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
+    setSearchParams({ page: value.toString() });
   };
 
   return (
@@ -57,20 +60,37 @@ const EditAllEvents = (): JSX.Element => {
       <button type="button" onClick={() => navigate(`/eventsadm`)}>
         back
       </button>
-      <ul className={styles.edit}>
-        {events?.map(({ name, id, dateStart, description }) => (
-          <li key={id}>
-            <div className={styles.edit_info}>
-              <span>{name}</span>
-              <span>{dateStart}</span>
-              <p>{description.slice(0, 20)}...</p>
-              <button type="button" onClick={() => editCurrentEvent(id)}>
-                Edit
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {events.length === 0 ? (
+        <div className={styles.event_loader}>
+          <Loader />
+        </div>
+      ) : (
+        <div>
+          <ul className={styles.edit}>
+            {events?.map(({ name, idEvent, dateStart, description }) => (
+              <li key={idEvent}>
+                <div className={styles.edit_info}>
+                  <span>{name}</span>
+                  <span>{dateStart}</span>
+                  <p>{description.slice(0, 20)}...</p>
+                  <button
+                    type="button"
+                    onClick={() => editCurrentEvent(idEvent)}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <Pagination
+            count={count !== null ? Math.ceil(count / 3) : 0}
+            page={Number(page)}
+            size="large"
+            onChange={getLinkParams}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -10,15 +10,13 @@ import { currentDate } from "../../Events/helpers/formattedDate";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import axios from "axios";
 import { IEvent } from "../../Events/interface/IEventsData";
-// import { ICreateEvents } from "./interface/ICreateEvents";
-
-const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+import linkToServer from "../../globalLinkToServer";
 
 // Редактирование Eventа
 const editedEvent = async (editEvent: IEvent) => {
   try {
     const { data } = await axios.put(
-      `${baseURL}/user_login/${editEvent.id}`,
+      `${linkToServer}/api/events/${editEvent.idEvent}`,
       editEvent
     );
 
@@ -33,11 +31,14 @@ const EditEventAdmin = (): JSX.Element => {
   const { event_edit } = useEventsSelector();
   const [eventEditForm, setEventEditForm] = useState(event_edit);
 
-  console.log("🚀  eventEditForm:", eventEditForm);
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
+  const [imageData, setImageData] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const width = 900;
+  const height = 350;
 
   const onChangeStart = (time: Dayjs | null) => {
     setTimeStart(time);
@@ -53,30 +54,68 @@ const EditEventAdmin = (): JSX.Element => {
     setEventEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const eventFormData = (event: FormEvent<HTMLFormElement>) => {
+  const eventFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
-    const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
+    if (eventEditForm.shortDescription !== "") {
+      const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
+      const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
 
-    if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
-      const editEvent: IEvent = {
-        ...eventEditForm,
-        dateStart: choosedDateStart,
-        dateEnd: choosedDateEnd,
-        startTime: timeStart?.format("HH:mm") || "",
-        endTime: timeEnd?.format("HH:mm") || "",
-      };
-      console.log("🚀  editEvent:", editEvent);
-      //////////////////////
+      if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
+        let linkVar: string = "";
 
-      editedEvent(editEvent);
+        if (imageData && selectedFile) {
+          const formData = new FormData();
+          formData.append("file", selectedFile);
 
-      navigate("/eventsadm");
-      resetForm();
+          try {
+            const response = await axios.post(
+              `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+              formData
+            );
+            linkVar = response.data.id.toString();
+            console.log("File uploaded:", linkVar);
+          } catch (error) {
+            console.error("Error uploading file:", error);
+          }
+          const newEvent = {
+            ...eventEditForm,
+            dateStart: choosedDateStart,
+            dateEnd: choosedDateEnd,
+            photo: linkVar,
+            startTime: timeStart?.format("HH:mm") || "",
+            endTime: timeEnd?.format("HH:mm") || "",
+          };
+          toast.success("createNewEvent");
+          editedEvent(newEvent); // Отправка на бек
+          console.log("🚀  newEvent:", newEvent);
+          //////////////////////
+          navigate("/eventsadm");
+          resetForm();
+        } else {
+          toast.warning("Datum kleiner als das aktuelle Datum", {
+            autoClose: 3000,
+          });
+        }
+      }
     } else {
-      toast.warning("Datum kleiner als das aktuelle Datum", {
-        autoClose: 3000,
-      });
+      toast.warning(
+        "Füllen Sie das Feld Kurze Ereignisbeschreibung mit maximal 250 Zeichen aus.",
+        {
+          autoClose: 3000,
+        }
+      );
+    }
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageData(url);
+    } else {
+      setImageData("");
     }
   };
 
@@ -205,18 +244,58 @@ const EditEventAdmin = (): JSX.Element => {
             </div>
           </div>
         </div>
+        <div className={styles.location}>
+          <label>Short Event Description </label>
+          <input
+            type="text"
+            name="shortDescription"
+            value={eventEditForm.shortDescription.trim()}
+            onChange={collectEventsData}
+          />
+        </div>
         <div className={styles.description}>
           <label>Description</label>
           <textarea
             name="description"
             rows={10}
-            value={eventEditForm.description}
+            value={eventEditForm.description.trim()}
             onChange={collectEventsData}
           />
         </div>
-
         <div className={styles.photo}>
-          <input type="file" accept=".jpg, .jpeg, .png" />
+          <label htmlFor="fileInput" className="file-upload">
+            Choose image
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            accept=".jpg, .jpeg, .png"
+            required
+            style={{ display: "none" }}
+          />
+          <br />
+          {imageData ? (
+            <img
+              src={imageData}
+              alt="Image"
+              style={{
+                width: "50%",
+                maxWidth: "50%",
+                height: "auto",
+              }}
+            />
+          ) : (
+            <img
+              src={`${linkToServer}/api/files/${eventEditForm?.photo}`}
+              alt="Image"
+              style={{
+                width: "50%",
+                maxWidth: "50%",
+                height: "auto",
+              }}
+            />
+          )}
         </div>
         <div>
           <button type="submit" className={styles.create_btn}>

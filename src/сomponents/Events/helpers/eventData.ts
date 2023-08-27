@@ -6,7 +6,7 @@ export const eventData = {
     address: "",
     location: "",
     description: "",
-    shortEventDescription: "",
+    shortDescription: "",
     author: "",
     photo: "",
     status: EVENT_STATUS.EXPECTED,

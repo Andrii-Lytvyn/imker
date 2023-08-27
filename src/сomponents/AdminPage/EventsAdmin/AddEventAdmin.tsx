@@ -51,7 +51,8 @@ const AddEventAdmin = (): JSX.Element => {
   const eventFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (eventForm.shortDescription !== "") {
-      const choosedDateStart = dateStartField?.toISOString().substring(0, 10);
+      const choosedDateStart =
+        dateStartField?.toISOString().substring(0, 10) ?? "";
       const choosedDateEnd = dateEndField?.toISOString().substring(0, 10) ?? "";
 
       if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
@@ -117,6 +118,7 @@ const AddEventAdmin = (): JSX.Element => {
     setDateStartField(null);
     setDateEndField(null);
     setTimeEnd(null);
+    setImageData(null);
     setEventForm(eventData);
   };
 

@@ -9,6 +9,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
 import linkToServer from "../globalLinkToServer";
+import { eventData } from "../Events/helpers/eventData";
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
@@ -30,9 +31,13 @@ export default function Footer(): JSX.Element {
     const getEvents = async () => {
       try {
         const requestEvent = await getAllEventsFooter();
-        setEvents(requestEvent);
+        if (requestEvent === undefined) {
+          setEvents([eventData]);
+        } else {
+          setEvents(requestEvent);
+        }
       } catch (error) {
-        console.log("🚀  error:", error);
+        // console.log("🚀  error:", error);
       }
     };
     getEvents();

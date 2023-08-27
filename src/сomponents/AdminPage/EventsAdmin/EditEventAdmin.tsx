@@ -15,7 +15,7 @@ import linkToServer from "../../globalLinkToServer";
 // Редактирование Eventа
 const editedEvent = async (editEvent: IEvent) => {
   try {
-    const { data } = await axios.put(
+    const data = await axios.put(
       `${linkToServer}/api/events/${editEvent.idEvent}`,
       editEvent
     );
@@ -31,11 +31,15 @@ const EditEventAdmin = (): JSX.Element => {
   const { event_edit } = useEventsSelector();
   const [eventEditForm, setEventEditForm] = useState(event_edit);
 
+  console.log("🚀  eventEditForm:", eventEditForm);
+
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
+
+  console.log("🚀  imageData:", imageData);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const width = 900;
   const height = 350;
@@ -62,7 +66,6 @@ const EditEventAdmin = (): JSX.Element => {
 
       if (choosedDateStart !== undefined && choosedDateStart > currentDate()) {
         let linkVar: string = "";
-
         if (imageData && selectedFile) {
           const formData = new FormData();
           formData.append("file", selectedFile);
@@ -77,25 +80,27 @@ const EditEventAdmin = (): JSX.Element => {
           } catch (error) {
             console.error("Error uploading file:", error);
           }
-          const newEvent = {
-            ...eventEditForm,
-            dateStart: choosedDateStart,
-            dateEnd: choosedDateEnd,
-            photo: linkVar,
-            startTime: timeStart?.format("HH:mm") || "",
-            endTime: timeEnd?.format("HH:mm") || "",
-          };
-          toast.success("createNewEvent");
-          editedEvent(newEvent); // Отправка на бек
-          console.log("🚀  newEvent:", newEvent);
-          //////////////////////
-          navigate("/eventsadm");
-          resetForm();
         } else {
-          toast.warning("Datum kleiner als das aktuelle Datum", {
-            autoClose: 3000,
-          });
+          linkVar = eventEditForm.photo;
         }
+        const newEvent = {
+          ...eventEditForm,
+          dateStart: choosedDateStart,
+          dateEnd: choosedDateEnd,
+          photo: linkVar,
+          startTime: timeStart?.format("HH:mm") || "",
+          endTime: timeEnd?.format("HH:mm") || "",
+        };
+        toast.success("createNewEvent");
+        editedEvent(newEvent); // Отправка на бек
+        console.log("🚀  newEvent:", newEvent);
+        //////////////////////
+        navigate("/eventsadm-edit");
+        resetForm();
+      } else {
+        toast.warning("Datum kleiner als das aktuelle Datum", {
+          autoClose: 3000,
+        });
       }
     } else {
       toast.warning(
@@ -124,6 +129,7 @@ const EditEventAdmin = (): JSX.Element => {
     setDateEndField(null);
     setTimeStart(null);
     setTimeEnd(null);
+    setImageData(null);
     setEventEditForm(eventData);
   };
   return (
@@ -268,10 +274,10 @@ const EditEventAdmin = (): JSX.Element => {
           </label>
           <input
             type="file"
+            name="photo"
             id="fileInput"
             onChange={handleFileChange}
             accept=".jpg, .jpeg, .png"
-            required
             style={{ display: "none" }}
           />
           <br />

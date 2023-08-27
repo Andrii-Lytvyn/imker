@@ -26,13 +26,13 @@ export const validationSchemaSingUpYup = Yup.object().shape({
 
 //схема валидации полей  Registration
 export const validationSchemaRegistrationYup = Yup.object().shape({
-    phone: Yup.string()
-        .matches(/^\+49\d+$/, '+49 and only digits')
-        .trim(),
-    plz: Yup.string()
-        .matches(/^[0-9]+$/, 'Min 5 symbols only digits')
-        .min(5)
-        .trim(),
+    // phone: Yup.string()
+    //     .matches(/^\+49\d+$/, '+49 and only digits')
+    //     .trim(),
+    // plz: Yup.string()
+    //     .matches(/^[0-9]+$/, 'Min 5 symbols only digits')
+    //     .min(5)
+    //     .trim(),
     email: Yup.string()
         .email("Invalid email")
         .matches(
@@ -45,4 +45,12 @@ export const validationSchemaRegistrationYup = Yup.object().shape({
         .min(6, "Password must be at least 6 characters")
         .required("Password is required")
         .trim(),
+    // question: Yup.string()
+    //     .min(3, "Question must be at least 3 characters")
+    //     .required("Question is required")
+    //     .trim(),
+    // answer: Yup.string()
+    //     .min(3, "Answer must be at least 3 characters")
+    //     .required("Answer is required")
+    //     .trim(),
 });

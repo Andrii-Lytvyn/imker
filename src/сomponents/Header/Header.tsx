@@ -59,7 +59,7 @@ export default function Header(): JSX.Element {
                 <Link to="/accountpage">AccountPage</Link>
               </NavDropdown.Item>
             </NavDropdown>
-            <Link to="/login">
+            <Link to="/singUp">
               <span>LogIn</span>
             </Link>
           </Nav>

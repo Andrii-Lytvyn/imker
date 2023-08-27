@@ -2,8 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import styles from "../../Events/Event/Event.module.css";
+import {FaHome} from "react-icons/fa";
+import {Container, Nav} from "react-bootstrap";
+import {BsCalendar2Week} from "react-icons/bs";
+import {BiTimeFive} from "react-icons/bi";
 import linkToServer from "../../globalLinkToServer";
+
 
 
 export default function PostSingle(): JSX.Element {
@@ -26,22 +32,69 @@ export default function PostSingle(): JSX.Element {
 
   return (
     <>
-      <div className="container">
-        <p>{post?.creationTimePost}</p>
-        <p>{post?.titlePost}</p>
-        <img
+        <Container>
+            <div className={styles.breadcrumbs}>
+                <Nav>
+                    <Link to="/">
+                        {" "}
+                        <FaHome />
+                    </Link>
+                </Nav>
+                <span> | </span>
+                <Nav>
+                    <Link to="/posts">POSTS</Link>
+                </Nav>
+                <span> | </span>
+                {post?.titlePost}
+            </div>
+            <hr />
+            <div className={styles.post_cont}>
+                <div className= {styles.single_post + " container"}>
+                <img
+                    className={styles.post_img}
                     src={linkToServer + "/api/files/" + post?.linkToImg}
                     alt={"post img" + post?.idPost}
                   />
-        <p>{post?.shortPostDescription}</p>
-      </div>
-      <div
-        className="container"
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(post?.textOfPost || ""),
-        }}
-      />
-      {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
+                    <p className={styles.post_time}>{post?.creationTimePost}</p>
+                    <h2>{post?.titlePost}</h2>
+                    <p className={styles.post_text}>{post?.shortPostDescription}</p>
+                    <div
+                className="container"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post?.textOfPost || ""),
+                }}
+              />
+              {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
+                    </div>
+
+
+                <div className={styles.post_right_side}>
+                    <h2>NACHRICHTEN</h2>
+                    <hr className={styles.post_hr} />
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                </div>
+            </div>
+        </Container>
     </>
   );
 }

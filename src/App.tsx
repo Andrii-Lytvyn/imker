@@ -21,6 +21,7 @@ import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewM
 import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
 import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
 import AccountPage from "./сomponents/AccountPage/AccountPage";
+import GalleryAdmin from "./сomponents/AdminPage/GalleryAdmin/GalleryAdmin";
 
 function App(): JSX.Element {
   return (
@@ -49,6 +50,7 @@ function App(): JSX.Element {
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="filesadm" element={<FilesUploadAdmin />} />
           <Route path="accountpage" element={<AccountPage />} />
+          <Route path="galleryadm" element={<GalleryAdmin />} />
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />

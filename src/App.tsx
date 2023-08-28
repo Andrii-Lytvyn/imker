@@ -1,27 +1,58 @@
 import { Route, Routes } from "react-router-dom";
+import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
-import MainPage from "./сomponents/MainPage/MainPage";
-import AboutUs from "./сomponents/AboutUs/AboutUs";
-import NoPage from "./сomponents/NoPage/NoPage";
-import ContactUs from "./сomponents/ContactUs/ContactUs";
-import ContactUsAdmin from "./сomponents/AdminPage/contactUsAdmin/ContactUsAdmin";
-import TostContainer from "./сomponents/TostContainer/TostContainer";
-import Events from "./сomponents/Events/Events";
-import Event from "./сomponents/Events/Event/Event";
-import Login from "./сomponents/UserLogin/Login";
-import Posts from "./сomponents/Posts/Posts";
-import PostsAdmin from "./сomponents/AdminPage/PostsAdmin/PostsAdmin";
-import Gallery from "./сomponents/Gallery/Gallery";
-import AddEventAdmin from "./сomponents/AdminPage/EventsAdmin/AddEventAdmin";
-import EditEventAdmin from "./сomponents/AdminPage/EventsAdmin/EditEventAdmin";
-import EditAllEvents from "./сomponents/AdminPage/EventsAdmin/EditAllEvents";
-import PostSingle from "./сomponents/Posts/PostSingle/PostSingle";
-import TeamEditAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamEditAdmin";
-import TeamAddMemberAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember";
-import TeamAdmin from "./сomponents/AdminPage/AboutUsAdmin/TeamAdmin";
-import FilesUploadAdmin from "./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin";
-import AccountPage from "./сomponents/AccountPage/AccountPage";
-import GalleryAdmin from "./сomponents/AdminPage/GalleryAdmin/GalleryAdmin";
+
+const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
+
+const TeamEditMemberAdmin = lazy(
+  () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
+);
+const AboutUs = lazy(() => import("./сomponents/AboutUs/AboutUs"));
+const NoPage = lazy(() => import("./сomponents/NoPage/NoPage"));
+const ContactUs = lazy(() => import("./сomponents/ContactUs/ContactUs"));
+const ContactUsAdmin = lazy(
+  () => import("./сomponents/AdminPage/contactUsAdmin/ContactUsAdmin")
+);
+const TostContainer = lazy(
+  () => import("./сomponents/TostContainer/TostContainer")
+);
+const Events = lazy(() => import("./сomponents/Events/Events"));
+const Event = lazy(() => import("./сomponents/Events/Event/Event"));
+const Posts = lazy(() => import("./сomponents/Posts/Posts"));
+const PostsAdmin = lazy(
+  () => import("./сomponents/AdminPage/PostsAdmin/PostsAdmin")
+);
+const Gallery = lazy(() => import("./сomponents/Gallery/Gallery"));
+const AddEventAdmin = lazy(
+  () => import("./сomponents/AdminPage/EventsAdmin/AddEventAdmin")
+);
+const EditEventAdmin = lazy(
+  () => import("./сomponents/AdminPage/EventsAdmin/EditEventAdmin")
+);
+const EditAllEvents = lazy(
+  () => import("./сomponents/AdminPage/EventsAdmin/EditAllEvents")
+);
+const PostSingle = lazy(
+  () => import("./сomponents/Posts/PostSingle/PostSingle")
+);
+
+const TeamAddMemberAdmin = lazy(
+  () => import("./сomponents/AdminPage/AboutUsAdmin/TeamAddNewMember")
+);
+const TeamAdmin = lazy(
+  () => import("./сomponents/AdminPage/AboutUsAdmin/TeamAdmin")
+);
+const FilesUploadAdmin = lazy(
+  () => import("./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin")
+);
+const AccountPage = lazy(() => import("./сomponents/AccountPage/AccountPage"));
+
+const RegisterUser = lazy(
+  () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
+);
+const SingInUser = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/SingInUser")
+);
 
 function App(): JSX.Element {
   return (
@@ -32,7 +63,6 @@ function App(): JSX.Element {
           <Route path="posts/{post-id}" element={<MainPage />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />
-          <Route path="login" element={<Login />} />
           <Route path="aboutUs" element={<AboutUs />} />
           <Route path="aboutusadmin" element={<TeamAdmin />} />
           <Route
@@ -40,8 +70,8 @@ function App(): JSX.Element {
             element={<TeamAddMemberAdmin />}
           />
           <Route
-            path="aboutusadmin/teameditadmin"
-            element={<TeamEditAdmin />}
+            path="aboutusadmin/teameditmemberadmin/:id"
+            element={<TeamEditMemberAdmin />}
           />
           <Route path="contactUs" element={<ContactUs />} />
           <Route path="contactusadm" element={<ContactUsAdmin />} />
@@ -57,6 +87,8 @@ function App(): JSX.Element {
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/singUp" element={<SingInUser />} />
         </Route>
       </Routes>
       <TostContainer />

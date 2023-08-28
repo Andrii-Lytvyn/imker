@@ -3,7 +3,7 @@ import { currentDate, formatDate } from "./helpers/formattedDate";
 import { FcAlarmClock } from "react-icons/fc";
 import { ImLocation } from "react-icons/im";
 import { Link, useSearchParams } from "react-router-dom";
-import Loader from "../Loader/Loader";
+// import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
@@ -14,6 +14,7 @@ import { EVENT_STATUS } from "./interface/IEventsData";
 // import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 import linkToServer from "../globalLinkToServer";
 import { Pagination } from "@mui/material";
+import LoaderStart from "../Loader/LoaderStart";
 
 // Получение  всех Events
 const getAllEvents = async (page: number) => {
@@ -57,57 +58,58 @@ const Events = (): JSX.Element => {
 
   return (
     <>
-      {/* <PostsPanel /> */}
-
-      <h2>Our Events</h2>
-      <div className={styles.cont}>
-        {events.length === 0 ? (
-          <div className={styles.event_loader}>
-            <Loader />
-          </div>
-        ) : (
-          <div>
-            <ul className={styles.event_list}>
-              {events.map(
-                ({ title, idEvent, dateStart, startTime, endTime, status }) =>
-                  dateStart > currentDate() &&
-                  status === EVENT_STATUS.EXPECTED ? (
-                    <li key={`${idEvent}`} className={styles.list}>
-                      <div className={styles.day}>
-                        <span>{formatDate(dateStart)?.day}</span>
-                        <h4>{formatDate(dateStart)?.month}</h4>
-                      </div>
-                      <div className={styles.time_event}>
-                        <Link
-                          to={`/events/${idEvent}`}
-                          onClick={() => {
-                            dispatch(getOneEvent(idEvent));
-                          }}
-                        >
-                          {title}
-                        </Link>
-
-                        <div className={styles.time}>
-                          <FcAlarmClock size={20} />
-                          <span>{`${startTime} - ${endTime}`}</span>
-                          <ImLocation size={20} style={{ color: "red" }} />
+      {events.length === 0 ? (
+        <div className={styles.event_loader}>
+          <LoaderStart />
+        </div>
+      ) : (
+        <>
+          {/* <PostsPanel /> */}
+          <h2>Our Events</h2>
+          <div className={styles.cont}>
+            <div>
+              <ul className={styles.event_list}>
+                {events.map(
+                  ({ title, idEvent, dateStart, startTime, endTime, status }) =>
+                    dateStart > currentDate() &&
+                    status === EVENT_STATUS.EXPECTED ? (
+                      <li key={`${idEvent}`} className={styles.list}>
+                        <div className={styles.day}>
+                          <span>{formatDate(dateStart)?.day}</span>
+                          <h4>{formatDate(dateStart)?.month}</h4>
                         </div>
-                      </div>
-                    </li>
-                  ) : (
-                    ""
-                  )
-              )}
-            </ul>
-            <Pagination
-              count={count !== null ? Math.ceil(count / 3) : 0}
-              page={Number(page)}
-              size="large"
-              onChange={getLinkParams}
-            />
+                        <div className={styles.time_event}>
+                          <Link
+                            to={`/events/${idEvent}`}
+                            onClick={() => {
+                              dispatch(getOneEvent(idEvent));
+                            }}
+                          >
+                            {title}
+                          </Link>
+
+                          <div className={styles.time}>
+                            <FcAlarmClock size={20} />
+                            <span>{`${startTime} - ${endTime}`}</span>
+                            <ImLocation size={20} style={{ color: "red" }} />
+                          </div>
+                        </div>
+                      </li>
+                    ) : (
+                      ""
+                    )
+                )}
+              </ul>
+              <Pagination
+                count={count !== null ? Math.ceil(count / 3) : 0}
+                page={Number(page)}
+                size="large"
+                onChange={getLinkParams}
+              />
+            </div>
           </div>
-        )}
-      </div>
+        </>
+      )}
     </>
   );
 };

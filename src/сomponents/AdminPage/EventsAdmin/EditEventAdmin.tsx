@@ -30,16 +30,11 @@ const EditEventAdmin = (): JSX.Element => {
   const navigate = useNavigate();
   const { event_edit } = useEventsSelector();
   const [eventEditForm, setEventEditForm] = useState(event_edit);
-
-  console.log("🚀  eventEditForm:", eventEditForm);
-
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
   const [timeStart, setTimeStart] = useState<Dayjs | null>(null);
   const [timeEnd, setTimeEnd] = useState<Dayjs | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-
-  console.log("🚀  imageData:", imageData);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const width = 900;
   const height = 350;
@@ -72,7 +67,7 @@ const EditEventAdmin = (): JSX.Element => {
 
           try {
             const response = await axios.post(
-              `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+              `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=EVENT`,
               formData
             );
             linkVar = response.data.id.toString();
@@ -95,7 +90,7 @@ const EditEventAdmin = (): JSX.Element => {
         editedEvent(newEvent); // Отправка на бек
         console.log("🚀  newEvent:", newEvent);
         //////////////////////
-        navigate("/eventsadm-edit");
+        navigate("/eventsadm");
         resetForm();
       } else {
         toast.warning("Datum kleiner als das aktuelle Datum", {

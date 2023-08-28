@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
 import {Link, useParams} from "react-router-dom";
-import styles from "../../Events/Event/Event.module.css";
+import styles from "./Post.module.css";
 import {FaHome} from "react-icons/fa";
 import {Container, Nav} from "react-bootstrap";
 import {BsCalendar2Week} from "react-icons/bs";

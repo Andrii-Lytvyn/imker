@@ -1,9 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
-
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
-
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
 );
@@ -57,6 +55,13 @@ const RegisterUser = lazy(
 const SingInUser = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SingInUser")
 );
+const SecretAnswer = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
+);
+const RestorePassword = lazy(
+  () =>
+    import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
+);
 
 function App(): JSX.Element {
   return (
@@ -93,6 +98,8 @@ function App(): JSX.Element {
           <Route path="*" element={<NoPage />} />
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/singUp" element={<SingInUser />} />
+          <Route path="/restore" element={<SecretAnswer />} />
+          <Route path="/restorePassword" element={<RestorePassword />} />
         </Route>
       </Routes>
       <TostContainer />

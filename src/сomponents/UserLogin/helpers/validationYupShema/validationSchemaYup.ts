@@ -19,20 +19,20 @@ export const validationSchemaSingUpYup = Yup.object().shape({
         .required("Email is required")
         .trim(),
     password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
+        .min(9, "Password must be at least 9 characters")
+        .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~]).+$/, "One digit, uppercase letter, one symbol")
         .required("Password is required")
         .trim(),
 });
 
 //схема валидации полей  Registration
 export const validationSchemaRegistrationYup = Yup.object().shape({
-    // phone: Yup.string()
-    //     .matches(/^\+49\d+$/, '+49 and only digits')
-    //     .trim(),
-    // plz: Yup.string()
-    //     .matches(/^[0-9]+$/, 'Min 5 symbols only digits')
-    //     .min(5)
-    //     .trim(),
+    phone: Yup.string()
+        .matches(/^\+49\d+$/, '+49 and only digits')
+        .trim(),
+    plz: Yup.string()
+        .matches(/^[0-9]{5}$/, 'Only 5 symbols digits')
+        .trim(),
     email: Yup.string()
         .email("Invalid email")
         .matches(
@@ -42,7 +42,8 @@ export const validationSchemaRegistrationYup = Yup.object().shape({
         .required("Email is required")
         .trim(),
     password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
+        .min(9, "Password must be at least 9 characters")
+        .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~]).+$/, "One digit, uppercase letter, one symbol")
         .required("Password is required")
         .trim(),
     // question: Yup.string()

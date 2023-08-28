@@ -1,76 +1,82 @@
 import { BiLeftArrowCircle } from "react-icons/bi";
+import styles from "./SecretAnswer.module.css";
 import {
   Button,
+  ChakraProvider,
   Flex,
   FormControl,
-  FormErrorMessage,
+  // FormErrorMessage,
   Input,
   WrapItem,
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { initSingInUserQuestion } from "../interface/ISingInUser";
-import { IRestoreAndForgot } from "../interface/ISecretRestore";
+import { initSingInUserEmail } from "../interface/ISingInUser";
+import { useNavigate } from "react-router-dom";
 
-const SecretAnswer = ({
-  setRestorePassword,
-  restorePassword,
-  setForgot,
-  forgot,
-}: IRestoreAndForgot): JSX.Element => {
-  const [{ question }, setSecretWord] = useState(initSingInUserQuestion);
-  const [secretFlag, setSecretFlag] = useState(false);
+const SecretAnswer = (): JSX.Element => {
+  const navigate = useNavigate();
+  const [{ email }, setSecretWord] = useState(initSingInUserEmail);
 
   const handleSecretAnswer = (event: ChangeEvent<HTMLInputElement>) => {
-    setSecretWord({ question: event.target.value });
+    setSecretWord({ email: event.target.value });
   };
 
   const getSecretAnswer = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (question !== "") {
-      console.log("question", { question }); //Log для бека
-
-      setSecretFlag(false);
-      setRestorePassword(!restorePassword);
-    } else {
-      setSecretFlag(true);
+    if (email !== "") {
+      console.log("email", { email }); //Log для бека
     }
-    setSecretWord(initSingInUserQuestion);
+    setSecretWord(initSingInUserEmail);
   };
   return (
-    <form onSubmit={getSecretAnswer}>
-      <FormControl mt="2" isInvalid={secretFlag}>
-        <Input
-          value={question}
-          placeholder="Enter secret answer"
-          fontSize="20"
-          p="6"
-          boxShadow="2xl"
-          bg="white"
-          border="1px"
-          //   borderRadius="2"
-          autoComplete="on"
-          focusBorderColor="lime"
-          onChange={handleSecretAnswer}
-        />
-        <FormErrorMessage>{secretFlag ? "Required" : ""}</FormErrorMessage>
-      </FormControl>
-      <WrapItem mt="4">
-        <Flex direction="row" gap="50">
-          <Button
-            colorScheme="red"
-            type="button"
-            onClick={() => setForgot(!forgot)}
-            borderRadius="50"
-            p="1"
-          >
-            <BiLeftArrowCircle style={{ fontSize: "30px" }} />
-          </Button>
-          <Button colorScheme="red" type="submit">
-            Send
-          </Button>
-        </Flex>
-      </WrapItem>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <ChakraProvider>
+          <h4>Enter email</h4>
+          <form onSubmit={getSecretAnswer}>
+            <FormControl
+              mt="2"
+              // isInvalid={secretFlag}
+            >
+              <Input
+                value={email}
+                placeholder="Enter email"
+                fontSize="20"
+                p="6"
+                boxShadow="2xl"
+                bg="white"
+                border="1px"
+                //   borderRadius="2"
+                autoComplete="on"
+                focusBorderColor="lime"
+                onChange={handleSecretAnswer}
+              />
+              {/* <FormErrorMessage>{secretFlag ? "Required" : ""}</FormErrorMessage> */}
+            </FormControl>
+            <WrapItem mt="4">
+              <Flex direction="row" gap="50">
+                <Button
+                  colorScheme="red"
+                  type="button"
+                  onClick={() => navigate("/singUp")}
+                  borderRadius="50"
+                  p="1"
+                >
+                  <BiLeftArrowCircle style={{ fontSize: "30px" }} />
+                </Button>
+                <Button
+                  colorScheme="red"
+                  type="submit"
+                  onClick={() => navigate("/restorePassword")}
+                >
+                  Send
+                </Button>
+              </Flex>
+            </WrapItem>
+          </form>
+        </ChakraProvider>
+      </div>
+    </div>
   );
 };
 

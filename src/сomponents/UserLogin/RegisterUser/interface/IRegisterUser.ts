@@ -6,8 +6,7 @@ export const initRegisterData = {
     email: "",
     password: "",
     phone: "+49",
-    image: "",
     plz: "",
-    question: "",
-    answer: ""
+    secretQuestion: "",
+    answerSecretQuestion: ""
 }

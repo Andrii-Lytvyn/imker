@@ -23,6 +23,10 @@ const PostsAdmin = lazy(
   () => import("./сomponents/AdminPage/PostsAdmin/PostsAdmin")
 );
 const Gallery = lazy(() => import("./сomponents/Gallery/Gallery"));
+const GalleryAdmin = lazy(
+  () => import("./сomponents/AdminPage/GalleryAdmin/GalleryAdmin")
+);
+
 const AddEventAdmin = lazy(
   () => import("./сomponents/AdminPage/EventsAdmin/AddEventAdmin")
 );

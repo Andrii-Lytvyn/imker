@@ -17,7 +17,7 @@ const getAllEventsFooter = async () => {
   try {
     //для Бека
     const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=0`
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=4&page=0`
     );
     return data.events;
   } catch (error) {

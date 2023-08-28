@@ -57,7 +57,6 @@ export default function PostSingle(): JSX.Element {
                   />
                     <p className={styles.post_time}>{post?.creationTimePost}</p>
                     <h2>{post?.titlePost}</h2>
-                    <p className={styles.post_text}>{post?.shortPostDescription}</p>
                     <div
                 className="container"
                 dangerouslySetInnerHTML={{

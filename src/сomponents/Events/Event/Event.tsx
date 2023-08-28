@@ -107,9 +107,7 @@ const Event = (): JSX.Element => {
                   )}
                   {item.mapSrc && (
                     <div className={styles.map}>
-                      <Nav>
-                        <Link to={item.mapSrc}>Auf der Karte anzeigen</Link>
-                      </Nav>
+
 
                       <iframe
                         src={srcLinkFromIframe(item.mapSrc)}

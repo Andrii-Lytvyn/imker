@@ -1,4 +1,4 @@
-
+import styles from "./Posts.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import axios from "axios";
@@ -8,6 +8,9 @@ import {
 } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
 import { Pagination } from "@mui/material";
+import {Container} from "react-bootstrap";
+import {BsCalendar2Week} from "react-icons/bs";
+import {BiTimeFive} from "react-icons/bi";
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
@@ -47,14 +50,12 @@ export default function Posts() {
 
   return (
     <>
-      <Pagination
-        count={posts.pages}
-        page={currentPage}
-        size="large"
-        onChange={getAnotherPage}
-      />
-
-      {posts && (
+      <div className={styles.post_bg + " d-flex align-items-center justify-content-center"}>
+        <h2>BLOG</h2>
+      </div>
+      <Container>
+        <div className={styles.post_container}>
+          {posts && (
         <div className="container">
 
           {posts.posts.map(
@@ -68,17 +69,11 @@ export default function Posts() {
               authorName,
             }) => (
               <div key={idPost}>
-                <hr />
-                <p>Post id: {idPost}</p>
-                <p>Created: {creationTimePost}</p>
-                {authorName && (
-                  <p>Author name: {authorName}</p>
-                )}
-                <Link to={`/posts/${idPost}`} className="fs-4">
-                  {titlePost}
-                </Link>
+
+
                 <br />
                 <img
+                    className={styles.post_img}
                   src={linkToServer + "/api/files/" + linkToImg}
                   alt={"post img" + idPost}
                   onError={(e) => {
@@ -86,16 +81,65 @@ export default function Posts() {
                     target.src = "/img/imgNotFound.png";
                   }}
                 />
-                <div>{shortPostDescription}</div>
-                <Link to={`/posts/${idPost}`} className="btn btn-primary">
-                  Open this post
+                <p className={styles.post_event_date}>Created: {creationTimePost}</p>
+                {authorName && (
+                    <p className={styles.post_event_date}>Author name:
+                      <Link to={"/"}> {authorName}</Link>
+                    </p>
+                )}
+                <h2>
+                  <Link to={`/posts/${idPost}`} className="fs-4">
+                    {titlePost}
+                  </Link>
+                </h2>
+                {/*<p>Post id: {idPost}</p>*/}
+
+                <div className={styles.post_event_text_temp}>{shortPostDescription}</div>
+                <Link to={`/posts/${idPost}`} className="button_imker">
+                  Mehr lesen
                 </Link>
+                <hr />
               </div>
             )
           )}
 
         </div>
       )}
+          <div className={styles.post_right_side}>
+            <h2>NACHRICHTEN</h2>
+            <hr className={styles.post_hr} />
+            <div className="mb-2">
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <hr className={styles.post_hr} />
+            </div>
+            <div className="mb-2">
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <hr className={styles.post_hr} />
+            </div>
+            <div className="mb-2">
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <hr className={styles.post_hr} />
+            </div>
+          </div>
+        </div>
+      <Pagination
+          className={styles.pagination_container}
+          count={posts.pages}
+          page={currentPage}
+          size="large"
+          onChange={getAnotherPage}
+      />
+
+      </Container>
     </>
   );
 }

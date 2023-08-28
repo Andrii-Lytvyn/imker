@@ -1,21 +1,22 @@
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IMember } from "../../AboutUs/IMembers";
-import { Link } from "react-router-dom";
-
+import { IMember } from "../../AboutUs/interfaces/IMembers";
+import { Link, useNavigate } from "react-router-dom";
+import baseURL from "../../globalLinkToServer";
 
 export default function TeamAdmin(): JSX.Element {
 
-  const baseURL = "http://localhost:8080";
   const [member, setMember] = useState<IMember[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${baseURL}/api/members`);
-        const memberDto = await response.data;
-        setMember(memberDto.members);
+        const memberResponseData = await response.data;
+        console.log("memberResponseData:🚀🚀 ", memberResponseData)
+        setMember(memberResponseData.members);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -23,24 +24,11 @@ export default function TeamAdmin(): JSX.Element {
     fetchData();
   }, []);
 
-  async function updateMember(idMember: number) {
-    try {
-      const response = await axios.put(
-        `${baseURL}/api/members/${idMember}`
-      );
-      setMember(await response.data);
-    } catch (error) {
-      console.error("Error during request execution:", error);
-    }
-  }
-
-  // !!! НЕ ОБНОВЛЯЕТ ДАННІЕ НА СТРАНИЦЕ - НУЖНА ПЕРЕРИСОВКА после удаления
   async function deleteMember(idMember: number) {
     try {
       const response = await axios.delete(`${baseURL}/api/members/${idMember}`);
       console.log("🚀 ~ file: TeamAdmin.tsx:40 ~ deleteMember ~ response:", response)
       window.location.reload();
-      // setMember(await response.data);
     } catch (error) {
       console.error("Error during request execution:", error);
     }
@@ -91,7 +79,8 @@ export default function TeamAdmin(): JSX.Element {
               email
             }) => (
               <li key={id}>
-                <button onClick={() => updateMember(+id)}>
+                <button onClick={() => navigate(`/aboutusadmin/teameditmemberadmin/${id}`)
+                }>
                   Edit
                 </button>
                 <button onClick={() => deleteMember(+id)}>
@@ -109,7 +98,7 @@ export default function TeamAdmin(): JSX.Element {
                     <p >Facebook: {facebook}</p>
                     <p >Instagram: {instagram}</p>
                   </div>
-                  <img src={image} width="300px" /> <br />
+                  <img src={baseURL + "/api/files/" + image} alt={name + position} width="300px" /> <br />
                 </div>
                 <br /><br />
               </li>

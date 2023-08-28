@@ -5,11 +5,11 @@ import {
   initIPostsDto,
 } from "../../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
+import linkToServer from "../../globalLinkToServer";
 
 export default function PostsPanel() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
   const itemsOnPage = 6;
-  const linkToServer = "http://localhost:8080";
 
   useEffect(() => {
     async function getListOfPosts() {

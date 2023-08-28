@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
+import linkToServer from "../../globalLinkToServer";
 
 interface PostEditAdminProps {
   location: {
@@ -27,7 +28,6 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
   const [value, setValue] = useState<string>();
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const linkToServer = "http://localhost:8080";
   const width = 900;
   const height = 350;
 
@@ -51,11 +51,10 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
 
         try {
           const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}`,
+            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=POST`,
             formData
           );
           linkVar = response.data.id.toString();
-          console.log("File uploaded:", linkVar);
         } catch (error) {
           console.error("Error uploading file:", error);
         }

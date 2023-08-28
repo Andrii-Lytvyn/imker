@@ -17,7 +17,7 @@ const getAllEventsFooter = async () => {
   try {
     //для Бека
     const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&page=0`
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=4&page=0`
     );
     return data.events;
   } catch (error) {
@@ -166,7 +166,7 @@ export default function Footer(): JSX.Element {
               <FaTwitter className={styles.social_icons} />
             </div>
             <div>
-              <img src="img/logo.png" height="30px" />
+              <img src="/logo.png" height="30px" />
             </div>
           </Container>
         </div>

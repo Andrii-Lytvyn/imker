@@ -16,7 +16,7 @@ export default function Header(): JSX.Element {
         >
           <Nav className={styles.logo}>
             <Link to="/">
-              <img src="img/logo.png" height="50px" />
+              <img src="/logo.png" height="50px" />
             </Link>
           </Nav>
           <Nav

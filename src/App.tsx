@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
+
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 
 const TeamEditMemberAdmin = lazy(
@@ -79,6 +80,7 @@ function App(): JSX.Element {
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="filesadm" element={<FilesUploadAdmin />} />
           <Route path="accountpage" element={<AccountPage />} />
+          <Route path="galleryadm" element={<GalleryAdmin />} />
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />

@@ -84,7 +84,7 @@ export default function PostsCreationAdmin(): JSX.Element {
         window.location.reload();
       } catch (error) {
         console.error(
-          "There was an error when sending a posts data to Back:",
+          "There was an error when sending a posts data to Back: ",
           error
         );
       }

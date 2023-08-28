@@ -4,10 +4,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 interface FilesUploadProps {
-  handleReload():void;
+  handleReload(): void;
 }
 
-export default function FilesUpload({handleReload}:FilesUploadProps): JSX.Element {
+export default function FilesUpload({
+  handleReload,
+}: FilesUploadProps): JSX.Element {
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const width = 900;
@@ -23,7 +25,7 @@ export default function FilesUpload({handleReload}:FilesUploadProps): JSX.Elemen
 
         try {
           const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=AVATAR`,
+            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=GALLERY`,
             formData
           );
           linkVar = response.data.id.toString();
@@ -74,6 +76,9 @@ export default function FilesUpload({handleReload}:FilesUploadProps): JSX.Elemen
 
   return (
     <div>
+      <p className="col-md-7 mb-2 text-start fs-5">
+        Recommended resolution: {width}x{height}px
+      </p>
       <input type="file" onChange={handleFileChange} />
       {selectedFile && (
         <button onClick={() => handleFileUploading()}>Send File</button>

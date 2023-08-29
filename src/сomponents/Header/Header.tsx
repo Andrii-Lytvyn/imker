@@ -16,7 +16,7 @@ export default function Header(): JSX.Element {
         >
           <Nav className={styles.logo}>
             <Link to="/">
-              <img src="img/logo.png" height="50px" />
+              <img src="/logo.png" height="50px" />
             </Link>
           </Nav>
           <Nav
@@ -42,6 +42,9 @@ export default function Header(): JSX.Element {
                 После тестирования, пожалуйста, очистите за собой App.tsx
                 */}
                 <Link to="/contactusadm">ContactUsAdmin</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/adminpage">AdminPage</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link to="/postsadm">PostsAdmin</Link>

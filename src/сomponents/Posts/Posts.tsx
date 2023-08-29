@@ -77,7 +77,7 @@ export default function Posts() {
                   alt={"post img" + idPost}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = "/img/imgNotFound.png";
+                    target.src = "/img/imgNotFound.jpg";
                   }}
                 />
                 <p className={styles.post_event_date}>Created: {creationTimePost}</p>

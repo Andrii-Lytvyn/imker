@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
+
+import AdminPage from "./сomponents/AdminPage/AdminPage";
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -70,9 +72,19 @@ function App(): JSX.Element {
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route path="posts/{post-id}" element={<MainPage />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<Event />} />
           <Route path="aboutUs" element={<AboutUs />} />
+          <Route path="contactUs" element={<ContactUs />} />
+          <Route path="about" element={<AboutUs />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/singUp" element={<SingInUser />} />
+          <Route path="*" element={<NoPage />} />
+          <Route path="adminpage" element={<AdminPage />} />
+
           <Route path="aboutusadmin" element={<TeamAdmin />} />
           <Route
             path="aboutusadmin/addmember"
@@ -82,10 +94,7 @@ function App(): JSX.Element {
             path="aboutusadmin/teameditmemberadmin/:id"
             element={<TeamEditMemberAdmin />}
           />
-          <Route path="contactUs" element={<ContactUs />} />
           <Route path="contactusadm" element={<ContactUsAdmin />} />
-          <Route path="posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="postsadm" element={<PostsAdmin />} />
           <Route path="filesadm" element={<FilesUploadAdmin />} />
           <Route path="accountpage" element={<AccountPage />} />

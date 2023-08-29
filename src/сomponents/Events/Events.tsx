@@ -21,7 +21,7 @@ const getAllEvents = async (page: number) => {
   try {
     //для Бека
     const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=3&page=${page}`
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=4&page=${page}`
     );
 
     console.log("🚀  data:", data);

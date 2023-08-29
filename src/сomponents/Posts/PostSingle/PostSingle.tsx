@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
 import {Link, useParams} from "react-router-dom";
-import styles from "../../Events/Event/Event.module.css";
+import styles from "./Post.module.css";
 import {FaHome} from "react-icons/fa";
 import {Container, Nav} from "react-bootstrap";
 import {BsCalendar2Week} from "react-icons/bs";
@@ -54,10 +54,13 @@ export default function PostSingle(): JSX.Element {
                     className={styles.post_img}
                     src={linkToServer + "/api/files/" + post?.linkToImg}
                     alt={"post img" + post?.idPost}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/img/imgNotFound.jpg";
+                    }}
                   />
                     <p className={styles.post_time}>{post?.creationTimePost}</p>
                     <h2>{post?.titlePost}</h2>
-                    <p className={styles.post_text}>{post?.shortPostDescription}</p>
                     <div
                 className="container"
                 dangerouslySetInnerHTML={{

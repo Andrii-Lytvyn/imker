@@ -45,8 +45,9 @@ export default function ContactUsAdmin(): JSX.Element {
       <div className="container">
 
         <AddressAdmin />
-        
+        <hr className="mb-5" />
         <GoogleMapAdmin />
+        <hr className="mb-5" />
 
         <h2 className="mt-5">Requests received from users:</h2>
         {!requests.length && (

@@ -77,7 +77,10 @@ export default function FilesUpload({
   return (
     <div>
       <p className="col-md-7 mb-2 text-start fs-5">
-        Recommended resolution: {width}x{height}px
+        Recommended format 4:3
+      </p>
+      <p className="col-md-7 mb-2 text-start fs-5">
+        Maximum resolution: {width}x{height}px
       </p>
       <input type="file" onChange={handleFileChange} />
       {selectedFile && (

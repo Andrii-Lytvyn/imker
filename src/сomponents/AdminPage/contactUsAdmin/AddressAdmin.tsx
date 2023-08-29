@@ -62,9 +62,10 @@ export default function AddressAdmin() {
 
   return (
     <>
+      <p className="fs-4 mt-4 mb-4">Change Postadresse:</p>
       <div className="d-flex align-items-center fs-4 m-2">
         <label htmlFor="address" className="col-md-2 me-2 text-end">
-          address:
+          Address:
         </label>
         <input
           className="form-control fs-5"
@@ -100,16 +101,18 @@ export default function AddressAdmin() {
         />
       </div>
 
-      <button
-        type="button"
-        className={
-          "col-md-3 btn m-2 " + (isNoChange ? "btn-secondary" : "btn-primary")
-        }
-        onClick={handleSetNewAddress}
-        disabled={isNoChange}
-      >
-        Save new address to Data Base
-      </button>
+      <div className="d-flex justify-content-end fs-4 m-2">
+        <button
+          type="button"
+          className={
+            "col-md-3 btn m-2 " + (isNoChange ? "btn-secondary" : "btn-primary")
+          }
+          onClick={handleSetNewAddress}
+          disabled={isNoChange}
+        >
+          Save new address to Data Base
+        </button>
+      </div>
     </>
   );
 }

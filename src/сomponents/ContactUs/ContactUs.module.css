@@ -2,29 +2,59 @@
 
 .topImgContainer {
   height: 250px;
-  background-image: url("/img/topImg.png");
   background-size: contain;
   background-position: bottom;
-  animation: expand 1s ease;
 }
-
-.topImgText {
-  padding-top: 10px;
-  font-family: "Archivo Black", sans-serif;
-  font-size: 3em;
+.contacts_form{
+  width: 70%;
+}
+.contacts_right, .contacts_left{
+  width: 45%;
+}
+.contacts_left h4{
+  text-align: left;
+}
+.contacts_right h4{
+  text-align: left;
+}
+.contacts_left p{
+  color: var(--text-color) ;
+}
+.contacts_header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--terracotta);
+  height: 200px;
+  margin-top: -20px;
+}
+.contacts_header h2{
   color: white;
-  text-shadow: 4px 4px 3px #e67425;
 }
-
-@keyframes expand {
-  from {
-    margin-top: -10px;
-  }
-  to {
-    margin-top: 0px;
-  }
+.contacts_input_div{
+  margin-bottom: 20px;
+  width: 100%;
 }
-
+.contacts_info{
+  color: #c74817;
+  font-size: 10px;
+  margin-top: -25px;
+}
+.contacts_info_charLeft{
+  color: #c74817;
+  font-size: 10px;
+}
+.contacts_info_charLeft span{
+  font-weight: 900;
+}
+.icons{
+  color: var(--terracotta);
+  font-size: 1.2em;
+  margin-right: 12px;
+}
+.contacts_h4{
+  font-weight: 600;
+}
 .askText {
   font-family: "Actor", sans-serif;
   font-size: 2em;

@@ -72,6 +72,7 @@ Container {
   color: white;
   padding: 10px 15px 12px;
   border-radius: 5px;
+  border: none;
 }
 .button_imker:hover{
   background-color: var(--yellow);

@@ -6,7 +6,7 @@
   background-position: bottom;
 }
 .contacts_form{
-  width: 70%;
+  width: 100%;
 }
 .contacts_right, .contacts_left{
   width: 45%;
@@ -37,12 +37,14 @@
 }
 .contacts_info{
   color: #c74817;
-  font-size: 10px;
-  margin-top: -25px;
+  font-size: 1rem;
+  margin-top: -10px;
+  text-align: center;
 }
 .contacts_info_charLeft{
   color: #c74817;
-  font-size: 10px;
+  font-size: 0.8rem;
+  margin-left: 10px;
 }
 .contacts_info_charLeft span{
   font-weight: 900;

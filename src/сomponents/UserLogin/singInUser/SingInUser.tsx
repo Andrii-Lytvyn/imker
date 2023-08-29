@@ -21,20 +21,57 @@ import linkToServer from "../../globalLinkToServer";
 
 const singInUser = async (userSingIn: string) => {
   try {
-    const data = await axios.post(`${linkToServer}/login`, userSingIn);
+    const data = await axios.post(`${linkToServer}/login`, userSingIn, {
+      withCredentials: true,
+    });
     console.log("🚀  data:", data);
+
     return data;
   } catch (error) {
     console.log("🚀  error:", error);
   }
 };
+
+// interface ISing {
+//   [key: string]: string;
+// }
+// const singInUser = async (data: ISing) => {
+//   try {
+//     const formData = new URLSearchParams();
+
+//     for (const key in data) {
+//       formData.append(key, data[key]);
+//     }
+//     fetch(`${linkToServer}/login`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       body: formData.toString(),
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log("Response data:", data);
+//       })
+//       .catch((error) => {
+//         console.error("Error:", error);
+//       });
+//     // const data = await axios.post(`${linkToServer}/login`, userSingIn);
+//     // console.log("🚀  data:", data);
+//     // return data;
+//   } catch (error) {
+//     console.log("🚀  error:", error);
+//   }
+// };
+
+///////////////////////////////////////////
 const getUserData = async () => {
   try {
     const data = await axios.get(`${linkToServer}/api/me`);
     console.log("🚀  getUserData:", data);
     // return data;
   } catch (error) {
-    console.log("🚀  error:", error);
+    console.log("🚀 getUserData error:", error);
   }
 };
 
@@ -56,15 +93,24 @@ const SingInUser = (): JSX.Element => {
     validationSchema: validationSchemaSingUpYup,
     onSubmit: async ({ email, password }) => {
       const userSingIn = `username=${email}&password=${password}`;
+      // const data = {
+      //   username: email,
+      //   password,
+      // };
 
       const autorizedUser = await singInUser(userSingIn);
+
+      console.log("🚀  autorizedUser:", autorizedUser);
       if (autorizedUser?.status === 200) {
         resetForm();
         toast.success("User Logined!");
-        await getUserData();
+        // await getUserData();
       }
     },
   });
+  const get = async () => {
+    await getUserData();
+  };
 
   // Обьект одинаковых настроек для всех инпутов
   const inputSettings = {
@@ -156,6 +202,10 @@ const SingInUser = (): JSX.Element => {
                 </Button>
               </Flex>
             </form>
+
+            <button type="button" onClick={get}>
+              getUser
+            </button>
           </div>
         </div>
       </ChakraProvider>

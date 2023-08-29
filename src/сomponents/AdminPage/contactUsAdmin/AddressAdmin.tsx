@@ -5,20 +5,15 @@ import { IAddress, initIAddress } from "../../ContactUs/interfaces/IAddress";
 import { toast } from "react-toastify";
 
 export default function AddressAdmin() {
-  const [{ address, phone, email }, setAddressFormData ] =
+  const [{ address, phone, email }, setAddressFormData] =
     useState<IAddress>(initIAddress);
-
-  const [
-    { address: oldAddress, phone: oldPhone, email: oldEmail },
-    setAddress,
-  ] = useState<IAddress>(initIAddress);
+  const [isNoChange, setIsNoChange] = useState(true);
 
   useEffect(() => {
     const getAddress = async () => {
       try {
         const response = await axios.get(`${linkToServer}/api/address`);
         const getAddress = response.data;
-        setAddress(getAddress);
         setAddressFormData(getAddress);
       } catch (error) {
         console.error("Error during request execution:", error);
@@ -33,15 +28,16 @@ export default function AddressAdmin() {
   ) => {
     const { name, value } = event.target;
     setAddressFormData((prev) => ({ ...prev, [name]: value }));
+
+    setIsNoChange(false);
   };
 
   const handleSetNewAddress = async () => {
-
     try {
       await axios.put(`${linkToServer}/api/address`, {
-        address, 
-        phone, 
-        email
+        address,
+        phone,
+        email,
       });
     } catch (error) {
       console.error(
@@ -61,57 +57,59 @@ export default function AddressAdmin() {
       theme: "light",
     });
 
-    setAddressFormData(initIAddress);
+    setIsNoChange(true);
   };
 
-  return <>
-   <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="address" className="col-md-2 me-2 text-end">
+  return (
+    <>
+      <div className="d-flex align-items-center fs-4 m-2">
+        <label htmlFor="address" className="col-md-2 me-2 text-end">
           address:
-          </label>
-          <input
-            className="form-control fs-5"
-            name="address"
-            defaultValue={oldAddress}
-            onChange={collectAddressData}
-            required
-          />
-        </div>
+        </label>
+        <input
+          className="form-control fs-5"
+          name="address"
+          defaultValue={address}
+          onChange={collectAddressData}
+          required
+        />
+      </div>
 
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label
-            htmlFor="phone"
-            className="col-md-2 me-2 text-end"
-          >
-            Phone number:
-          </label>
-          <input
-            className="form-control fs-5"
-            name="phone"
-            defaultValue={oldPhone}
-            onChange={collectAddressData}
-            required
-          />
-        </div>
+      <div className="d-flex align-items-center fs-4 m-2">
+        <label htmlFor="phone" className="col-md-2 me-2 text-end">
+          Phone number:
+        </label>
+        <input
+          className="form-control fs-5"
+          name="phone"
+          defaultValue={phone}
+          onChange={collectAddressData}
+          required
+        />
+      </div>
 
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="email" className="col-md-2 me-2 text-end">
-            E-mail:
-          </label>
-          <input
-            className="form-control fs-5"
-            name="email"
-            defaultValue={oldEmail}
-            onChange={collectAddressData}
-          />
-        </div>
-  
-        <button
-          type="button"
-          className="btn btn-primary m-2"
-          onClick={handleSetNewAddress}
-        >
-          Save new address to Data Base
-        </button>
-  </>;
+      <div className="d-flex align-items-center fs-4 m-2">
+        <label htmlFor="email" className="col-md-2 me-2 text-end">
+          E-mail:
+        </label>
+        <input
+          className="form-control fs-5"
+          name="email"
+          defaultValue={email}
+          onChange={collectAddressData}
+        />
+      </div>
+
+      <button
+        type="button"
+        className={
+          "col-md-3 btn m-2 " + (isNoChange ? "btn-secondary" : "btn-primary")
+        }
+        onClick={handleSetNewAddress}
+        disabled={isNoChange}
+      >
+        Save new address to Data Base
+      </button>
+    </>
+  );
 }

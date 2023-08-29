@@ -19,9 +19,7 @@ export default function GalleryAdmin(): JSX.Element {
           `${linkToServer}/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`
         );
         setFilesList(response.data);
-        console.log(response.data);
         setCurrentPage(1);
-        console.log(photos, count, pages);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -109,7 +107,7 @@ export default function GalleryAdmin(): JSX.Element {
                   }}
 
                 >
-                  Delete this image from Data Base
+                  Delete this image from gallery
                 </button>
               </div>
             </div>

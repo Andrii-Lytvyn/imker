@@ -1,0 +1,15 @@
+.container {
+  margin: 30px 70px;
+}
+.main_img {
+  width: 60%;
+  height: 20%;
+}
+/* .common_img {
+  width: 1000px;
+  height: 800px;
+} */
+.small_img {
+  width: 11.5% !important;
+  height: 90px !important;
+}

@@ -54,6 +54,10 @@ export default function PostSingle(): JSX.Element {
                     className={styles.post_img}
                     src={linkToServer + "/api/files/" + post?.linkToImg}
                     alt={"post img" + post?.idPost}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/img/imgNotFound.jpg";
+                    }}
                   />
                     <p className={styles.post_time}>{post?.creationTimePost}</p>
                     <h2>{post?.titlePost}</h2>

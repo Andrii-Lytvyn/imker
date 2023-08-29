@@ -3,6 +3,7 @@ import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 
 import AdminPage from "./сomponents/AdminPage/AdminPage";
+import TopCallery from "./сomponents/Gallery/TopCallery/TopCallery";
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -104,6 +105,7 @@ function App(): JSX.Element {
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
+          <Route path="topgallery" element={<TopCallery />} />
           <Route path="*" element={<NoPage />} />
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/singUp" element={<SingInUser />} />

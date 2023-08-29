@@ -8,7 +8,7 @@ import linkToServer from "../globalLinkToServer";
 import { Container } from "react-bootstrap";
 import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
 import { TextField } from "@mui/material";
-import { IAddress, initIUserAccountInfo } from "./interfaces/IAddress";
+import { IAddress, initIAddress } from "./interfaces/IAddress";
 
 export default function Contacts(): JSX.Element {
   const [
@@ -20,7 +20,7 @@ export default function Contacts(): JSX.Element {
   const [googleMap, setGoogleMap] = useState("");
   const [
     { address, phone:phoneAddr, email:emailAddr }, 
-    setAddress] = useState<IAddress>(initIUserAccountInfo);
+    setAddress] = useState<IAddress>(initIAddress);
 
   useEffect(() => {
     const getGoogleMapLink = async () => {

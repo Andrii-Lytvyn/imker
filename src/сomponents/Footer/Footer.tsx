@@ -13,7 +13,7 @@ import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import {
   IAddress,
-  initIUserAccountInfo,
+  initIAddress,
 } from "../ContactUs/interfaces/IAddress";
 
 // Получение  всех Events
@@ -32,7 +32,7 @@ const getAllEventsFooter = async () => {
 export default function Footer(): JSX.Element {
   const [events, setEvents] = useState<IEvent[]>([]);
   const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
-    useState<IAddress>(initIUserAccountInfo);
+    useState<IAddress>(initIAddress);
 
   useEffect(() => {
     const getEvents = async () => {

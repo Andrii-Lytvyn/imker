@@ -5,7 +5,7 @@ export interface IAddress {
   email: string;
 
 }
-export const initIUserAccountInfo = {
+export const initIAddress = {
   id: -1,
   address: "",
   phone: "",

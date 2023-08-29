@@ -4,6 +4,7 @@ import { IRequestDto } from "../../ContactUs/interfaces/IRequestDto";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import GoogleMapAdmin from "./GoogleMapAdmin";
 import linkToServer from "../../globalLinkToServer";
+import AddressAdmin from "./AddressAdmin";
 
 export default function ContactUsAdmin(): JSX.Element {
   const [requests, setRequests] = useState<IRequestDto[]>([]);
@@ -43,6 +44,8 @@ export default function ContactUsAdmin(): JSX.Element {
     <>
       <div className="container">
 
+        <AddressAdmin />
+        
         <GoogleMapAdmin />
 
         <h2 className="mt-5">Requests received from users:</h2>

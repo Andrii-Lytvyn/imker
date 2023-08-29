@@ -17,14 +17,16 @@ import { IRegisterUser, initRegisterData } from "./interface/IRegisterUser";
 import { validationSchemaRegistrationYup } from "../helpers/validationYupShema/validationSchemaYup";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const baseURL = "http://localhost:8080/api/register";
-// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
+import linkToServer from "../../globalLinkToServer";
 
 const loginNewUser = async (createNewUser: IRegisterUser) => {
   try {
-    const data = await axios.post(`${baseURL}`, createNewUser);
-    console.log("🚀  data:", data);
+    const dataNewUser = await axios.post(
+      `${linkToServer}/api/register`,
+      createNewUser
+    );
+    console.log("🚀  data:", dataNewUser);
+    return dataNewUser;
   } catch (error) {
     toast.error(`Ошибка сервера ${error}`);
   }
@@ -45,11 +47,13 @@ const RegisterUser = (): JSX.Element => {
   } = useFormik({
     initialValues: initRegisterData,
     validationSchema: validationSchemaRegistrationYup,
-    onSubmit: (createNewUser) => {
+    onSubmit: async (createNewUser) => {
       console.log("🚀  createNewUser:", createNewUser); //Log для бека
-      loginNewUser(createNewUser);
-      resetForm();
-      toast.success("User create!");
+      const dataNewUser = await loginNewUser(createNewUser);
+      if (dataNewUser?.status === 201) {
+        resetForm();
+        navigate("/singUp");
+      }
     },
   });
 
@@ -80,10 +84,7 @@ const RegisterUser = (): JSX.Element => {
                   {...inputSettings}
                 />
               </FormControl>
-              <FormControl
-                mt="4"
-                // isInvalid={!!errors.plz && touched.plz}
-              >
+              <FormControl mt="4" isInvalid={!!errors.plz && touched.plz}>
                 <Input
                   name="plz"
                   value={values.plz.trim()}
@@ -91,9 +92,9 @@ const RegisterUser = (): JSX.Element => {
                   focusBorderColor="lime"
                   {...inputSettings}
                 />
-                {/* {errors.plz && touched.plz && (
+                {errors.plz && touched.plz && (
                   <FormErrorMessage>{errors.plz}</FormErrorMessage>
-                )} */}
+                )}
               </FormControl>
               <FormControl
                 mt="4"
@@ -159,8 +160,8 @@ const RegisterUser = (): JSX.Element => {
                 // isInvalid={!!errors.question && touched.question}
               >
                 <Input
-                  name="question"
-                  value={values.question.trim()}
+                  name="secretQuestion"
+                  value={values.secretQuestion.trim()}
                   placeholder="Your question to restore "
                   focusBorderColor="lime"
                   {...inputSettings}
@@ -174,8 +175,8 @@ const RegisterUser = (): JSX.Element => {
                 // isInvalid={!!errors.answer && touched.answer}
               >
                 <Input
-                  name="answer"
-                  value={values.answer.trim()}
+                  name="answerSecretQuestion"
+                  value={values.answerSecretQuestion.trim()}
                   placeholder="Your answer to restore "
                   focusBorderColor="lime"
                   {...inputSettings}

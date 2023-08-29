@@ -6,6 +6,6 @@ export const initSingInUserData = {
     email: "",
     password: "",
 }
-export const initSingInUserQuestion = {
-    question: "",
+export const initSingInUserEmail = {
+    email: "",
 }

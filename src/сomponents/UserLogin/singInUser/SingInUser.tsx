@@ -1,5 +1,5 @@
 import axios from "axios";
-import css from "./SingInUser.module.css";
+import styles from "./SingInUser.module.css";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -15,27 +15,68 @@ import {
   Flex,
   ChakraProvider,
 } from "@chakra-ui/react";
-import { ISignInUser, initSingInUserData } from "./interface/ISingInUser";
-import SecretAnswer from "./SecretAnswer/SecretAnswer";
-import RestorePassword from "./RestorePassword/RestorePassword";
+import { initSingInUserData } from "./interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
+import linkToServer from "../../globalLinkToServer";
 
-const baseURL = "http://localhost:8080/api/users/login";
-// const baseURL = "https://63bb362a32d17a50908a3770.mockapi.io";
-
-const singInUser = async (createNewUser: ISignInUser) => {
+const singInUser = async (userSingIn: string) => {
   try {
-    const { data } = await axios.post(`${baseURL}`, createNewUser);
+    const data = await axios.post(`${linkToServer}/login`, userSingIn, {
+      withCredentials: true,
+    });
     console.log("🚀  data:", data);
+
+    return data;
   } catch (error) {
     console.log("🚀  error:", error);
   }
 };
 
+// interface ISing {
+//   [key: string]: string;
+// }
+// const singInUser = async (data: ISing) => {
+//   try {
+//     const formData = new URLSearchParams();
+
+//     for (const key in data) {
+//       formData.append(key, data[key]);
+//     }
+//     fetch(`${linkToServer}/login`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       body: formData.toString(),
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log("Response data:", data);
+//       })
+//       .catch((error) => {
+//         console.error("Error:", error);
+//       });
+//     // const data = await axios.post(`${linkToServer}/login`, userSingIn);
+//     // console.log("🚀  data:", data);
+//     // return data;
+//   } catch (error) {
+//     console.log("🚀  error:", error);
+//   }
+// };
+
+///////////////////////////////////////////
+const getUserData = async () => {
+  try {
+    const data = await axios.get(`${linkToServer}/api/me`);
+    console.log("🚀  getUserData:", data);
+    // return data;
+  } catch (error) {
+    console.log("🚀 getUserData error:", error);
+  }
+};
+
 const SingInUser = (): JSX.Element => {
   const navigate = useNavigate();
-  const [forgot, setForgot] = useState(true);
-  const [restorePassword, setRestorePassword] = useState(true);
   const [show, setShow] = useState(false);
 
   //Валинация полей формы с помощью validationSchemaYup
@@ -50,14 +91,26 @@ const SingInUser = (): JSX.Element => {
   } = useFormik({
     initialValues: initSingInUserData,
     validationSchema: validationSchemaSingUpYup,
-    onSubmit: (createNewUser) => {
-      singInUser(createNewUser);
+    onSubmit: async ({ email, password }) => {
+      const userSingIn = `username=${email}&password=${password}`;
+      // const data = {
+      //   username: email,
+      //   password,
+      // };
 
-      console.log("🚀  LoginUser:", createNewUser); //Log для бека
-      resetForm();
-      toast.success("User Logined!");
+      const autorizedUser = await singInUser(userSingIn);
+
+      console.log("🚀  autorizedUser:", autorizedUser);
+      if (autorizedUser?.status === 200) {
+        resetForm();
+        toast.success("User Logined!");
+        // await getUserData();
+      }
     },
   });
+  const get = async () => {
+    await getUserData();
+  };
 
   // Обьект одинаковых настроек для всех инпутов
   const inputSettings = {
@@ -75,105 +128,84 @@ const SingInUser = (): JSX.Element => {
   return (
     <>
       <ChakraProvider>
-        <div className={css.container}>
-          <div className={css.wrapper}>
-            <h2 className={css.login_title}>Sing In</h2>
-            {forgot ? (
-              <form onSubmit={handleSubmit}>
-                <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
+        <div className={styles.container}>
+          <div className={styles.wrapper}>
+            <h2 className={styles.login_title}>Sing In</h2>
+            <form onSubmit={handleSubmit}>
+              <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
+                <Input
+                  name="email"
+                  value={values.email}
+                  placeholder="Email"
+                  focusBorderColor={
+                    errors.email && touched.email ? "crimson" : "lime"
+                  }
+                  {...inputSettings}
+                />
+                {errors.email && touched.email && (
+                  <FormErrorMessage>{errors.email}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl isInvalid={!!errors.password && touched.password}>
+                <InputGroup size="md">
                   <Input
-                    name="email"
-                    value={values.email}
-                    placeholder="Email"
-                    focusBorderColor={
-                      errors.email && touched.email ? "crimson" : "lime"
-                    }
+                    name="password"
+                    mt={errors.email && touched.email ? "4" : "10"}
+                    value={values.password}
+                    placeholder="Password"
                     {...inputSettings}
+                    focusBorderColor={
+                      errors.password && touched.password ? "crimson" : "lime"
+                    }
+                    type={show ? "text" : "password"}
                   />
-                  {errors.email && touched.email && (
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
-                  )}
-                </FormControl>
-                <FormControl isInvalid={!!errors.password && touched.password}>
-                  <InputGroup size="md">
-                    <Input
-                      name="password"
-                      mt={errors.email && touched.email ? "4" : "10"}
-                      value={values.password}
-                      placeholder="Password"
-                      {...inputSettings}
-                      focusBorderColor={
-                        errors.password && touched.password ? "crimson" : "lime"
-                      }
-                      type={show ? "text" : "password"}
-                    />
-                    <InputRightElement
-                      mt={errors.email && touched.email ? "5" : "10"}
-                      width="4.5rem"
-                      pos="absolute"
-                      top={errors.email && touched.email ? "1%" : "6%"}
-                      right="0.5%"
-                    >
-                      <Button
-                        h="2.4rem"
-                        size="sm"
-                        onClick={() => setShow(!show)}
-                      >
-                        {show ? "Hide" : "Show"}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  {errors.password && touched.password && (
-                    <FormErrorMessage>{errors.password}</FormErrorMessage>
-                  )}
-                </FormControl>
-                <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
-                  <Flex direction="row" gap="10px">
-                    <Button colorScheme="red" type="submit">
-                      Beitreten
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      type="button"
-                      onClick={() => setForgot((prev) => !prev)}
-                    >
-                      Passwort vergessen ?
-                    </Button>
-                  </Flex>
-                </WrapItem>
-                <Flex justifyContent="end">
-                  <Button
-                    type="button"
-                    mt="4"
-                    colorScheme="blue"
-                    variant="link"
-                    size="sm"
-                    onClick={() => navigate("/register")}
+                  <InputRightElement
+                    mt={errors.email && touched.email ? "5" : "10"}
+                    width="4.5rem"
+                    pos="absolute"
+                    top={errors.email && touched.email ? "1%" : "6%"}
+                    right="0.5%"
                   >
-                    Neues Konto registrieren
+                    <Button h="2.4rem" size="sm" onClick={() => setShow(!show)}>
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {errors.password && touched.password && (
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                )}
+              </FormControl>
+              <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
+                <Flex direction="row" gap="10px">
+                  <Button colorScheme="red" type="submit">
+                    Beitreten
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    type="button"
+                    onClick={() => navigate("/restore")}
+                  >
+                    Passwort vergessen ?
                   </Button>
                 </Flex>
-              </form>
-            ) : (
-              <div className={css.title}>
-                <h4>
-                  {restorePassword ? "Enter email" : "Enter new password "}
-                </h4>
-                {restorePassword ? (
-                  <SecretAnswer
-                    forgot={forgot}
-                    setForgot={setForgot}
-                    setRestorePassword={setRestorePassword}
-                    restorePassword={restorePassword}
-                  />
-                ) : (
-                  <RestorePassword
-                    setRestorePassword={setRestorePassword}
-                    restorePassword={restorePassword}
-                  />
-                )}
-              </div>
-            )}
+              </WrapItem>
+              <Flex justifyContent="end">
+                <Button
+                  type="button"
+                  mt="4"
+                  colorScheme="blue"
+                  variant="link"
+                  size="sm"
+                  onClick={() => navigate("/register")}
+                >
+                  Neues Konto registrieren
+                </Button>
+              </Flex>
+            </form>
+
+            <button type="button" onClick={get}>
+              getUser
+            </button>
           </div>
         </div>
       </ChakraProvider>

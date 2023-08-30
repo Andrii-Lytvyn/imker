@@ -74,7 +74,7 @@ const Events = (): JSX.Element => {
             <div>
               <ul className={styles.event_list}>
                 {events.map(
-                  ({ title, idEvent, dateStart, startTime, endTime, status, short_description, address }) =>
+                  ({ title, idEvent, dateStart, startTime, endTime, status, shortDescription, address }) =>
                     dateStart > currentDate() &&
                     status === EVENT_STATUS.EXPECTED ? (
                       <li key={`${idEvent}`} className={styles.events_list}>
@@ -95,7 +95,7 @@ const Events = (): JSX.Element => {
                           </Link>
                           <div>
                             <p className={styles.events_short_description}>
-                              {short_description}
+                              {shortDescription}
                               Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende...
                             </p>
                           </div>

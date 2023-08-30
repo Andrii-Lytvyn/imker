@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { initSingInUserData } from "./interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
-import linkToServer from "../../globalLinkToServer";
 
 const singInUser = async (userSingIn: string) => {
   try {
@@ -32,42 +31,11 @@ const singInUser = async (userSingIn: string) => {
   }
 };
 
-// interface ISing {
-//   [key: string]: string;
-// }
-// const singInUser = async (data: ISing) => {
-//   try {
-//     const formData = new URLSearchParams();
-
-//     for (const key in data) {
-//       formData.append(key, data[key]);
-//     }
-//     fetch(`${linkToServer}/login`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//       },
-//       body: formData.toString(),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log("Response data:", data);
-//       })
-//       .catch((error) => {
-//         console.error("Error:", error);
-//       });
-//     // const data = await axios.post(`${linkToServer}/login`, userSingIn);
-//     // console.log("🚀  data:", data);
-//     // return data;
-//   } catch (error) {
-//     console.log("🚀  error:", error);
-//   }
-// };
-
-///////////////////////////////////////////
 const getUserData = async () => {
   try {
-    const data = await axios.get(`${linkToServer}/api/me`);
+    const data = await axios.get(`/api/me`, {
+      withCredentials: true,
+    });
     console.log("🚀  getUserData:", data);
     // return data;
   } catch (error) {

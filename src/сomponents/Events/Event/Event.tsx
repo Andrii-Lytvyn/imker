@@ -67,9 +67,6 @@ const Event = (): JSX.Element => {
               <p>
                 Kontakt: <span>{event_edit?.author}</span>
               </p>
-              <p>
-                Tel: <span>0160-235-65-91</span>
-              </p>
             </div>
           </div>
           <div className={styles.item_container}>
@@ -81,7 +78,9 @@ const Event = (): JSX.Element => {
                   icon: <BsCalendar2Week />,
                   content: `${formatDate(event_edit?.dateStart)?.day} ${
                     formatDate(event_edit?.dateStart)?.month
-                  } ${formatDate(event_edit?.dateStart)?.year}`,
+                  } ${formatDate(event_edit?.dateStart)?.year} - ${formatDate(event_edit?.dateEnd)?.day} ${
+                      formatDate(event_edit?.dateEnd)?.month
+                  } ${formatDate(event_edit?.dateEnd)?.year}`,
                 },
                 {
                   title: "Time",

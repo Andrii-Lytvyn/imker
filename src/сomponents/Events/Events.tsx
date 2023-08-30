@@ -78,7 +78,7 @@ const Events = (): JSX.Element => {
             <div>
               <ul className={styles.event_list}>
                 {events.map(
-                  ({ title, idEvent, dateStart, startTime, endTime, status, short_description }) =>
+                  ({ title, idEvent, dateStart, startTime, endTime, status, short_description, address }) =>
                     dateStart > currentDate() &&
                     status === EVENT_STATUS.EXPECTED ? (
                       <li key={`${idEvent}`} className={styles.events_list}>
@@ -112,7 +112,7 @@ const Events = (): JSX.Element => {
                             <IoLocationOutline className={styles.events_time} />
                             <span>
                                 <Link to={"/"}>
-                                    74722, Buchen, Dorfstrasse, 6
+                                    {address}
                                 </Link>
                               </span>
                           </div>

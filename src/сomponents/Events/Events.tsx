@@ -1,7 +1,5 @@
 import styles from "./Events.module.css";
 import { currentDate, formatDate } from "./helpers/formattedDate";
-import { FcAlarmClock } from "react-icons/fc";
-import { ImLocation } from "react-icons/im";
 import { Link, useSearchParams } from "react-router-dom";
 // import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
@@ -15,6 +13,10 @@ import { EVENT_STATUS } from "./interface/IEventsData";
 import linkToServer from "../globalLinkToServer";
 import { Pagination } from "@mui/material";
 import LoaderStart from "../Loader/LoaderStart";
+import {Container} from "react-bootstrap";
+import {BsCalendar2Week, BsClock} from "react-icons/bs";
+import {FaUserGraduate} from "react-icons/fa6";
+import {IoLocationOutline} from "react-icons/io5";
 
 // Получение  всех Events
 const getAllEvents = async (page: number) => {
@@ -55,9 +57,12 @@ const Events = (): JSX.Element => {
   const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
     setSearchParams({ page: value.toString() });
   };
-
   return (
     <>
+      <div className={styles.post_bg + " d-flex align-items-center justify-content-center"}>
+        <h2>UNSERE VERANSTALTUNGEN</h2>
+      </div>
+    <Container>
       {events.length === 0 ? (
         <div className={styles.event_loader}>
           <LoaderStart />
@@ -65,34 +70,48 @@ const Events = (): JSX.Element => {
       ) : (
         <>
           {/* <PostsPanel /> */}
-          <h2>Our Events</h2>
-          <div className={styles.cont}>
+          <div className={styles.post_container}>
             <div>
               <ul className={styles.event_list}>
                 {events.map(
-                  ({ title, idEvent, dateStart, startTime, endTime, status }) =>
+                  ({ title, idEvent, dateStart, startTime, endTime, status, short_description, address }) =>
                     dateStart > currentDate() &&
                     status === EVENT_STATUS.EXPECTED ? (
-                      <li key={`${idEvent}`} className={styles.list}>
-                        <div className={styles.day}>
-                          <span>{formatDate(dateStart)?.day}</span>
-                          <h4>{formatDate(dateStart)?.month}</h4>
+                      <li key={`${idEvent}`} className={styles.events_list}>
+                        <div>
+                          <div className={styles.events_date}>
+                            <h5>{formatDate(dateStart)?.day}</h5>
+                            <p>{formatDate(dateStart)?.month}</p>
+                          </div>
                         </div>
-                        <div className={styles.time_event}>
+                        <div className={styles.events_main_list}>
                           <Link
                             to={`/events/${idEvent}`}
                             onClick={() => {
                               dispatch(getOneEvent(idEvent));
                             }}
                           >
-                            {title}
+                            <h4>{title}</h4>
                           </Link>
-
-                          <div className={styles.time}>
-                            <FcAlarmClock size={20} />
-                            <span>{`${startTime} - ${endTime}`}</span>
-                            <ImLocation size={20} style={{ color: "red" }} />
+                          <div>
+                            <p className={styles.events_short_description}>
+                              {short_description}
+                              Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende...
+                            </p>
                           </div>
+                          <div className={styles.events_times + " d-flex mt-4"} >
+                            <BsClock className={styles.events_time}  />
+                            <span>{`${startTime} - ${endTime}`}</span>
+                          </div>
+                          <div className={styles.events_times + " d-flex"} >
+                            <IoLocationOutline className={styles.events_time} />
+                            <span>
+                                <Link to={"/"}>
+                                    {address}
+                                </Link>
+                              </span>
+                          </div>
+                          <hr />
                         </div>
                       </li>
                     ) : (
@@ -101,15 +120,43 @@ const Events = (): JSX.Element => {
                 )}
               </ul>
               <Pagination
+                className={styles.pagination_container}
                 count={count !== null ? Math.ceil(count / 3) : 0}
                 page={Number(page)}
                 size="large"
                 onChange={getLinkParams}
               />
             </div>
+            <div className={styles.post_right_side}>
+              <h2>Unser Blog</h2>
+              <hr className={styles.post_hr} />
+              <div className="mb-2">
+                <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                <p className={styles.post_event_user}><FaUserGraduate /> Author name: <span>Dominic Andrews</span></p>
+                <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                <hr className={styles.post_hr} />
+              </div>
+              <div className="mb-2">
+                <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                <p className={styles.post_event_user}><FaUserGraduate /> Author name: <span>Dominic Andrews</span></p>
+                <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                <hr className={styles.post_hr} />
+              </div>
+              <div className="mb-2">
+                <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                <p className={styles.post_event_user}><FaUserGraduate /> Author name: <span>Dominic Andrews</span></p>
+                <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                <hr className={styles.post_hr} />
+              </div>
+            </div>
           </div>
+
         </>
       )}
+      </Container>
     </>
   );
 };

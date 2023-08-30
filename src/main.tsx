@@ -8,10 +8,8 @@ import { store } from "./redux/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <BrowserRouter basename="/imker">
-      {/* <Suspense> */}
+    <BrowserRouter basename="/">
       <App />
-      {/* </Suspense> */}
     </BrowserRouter>
   </Provider>
 );

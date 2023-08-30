@@ -10,23 +10,41 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { initSingInUserEmail } from "../interface/ISingInUser";
+import { IEmail, initSingInUserEmail } from "../interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import linkToServer from "../../../globalLinkToServer";
+
+const emailToRestore = async (email: string) => {
+  console.log("🚀  emailToRestore:", { email });
+  try {
+    const data = await axios.post(`${linkToServer}/api/questions`, { email });
+    console.log("🚀  data:", data);
+
+    // return data;
+  } catch (error) {
+    console.log("🚀  error:", error);
+  }
+};
 
 const SecretAnswer = (): JSX.Element => {
   const navigate = useNavigate();
-  const [{ email }, setSecretWord] = useState(initSingInUserEmail);
+  const [{ email }, setRestoreEmail] = useState<IEmail>(initSingInUserEmail);
+
+  console.log("🚀  email:", email);
 
   const handleSecretAnswer = (event: ChangeEvent<HTMLInputElement>) => {
-    setSecretWord({ email: event.target.value });
+    setRestoreEmail({ email: event.target.value });
   };
 
-  const getSecretAnswer = (event: FormEvent<HTMLFormElement>) => {
+  const getSecretAnswer = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email !== "") {
-      console.log("email", { email }); //Log для бека
-    }
-    setSecretWord(initSingInUserEmail);
+    console.log("email", { email }); //Log для бека
+    const response = await emailToRestore(email);
+
+    console.log("🚀  response:", response);
+
+    setRestoreEmail(initSingInUserEmail);
   };
   return (
     <div className={styles.container}>
@@ -39,7 +57,7 @@ const SecretAnswer = (): JSX.Element => {
               // isInvalid={secretFlag}
             >
               <Input
-                value={email}
+                value={email.trim()}
                 placeholder="Enter email"
                 fontSize="20"
                 p="6"
@@ -67,7 +85,7 @@ const SecretAnswer = (): JSX.Element => {
                 <Button
                   colorScheme="red"
                   type="submit"
-                  onClick={() => navigate("/restorePassword")}
+                  // onClick={() => navigate("/restorePassword")}
                 >
                   Send
                 </Button>

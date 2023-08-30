@@ -28,18 +28,18 @@ export const imageObjRequest: IImgRequest = {
             img: "img/gallery/44.jpg",
             id: "5"
         },
-        {
-            img: "img/gallery/99.jpg",
-            id: "6"
-        },
-        {
-            img: "img/gallery/55.jpg",
-            id: "7"
-        },
-        {
-            img: "img/gallery/88.jpg",
-            id: "8"
-        },
+        // {
+        //     img: "img/gallery/99.jpg",
+        //     id: "6"
+        // },
+        // {
+        //     img: "img/gallery/55.jpg",
+        //     id: "7"
+        // },
+        // {
+        //     img: "img/gallery/88.jpg",
+        //     id: "8"
+        // },
         // {
         //     img: "https://loremflickr.com/640/480/cats",
         //     id: "9"

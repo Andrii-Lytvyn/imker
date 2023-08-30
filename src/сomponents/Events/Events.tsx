@@ -96,7 +96,6 @@ const Events = (): JSX.Element => {
                           <div>
                             <p className={styles.events_short_description}>
                               {shortDescription}
-                              Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende...
                             </p>
                           </div>
                           <div className={styles.events_times + " d-flex mt-4"} >

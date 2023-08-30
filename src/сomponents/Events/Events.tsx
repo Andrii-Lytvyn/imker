@@ -1,7 +1,5 @@
 import styles from "./Events.module.css";
 import { currentDate, formatDate } from "./helpers/formattedDate";
-import { FcAlarmClock } from "react-icons/fc";
-import { ImLocation } from "react-icons/im";
 import { Link, useSearchParams } from "react-router-dom";
 // import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
@@ -17,7 +15,6 @@ import { Pagination } from "@mui/material";
 import LoaderStart from "../Loader/LoaderStart";
 import {Container} from "react-bootstrap";
 import {BsCalendar2Week, BsClock} from "react-icons/bs";
-import {BiTimeFive} from "react-icons/bi";
 import {FaUserGraduate} from "react-icons/fa6";
 import {IoLocationOutline} from "react-icons/io5";
 
@@ -60,7 +57,6 @@ const Events = (): JSX.Element => {
   const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
     setSearchParams({ page: value.toString() });
   };
-
   return (
     <>
       <div className={styles.post_bg + " d-flex align-items-center justify-content-center"}>

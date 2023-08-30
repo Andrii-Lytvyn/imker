@@ -98,7 +98,6 @@ const Events = (): JSX.Element => {
                             <h4>{title}</h4>
                           </Link>
                           <div>
-
                             <p className={styles.events_short_description}>
                               {short_description}
                               Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende Veranstaltung rund um Honig und Bienenstöcke stattfinden. Kommenden Monat wird eine faszinierende...

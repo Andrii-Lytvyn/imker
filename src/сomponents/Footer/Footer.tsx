@@ -11,6 +11,10 @@ import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
 import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import {
+  IAddress,
+  initIAddress,
+} from "../ContactUs/interfaces/IAddress";
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
@@ -27,6 +31,8 @@ const getAllEventsFooter = async () => {
 
 export default function Footer(): JSX.Element {
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
+    useState<IAddress>(initIAddress);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -39,6 +45,14 @@ export default function Footer(): JSX.Element {
         }
       } catch (error) {
         // console.log("🚀  error:", error);
+      }
+
+      try {
+        const response = await axios.get(`${linkToServer}/api/address`);
+        const getAddress = response.data;
+        setAddress(getAddress);
+      } catch (error) {
+        console.error("Error during request execution:", error);
       }
     };
     getEvents();
@@ -60,27 +74,27 @@ export default function Footer(): JSX.Element {
                   <div className="d-flex flex-row mb-2">
                     <SlHome className={styles.icons} />
                     <p className={styles.footer_contact_text}>
-                      Adresse:
+                      Adresse:{" "}
                       <a
                         target="_blank"
                         href="https://goo.gl/maps/SfWkxnTKU4PFnHZu8"
                       >
-                        Walsroder Straße, 3 Eickeloh, 29693
+                        {address}
                       </a>
                     </p>
                   </div>
                   <div className="d-flex flex-row mb-2">
                     <SlPhone className={styles.icons} />
                     <p className={styles.footer_contact_text}>
-                      Phone:<a href="tel:05162901266"> 0516-290-12-66</a>
+                      Phone:<a href={"tel: " + phoneAddr}> {phoneAddr}</a>
                     </p>
                   </div>
                   <div className="d-flex flex-row">
                     <SlEnvolope className={styles.icons} />
                     <p className={styles.footer_contact_text}>
-                      E-mail:
-                      <a href="mailto: Imkerverein-Ahlden@t-online.de">
-                        Imkerverein-Ahlden@t-online.de
+                      E-mail:{" "}
+                      <a href={"mailto: " + emailAddr}>
+                        {emailAddr}
                       </a>
                     </p>
                   </div>

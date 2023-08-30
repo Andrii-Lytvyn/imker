@@ -8,6 +8,7 @@ import linkToServer from "../globalLinkToServer";
 import { Container } from "react-bootstrap";
 import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
 import { TextField } from "@mui/material";
+import { IAddress, initIAddress } from "./interfaces/IAddress";
 
 export default function Contacts(): JSX.Element {
   const [
@@ -17,6 +18,9 @@ export default function Contacts(): JSX.Element {
   const maxLength = 500;
   const [charLeft, setCharLeft] = useState(maxLength);
   const [googleMap, setGoogleMap] = useState("");
+  const [
+    { address, phone:phoneAddr, email:emailAddr }, 
+    setAddress] = useState<IAddress>(initIAddress);
 
   useEffect(() => {
     const getGoogleMapLink = async () => {
@@ -24,6 +28,13 @@ export default function Contacts(): JSX.Element {
         const response = await axios.get(`${linkToServer}/api/googlemap`);
         const { googleMapLink } = response.data;
         setGoogleMap(googleMapLink);
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+      try {
+        const response = await axios.get(`${linkToServer}/api/address`);
+        const getAddress = response.data;
+        setAddress(getAddress);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -89,15 +100,15 @@ export default function Contacts(): JSX.Element {
             <hr />
             <div className="d-flex align-items-center mt-5">
               <SlHome className={styles.icons} />
-              <p>Adresse:Walsroder Straße, 3 Eickeloh, 29693</p>
+              <p>Adresse: {address}</p>
             </div>
             <div className="d-flex align-items-center mt-3">
               <SlPhone className={styles.icons} />
-              <p>Phone: 0516-290-12-66</p>
+              <p>Phone: {phoneAddr}</p>
             </div>
             <div className="d-flex align-items-center mt-3">
               <SlEnvolope className={styles.icons} />
-              <p>E-mail:Imkerverein-Ahlden@t-online.de</p>
+              <p>E-mail: {emailAddr}</p>
             </div>
 
             <iframe
@@ -116,7 +127,7 @@ export default function Contacts(): JSX.Element {
               onSubmit={handleCreateRequest}
             >
               <div className="d-flex flex-column">
-              <div className={styles.contacts_input_div}>
+                <div className={styles.contacts_input_div}>
                   <TextField
                     className="form-control"
                     label="Vorname"

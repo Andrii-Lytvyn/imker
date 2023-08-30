@@ -11,17 +11,14 @@ import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
 import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import {
-  IAddress,
-  initIAddress,
-} from "../ContactUs/interfaces/IAddress";
+import { IAddress, initIAddress } from "../ContactUs/interfaces/IAddress";
 
 // Получение  всех Events
 const getAllEventsFooter = async () => {
   try {
     //для Бека
     const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=4&page=0`
+      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=2&page=0`
     );
     return data.events;
   } catch (error) {
@@ -92,10 +89,7 @@ export default function Footer(): JSX.Element {
                   <div className="d-flex flex-row">
                     <SlEnvolope className={styles.icons} />
                     <p className={styles.footer_contact_text}>
-                      E-mail:{" "}
-                      <a href={"mailto: " + emailAddr}>
-                        {emailAddr}
-                      </a>
+                      E-mail: <a href={"mailto: " + emailAddr}>{emailAddr}</a>
                     </p>
                   </div>
                 </div>

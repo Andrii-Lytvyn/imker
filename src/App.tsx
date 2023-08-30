@@ -2,8 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 
-import AdminPage from "./сomponents/AdminPage/AdminPage";
-// import TopCallery from "./сomponents/Gallery/TopCallery/TopCallery";
+const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
+const TopCallery = lazy(
+  () => import("./сomponents/Gallery/TopCallery/TopCallery")
+);
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -84,7 +86,6 @@ function App(): JSX.Element {
           <Route path="/singUp" element={<SingInUser />} />
           <Route path="*" element={<NoPage />} />
 
-
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="aboutusadmin" element={<TeamAdmin />} />
           <Route
@@ -103,7 +104,7 @@ function App(): JSX.Element {
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
-          {/* <Route path="topgallery" element={<TopCallery />} /> */}
+          <Route path="topgallery" element={<TopCallery />} />
           <Route path="/restore" element={<SecretAnswer />} />
           <Route path="/restorePassword" element={<RestorePassword />} />
         </Route>

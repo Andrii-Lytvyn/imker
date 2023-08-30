@@ -1,15 +1,25 @@
+.top {
+  background: linear-gradient(
+    0deg,
+    rgba(238, 174, 202, 0.43883490896358546) 13%,
+    rgba(148, 187, 233, 0.9458377100840336) 100%
+  );
+  /* background: linear-gradient(
+    180deg,
+    rgb(155, 172, 168) 4%,
+    rgb(119, 182, 82) 49%,
+    rgb(242, 166, 64)
+  ); */
+}
 .container {
-  margin: 30px 70px;
+  padding: 30px 70px;
 }
 .main_img {
-  width: 60%;
+  width: 40%;
   height: 20%;
 }
-/* .common_img {
-  width: 1000px;
-  height: 800px;
-} */
+
 .small_img {
-  width: 11.5% !important;
+  width: 19% !important;
   height: 90px !important;
 }

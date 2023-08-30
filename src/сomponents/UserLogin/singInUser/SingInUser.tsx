@@ -21,7 +21,7 @@ import linkToServer from "../../globalLinkToServer";
 
 const singInUser = async (userSingIn: string) => {
   try {
-    const data = await axios.post(`${linkToServer}/login`, userSingIn, {
+    const data = await axios.post(`/api/login`, userSingIn, {
       withCredentials: true,
     });
     console.log("🚀  data:", data);

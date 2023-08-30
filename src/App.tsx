@@ -3,7 +3,7 @@ import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 
 import AdminPage from "./сomponents/AdminPage/AdminPage";
-import TopCallery from "./сomponents/Gallery/TopCallery/TopCallery";
+// import TopCallery from "./сomponents/Gallery/TopCallery/TopCallery";
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -79,13 +79,13 @@ function App(): JSX.Element {
           <Route path="/events/:id" element={<Event />} />
           <Route path="aboutUs" element={<AboutUs />} />
           <Route path="contactUs" element={<ContactUs />} />
-          <Route path="about" element={<AboutUs />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/singUp" element={<SingInUser />} />
           <Route path="*" element={<NoPage />} />
-          <Route path="adminpage" element={<AdminPage />} />
 
+
+          <Route path="adminpage" element={<AdminPage />} />
           <Route path="aboutusadmin" element={<TeamAdmin />} />
           <Route
             path="aboutusadmin/addmember"
@@ -103,12 +103,7 @@ function App(): JSX.Element {
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
-          <Route path="about" element={<AboutUs />} />
-          <Route path="gallery" element={<Gallery />} />
-          <Route path="topgallery" element={<TopCallery />} />
-          <Route path="*" element={<NoPage />} />
-          <Route path="/register" element={<RegisterUser />} />
-          <Route path="/singUp" element={<SingInUser />} />
+          {/* <Route path="topgallery" element={<TopCallery />} /> */}
           <Route path="/restore" element={<SecretAnswer />} />
           <Route path="/restorePassword" element={<RestorePassword />} />
         </Route>

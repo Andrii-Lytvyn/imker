@@ -48,6 +48,18 @@
 .post_event_date{
     font-size: 0.8em;
     color: var(--text-color);
+    float: left;
+    margin-right: 5px;
+}
+.post_author{
+    margin-top: 20px;
+}
+.post_author p{
+ color: var(--text-color);
+    font-size: 0.8em;
+}
+.post_author p span{
+    color: var(--terracotta);
 }
 .post_event_time{
     font-size: 0.8em;
@@ -56,6 +68,7 @@
 }
 .post_event_h4{
     text-align: justify;
+    font-size: 1.3em;
 }
 .post_event_text{
     color: var(--text-color);

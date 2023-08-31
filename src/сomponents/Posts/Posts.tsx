@@ -80,23 +80,28 @@ export default function Posts() {
                     target.src = "/img/imgNotFound.jpg";
                   }}
                 />
-                <p className={styles.post_event_date}>Created: {creationTimePost}</p>
+                <p className={styles.post_event_date}>Gegründet: {creationTimePost}</p>
                 {authorName && (
-                    <p className={styles.post_event_date}>Author name:
-                      <Link to={"/"}> {authorName}</Link>
+                    <p className={styles.post_event_date}> | Name des Autors:
+                      <span className={styles.post_span_author}>{authorName}</span>
                     </p>
                 )}
-                <h2>
+                <div className={styles.post_clear}><h2 className={styles.post_h2}>
                   <Link to={`/posts/${idPost}`} className="fs-4">
                     {titlePost}
                   </Link>
                 </h2>
+                </div>
                 {/*<p>Post id: {idPost}</p>*/}
 
-                <div className={styles.post_event_text_temp}>{shortPostDescription}</div>
-                <Link to={`/posts/${idPost}`} className="button_imker">
-                  Mehr lesen
-                </Link>
+                <div className={styles.post_event_text_temp}>
+                  {shortPostDescription}
+                </div>
+                <div className={styles.post_event_text_button}>
+                    <Link to={`/posts/${idPost}`} className="button_imker">
+                      Mehr lesen
+                    </Link>
+                </div>
                 <hr />
               </div>
             )
@@ -105,7 +110,7 @@ export default function Posts() {
         </div>
       )}
           <div className={styles.post_right_side}>
-            <h2>NACHRICHTEN</h2>
+            <h2>VERANSTALTUNGEN</h2>
             <hr className={styles.post_hr} />
             <div className="mb-2">
               <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>

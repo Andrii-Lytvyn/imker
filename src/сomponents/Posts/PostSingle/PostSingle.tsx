@@ -68,11 +68,14 @@ export default function PostSingle(): JSX.Element {
                 }}
               />
               {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
+                    <div className={styles.post_author}>
+                        <p><span>{post?.authorName}</span></p>
                     </div>
+                </div>
 
 
                 <div className={styles.post_right_side}>
-                    <h2>NACHRICHTEN</h2>
+                    <h2>VERANSTALTUNGEN</h2>
                     <hr className={styles.post_hr} />
                     <div className="mb-2">
                         <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>

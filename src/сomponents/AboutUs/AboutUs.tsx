@@ -5,6 +5,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
 import baseURL from "../globalLinkToServer";
+import { IAboutUs } from "./interfaces/IAboutUs";
+import DOMPurify from "dompurify";
 
 
 export default function AboutUs(): JSX.Element {
@@ -23,33 +25,81 @@ export default function AboutUs(): JSX.Element {
     };
     fetchData();
   }, []);
-  
+
+
+  const [aboutUs, setAboutUs] = useState<IAboutUs[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/api/aboutus/`);
+        const aboutUsResponse = await response.data;
+        console.log("🚀35 aboutUsResponse:", aboutUsResponse)
+        setAboutUs(aboutUsResponse.aboutUsAll);
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <Container>
         <h1>Über uns</h1>
       </Container>
+
       <Container className="d-flex flex-column">
-        <h4>WAS SIND HONIGBIENEN?</h4>
-        <div className="mb-3">
-          <p className={styles.about_text}>Lorem ipsum dolor sit amet, ad nec scripta volumus, eu viris salutatus dissentias sit, ex enim Duo magna nostro persequeris ne Eam tritani maiorum ne, quod ne legere quodsi phaedrum ad per, in malis.</p>
-          <p className={styles.about_text}>Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus.</p>
-        </div>
-        <div className="d-flex justify-content-around">
-          <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-            <img src="img/about_1.jpg" width="90%" />
-            <caption>"Bright as a sunflower."</caption>
-          </div>
-          <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-            <img src="img/about_2.jpg" width="90%" />
-            <caption>"Bright as a sunflower."</caption>
-          </div>
-        </div>
-        <div>
-          <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
-          <p className={styles.about_text + " mb-3"}>Ponderum consulatu cum te Lorem ipsum Vel ad falli graecis copiosae, solum integre fastidii sea cu. Melius insolens constituto ad pri, numquam accommodare eu nec. Pro ad wisi altera forensibus. Et pri nemore nominati. Sit an vidisse propriae apeirian, nec persecuti appellantur te. Vel ei prima Mea mentitum instructior ne, argumentum suscipiantur ut nam Simul euis Laboramus neglegentur at ius. Ut sed assum inte.</p>
-        </div>
-      </Container>
+        {aboutUs?.map((elem) => (
+          <>
+            <div className="mb-3">
+              <p className={styles.about_text}><h4>**{elem.titleTop}</h4></p >
+              {/* <div
+                className="container"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(elem.titleTop || ""),
+                }}
+              /> */}
+
+              <div
+                className="container"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(elem.descriptionTop || ""),
+                }}
+              />
+            </div>
+
+            <div className="d-flex justify-content-around">
+              <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+                <img src={baseURL + "/api/files/" + elem.image1} width="90%" />
+                <caption>"Bright as a sunflower."</caption>
+              </div>
+              <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+              <img src={baseURL + "/api/files/" + elem.image2}  width="90%" />
+                <caption>"Bright as a sunflower."</caption>
+              </div>
+            </div>
+
+            <div className="mb-3">
+            <p className={styles.about_text}><h4>**{elem.titleBottom}</h4></p >
+            {/* <div
+              className="container"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(elem.titleBottom || ""),
+              }}
+            /> */}
+            <div
+              className="container"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(elem.descriptionBottom || ""),
+              }}
+            />
+            </div>
+          </>
+        ))
+        }
+      </Container >
+
       <div className={styles.our_team}>
         <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
         <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>

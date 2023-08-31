@@ -56,6 +56,9 @@ export default function Header(): JSX.Element {
                 <Link to="/filesadm">FilesAdmin</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
+                <Link to="/teamadmin">TeamAdmin</Link>
+              </NavDropdown.Item>              
+              <NavDropdown.Item>
                 <Link to="/aboutusadmin">AboutUsAdmin</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>

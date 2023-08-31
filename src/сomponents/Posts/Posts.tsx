@@ -10,7 +10,7 @@ import { Pagination } from "@mui/material";
 import {Container} from "react-bootstrap";
 import {BsCalendar2Week} from "react-icons/bs";
 import {BiTimeFive} from "react-icons/bi";
-import linkToServer from "../globalLinkToServer";
+import moment from 'moment';
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
@@ -21,7 +21,7 @@ export default function Posts() {
     async function getListOfPosts() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
         );
         setPosts(response.data);
         setCurrentPage(1);
@@ -35,7 +35,7 @@ export default function Posts() {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/api/posts?page=${
+        `/api/posts?page=${
           value - 1
         }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
       );
@@ -73,14 +73,14 @@ export default function Posts() {
                 <br />
                 <img
                     className={styles.post_img}
-                  src={linkToServer + "/api/files/" + linkToImg}
+                  src={"/api/files/" + linkToImg}
                   alt={"post img" + idPost}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = "/img/imgNotFound.jpg";
                   }}
                 />
-                <p className={styles.post_event_date}>Created: {creationTimePost}</p>
+                <p className={styles.post_event_date}>{moment(creationTimePost).format('D MMMM YYYY')}</p>
                 {authorName && (
                     <p className={styles.post_event_date}>Author name:
                       <Link to={"/"}> {authorName}</Link>

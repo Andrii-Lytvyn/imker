@@ -42,26 +42,7 @@ const Event = (): JSX.Element => {
               src={`${linkToServer}/api/files/${event_edit?.photo}`}
               alt={event_edit?.title}
             />
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab
-              laudantium accusamus commodi ducimus nisi esse repellendus ratione
-              molestias sit magni soluta perferendis vero pariatur. Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Distinctio
-              perspiciatis laboriosam animi, ipsum, dolorum ab laudantium
-              accusamus commodi ducimus nisi esse repellendus ratione molestias
-              sit magni soluta perferendis vero pariatur. Lorem ipsum dolor sit,
-              amet consectetur adipisicing elit. Distinctio perspiciatis
-              laboriosam animi, ipsum, dolorum ab laudantium accusamus commodi
-              ducimus nisi esse repellendus ratione molestias sit magni soluta
-              perferendis vero pariatur. Lorem ipsum dolor sit, amet consectetur
-              adipisicing elit. Distinctio perspiciatis laboriosam animi, ipsum,
-              dolorum ab laudantium accusamus commodi ducimus nisi esse
-              repellendus ratione molestias sit magni soluta perferendis vero
-              pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing
-              elit. Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab
-              laudantium accusamus commodi ducimus nisi esse repellendus ratione
-              molestias
+            <p>{event_edit?.description}           
             </p>
             <div className={styles.event_description}>
               <p>

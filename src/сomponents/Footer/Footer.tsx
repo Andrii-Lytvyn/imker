@@ -59,9 +59,6 @@ export default function Footer(): JSX.Element {
     <>
       {events.length !== 0 ? (
         <div className={styles.footer}>
-          {/*        <div>
-          <img className={styles.logo_footer} src="img/logo.png" />
-        </div>*/}
           <Container className="d-flex justify-content-between pt-3">
             {/*Contacts*/}
             <Card className={styles.my_card}>
@@ -99,7 +96,7 @@ export default function Footer(): JSX.Element {
             <Card className={styles.my_card}>
               <Card.Body>
                 <div>
-                  <h3 className={styles.card_title}>Nachrichten</h3>
+                  <h3 className={styles.card_title}>VERANSTALTUNGEN</h3>
                   <div>
                     <ul>
                       {events
@@ -169,11 +166,17 @@ export default function Footer(): JSX.Element {
           </Container>
           <Container>
             <div className={styles.social}>
-              <FaFacebook className={styles.social_icons} />
-              <FaInstagram className={styles.social_icons} />
-              <FaTwitter className={styles.social_icons} />
+              <a href="#">
+                <FaFacebook className={styles.social_icons} />
+              </a>
+              <a href="#">
+                <FaInstagram className={styles.social_icons} />
+              </a>
+              <a href="#">
+                <FaTwitter className={styles.social_icons} />
+              </a>
             </div>
-            <div>
+            <div className={styles.footer_logo_bottom}>
               <img src="/logo.png" height="30px" />
             </div>
           </Container>

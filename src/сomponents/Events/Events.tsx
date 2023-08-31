@@ -134,14 +134,12 @@ const Events = (): JSX.Element => {
                 />
               </div>
               <div className={styles.post_right_side}>
-                <h2>Unser Blog</h2>
+                <h2>Vergangene Ereignisse</h2>
                 <hr className={styles.post_hr} />
+                {/*Выводим 5 записей*/}
                 <div className="mb-2">
                   <p className={styles.post_event_date}>
                     <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <p className={styles.post_event_user}>
-                    <FaUserGraduate /> Author name: <span>Dominic Andrews</span>
                   </p>
                   <h4 className={styles.post_event_h4}>
                     <Link to={"/"}>
@@ -158,8 +156,20 @@ const Events = (): JSX.Element => {
                   <p className={styles.post_event_date}>
                     <BsCalendar2Week /> 15 November, 2023
                   </p>
-                  <p className={styles.post_event_user}>
-                    <FaUserGraduate /> Author name: <span>Dominic Andrews</span>
+                  <h4 className={styles.post_event_h4}>
+                    <Link to={"/"}>
+                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
+                    </Link>
+                  </h4>
+                  <p className={styles.post_event_text}>
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu
+                  </p>
+                  <hr className={styles.post_hr} />
+                </div>
+                <div className="mb-2">
+                  <p className={styles.post_event_date}>
+                    <BsCalendar2Week /> 15 November, 2023
                   </p>
                   <h4 className={styles.post_event_h4}>
                     <Link to={"/"}>
@@ -176,8 +186,20 @@ const Events = (): JSX.Element => {
                   <p className={styles.post_event_date}>
                     <BsCalendar2Week /> 15 November, 2023
                   </p>
-                  <p className={styles.post_event_user}>
-                    <FaUserGraduate /> Author name: <span>Dominic Andrews</span>
+                  <h4 className={styles.post_event_h4}>
+                    <Link to={"/"}>
+                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
+                    </Link>
+                  </h4>
+                  <p className={styles.post_event_text}>
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu
+                  </p>
+                  <hr className={styles.post_hr} />
+                </div>
+                <div className="mb-2">
+                  <p className={styles.post_event_date}>
+                    <BsCalendar2Week /> 15 November, 2023
                   </p>
                   <h4 className={styles.post_event_h4}>
                     <Link to={"/"}>

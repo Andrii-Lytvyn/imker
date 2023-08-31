@@ -113,26 +113,41 @@ export default function Posts() {
             <h2>VERANSTALTUNGEN</h2>
             <hr className={styles.post_hr} />
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
               <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
               <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
               <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
               <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
               <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
               <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
               <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
               <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
               <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
               <hr className={styles.post_hr} />
             </div>
+            <div className="mb-2">
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
+              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <hr className={styles.post_hr} />
+            </div>
+            <div className="mb-2">
+              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
+              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <hr className={styles.post_hr} />
+            </div>
+
           </div>
         </div>
       <Pagination

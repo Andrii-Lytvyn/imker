@@ -126,6 +126,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
           <input
             className="form-control fs-5"
             name="shortPostDescription"
+            maxLength={350}
             defaultValue={shortPostDescription}
             onChange={collectNewPostData}
             required

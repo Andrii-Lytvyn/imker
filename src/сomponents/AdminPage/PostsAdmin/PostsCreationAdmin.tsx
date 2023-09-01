@@ -118,6 +118,7 @@ export default function PostsCreationAdmin(): JSX.Element {
             <input
               className="form-control fs-5"
               name="shortPostDescription"
+              maxLength={350}
               value={shortPostDescription}
               onChange={collectPostData}
               required

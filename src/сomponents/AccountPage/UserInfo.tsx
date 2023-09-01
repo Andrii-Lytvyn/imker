@@ -29,7 +29,7 @@ export default function UserInfo(): JSX.Element {
     <div>
       <p>E-mail: {email}</p>
       <p>Phone: {phone}</p>
-      <p>PLZ: {plz}</p>
+      <p>Postleitzahlen: {plz}</p>
     </div>
   );
 }

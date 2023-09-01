@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { Avatar } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
   IUserAccountInfo,
@@ -7,13 +8,30 @@ import {
 } from "./interfaces/IUserAccountInfo";
 
 export default function UserSettings(): JSX.Element {
-  const [{ id, name, email, phone, plz, image }, setNewEditFormData] =
-    useState<IUserAccountInfo>(initIUserAccountInfo);
-  const [value, setValue] = useState<string>();
+  const [
+    { id, name, email, phone, plz, image, role, state },
+    setNewEditFormData,
+  ] = useState<IUserAccountInfo>(initIUserAccountInfo);
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const width = 900;
-  const height = 350;
+  const width = 200;
+  const height = 250;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/me`, {
+          withCredentials: true,
+        });
+        const userDto = response.data;
+        setNewEditFormData(userDto);
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const collectNewUserData = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -24,51 +42,57 @@ export default function UserSettings(): JSX.Element {
   };
 
   const handleSaveUser = async () => {
-      let linkVar: string | undefined = undefined;
+    let linkVar: string | undefined = undefined;
 
-      if (imageData && selectedFile) {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-
-        try {
-          const response = await axios.post(
-            `$/api/files/upload?width=${width}&height=${height}&category=POST`,
-            formData
-          );
-          linkVar = response.data.id.toString();
-        } catch (error) {
-          console.error("Error uploading file:", error);
-        }
-      }
+    if (imageData && selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
 
       try {
-        await axios.put(`/api/users/${id}`, {
-          name, 
-          email, 
-          phone, 
-          plz, 
-          image: linkVar || image
-        });
-      } catch (error) {
-        console.error(
-          "There was an error when sending a posts data to Back:",
-          error
+        const response = await axios.post(
+          `/api/files/upload?width=${width}&height=${height}&category=AVATAR`,
+          formData
         );
+        linkVar = response.data.id.toString();
+      } catch (error) {
+        console.error("Error uploading file:", error);
       }
+    }
 
-      toast.success("Your post has been successfully sent!", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-      });
-      setValue("");
-      window.location.reload();
-    
+    try {
+      await axios.put(
+        `/api/users/${id}`,
+        {
+          name,
+          email,
+          phone,
+          plz,
+          image: linkVar || image,
+          role,
+          state,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
+      console.error(
+        "There was an error when sending a posts data to Back:",
+        error
+      );
+    }
+
+    toast.success("Your information has been successfully updated!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    });
+    window.location.reload();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,11 +103,12 @@ export default function UserSettings(): JSX.Element {
       const url = URL.createObjectURL(file);
       setImageData(url);
     }
+
   };
 
   return (
     <>
-      <div className="container containerPostCreate">
+      <div className="container">
         <div className="d-flex align-items-center fs-4 m-2">
           <label htmlFor="name" className="col-md-2 me-2 text-end">
             My name:
@@ -93,30 +118,12 @@ export default function UserSettings(): JSX.Element {
             name="name"
             defaultValue={name}
             onChange={collectNewUserData}
-            required
-          />
-        </div>
-
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label
-            htmlFor="email"
-            className="col-md-2 me-2 text-end"
-          >
-            My email:
-          </label>
-          <input
-            className="form-control fs-5"
-            type="email"
-            name="email"
-            defaultValue={email}
-            onChange={collectNewUserData}
-            required
           />
         </div>
 
         <div className="d-flex align-items-center fs-4 m-2">
           <label htmlFor="phone" className="col-md-2 me-2 text-end">
-            My phone number:
+            My phone:
           </label>
           <input
             className="form-control fs-5"
@@ -128,64 +135,46 @@ export default function UserSettings(): JSX.Element {
 
         <div className="d-flex align-items-center fs-4 m-2">
           <label htmlFor="plz" className="col-md-2 me-2 text-end">
-            My Postleitzahlen:
+            My PLZ:
           </label>
           <input
             className="form-control fs-5"
             name="plz"
+            maxLength={5}
             defaultValue={plz}
             onChange={collectNewUserData}
           />
         </div>
 
-        <div className="d-flex align-items-center m-2">
-          <div className="col-md-12 me-2 text-end">
-            <p className="mb-2 text-start fs-5">Image Id: {image}</p>
-            <p className="mb-2 text-start fs-6">
-              Recommended resolution: {width}x{height}px
-            </p>
-            <img
-              src={"/api/files/" + image}
-              alt="image"
-              style={{
-                width: "100%",
-                maxWidth: "100%",
-                height: "auto",
-              }}
-            />
-          </div>
-        </div>
-
-        <label htmlFor="fileInput" className="file-upload">
-          Choose another image
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          onChange={handleFileChange}
-          accept=".jpg, .jpeg, .png"
-          required
-          style={{ display: "none" }}
-        />
-        <br />
+        <div className="d-flex align-items-center flex-column m-3">
+          <label htmlFor="fileInput" className="file-upload">
+            Change my avatar image
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            accept=".jpg, .jpeg"
+            style={{ display: "none" }}
+          />
+          <p className="text-start fs-6">
+            Recommended resolution: {width}x{height}px
+          </p>
         {imageData && (
-          <img
+          <Avatar
             src={imageData}
-            alt="Image"
-            style={{
-              width: "100%",
-              maxWidth: "100%",
-              height: "auto",
-            }}
+            variant="rounded"
+            sx={{ width: 200, height: 250, margin: 0, fontSize: 60 }}
           />
         )}
+        </div>
 
         <button
           type="button"
           className="btn btn-primary m-2"
           onClick={handleSaveUser}
         >
-          Update my Data
+          Update my information
         </button>
       </div>
     </>

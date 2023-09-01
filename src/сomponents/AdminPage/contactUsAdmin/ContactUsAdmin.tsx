@@ -3,7 +3,6 @@ import axios from "axios";
 import { IRequestDto } from "../../ContactUs/interfaces/IRequestDto";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import GoogleMapAdmin from "./GoogleMapAdmin";
-import linkToServer from "../../globalLinkToServer";
 import AddressAdmin from "./AddressAdmin";
 
 export default function ContactUsAdmin(): JSX.Element {
@@ -13,7 +12,9 @@ export default function ContactUsAdmin(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/requests`);
+        const response = await axios.get(`/api/requests`, {
+          withCredentials: true,
+        });
         const requestsDto = response.data;
         const reversedRequests = requestsDto.requests.slice().reverse();
         setRequests(reversedRequests);
@@ -28,9 +29,9 @@ export default function ContactUsAdmin(): JSX.Element {
   const handleDeleteRequest = (idRequest: number) => {
     const fetchData = async () => {
       try {
-        const response = await axios.delete(
-          `${linkToServer}/api/requests/${idRequest}`
-        );
+        const response = await axios.delete(`/api/requests/${idRequest}`, {
+          withCredentials: true,
+        });
         setReloadPage(response.data);
       } catch (error) {
         console.error("Error during request execution:", error);
@@ -43,7 +44,6 @@ export default function ContactUsAdmin(): JSX.Element {
   return (
     <>
       <div className="container">
-
         <AddressAdmin />
         <hr className="mb-5" />
         <GoogleMapAdmin />

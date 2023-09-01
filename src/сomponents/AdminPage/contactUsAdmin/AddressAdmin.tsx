@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import linkToServer from "../../globalLinkToServer";
 import { IAddress, initIAddress } from "../../ContactUs/interfaces/IAddress";
 import { toast } from "react-toastify";
 
@@ -12,7 +11,9 @@ export default function AddressAdmin() {
   useEffect(() => {
     const getAddress = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/address`);
+        const response = await axios.get(`/api/address`, {
+          withCredentials: true,
+        });
         const getAddress = response.data;
         setAddressFormData(getAddress);
       } catch (error) {
@@ -34,7 +35,7 @@ export default function AddressAdmin() {
 
   const handleSetNewAddress = async () => {
     try {
-      await axios.put(`${linkToServer}/api/address`, {
+      await axios.put(`/api/address`, {
         address,
         phone,
         email,

@@ -6,7 +6,6 @@ import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import PostEditAdmin from "./PostEditAdmin";
 import PostsCreationAdmin from "./PostsCreationAdmin";
 import styles from "./PostAdmin.module.css";
-import linkToServer from "../../globalLinkToServer";
 
 export default function PostsAdmin() {
   const [{ posts, count, pages }, setPosts] =
@@ -23,7 +22,10 @@ export default function PostsAdmin() {
     async function getListOfPosts() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`,
+          {
+            withCredentials: true,
+          }
         );
         setPosts(response.data);
         setCurrentPage(1);
@@ -36,7 +38,9 @@ export default function PostsAdmin() {
 
   async function handleLoadData(idPost: number) {
     try {
-      const response = await axios.get(`${linkToServer}/api/posts/${idPost}`);
+      const response = await axios.get(`/api/posts/${idPost}`, {
+        withCredentials: true,
+      });
       setPost(await response.data);
       setIsLoaded(true);
       setIsEditShow(true);
@@ -50,9 +54,12 @@ export default function PostsAdmin() {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/api/posts?page=${
+        `/api/posts?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`,
+        {
+          withCredentials: true,
+        }
       );
       const postsData: IPostsDto = await response.data;
       setPosts(postsData);

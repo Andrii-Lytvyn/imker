@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import linkToServer from "../../globalLinkToServer";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -25,8 +24,11 @@ export default function FilesUpload({
 
         try {
           const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=GALLERY`,
-            formData
+            `/api/files/upload?width=${width}&height=${height}&category=GALLERY`,
+            formData,
+            {
+              withCredentials: true,
+            }
           );
           linkVar = response.data.id.toString();
         } catch (error) {
@@ -36,9 +38,15 @@ export default function FilesUpload({
 
       if (linkVar) {
         try {
-          await axios.post(`${linkToServer}/api/gallery`, {
-            linkToImg: linkVar,
-          });
+          await axios.post(
+            `/api/gallery`,
+            {
+              linkToImg: linkVar,
+            },
+            {
+              withCredentials: true,
+            }
+          );
 
           toast.success("Your photo has been successfully sent!", {
             position: "bottom-right",
@@ -53,7 +61,6 @@ export default function FilesUpload({
           setSelectedFile(null);
           setImageData(null);
           handleReload();
-          // window.location.reload();
         } catch (error) {
           console.error(
             "There was an error when sending a photo data to Back:",
@@ -76,9 +83,7 @@ export default function FilesUpload({
 
   return (
     <div>
-      <p className="col-md-7 mb-2 text-start fs-5">
-        Recommended format 4:3
-      </p>
+      <p className="col-md-7 mb-2 text-start fs-5">Recommended format 4:3</p>
       <p className="col-md-7 mb-2 text-start fs-5">
         Maximum resolution: {width}x{height}px
       </p>

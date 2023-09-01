@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import UserInfo from './UserInfo';
 import UserEvents from './UserEvents';
+import UserSettings from './UserSettings';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,7 +62,7 @@ export default function AccountTabs() {
         <UserEvents />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <UserSettings />
       </CustomTabPanel>
     </Box>
   );

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
 import {
   IUserAccountInfo,
@@ -86,13 +85,13 @@ export default function UserSettings(): JSX.Element {
     <>
       <div className="container containerPostCreate">
         <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="titlePost" className="col-md-2 me-2 text-end">
-            Title:
+          <label htmlFor="name" className="col-md-2 me-2 text-end">
+            My name:
           </label>
           <input
             className="form-control fs-5"
-            name="titlePost"
-            defaultValue={titlePost}
+            name="name"
+            defaultValue={name}
             onChange={collectNewUserData}
             required
           />
@@ -100,40 +99,53 @@ export default function UserSettings(): JSX.Element {
 
         <div className="d-flex align-items-center fs-4 m-2">
           <label
-            htmlFor="shortPostDescription"
+            htmlFor="email"
             className="col-md-2 me-2 text-end"
           >
-            Short description:
+            My email:
           </label>
           <input
             className="form-control fs-5"
-            name="shortPostDescription"
-            defaultValue={shortPostDescription}
+            type="email"
+            name="email"
+            defaultValue={email}
             onChange={collectNewUserData}
             required
           />
         </div>
 
         <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="authorName" className="col-md-2 me-2 text-end">
-            Author name:
+          <label htmlFor="phone" className="col-md-2 me-2 text-end">
+            My phone number:
           </label>
           <input
             className="form-control fs-5"
-            name="authorName"
-            defaultValue={authorName}
+            name="phone"
+            defaultValue={phone}
+            onChange={collectNewUserData}
+          />
+        </div>
+
+        <div className="d-flex align-items-center fs-4 m-2">
+          <label htmlFor="plz" className="col-md-2 me-2 text-end">
+            My Postleitzahlen:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="plz"
+            defaultValue={plz}
             onChange={collectNewUserData}
           />
         </div>
 
         <div className="d-flex align-items-center m-2">
           <div className="col-md-12 me-2 text-end">
-            <p className="mb-2 text-start fs-5">Image Id: {linkToImg}</p>
+            <p className="mb-2 text-start fs-5">Image Id: {image}</p>
             <p className="mb-2 text-start fs-6">
               Recommended resolution: {width}x{height}px
             </p>
             <img
-              src={linkToServer + "/api/files/" + linkToImg}
+              src={"/api/files/" + image}
               alt="image"
               style={{
                 width: "100%",
@@ -168,37 +180,12 @@ export default function UserSettings(): JSX.Element {
           />
         )}
 
-        <Editor
-          apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
-          onEditorChange={(newValue, editor) => {
-            setValue(newValue);
-            setText(editor.getContent({ format: "html" }));
-          }}
-          onInit={(_, editor) => {
-            setText(editor.getContent({ format: "html" }));
-          }}
-          initialValue={initText}
-          value={value}
-          init={{
-            plugins:
-              "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
-            toolbar1:
-              "undo redo| removeformat fontfamily fontsize blocks bold italic strikethrough underline subscript superscript | alignleft aligncenter alignright alignjustify alignnone lineheight indent outdent | fullscreen help",
-            toolbar2:
-              "preview selectall copy cut paste pastetext searchreplace spellcheckdialog spellchecker | insertdatetime charmap checklist bullist numlist casechange | pagebreak | ltr rtl | visualblocks visualchars | hr wordcount",
-            toolbar3:
-              "table tableinsertdialog advtablerownumbering tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader tableofcontents tableofcontentsupdate",
-            toolbar4:
-              "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
-          }}
-        />
-
         <button
           type="button"
           className="btn btn-primary m-2"
           onClick={handleSaveUser}
         >
-          Save post to Data Base
+          Update my Data
         </button>
       </div>
     </>

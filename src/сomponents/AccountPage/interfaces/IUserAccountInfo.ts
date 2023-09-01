@@ -8,7 +8,7 @@ export interface IUserAccountInfo {
   role: string;
   state: string;
 }
-export const initIUserAccountInfo = {
+export const initIUserAccountInfo: IUserAccountInfo = {
   id: -1,
   name: "",
   email: "",
@@ -16,5 +16,5 @@ export const initIUserAccountInfo = {
   phone: "",
   plz: "",
   role: "",
-  state: ""
-}
+  state: "",
+};

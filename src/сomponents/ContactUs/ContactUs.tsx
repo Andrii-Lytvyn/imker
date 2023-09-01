@@ -104,7 +104,9 @@ export default function Contacts(): JSX.Element {
             </div>
             <div className="d-flex align-items-center mt-3">
               <SlPhone className={styles.icons} />
-              <p>Phone: {phoneAddr}</p>
+              <p>Phone:
+               {phoneAddr}
+              </p>
             </div>
             <div className="d-flex align-items-center mt-3">
               <SlEnvolope className={styles.icons} />
@@ -168,10 +170,10 @@ export default function Contacts(): JSX.Element {
                 </div>
                 <div className={styles.contacts_input_div}>
                   <InputMask
-                    mask="+4 9(999) 999-9999"
+                    mask="+49(999) 999-9999"
                     className="form-control"
                     type="tel"
-                    placeholder="+4 9(___) ___-____"
+                    placeholder="+49(___) ___-____"
                     name="phoneNumber"
                     value={phoneNumber}
                     onChange={collectAboutUsData}

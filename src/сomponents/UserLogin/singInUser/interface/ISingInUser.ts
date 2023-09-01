@@ -6,6 +6,9 @@ export const initSingInUserData = {
     email: "",
     password: "",
 }
-export const initSingInUserEmail = {
+export interface IEmail {
+    email: string
+}
+export const initSingInUserEmail: IEmail = {
     email: "",
 }

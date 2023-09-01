@@ -41,96 +41,73 @@ export default function PostSingle(): JSX.Element {
 
   return (
     <>
-      <Container>
-        <div className={styles.breadcrumbs}>
-          <Nav>
-            <Link to="/">
-              {" "}
-              <FaHome />
-            </Link>
-          </Nav>
-          <span> | </span>
-          <Nav>
-            <Link to="/posts">POSTS</Link>
-          </Nav>
-          <span> | </span>
-          {titlePost}
-        </div>
-        <hr />
-        <div className={styles.post_cont}>
-          <div className={styles.single_post + " container"}>
-            <img
-              className={styles.post_img}
-              src={linkToServer + "/api/files/" + linkToImg}
-              alt={"post img" + idPost}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = "/img/imgNotFound.jpg";
-              }}
-            />
-            <span className={styles.post_time}>
-              {moment(creationTimePost).format("D MMMM YYYY")}
-            </span>
-              {authorName && (<span> by {authorName}</span>)}
-            <h2>{titlePost}</h2>
-            <div
-              className="container"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(textOfPost || ""),
-              }}
-            />
-          </div>
+        <Container>
+            <div className={styles.breadcrumbs}>
+                <Nav>
+                    <Link to="/">
+                        {" "}
+                        <FaHome />
+                    </Link>
+                </Nav>
+                <span> | </span>
+                <Nav>
+                    <Link to="/posts">POSTS</Link>
+                </Nav>
+                <span> | </span>
+                {post?.titlePost}
+            </div>
+            <hr />
+            <div className={styles.post_cont}>
+                <div className= {styles.single_post + " container"}>
+                <img
+                    className={styles.post_img}
+                    src={linkToServer + "/api/files/" + post?.linkToImg}
+                    alt={"post img" + post?.idPost}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/img/imgNotFound.jpg";
+                    }}
+                  />
+                    <p className={styles.post_time}>{moment(creationTimePost).format("D MMMM YYYY")}</p>
+                    <h2>{post?.titlePost}</h2>
+                    <div
+                className="container"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post?.textOfPost || ""),
+                }}
+              />
+              {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
+                    <div className={styles.post_author}>
+                        <p><span>{post?.authorName}</span></p>
+                    </div>
+                </div>
 
-          <div className={styles.post_right_side}>
-            <h2>NACHRICHTEN</h2>
-            <hr className={styles.post_hr} />
-            <div className="mb-2">
-              <p className={styles.post_event_date}>
-                <BsCalendar2Week /> 15 November, 2023
-              </p>
-              <p className={styles.post_event_time}>
-                <BiTimeFive /> 10:00
-              </p>
-              <h4 className={styles.post_event_h4}>
-                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
-              </h4>
-              <p className={styles.post_event_text}>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu
-              </p>
-              <hr className={styles.post_hr} />
-            </div>
-            <div className="mb-2">
-              <p className={styles.post_event_date}>
-                <BsCalendar2Week /> 15 November, 2023
-              </p>
-              <p className={styles.post_event_time}>
-                <BiTimeFive /> 10:00
-              </p>
-              <h4 className={styles.post_event_h4}>
-                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
-              </h4>
-              <p className={styles.post_event_text}>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu
-              </p>
-              <hr className={styles.post_hr} />
-            </div>
-            <div className="mb-2">
-              <p className={styles.post_event_date}>
-                <BsCalendar2Week /> 15 November, 2023
-              </p>
-              <p className={styles.post_event_time}>
-                <BiTimeFive /> 10:00
-              </p>
-              <h4 className={styles.post_event_h4}>
-                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
-              </h4>
-              <p className={styles.post_event_text}>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu
-              </p>
-              <hr className={styles.post_hr} />
+
+                <div className={styles.post_right_side}>
+                    <h2>VERANSTALTUNGEN</h2>
+                    <hr className={styles.post_hr} />
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                    <div className="mb-2">
+                        <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023</p>
+                        <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
+                        <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
+                        <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                        <hr className={styles.post_hr} />
+                    </div>
+                </div>
             </div>
           </div>
         </div>

@@ -2,8 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 
-import AdminPage from "./сomponents/AdminPage/AdminPage";
-import TopCallery from "./сomponents/Gallery/TopCallery/TopCallery";
+
+const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
+const TopCallery = lazy(
+  () => import("./сomponents/Gallery/TopCallery/TopCallery")
+);
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -83,7 +86,6 @@ function App(): JSX.Element {
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/singUp" element={<SingInUser />} />
           <Route path="*" element={<NoPage />} />
-
 
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="aboutusadmin" element={<TeamAdmin />} />

@@ -27,7 +27,14 @@ const singInUser = async (userSingIn: string) => {
 
     return data;
   } catch (error) {
-    console.log("🚀  error:", error);
+    if (axios.isAxiosError(error)) {
+      const errorMessage = error.response?.data?.message;
+      if (errorMessage) {
+        toast.warning(`${errorMessage}`);
+      }
+    } else {
+      console.log("🚀  error:", error);
+    }
   }
 };
 
@@ -37,7 +44,7 @@ const getUserData = async () => {
       withCredentials: true,
     });
     console.log("🚀  getUserData:", data);
-    // return data;
+    return data;
   } catch (error) {
     console.log("🚀 getUserData error:", error);
   }
@@ -61,10 +68,6 @@ const SingInUser = (): JSX.Element => {
     validationSchema: validationSchemaSingUpYup,
     onSubmit: async ({ email, password }) => {
       const userSingIn = `username=${email}&password=${password}`;
-      // const data = {
-      //   username: email,
-      //   password,
-      // };
 
       const autorizedUser = await singInUser(userSingIn);
 
@@ -73,6 +76,8 @@ const SingInUser = (): JSX.Element => {
         resetForm();
         toast.success("User Logined!");
         // await getUserData();
+      } else {
+        navigate("/restore");
       }
     },
   });

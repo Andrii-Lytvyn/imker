@@ -30,20 +30,37 @@
 .post_event_date{
     font-size: 0.8em;
     color: var(--text-color);
+    float: left;
+    margin-right: 5px;
+}
+.post_clear{
+    clear: both;
+}
+.post_span_author{
+    color: var(--terracotta);
+    margin-left: 5px;
+}
+.post_h2{
+    text-align: center;
 }
 .post_event_time{
     font-size: 0.8em;
     margin-top: -5px;
     color: var(--text-color);
+
 }
 .post_event_h4{
     text-align: justify;
+    font-size: 1.3em;
 }
 .post_event_text_temp{
     color: var(--text-color);
     line-height: 25px;
     text-align: justify;
-    min-height: 200px;
+    min-height: 100px;
+}
+.post_event_text_button{
+    text-align: right;
 }
 hr{
     margin: 20px 0;

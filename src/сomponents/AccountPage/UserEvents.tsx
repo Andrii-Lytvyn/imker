@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
-import {
-  IUserAccountInfo,
-  initIUserAccountInfo,
-} from "./interfaces/IUserAccountInfo";
 import axios from "axios";
+import { IUserEvents, initIUserEvents } from "./interfaces/IUserEvents";
 
 export default function UserEvents(): JSX.Element {
-  const [{ email, phone, plz }, setUserInfo] =
-    useState<IUserAccountInfo>(initIUserAccountInfo);
+  const [{ events }, setUserEvents] = useState<IUserEvents>(initIUserEvents);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/me`, {
+        const response = await axios.get(`/api/events/myeventslist`, {
           withCredentials: true,
         });
         const userDto = response.data;
-        setUserInfo(userDto);
+        setUserEvents(userDto);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -27,9 +23,29 @@ export default function UserEvents(): JSX.Element {
 
   return (
     <div>
-      <p>E-mail: {email}</p>
-      <p>Phone: {phone}</p>
-      <p>PLZ: {plz}</p>
+      {events.map(
+        ({
+          idEvent,
+          title,
+          address,
+          author,
+          status,
+          description,
+          shortDescription,
+          location,
+          quantityOfMembers,
+          photo,
+          dateStart,
+          dateEnd,
+          startTime,
+          endTime,
+        }) => (
+          <div key={idEvent}>
+            {title} {dateStart}
+            <hr />
+          </div>
+        )
+      )}
     </div>
   );
 }

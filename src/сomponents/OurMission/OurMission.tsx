@@ -7,7 +7,7 @@ import {BsCalendar2Week} from "react-icons/bs";
 export default function OurMission(): JSX.Element {
   return (
     <>
-      <div className={styles.our_mission_main_container}>
+      <div className={styles.our_mission_main_container + " back-ground-1"}>
         <Container>
           <Row>
             <Col>

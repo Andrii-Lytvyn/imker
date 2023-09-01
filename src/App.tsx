@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 
+
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
   () => import("./сomponents/Gallery/TopCallery/TopCallery")

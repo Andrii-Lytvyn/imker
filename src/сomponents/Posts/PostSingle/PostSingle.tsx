@@ -1,19 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IPostDto } from "../interfaces/IPostDTO";
+import { IPostDto, initIPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
-import {Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./Post.module.css";
-import {FaHome} from "react-icons/fa";
-import {Container, Nav} from "react-bootstrap";
-import {BsCalendar2Week} from "react-icons/bs";
-import {BiTimeFive} from "react-icons/bi";
+import { FaHome } from "react-icons/fa";
+import { Container, Nav } from "react-bootstrap";
+import { BsCalendar2Week } from "react-icons/bs";
+import { BiTimeFive } from "react-icons/bi";
 import linkToServer from "../../globalLinkToServer";
-
-
+import moment from "moment";
 
 export default function PostSingle(): JSX.Element {
-  const [post, setPost] = useState<IPostDto | undefined>();
+  const [
+    {
+      idPost,
+      creationTimePost,
+      titlePost,
+      linkToImg,
+      textOfPost,
+      authorName,
+    },
+    setPost,
+  ] = useState<IPostDto>(initIPostDto);
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,7 +68,7 @@ export default function PostSingle(): JSX.Element {
                       target.src = "/img/imgNotFound.jpg";
                     }}
                   />
-                    <p className={styles.post_time}>{post?.creationTimePost}</p>
+                    <p className={styles.post_time}>{moment(creationTimePost).format("D MMMM YYYY")}</p>
                     <h2>{post?.titlePost}</h2>
                     <div
                 className="container"
@@ -100,7 +109,9 @@ export default function PostSingle(): JSX.Element {
                     </div>
                 </div>
             </div>
-        </Container>
+          </div>
+        </div>
+      </Container>
     </>
   );
 }

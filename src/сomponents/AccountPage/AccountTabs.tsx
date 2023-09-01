@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import UserInfo from './UserInfo';
+import UserEvents from './UserEvents';
+import UserSettings from './UserSettings';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -24,7 +25,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -58,10 +59,10 @@ export default function AccountTabs() {
         <UserInfo />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <UserEvents />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <UserSettings />
       </CustomTabPanel>
     </Box>
   );

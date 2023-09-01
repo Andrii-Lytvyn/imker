@@ -18,9 +18,8 @@ export default function Contacts(): JSX.Element {
   const maxLength = 500;
   const [charLeft, setCharLeft] = useState(maxLength);
   const [googleMap, setGoogleMap] = useState("");
-  const [
-    { address, phone:phoneAddr, email:emailAddr }, 
-    setAddress] = useState<IAddress>(initIAddress);
+  const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
+    useState<IAddress>(initIAddress);
 
   useEffect(() => {
     const getGoogleMapLink = async () => {
@@ -58,7 +57,7 @@ export default function Contacts(): JSX.Element {
     event.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/api/requests", {
+      await axios.post("/api/requests", {
         firstName,
         lastName,
         email,
@@ -72,7 +71,7 @@ export default function Contacts(): JSX.Element {
       );
     }
 
-    toast.success("Your request has been successfully sent!", {
+    toast.success("Ihre Anfrage wurde erfolgreich gesendet!", {
       position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -113,7 +112,6 @@ export default function Contacts(): JSX.Element {
 
             <iframe
               src={googleMap}
-              // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2416.3096482125134!2d9.61041657185848!3d52.72660458996256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b05c9680b0b6d1%3A0x56f0e67cfd5ecb98!2sWalsroder%20Str.%203%2C%2029693%20Eickeloh!5e0!3m2!1sru!2sde!4v1690814421367!5m2!1sru!2sde"
               className={styles.map}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -179,7 +177,7 @@ export default function Contacts(): JSX.Element {
                 </div>
               </div>
               <p className={styles.contacts_info}>
-                We'll never share your data with anyone else
+                Wir werden Ihre Daten niemals mit jemand anderem teilen
               </p>
               <div className="mb-3 mt-4">
                 <textarea
@@ -194,7 +192,7 @@ export default function Contacts(): JSX.Element {
                   required
                 />
                 <p className={styles.contacts_info_charLeft}>
-                  {charLeft} characters remaining
+                   Noch {charLeft} Zeichen verfügbar
                 </p>
               </div>
               <div className="d-flex justify-content-center">
@@ -203,7 +201,7 @@ export default function Contacts(): JSX.Element {
                   type="submit"
                   className="button_imker"
                 >
-                  Send request
+                  Anfrage senden
                 </button>
               </div>
             </form>

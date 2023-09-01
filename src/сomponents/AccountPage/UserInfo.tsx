@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import linkToServer from "../globalLinkToServer";
 import {
   IUserAccountInfo,
   initIUserAccountInfo,
 } from "./interfaces/IUserAccountInfo";
 import axios from "axios";
 
-export default function UserInfo():JSX.Element {
-  const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
-    initIUserAccountInfo
-  );
-  const id = 3;
+export default function UserInfo(): JSX.Element {
+  const [{ email, phone, plz }, setUserInfo] =
+    useState<IUserAccountInfo>(initIUserAccountInfo);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/users/${id}`);
+        const response = await axios.get(`/api/me`, {
+          withCredentials: true,
+        });
         const userDto = response.data;
         setUserInfo(userDto);
       } catch (error) {
@@ -24,15 +23,13 @@ export default function UserInfo():JSX.Element {
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
   return (
     <div>
-      
-      <p>E-mail: {userInfo?.email}</p>
-      <p>Phone: {userInfo?.phone}</p>
-      <p>PLZ: {userInfo?.plz}</p>
-      
+      <p>E-mail: {email}</p>
+      <p>Phone: {phone}</p>
+      <p>Postleitzahlen: {plz}</p>
     </div>
-  )
+  );
 }

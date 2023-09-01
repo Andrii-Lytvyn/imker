@@ -7,3 +7,13 @@ export interface IPostDto {
   textOfPost: string;
   authorName: string;
 }
+
+export const initIPostDto: IPostDto = {
+  idPost: "",
+  creationTimePost: "",
+  titlePost: "",
+  linkToImg: "",
+  shortPostDescription: "",
+  textOfPost: "",
+  authorName: "",
+};

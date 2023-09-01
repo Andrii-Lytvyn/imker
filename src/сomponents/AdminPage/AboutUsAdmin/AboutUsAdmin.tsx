@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseURL from "../../globalLinkToServer";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
-// import { Editor } from "tinymce";
+import { Editor } from "@tinymce/tinymce-react";
 
 const initAboutUs = {
   id: 1,
@@ -16,12 +16,6 @@ const initAboutUs = {
   image1: "",
   image2: "",
 }
-
-// interface AboutUsEditAdminProps {
-//   location: {
-//     state: IAboutUs;
-//   };
-// }
 
 // Edit About Us
 const editedAboutUs = async (editAboutUs: IAboutUs) => {
@@ -36,29 +30,17 @@ const editedAboutUs = async (editAboutUs: IAboutUs) => {
 };
 
 export default function AboutUsAdmin(): JSX.Element {
-  //props: AboutUsEditAdminProps
 
-  // const {id} = useParams();
-  // const [
-  //   {
-  //     1,
-  //     titleTop,
-  //     descriptionTop,
-  //     titleBottom,
-  //     descriptionBottom,
-  //     image1,
-  //     image2,
-  //   },
-  //   setAboutUsEditForm1,
-  // ] = useState<IAboutUs>(props.location.state);
-  
-  // const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string>();
+  const [text, setText] = useState("");
 
   const id = 1;
   const navigate = useNavigate();
   const [aboutUsEditForm, setAboutUsEditForm] = useState(initAboutUs);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
+  // const [selectedFile2, setSelectedFile2] = useState<File | null>(null);
+  // const [imageData2, setImageData2] = useState<string | null>(null);
   const width = 300;
   const height = 300;
   const category = "AVATAR";
@@ -81,15 +63,18 @@ export default function AboutUsAdmin(): JSX.Element {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setAboutUsEditForm((prev) => ({ ...prev, [name]: value }));
+    setAboutUsEditForm((prev) => ({ ...prev, [name]: value, descriptionTop: text }));
   };
 
   const aboutUsFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     let linkVar: string = "";
+    // let linkVar2: string = "";
 
     if (imageData && selectedFile) {
+      console.log("🚀 75  selectedFile:", selectedFile)
+      console.log("🚀 75  imageData:", imageData)
       const formData = new FormData();
       formData.append("file", selectedFile);
 
@@ -99,6 +84,7 @@ export default function AboutUsAdmin(): JSX.Element {
           formData
         );
         linkVar = response.data.id.toString();
+        console.log("🚀89 linkVar:", linkVar)
       } catch (error) {
         console.error("🚀Error uploading file:🚀 ", error);
       }
@@ -106,8 +92,11 @@ export default function AboutUsAdmin(): JSX.Element {
 
     const editAboutUs = {
       ...aboutUsEditForm,
-      image: linkVar,
+      image1: linkVar,
+      image2: "153",
     };
+    console.log("🚀 96 editAboutUs:", editAboutUs)
+
 
     editedAboutUs(editAboutUs);
 
@@ -139,7 +128,7 @@ export default function AboutUsAdmin(): JSX.Element {
 
       <form className={styles.form} onSubmit={aboutUsFormData}>
         <div>
-          {/* <div className={styles.form_field}>
+          <div className={styles.form_field}>
             <label>id</label>
             <input
               type="text"
@@ -147,57 +136,57 @@ export default function AboutUsAdmin(): JSX.Element {
               value={id}
               readOnly
             />
-          </div> */}
+          </div>
 
           <div className={styles.description}>
             <label>Title Top</label>
             <input
               type="text"
-              name="name"
+              name="titleTop"
               value={aboutUsEditForm.titleTop}
               onChange={collectAboutUsData}
             />
           </div>
-          <div className={styles.description}>
+          {/* <div className={styles.description}>
             <label>Description Top</label>
             <textarea
-              name="position"
+              name="descriptionTop"
               rows={30}
               value={aboutUsEditForm.descriptionTop}
               onChange={collectAboutUsData}
             />
-          </div>
+          </div> */}
 
-          {/* <Editor
-          apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
-          onEditorChange={(newValue, editor) => {
-            setValue(newValue);
-            setText(editor.getContent({ format: "html" }));
-          }}
-          onInit={(_, editor) => {
-            setText(editor.getContent({ format: "html" }));
-          }}
-          initialValue={aboutUsEditForm.titleTop}
-          value={value}
-          init={{
-            plugins:
-              "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
-            toolbar1:
-              "undo redo| removeformat fontfamily fontsize blocks bold italic strikethrough underline subscript superscript | alignleft aligncenter alignright alignjustify alignnone lineheight indent outdent | fullscreen help",
-            toolbar2:
-              "preview selectall copy cut paste pastetext searchreplace spellcheckdialog spellchecker | insertdatetime charmap checklist bullist numlist casechange | pagebreak | ltr rtl | visualblocks visualchars | hr wordcount",
-            toolbar3:
-              "table tableinsertdialog advtablerownumbering tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader tableofcontents tableofcontentsupdate",
-            toolbar4:
-              "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
-          }}
-        />
- */}
+          <Editor
+            apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
+            onEditorChange={(newValue, editor) => {
+              setValue(newValue);
+              setText(editor.getContent({ format: "html" }));
+            }}
+            onInit={(_, editor) => {
+              setText(editor.getContent({ format: "html" }));
+            }}
+            initialValue={aboutUsEditForm.descriptionTop}
+            value={value}
+            init={{
+              plugins:
+                "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
+              toolbar1:
+                "undo redo| removeformat fontfamily fontsize blocks bold italic strikethrough underline subscript superscript | alignleft aligncenter alignright alignjustify alignnone lineheight indent outdent | fullscreen help",
+              toolbar2:
+                "preview selectall copy cut paste pastetext searchreplace spellcheckdialog spellchecker | insertdatetime charmap checklist bullist numlist casechange | pagebreak | ltr rtl | visualblocks visualchars | hr wordcount",
+              toolbar3:
+                "table tableinsertdialog advtablerownumbering tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader tableofcontents tableofcontentsupdate",
+              toolbar4:
+                "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
+            }}
+          />
+
           <div className={styles.description}>
             <label>Title Bottom</label>
             <input
               type="text"
-              name="description"
+              name="titleBottom"
               value={aboutUsEditForm.titleBottom}
               onChange={collectAboutUsData}
             />
@@ -205,7 +194,7 @@ export default function AboutUsAdmin(): JSX.Element {
           <div className={styles.description}>
             <label>Description</label>
             <textarea
-              name="description"
+              name="descriptionBottom"
               rows={30}
               value={aboutUsEditForm.descriptionBottom}
               onChange={collectAboutUsData}
@@ -214,19 +203,19 @@ export default function AboutUsAdmin(): JSX.Element {
         </div>
 
         <div className={styles.photo}>
-          <label>Photo 1</label><br/>
+          <label>Photo 1</label><br />
           <img
             src={baseURL + "/api/files/" + aboutUsEditForm.image1}
             alt=""
             style={{
-              width: "600px",
-              maxWidth: "600px",
+              width: "300px",
+              maxWidth: "300px",
               height: "auto",
             }}
           />
         </div>
-        <label htmlFor="fileInput" className="file-upload">
-          Choose another image
+        <label htmlFor="fileInput" className={styles.file_upload}>
+          Choose another image #1
         </label>
         <input
           type="file"
@@ -242,27 +231,27 @@ export default function AboutUsAdmin(): JSX.Element {
             src={imageData}
             alt="Image"
             style={{
-              width: "600px",
-              maxWidth: "600px",
+              width: "300px",
+              maxWidth: "300px",
               height: "auto",
             }}
           />
         )}
 
-<div className={styles.photo}>
-          <label>Photo 2</label>
+        {/* <div className={styles.photo}>
+          <label>Photo 2</label><br />
           <img
             src={baseURL + "/api/files/" + aboutUsEditForm.image2}
             alt=""
             style={{
-              width: "600px",
-              maxWidth: "600px",
+              width: "300px",
+              maxWidth: "300px",
               height: "auto",
             }}
           />
         </div>
-        <label htmlFor="fileInput" className="file-upload">
-          Choose another image
+        <label htmlFor="fileInput" className={styles.file_upload}>
+          Choose another image #2
         </label>
         <input
           type="file"
@@ -278,12 +267,13 @@ export default function AboutUsAdmin(): JSX.Element {
             src={imageData}
             alt="Image"
             style={{
-              width: "600px",
-              maxWidth: "600px",
+              width: "300px",
+              maxWidth: "300px",
               height: "auto",
             }}
           />
-        )}
+        )} */}
+
         <button type="submit" className={styles.create_btn}>
           Save changes
         </button>

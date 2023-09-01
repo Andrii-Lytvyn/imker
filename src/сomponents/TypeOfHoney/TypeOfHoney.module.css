@@ -1,6 +1,11 @@
 .type_main_container{
     background-color: #f7f3f0;
     padding: 50px 0 70px;
+    position: relative;
+}
+.tile_background{
+position: absolute;
+    top: 30%;
 }
 
 .tile_main{

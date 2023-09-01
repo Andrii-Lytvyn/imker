@@ -4,10 +4,8 @@ import "./PostCreationAdmin.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { INewPostDto, initINewPostDto } from "./interfaces/INewPostDto";
-import linkToServer from "../../globalLinkToServer";
 
 export default function PostsCreationAdmin(): JSX.Element {
-  // { titlePost, linkToImg, shortPostDescription, textOfPost, authorName }
   const [text, setText] = useState("");
   const initText = "";
   const [value, setValue] = useState(initText);
@@ -49,8 +47,9 @@ export default function PostsCreationAdmin(): JSX.Element {
 
       try {
         const response = await axios.post(
-          `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=POST`,
-          formData
+          `/api/files/upload?width=${width}&height=${height}&category=POST`,
+          formData,
+          { withCredentials: true }
         );
         linkVar = response.data.id.toString();
         console.log("File uploaded:", linkVar);
@@ -61,13 +60,17 @@ export default function PostsCreationAdmin(): JSX.Element {
 
     if (linkVar) {
       try {
-        await axios.post(`${linkToServer}/api/posts`, {
-          titlePost,
-          linkToImg: linkVar,
-          shortPostDescription,
-          textOfPost: text,
-          authorName,
-        });
+        await axios.post(
+          `/api/posts`,
+          {
+            titlePost,
+            linkToImg: linkVar,
+            shortPostDescription,
+            textOfPost: text,
+            authorName,
+          },
+          { withCredentials: true }
+        );
 
         toast.success("Your post has been successfully sent!", {
           position: "bottom-right",
@@ -138,8 +141,8 @@ export default function PostsCreationAdmin(): JSX.Element {
           </div>
 
           <p className="col-md-7 mt-4 text-center fs-6">
-              Recommended resolution: {width}x{height}px
-            </p>
+            Recommended resolution: {width}x{height}px
+          </p>
 
           <div className="d-flex align-items-center fs-4 m-2">
             <label htmlFor="linkToImg" className="col-md-2 me-2 fs-4 text-end">

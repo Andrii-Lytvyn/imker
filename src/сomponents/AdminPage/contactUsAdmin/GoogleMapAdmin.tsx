@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import linkToServer from "../../globalLinkToServer";
 
 export default function GoogleMapAdmin(): JSX.Element {
   const htmlString =
@@ -21,10 +20,16 @@ export default function GoogleMapAdmin(): JSX.Element {
 
   const updateGoogleMapLink = async () => {
     try {
-      await axios.put(`${linkToServer}/api/googlemap`, {
-        id: 1,
-        googleMapLink
-      });
+      await axios.put(
+        `/api/googlemap`,
+        {
+          id: 1,
+          googleMapLink,
+        },
+        {
+          withCredentials: true,
+        }
+      );
     } catch (error) {
       console.error(
         "There was an error when sending a googleMapLink to Back:",
@@ -55,7 +60,7 @@ export default function GoogleMapAdmin(): JSX.Element {
       setGoogleMapLink(getGoogleMapLink(e.target.value));
       setBtnDisabled(false);
       setWrongLink(false);
-    } else if (e.target.value.trim()==="") {
+    } else if (e.target.value.trim() === "") {
       setWrongLink(false);
       setBtnDisabled(true);
       setGoogleMapLink(null);
@@ -95,7 +100,9 @@ export default function GoogleMapAdmin(): JSX.Element {
           Save new link
         </button>
       </div>
-      {wrongLink && <p style={{ textAlign: 'center', color: "red" }}>Wrong link!</p>}
+      {wrongLink && (
+        <p style={{ textAlign: "center", color: "red" }}>Wrong link!</p>
+      )}
 
       {googleMapLink && (
         <iframe

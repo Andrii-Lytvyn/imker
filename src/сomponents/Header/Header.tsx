@@ -73,14 +73,13 @@ export default function Header(): JSX.Element {
               fur test
             </span>
             <div className={styles.submenu_admin}>
-              <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/adminpage">AdminPage</Link>
+              {/* <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/postsadm">PostsAdmin</Link>
               <Link to="/eventsadm">EventsAdmin</Link>
               <Link to="/filesadm">FilesAdmin</Link>
               <Link to="/aboutusadmin">AboutUsAdmin</Link>
-
-              <Link to="/galleryadm">GalleryAdmin</Link>
+              <Link to="/galleryadm">GalleryAdmin</Link> */}
 
               <Link to="/accountpage">AccountPage</Link>
             </div>

@@ -41,7 +41,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   const height = 300;
   const category = "AVATAR";
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,7 +86,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
     const editMember = {
       ...memberEditForm,
-      image: linkVar,
+      image: linkVar || memberEditForm.image,
     };
 
     editedMember(editMember);
@@ -161,7 +160,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
               name="name"
               value={memberEditForm.name}
               onChange={collectMembersData}
-              required
             />
           </div>
           <div className={styles.form_field}>
@@ -171,7 +169,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
               name="position"
               value={memberEditForm.position}
               onChange={collectMembersData}
-              required
             />
           </div>
           <div className={styles.description}>
@@ -203,7 +200,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
               placeholder="+49 1234 1234567"
               value={memberEditForm.email}
               onChange={collectMembersData}
-              required
             />
           </div>
           <br />
@@ -235,8 +231,8 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             src={"/api/files/" + memberEditForm.image}
             alt={memberEditForm.name + memberEditForm.position}
             style={{
-              width: "100%",
-              maxWidth: "100%",
+              width: "400px",
+              maxWidth: "400px",
               height: "auto",
             }}
           />
@@ -250,7 +246,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
           id="fileInput"
           onChange={handleFileChange}
           accept=".jpg, .jpeg, .png"
-          required
           style={{ display: "none" }}
         />
         <br />
@@ -259,8 +254,8 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             src={imageData}
             alt="Image"
             style={{
-              width: "100%",
-              maxWidth: "100%",
+              width: "400px",
+              maxWidth: "400px",
               height: "auto",
             }}
           />

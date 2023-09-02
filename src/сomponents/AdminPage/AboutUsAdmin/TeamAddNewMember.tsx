@@ -12,7 +12,7 @@ const memberData = {
   position: "",
   description: "",
   image: "",
-  phone: "+49",
+  phone: "",
   email: "",
   facebook: "",
   instagram: "",
@@ -121,7 +121,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             </div>
           </div>
           <div className={styles.form_field}>
-            <label>Name</label>
+          <label style={{ color: "red" }}>Name (Required *)</label>
             <input
               type="text"
               name="name"
@@ -137,7 +137,6 @@ const TeamAddMemberAdmin = (): JSX.Element => {
               name="position"
               value={memberForm.position}
               onChange={collectMembersData}
-              required
             />
           </div>
           <div className={styles.description}>
@@ -166,10 +165,9 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="email"
-              placeholder="+49 1234 1234567"
+              placeholder="name@gmail.com"
               value={memberForm.email}
               onChange={collectMembersData}
-              required
             />
           </div>
           <br />

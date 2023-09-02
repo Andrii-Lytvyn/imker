@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseURL from "../../globalLinkToServer";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
-import { Editor } from "@tinymce/tinymce-react";
+// import { Editor } from "@tinymce/tinymce-react";
 
 const initAboutUs = {
   id: 1,
@@ -31,18 +31,16 @@ const editedAboutUs = async (editAboutUs: IAboutUs) => {
 
 export default function AboutUsAdmin(): JSX.Element {
 
-  const [value, setValue] = useState<string>();
-  const [text, setText] = useState("");
+  // const [value, setValue] = useState<string>();
+  // const [text, setText] = useState("");
 
   const id = 1;
   const navigate = useNavigate();
   const [aboutUsEditForm, setAboutUsEditForm] = useState(initAboutUs);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-  // const [selectedFile2, setSelectedFile2] = useState<File | null>(null);
-  // const [imageData2, setImageData2] = useState<string | null>(null);
-  const width = 300;
-  const height = 300;
+  const width = 600;
+  const height = 600;
   const category = "AVATAR";
 
 
@@ -51,7 +49,7 @@ export default function AboutUsAdmin(): JSX.Element {
       try {
         const response = await axios.get(`${baseURL}/api/aboutus/${id}`);
         setAboutUsEditForm(response.data);
-        console.log("🚀 47 ~ fetchData ~ response:", response)
+        // console.log("🚀 47 ~ fetchData ~ response:", response)
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -63,18 +61,13 @@ export default function AboutUsAdmin(): JSX.Element {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setAboutUsEditForm((prev) => ({ ...prev, [name]: value, descriptionTop: text }));
+    setAboutUsEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const aboutUsFormData = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const [linkVar, setLinkVar] = useState<string>("");
 
-    let linkVar: string = "";
-    // let linkVar2: string = "";
-
+  async function handleFileUploading() {
     if (imageData && selectedFile) {
-      console.log("🚀 75  selectedFile:", selectedFile)
-      console.log("🚀 75  imageData:", imageData)
       const formData = new FormData();
       formData.append("file", selectedFile);
 
@@ -83,23 +76,23 @@ export default function AboutUsAdmin(): JSX.Element {
           `${baseURL}/api/files/upload?width=${width}&height=${height}&category=${category}`,
           formData
         );
-        linkVar = response.data.id.toString();
+        // linkVar = response.data.id.toString();
+        setLinkVar(response.data.id.toString());
         console.log("🚀89 linkVar:", linkVar)
       } catch (error) {
         console.error("🚀Error uploading file:🚀 ", error);
       }
     }
+  }
+
+  const aboutUsFormData = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const editAboutUs = {
       ...aboutUsEditForm,
-      image1: linkVar,
-      image2: "153",
     };
-    console.log("🚀 96 editAboutUs:", editAboutUs)
-
 
     editedAboutUs(editAboutUs);
-
     navigate("/aboutusadmin");
     resetForm();
     window.location.reload();
@@ -116,6 +109,7 @@ export default function AboutUsAdmin(): JSX.Element {
     if (file) {
       const url = URL.createObjectURL(file);
       setImageData(url);
+      console.log("🚀 114 ~ handleFileChange ~ url:", url)
     }
   };
 
@@ -139,7 +133,7 @@ export default function AboutUsAdmin(): JSX.Element {
           </div>
 
           <div className={styles.description}>
-            <label>Title Top</label>
+            <label>Title Topp</label>
             <input
               type="text"
               name="titleTop"
@@ -147,7 +141,7 @@ export default function AboutUsAdmin(): JSX.Element {
               onChange={collectAboutUsData}
             />
           </div>
-          {/* <div className={styles.description}>
+          <div className={styles.description}>
             <label>Description Top</label>
             <textarea
               name="descriptionTop"
@@ -155,9 +149,10 @@ export default function AboutUsAdmin(): JSX.Element {
               value={aboutUsEditForm.descriptionTop}
               onChange={collectAboutUsData}
             />
-          </div> */}
+          </div>
 
-          <Editor
+          <div>
+            {/* <Editor
             apiKey="h2bfbarjdz9czdunh8t6splenye1zsn4q2t3lc4m8q5fqg56"
             onEditorChange={(newValue, editor) => {
               setValue(newValue);
@@ -180,8 +175,8 @@ export default function AboutUsAdmin(): JSX.Element {
               toolbar4:
                 "export emoticons image editimage fliph flipv rotateleft rotateright | link openlink unlink | media | backcolor forecolor",
             }}
-          />
-
+          /> */}
+          </div>
           <div className={styles.description}>
             <label>Title Bottom</label>
             <input
@@ -192,7 +187,7 @@ export default function AboutUsAdmin(): JSX.Element {
             />
           </div>
           <div className={styles.description}>
-            <label>Description</label>
+            <label>Description Bottom</label>
             <textarea
               name="descriptionBottom"
               rows={30}
@@ -202,8 +197,9 @@ export default function AboutUsAdmin(): JSX.Element {
           </div>
         </div>
 
+        <h2>Change photo</h2>
+
         <div className={styles.photo}>
-          <label>Photo 1</label><br />
           <img
             src={baseURL + "/api/files/" + aboutUsEditForm.image1}
             alt=""
@@ -213,33 +209,6 @@ export default function AboutUsAdmin(): JSX.Element {
               height: "auto",
             }}
           />
-        </div>
-        <label htmlFor="fileInput" className={styles.file_upload}>
-          Choose another image #1
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          onChange={handleFileChange}
-          accept=".jpg, .jpeg, .png"
-          required
-          style={{ display: "none" }}
-        />
-        <br />
-        {imageData && (
-          <img
-            src={imageData}
-            alt="Image"
-            style={{
-              width: "300px",
-              maxWidth: "300px",
-              height: "auto",
-            }}
-          />
-        )}
-
-        {/* <div className={styles.photo}>
-          <label>Photo 2</label><br />
           <img
             src={baseURL + "/api/files/" + aboutUsEditForm.image2}
             alt=""
@@ -249,35 +218,61 @@ export default function AboutUsAdmin(): JSX.Element {
               height: "auto",
             }}
           />
-        </div>
-        <label htmlFor="fileInput" className={styles.file_upload}>
-          Choose another image #2
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          onChange={handleFileChange}
-          accept=".jpg, .jpeg, .png"
-          required
-          style={{ display: "none" }}
-        />
-        <br />
-        {imageData && (
-          <img
-            src={imageData}
-            alt="Image"
-            style={{
-              width: "300px",
-              maxWidth: "300px",
-              height: "auto",
-            }}
+          <br />
+          <label>Enter new number for photo 1:</label>
+          <input
+            type="text"
+            name="image1"
+            value={aboutUsEditForm.image1}
+            onChange={collectAboutUsData}
           />
-        )} */}
+          <div className={styles.photo}>
+            <label>Enter new number for photo 2:</label>
+            <input
+              type="text"
+              name="image2"
+              value={aboutUsEditForm.image2}
+              onChange={collectAboutUsData}
+            />
+          </div>
+        </div>
 
+        <h2>Save all changes</h2>
         <button type="submit" className={styles.create_btn}>
           Save changes
         </button>
       </form>
+
+        <h2>Load new photo</h2>
+      <input
+        type="file"
+        id="fileInput"
+        onChange={handleFileChange}
+        accept=".jpg, .jpeg, .png"
+      // style={{ display: "none" }}
+      />
+      <br />
+      <div className={styles.form_field}>
+        <label>new № photo </label>
+        <input
+          type="text"
+          name="linkVar"
+          value={linkVar}
+          readOnly
+        />
+      </div>
+      <button onClick={() => handleFileUploading()}>Send File</button>
+      {imageData && (
+        <img
+          src={imageData}
+          alt="Image"
+          style={{
+            width: "300px",
+            maxWidth: "300px",
+            height: "auto",
+          }}
+        />
+      )}
     </div>
   );
 }

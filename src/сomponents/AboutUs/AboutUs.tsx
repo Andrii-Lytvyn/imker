@@ -26,7 +26,6 @@ export default function AboutUs(): JSX.Element {
     fetchData();
   }, []);
 
-
   const [aboutUs, setAboutUs] = useState<IAboutUs[]>([]);
 
   useEffect(() => {
@@ -53,7 +52,7 @@ export default function AboutUs(): JSX.Element {
         {aboutUs?.map((elem) => (
           <>
             <div className="mb-3">
-              <p className={styles.about_text}><h4>**{elem.titleTop}</h4></p >
+              <p className={styles.about_text}><h4>{elem.titleTop}</h4></p >
               {/* <div
                 className="container"
                 dangerouslySetInnerHTML={{
@@ -71,17 +70,17 @@ export default function AboutUs(): JSX.Element {
 
             <div className="d-flex justify-content-around">
               <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                <img src={baseURL + "/api/files/" + elem.image1} width="90%" />
+                <img src={baseURL + "/api/files/" + elem.image1} width="100%" />
                 <caption>"Bright as a sunflower."</caption>
               </div>
               <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-              <img src={baseURL + "/api/files/" + elem.image2}  width="90%" />
+              <img src={baseURL + "/api/files/" + elem.image2}  width="100%" />
                 <caption>"Bright as a sunflower."</caption>
               </div>
             </div>
 
             <div className="mb-3">
-            <p className={styles.about_text}><h4>**{elem.titleBottom}</h4></p >
+            <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
             {/* <div
               className="container"
               dangerouslySetInnerHTML={{

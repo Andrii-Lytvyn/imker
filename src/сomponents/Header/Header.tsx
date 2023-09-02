@@ -80,7 +80,6 @@ export default function Header(): JSX.Element {
               <Link to="/filesadm">FilesAdmin</Link>
               <Link to="/aboutusadmin">AboutUsAdmin</Link>
               <Link to="/galleryadm">GalleryAdmin</Link> */}
-
               <Link to="/accountpage">AccountPage</Link>
             </div>
           </li>

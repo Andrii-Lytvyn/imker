@@ -1,4 +1,3 @@
-import axios from "axios";
 import styles from "./SingInUser.module.css";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -17,41 +16,13 @@ import {
 } from "@chakra-ui/react";
 import { initSingInUserData } from "./interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
-
-const singInUser = async (userSingIn: string) => {
-  try {
-    const data = await axios.post(`/api/login`, userSingIn, {
-      withCredentials: true,
-    });
-    console.log("🚀  data:", data);
-
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const errorMessage = error.response?.data?.message;
-      if (errorMessage) {
-        toast.warning(`${errorMessage}`);
-      }
-    } else {
-      console.log("🚀  error:", error);
-    }
-  }
-};
-
-const getUserData = async () => {
-  try {
-    const data = await axios.get(`/api/me`, {
-      withCredentials: true,
-    });
-    console.log("🚀  getUserData:", data);
-    return data;
-  } catch (error) {
-    console.log("🚀 getUserData error:", error);
-  }
-};
+import { getUserData, singInUser } from "../helpers/userAuth/userOperation";
+import { userDataInfo } from "../../../redux/userStore/userSlice";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 const SingInUser = (): JSX.Element => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
 
   //Валинация полей формы с помощью validationSchemaYup
@@ -70,20 +41,15 @@ const SingInUser = (): JSX.Element => {
       const userSingIn = `username=${email}&password=${password}`;
 
       const autorizedUser = await singInUser(userSingIn);
-
-      console.log("🚀  autorizedUser:", autorizedUser);
       if (autorizedUser?.status === 200) {
         resetForm();
-        toast.success("User Logined!");
-        // await getUserData();
-      } else {
-        navigate("/restore");
+        toast.success("Welcome");
+        const userInfo = await getUserData();
+        dispatch(userDataInfo(userInfo?.data));
+        navigate("/");
       }
     },
   });
-  const get = async () => {
-    await getUserData();
-  };
 
   // Обьект одинаковых настроек для всех инпутов
   const inputSettings = {
@@ -153,6 +119,7 @@ const SingInUser = (): JSX.Element => {
                   <Button colorScheme="red" type="submit">
                     Beitreten
                   </Button>
+
                   <Button
                     colorScheme="red"
                     type="button"
@@ -175,10 +142,10 @@ const SingInUser = (): JSX.Element => {
                 </Button>
               </Flex>
             </form>
-
+            {/* 
             <button type="button" onClick={get}>
               getUser
-            </button>
+            </button> */}
           </div>
         </div>
       </ChakraProvider>

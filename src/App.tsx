@@ -1,6 +1,13 @@
+import { toast } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
+import { useAppDispatch } from "./hooks/dispatch.selector";
+import {
+  getLoginStatus,
+  getUserData,
+} from "./сomponents/UserLogin/helpers/userAuth/userOperation";
+import { userDataInfo } from "./redux/userStore/userSlice";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
@@ -63,12 +70,34 @@ const SingInUser = lazy(
 const SecretAnswer = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
 );
+const RestoreAnswer = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer")
+);
 const RestorePassword = lazy(
   () =>
     import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
 );
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const isUserLoggedIn = getLoginStatus();
+    if (isUserLoggedIn) {
+      const refreshUser = async () => {
+        try {
+          const userInfo = await getUserData();
+          dispatch(userDataInfo(userInfo?.data));
+        } catch (error) {
+          console.log("🚀  error:", error);
+        }
+      };
+      refreshUser();
+    } else {
+      toast.info("Привет сладенький !!!");
+    }
+  }, [dispatch]);
+
   return (
     <>
       <Routes>
@@ -106,6 +135,7 @@ function App(): JSX.Element {
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
           <Route path="topgallery" element={<TopCallery />} />
           <Route path="/restore" element={<SecretAnswer />} />
+          <Route path="/restoreAnswer" element={<RestoreAnswer />} />
           <Route path="/restorePassword" element={<RestorePassword />} />
         </Route>
       </Routes>

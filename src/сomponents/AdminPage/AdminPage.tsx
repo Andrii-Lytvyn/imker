@@ -11,6 +11,7 @@ import GalleryAdmin from "./GalleryAdmin/GalleryAdmin";
 import EditAllEvents from "./EventsAdmin/EditAllEvents";
 import { Container } from "react-bootstrap";
 
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;

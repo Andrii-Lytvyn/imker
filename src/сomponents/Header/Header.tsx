@@ -84,6 +84,7 @@ export default function Header(): JSX.Element {
               <Link to="/galleryadm">GalleryAdmin</Link>
 
               <Link to="/accountpage">AccountPage</Link>
+              <Link to="/usersadm">UsersAdmin</Link>
             </div>
           </li>
           {!isUserLoggedIn ? (

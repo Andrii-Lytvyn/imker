@@ -1,0 +1,97 @@
+.bgndPost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/honeycomb_bg.png");
+  background-repeat: repeat;
+  background-position: center;
+  background-color: rgb(255, 224, 208, 0.5);
+  z-index: -10;
+  opacity: 0.1;
+}
+
+.headerContainer {
+  width: 80%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.headBtn {
+  font-size: 1.3rem;
+  margin: 0 5px;
+  margin-bottom: -13px;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgb(249, 230, 205);
+}
+
+.headBtn:hover {
+  box-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
+}
+.headBtn:disabled:hover {
+  background-color: rgb(211, 211, 211);
+  box-shadow: 0 0 0 rgb(0, 0, 0, 0.5);
+}
+
+.headBtnActive {
+  font-size: 1.3rem;
+  margin: 2px;
+  margin-bottom: -13px;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  border: none;
+  background-color: rgb(255, 186, 96);
+}
+
+.container {
+  width: 70%;
+  margin: 10px auto;
+  text-align: center;
+  border-radius: 40px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 50px;
+}
+
+.totalCount {
+  font-size: 1.3rem;
+  margin: 20px;
+}
+
+.postContainer {
+  padding: 10px;
+  margin: 10px;
+  border: 1px grey solid;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-align: start;
+}
+
+.postData,
+.postCreated {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.titlePost,
+.descriptionPost {
+  margin: 10px;
+  font-size: 1.5rem;
+}
+
+.titlePost {
+  font-weight: 700;
+}
+
+.editBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.editBtn:hover {
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.4);
+}

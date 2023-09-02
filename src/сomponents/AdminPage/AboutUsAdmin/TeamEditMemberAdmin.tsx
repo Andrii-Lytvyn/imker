@@ -4,9 +4,8 @@ import styles from "./TeamAdmin.module.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IMember } from "../../AboutUs/interfaces/IMembers"
-import baseURL from "../../globalLinkToServer";
 
-const initMember ={
+const initMember = {
   id: 0,
   state: "",
   name: "",
@@ -21,18 +20,19 @@ const initMember ={
 
 // Edit Member
 const editedMember = async (editMember: IMember) => {
-  console.log("🚀 row 24 ~ editedMember ~ editMember:", editMember)
   try {
-    const { data } = await axios.put(`${baseURL}/api/members/update/${editMember.id}`, editMember
-      );
+    const { data } = await axios.put(`/api/members/update/${editMember.id}`, editMember, {
+      withCredentials: true,
+    }
+    );
     console.log("🚀 (Received)editedMember:", data);
   } catch (error) {
-    toast.error(`Server error getAllMembers ${error}`);
+    toast.error(`Serverfehler getAllMembers ${error}`);
   }
 };
 
 const TeamEditMemberAdmin = (): JSX.Element => {
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [memberEditForm, setMemberEditForm] = useState(initMember);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -44,14 +44,15 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-    try {
-      const response = await axios.get(`${baseURL}/api/members/${id}`);
-      setMemberEditForm(response.data);
-      console.log("🚀 47 ~ fetchData ~ response:", response)
-    } catch (error) {
-      console.error("Error during request execution:", error);
+      try {
+        const response = await axios.get(`/api/members/${id}`, {
+          withCredentials: true,
+        });
+        setMemberEditForm(response.data);
+      } catch (error) {
+        console.error("Fehler bei der Anforderungsausführung:", error);
+      }
     }
-  }
     fetchData();
   }, [id]);
 
@@ -65,7 +66,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let linkVar: string  = "";
+    let linkVar: string = "";
 
     if (imageData && selectedFile) {
       const formData = new FormData();
@@ -73,24 +74,23 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
       try {
         const response = await axios.post(
-          `${baseURL}/api/files/upload?width=${width}&height=${height}&category=${category}`,
-          formData
+          `/api/files/upload?width=${width}&height=${height}&category=${category}`,
+          formData, {
+          withCredentials: true,
+        }
         );
         linkVar = response.data.id.toString();
-        console.log("🚀 File uploaded:", linkVar);
       } catch (error) {
-        console.error("🚀Error uploading file:🚀 ", error);
+        console.error("Fehler beim Hochladen der Datei: ", error);
       }
     }
 
     const editMember = {
-      ...memberEditForm, 
+      ...memberEditForm,
       image: linkVar,
     };
-    console.log("🚀row 67 editMember:", editMember);
 
     editedMember(editMember);
-
     navigate("/teamadmin");
     resetForm();
     window.location.reload();
@@ -116,10 +116,10 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         <Link to="/teamadmin">Back</Link>
       </button>
       <h2>Edit Member</h2>
-      
+
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
-        <div className={styles.form_field}>
+          <div className={styles.form_field}>
             <label>id</label>
             <input
               type="text"
@@ -128,7 +128,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
               readOnly
             />
           </div>
-        
+
           <div className={styles.status_container}>
             <label>Visible state</label>
             <div className={styles.status}>
@@ -165,7 +165,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             />
           </div>
           <div className={styles.form_field}>
-            <label>Position</label>
+            <label>Berufsbezeichnung</label>
             <input
               type="text"
               name="position"
@@ -175,7 +175,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             />
           </div>
           <div className={styles.description}>
-            <label>Description</label>
+            <label>Beschreibung</label>
             <textarea
               name="description"
               rows={3}
@@ -185,7 +185,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
           </div>
 
           <div className={styles.form_field}>
-            <label>Phone</label>
+            <label>Telefon</label>
             <input
               type="text"
               name="phone"
@@ -232,18 +232,18 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         <div className={styles.photo}>
           <label>Photo </label>
           <img
-              src= {baseURL + "/api/files/" + memberEditForm.image} 
-              alt={memberEditForm.name + memberEditForm.position}               
-              style={{
-                width: "100%",
-                maxWidth: "100%",
-                height: "auto",
-              }}
-            />          
+            src={"/api/files/" + memberEditForm.image}
+            alt={memberEditForm.name + memberEditForm.position}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
         </div>
 
         <label htmlFor="fileInput" className="file-upload">
-          Choose another image
+          Wählen Sie ein anderes Bild
         </label>
         <input
           type="file"
@@ -267,7 +267,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         )}
 
         <button type="submit" className={styles.create_btn}>
-          Save changes
+          Änderungen speichern
         </button>
       </form>
     </div>

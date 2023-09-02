@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../AboutUs/interfaces/IMembers";
 import { Link, useNavigate } from "react-router-dom";
-import baseURL from "../../globalLinkToServer";
 
 export default function TeamAdmin(): JSX.Element {
 
@@ -13,12 +12,13 @@ export default function TeamAdmin(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/members`);
+        const response = await axios.get(`/api/members`, {
+          withCredentials: true,
+        });
         const memberResponseData = await response.data;
-        console.log("memberResponseData:🚀🚀 ", memberResponseData)
         setMember(memberResponseData.members);
       } catch (error) {
-        console.error("Error during request execution:", error);
+        console.error("Fehler bei der Anforderungsausführung:", error);
       }
     };
     fetchData();
@@ -26,44 +26,39 @@ export default function TeamAdmin(): JSX.Element {
 
   async function deleteMember(idMember: number) {
     try {
-      const response = await axios.delete(`${baseURL}/api/members/${idMember}`);
-      console.log("🚀 ~ file: TeamAdmin.tsx:40 ~ deleteMember ~ response:", response)
+      const response = await axios.delete(`/api/members/${idMember}, {
+        withCredentials: true,
+      }`);
       window.location.reload();
+
+      if (response.status === 204) {
+        const index = member.findIndex(member => member.id === idMember);
+        if (index !== -1) {
+          member.splice(index, 1);
+          console.log(` Mitglied mit der ID ${idMember} gelöscht.`);
+        } else {
+          console.log(`Mitglied mit der ID ${idMember} nicht gefunden.`);
+        }
+      } else {
+        console.log(`Mitglied mit ID ${idMember} kann nicht gelöscht werden.`);
+      }
     } catch (error) {
-      console.error("Error during request execution:", error);
+      console.error("Fehler bei der Anforderungsausführung:", error);
     }
   }
 
-  //   async function deleteMemberById(id: number): Promise<void> {
-  //     try {
-  //         const response = await axios.delete(
-  //             `${baseURL}/api/members/${id}`
-  //         );
-
-  //         if (response.status === 204) {
-  //             const index = member.findIndex(member => member.id === id);
-  //             if (index !== -1) {
-  //               member.splice(index, 1);
-  //                 console.log(` Member with ID ${id} deleted.`);
-  //             } else {
-  //                 console.log(`Member with ID ${id} not found.`);
-  //             }
-  //         } else {
-  //             console.log(`Can't delet member with ID ${id}.`);
-  //         }
-  //     } catch (error) {
-  //         console.error("An error occurred during deleting member:", error);
-  //     }
-  // }
-
-
-
   return (
     <>
+      <br />
+      <button type="button">
+        <Link to="/aboutusadmin/">Bearbeiten die Beschreibung „Über uns“.</Link>
+      </button>
+      <br /><br />
       <Container>
         <button type="button">
-          <Link to="/teamadmin/addmember/">Add new</Link>
+          <Link to="/teamadmin/addmember/">Neues Mitglied hinzufügen</Link>
         </button>
+        <br /><br />
         <ul>
           {member.map(
             ({
@@ -81,24 +76,24 @@ export default function TeamAdmin(): JSX.Element {
               <li key={id}>
                 <button onClick={() => navigate(`/teamadmin/teameditmemberadmin/${id}`)
                 }>
-                  Edit
+                  Bearbeiten
                 </button>
                 <button onClick={() => deleteMember(+id)}>
-                  Delete
+                  Löschen
                 </button>
                 <div >
-                  <p> ID member: {id} </p>
-                  <p> State: {state} </p>
+                  <p> ID-Mitglied: {id} </p>
+                  <p> Zustand: {state} </p>
                   <p >Name: {name}</p>
-                  <p >Position: {position}</p>
-                  <p >Description: {description}</p>
-                  <p >Phone: {phone}</p>
+                  <p >Berufsbezeichnung: {position}</p>
+                  <p >Beschreibung: {description}</p>
+                  <p >Telefon: {phone}</p>
                   <div>
                     <p >E-mail: {email}</p>
                     <p >Facebook: {facebook}</p>
                     <p >Instagram: {instagram}</p>
                   </div>
-                  <img src={baseURL + "/api/files/" + image} alt={name + position} width="300px" /> <br />
+                  <img src={"/api/files/" + image} alt={name + position} width="300px" /> <br />
                 </div>
                 <br /><br />
               </li>

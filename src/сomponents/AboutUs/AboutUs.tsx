@@ -1,10 +1,9 @@
 import styles from "./AboutUs.module.css";
 import { Container } from "react-bootstrap";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram} from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
-import baseURL from "../globalLinkToServer";
 import { IAboutUs } from "./interfaces/IAboutUs";
 import DOMPurify from "dompurify";
 import { SlEnvolope } from "react-icons/sl";
@@ -13,31 +12,34 @@ import { SlEnvolope } from "react-icons/sl";
 export default function AboutUs(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/api/members`);
-        const memberDto = await response.data;
-        setMember(memberDto.members);
-      } catch (error) {
-        console.error("Error during request execution:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
   const [aboutUs, setAboutUs] = useState<IAboutUs[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/aboutus/`);
+        const response = await axios.get(`/api/members`, {
+          withCredentials: true,
+        });
+        const memberDto = await response.data;
+        setMember(memberDto.members);
+      } catch (error) {
+        console.error("Fehler bei der Ausführung der Anfrage:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/aboutus/`, {
+          withCredentials: true,
+        });
         const aboutUsResponse = await response.data;
         console.log("🚀35 aboutUsResponse:", aboutUsResponse)
         setAboutUs(aboutUsResponse.aboutUsAll);
       } catch (error) {
-        console.error("Error during request execution:", error);
+        console.error("Fehler bei der Ausführung der Anfrage:", error);
       }
     };
     fetchData();
@@ -54,12 +56,6 @@ export default function AboutUs(): JSX.Element {
           <>
             <div className="mb-3">
               <p className={styles.about_text}><h4>{elem.titleTop}</h4></p >
-              {/* <div
-                className="container"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(elem.titleTop || ""),
-                }}
-              /> */}
 
               <div
                 className="container"
@@ -71,23 +67,17 @@ export default function AboutUs(): JSX.Element {
 
             <div className="d-flex justify-content-around">
               <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                <img src={baseURL + "/api/files/" + elem.image1} width="100%" />
+                <img src={"/api/files/" + elem.image1} width="100%" />
                 <caption>"Bright as a sunflower."</caption>
               </div>
               <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-              <img src={baseURL + "/api/files/" + elem.image2}  width="100%" />
+              <img src={ "/api/files/" + elem.image2}  width="100%" />
                 <caption>"Bright as a sunflower."</caption>
               </div>
             </div>
 
             <div className="mb-3">
             <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
-            {/* <div
-              className="container"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(elem.titleBottom || ""),
-              }}
-            /> */}
             <div
               className="container"
               dangerouslySetInnerHTML={{
@@ -110,7 +100,7 @@ export default function AboutUs(): JSX.Element {
             element.state === "SHOW" ?
               <li key={index}>
                 <div className={styles.about_members}>
-                  <img src={baseURL + "/api/files/" + element.image} />
+                  <img src={"/api/files/" + element.image} />
                   <p className={styles.about_position}>{element.position}</p>
                   <p className={styles.about_position_name}>{element.name}</p>
                   <p className={styles.about_position_text}>{element.description}</p>

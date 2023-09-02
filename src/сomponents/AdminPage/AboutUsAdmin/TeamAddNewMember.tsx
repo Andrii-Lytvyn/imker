@@ -4,7 +4,6 @@ import styles from "./TeamAdmin.module.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
-import baseURL from "../../globalLinkToServer";
 
 
 const memberData = {
@@ -21,10 +20,12 @@ const memberData = {
 
 const addNewMember = async (newMember: IMemberDate) => {
   try {
-    const data = await axios.post(`${baseURL}/api/members`, newMember);
+    const data = await axios.post(`/api/members`, newMember, {
+      withCredentials: true,
+    });
     console.log("🚀  data:", data);
   } catch (error) {
-    console.log("🚀error🚀  addNewMember", error);
+    console.log("Fehler addNewMember", error);
   }
 };
 
@@ -55,13 +56,14 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
       try {
         const response = await axios.post(
-          `${baseURL}/api/files/upload?width=${width}&height=${height}&category=${category}`,
-          formData
+          `/api/files/upload?width=${width}&height=${height}&category=${category}`,
+          formData, {
+            withCredentials: true,
+          }
         );
         linkVar = response.data.id.toString();
-        console.log("🚀 File uploaded:", linkVar);
       } catch (error) {
-        console.error("🚀Error uploading file:🚀 ", error);
+        console.error("Fehler beim Hochladen der Datei:", error);
       }
     }
 
@@ -69,12 +71,10 @@ const TeamAddMemberAdmin = (): JSX.Element => {
       ...memberForm,
       image: linkVar,
     };
-    console.log("🚀 69 createNewMember:", createNewMember)
 
     toast.success("New Member created");
     addNewMember(createNewMember);
     setMemberForm(memberData);
-    console.log("🚀 76 memberData:", memberData)
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,9 +90,9 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   return (
     <div className={styles.form_container}>
       <button type="button">
-        <Link to="/teamadmin">Back</Link>
+        <Link to="/teamadmin">Zurück</Link>
       </button>
-      <h2>Add New Member</h2>
+      <h2>Add Neues Mitglied</h2>
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
           <div className={styles.status_container}>
@@ -131,7 +131,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             />
           </div>
           <div className={styles.form_field}>
-            <label>Position</label>
+            <label>Berufsbezeichnung</label>
             <input
               type="text"
               name="position"
@@ -141,7 +141,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             />
           </div>
           <div className={styles.description}>
-            <label>Description</label>
+            <label>Beschreibung</label>
             <textarea
               name="description"
               rows={3}
@@ -151,7 +151,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           </div>
 
           <div className={styles.form_field}>
-            <label>Phone</label>
+            <label>Telefon</label>
             <input
               type="text"
               name="phone"
@@ -174,7 +174,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Facebook (example: https://www.facebook.com/FacebookId)</label>
+            <label>Facebook (beispiel: https://www.facebook.com/FacebookId)</label>
             <input
               type="text"
               name="facebook"
@@ -185,7 +185,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Instagram (example: https://www.instagram.com/InstagramId)</label>
+            <label>Instagram (beispiel: https://www.instagram.com/InstagramId)</label>
             <input
               type="text"
               name="instagram"
@@ -220,7 +220,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
         </div>
         <br /> <br />
         <button type="submit" className={styles.create_btn}>
-          Add New Member
+        Neues Mitglied hinzufügen
         </button>
       </form>
     </div>

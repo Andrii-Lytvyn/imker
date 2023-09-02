@@ -6,6 +6,8 @@ import {
   IUserAccountInfo,
   initIUserAccountInfo,
 } from "./interfaces/IUserAccountInfo";
+import '../AdminPage/PostsAdmin/PostCreationAdmin.css';
+
 
 export default function UserSettings(): JSX.Element {
   const [
@@ -147,7 +149,7 @@ export default function UserSettings(): JSX.Element {
         </div>
 
         <div className="d-flex align-items-center flex-column m-3">
-          <label htmlFor="fileInput" className="file-upload">
+          <label htmlFor="fileInput" className="file_upload">
             Change my avatar image
           </label>
           <input

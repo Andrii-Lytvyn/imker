@@ -12,7 +12,7 @@
   margin-bottom: 50px;
 }
 
-.file-upload {
+.file_upload {
   display: inline-block;
   padding: 10px 20px;
   margin: 20px;
@@ -23,7 +23,7 @@
   transition: background-color 0.3s ease;
 }
 
-.file-upload:hover {
+.file_upload:hover {
   background-color: #2980b9;
 }
 

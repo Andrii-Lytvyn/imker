@@ -167,11 +167,15 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
                 maxWidth: "100%",
                 height: "auto",
               }}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/img/imgNotFound.jpg";
+              }}
             />
           </div>
         </div>
 
-        <label htmlFor="fileInput" className="file-upload">
+        <label htmlFor="fileInput" className="file_upload">
           Choose another image
         </label>
         <input

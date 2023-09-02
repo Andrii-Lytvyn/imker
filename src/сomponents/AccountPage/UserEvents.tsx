@@ -57,7 +57,7 @@ export default function UserEvents(): JSX.Element {
   };
 
   const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     page: number
   ) => {
     setCurrentPage(page);

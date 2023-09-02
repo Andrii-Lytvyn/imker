@@ -48,7 +48,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let linkVar: string  = "";
+    let linkVar: string = "";
 
     if (imageData && selectedFile) {
       const formData = new FormData();
@@ -58,8 +58,8 @@ const TeamAddMemberAdmin = (): JSX.Element => {
         const response = await axios.post(
           `/api/files/upload?width=${width}&height=${height}&category=${category}`,
           formData, {
-            withCredentials: true,
-          }
+          withCredentials: true,
+        }
         );
         linkVar = response.data.id.toString();
       } catch (error) {
@@ -220,7 +220,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
         </div>
         <br /> <br />
         <button type="submit" className={styles.create_btn}>
-        Neues Mitglied hinzufügen
+          Neues Mitglied hinzufügen
         </button>
       </form>
     </div>

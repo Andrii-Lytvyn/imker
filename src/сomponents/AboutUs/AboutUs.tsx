@@ -1,6 +1,6 @@
 import styles from "./AboutUs.module.css";
 import { Container } from "react-bootstrap";
-import { FaFacebook, FaInstagram} from "react-icons/fa6";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
@@ -71,19 +71,19 @@ export default function AboutUs(): JSX.Element {
                 <caption>"Bright as a sunflower."</caption>
               </div>
               <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-              <img src={ "/api/files/" + elem.image2}  width="90%" />
+                <img src={"/api/files/" + elem.image2} width="90%" />
                 <caption>"Bright as a sunflower."</caption>
               </div>
             </div>
 
             <div className="mb-3">
-            <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
-            <div
-              className="container"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(elem.descriptionBottom || ""),
-              }}
-            />
+              <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
+              <div
+                className="container"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(elem.descriptionBottom || ""),
+                }}
+              />
             </div>
           </>
         ))

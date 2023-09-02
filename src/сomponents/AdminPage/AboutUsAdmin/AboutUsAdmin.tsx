@@ -208,7 +208,7 @@ export default function AboutUsAdmin(): JSX.Element {
 
         <h2>Alle Änderungen speichern</h2>
         <button type="submit" className={styles.create_btn}>
-        Änderungen speichern
+          Änderungen speichern
         </button>
       </form>
 

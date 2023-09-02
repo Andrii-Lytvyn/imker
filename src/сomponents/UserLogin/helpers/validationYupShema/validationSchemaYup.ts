@@ -3,8 +3,19 @@ import * as Yup from "yup";
 //схема валидации поля RestorePassword
 export const validationSchemaRestorePasswordYup = Yup.object().shape({
     password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
+        .min(7, "Password must be at least 7 characters")
+        .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~]).+$/, "One digit, uppercase letter, one symbol")
         .required("Password is required")
+        .trim(),
+});
+export const validationSchemaRestoreEmailYup = Yup.object().shape({
+    email: Yup.string()
+        .email("Invalid email")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            "Invalid email format"
+        )
+        .required("Email is required")
         .trim(),
 });
 
@@ -19,7 +30,7 @@ export const validationSchemaSingUpYup = Yup.object().shape({
         .required("Email is required")
         .trim(),
     password: Yup.string()
-        .min(9, "Password must be at least 9 characters")
+        .min(7, "Password must be at least 7 characters")
         .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~]).+$/, "One digit, uppercase letter, one symbol")
         .required("Password is required")
         .trim(),
@@ -42,7 +53,7 @@ export const validationSchemaRegistrationYup = Yup.object().shape({
         .required("Email is required")
         .trim(),
     password: Yup.string()
-        .min(9, "Password must be at least 9 characters")
+        .min(7, "Password must be at least 7 characters")
         .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~]).+$/, "One digit, uppercase letter, one symbol")
         .required("Password is required")
         .trim(),

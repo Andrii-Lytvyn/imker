@@ -5,71 +5,89 @@ import {
   ChakraProvider,
   Flex,
   FormControl,
+  FormErrorMessage,
   // FormErrorMessage,
   Input,
   WrapItem,
 } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { IEmail, initSingInUserEmail } from "../interface/ISingInUser";
+
+import { initSingInUserEmail } from "../interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import linkToServer from "../../../globalLinkToServer";
-
-const emailToRestore = async (email: string) => {
-  console.log("🚀  emailToRestore:", { email });
-  try {
-    const data = await axios.post(`${linkToServer}/api/questions`, { email });
-    console.log("🚀  data:", data);
-
-    // return data;
-  } catch (error) {
-    console.log("🚀  error:", error);
-  }
-};
+import { getQuestion } from "../../../../redux/userStore/userSlice";
+import { useAppDispatch } from "../../../../hooks/dispatch.selector";
+import { emailToRestore } from "../../helpers/userAuth/userOperation";
+import { useFormik } from "formik";
+import { validationSchemaRestoreEmailYup } from "../../helpers/validationYupShema/validationSchemaYup";
 
 const SecretAnswer = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [{ email }, setRestoreEmail] = useState<IEmail>(initSingInUserEmail);
+  const {
+    touched,
+    errors,
+    values,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    resetForm,
+  } = useFormik({
+    initialValues: initSingInUserEmail,
+    validationSchema: validationSchemaRestoreEmailYup,
+    onSubmit: async (email) => {
+      console.log("🚀  email:", email);
+      const response = await emailToRestore(email);
 
-  console.log("🚀  email:", email);
+      if (response?.status === 200) {
+        dispatch(getQuestion(response.data));
+        navigate("/restoreAnswer");
+      }
 
-  const handleSecretAnswer = (event: ChangeEvent<HTMLInputElement>) => {
-    setRestoreEmail({ email: event.target.value });
+      resetForm();
+    },
+  });
+  const inputSettings = {
+    fontSize: "20",
+    p: "6",
+    boxShadow: "2xl",
+    bg: "white",
+    border: "1px",
+    // borderRadius: "0",
+    autoComplete: "on",
+    onChange: handleChange,
+    onBlur: handleBlur,
   };
 
-  const getSecretAnswer = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("email", { email }); //Log для бека
-    const response = await emailToRestore(email);
+  // const getSecretAnswer = async (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   console.log("email", email);
+  //   const response = await emailToRestore(email);
 
-    console.log("🚀  response:", response);
+  //   if (response?.status === 200) {
+  //     dispatch(getQuestion(response.data));
+  //     navigate("/restoreAnswer");
+  //   }
 
-    setRestoreEmail(initSingInUserEmail);
-  };
+  //   setRestoreEmail(initSingInUserEmail);
+  // };
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <ChakraProvider>
           <h4>Enter email</h4>
-          <form onSubmit={getSecretAnswer}>
-            <FormControl
-              mt="2"
-              // isInvalid={secretFlag}
-            >
+          <form onSubmit={handleSubmit}>
+            <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
               <Input
-                value={email.trim()}
-                placeholder="Enter email"
-                fontSize="20"
-                p="6"
-                boxShadow="2xl"
-                bg="white"
-                border="1px"
-                //   borderRadius="2"
-                autoComplete="on"
-                focusBorderColor="lime"
-                onChange={handleSecretAnswer}
+                name="email"
+                value={values.email}
+                placeholder="Email"
+                focusBorderColor={
+                  errors.email && touched.email ? "crimson" : "lime"
+                }
+                {...inputSettings}
               />
-              {/* <FormErrorMessage>{secretFlag ? "Required" : ""}</FormErrorMessage> */}
+              {errors.email && touched.email && (
+                <FormErrorMessage>{errors.email}</FormErrorMessage>
+              )}
             </FormControl>
             <WrapItem mt="4">
               <Flex direction="row" gap="50">
@@ -83,9 +101,9 @@ const SecretAnswer = (): JSX.Element => {
                   <BiLeftArrowCircle style={{ fontSize: "30px" }} />
                 </Button>
                 <Button
+                  isDisabled={values.email === "" ? true : false}
                   colorScheme="red"
                   type="submit"
-                  // onClick={() => navigate("/restorePassword")}
                 >
                   Send
                 </Button>

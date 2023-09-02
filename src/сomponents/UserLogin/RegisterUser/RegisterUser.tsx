@@ -1,6 +1,5 @@
 import css from "./RegisterUser.module.css";
 import { toast } from "react-toastify";
-import axios from "axios";
 import {
   Button,
   ChakraProvider,
@@ -13,24 +12,12 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { IRegisterUser, initRegisterData } from "./interface/IRegisterUser";
+import { initRegisterData } from "./interface/IRegisterUser";
 import { validationSchemaRegistrationYup } from "../helpers/validationYupShema/validationSchemaYup";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import linkToServer from "../../globalLinkToServer";
 
-const loginNewUser = async (createNewUser: IRegisterUser) => {
-  try {
-    const dataNewUser = await axios.post(
-      `${linkToServer}/api/register`,
-      createNewUser
-    );
-    console.log("🚀  data:", dataNewUser);
-    return dataNewUser;
-  } catch (error) {
-    toast.error(`Ошибка сервера ${error}`);
-  }
-};
+import { registerNewUser } from "../helpers/userAuth/userOperation";
 
 const RegisterUser = (): JSX.Element => {
   const navigate = useNavigate();
@@ -49,8 +36,9 @@ const RegisterUser = (): JSX.Element => {
     validationSchema: validationSchemaRegistrationYup,
     onSubmit: async (createNewUser) => {
       console.log("🚀  createNewUser:", createNewUser); //Log для бека
-      const dataNewUser = await loginNewUser(createNewUser);
+      const dataNewUser = await registerNewUser(createNewUser);
       if (dataNewUser?.status === 201) {
+        toast.success(`Success`);
         resetForm();
         navigate("/singUp");
       }

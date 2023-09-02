@@ -1,5 +1,6 @@
 export interface IRestorePassword {
-    password: string
+    id: number | null
+    newPassword: string
 }
 export const initRestorePassword = {
     password: ""

@@ -1,4 +1,117 @@
-.navbarMy {
+.container {
+  background: radial-gradient(
+    circle closest-corner at 50% 7%,
+    rgba(240, 208, 25, 1) 0%,
+    rgba(255, 107, 0, 1) 100%
+  );
+  padding-bottom: 30px;
+}
+.logo_container {
+  margin-bottom: 60px;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo_title {
+  text-align: left;
+  margin: 0 0 20px 0;
+  color: white;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.title_nav {
+  color: #fff;
+}
+.nav_list {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.logo_img {
+  width: 120px;
+}
+.nav_login {
+  padding: 8px 14px;
+  color: #fff;
+  background-color: #c74817;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+.nav_login:hover {
+  background-color: #e7ecde;
+  color: #c74817;
+}
+.title_nav_menu {
+  position: relative;
+  cursor: pointer;
+}
+.title_nav_menu .submenu {
+  display: none;
+  position: absolute;
+  top: 300%;
+  left: -20%;
+  background: #e7ecde;
+  width: 100px;
+  padding: 10px;
+  opacity: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.item_submenu:hover .submenu {
+  position: absolute;
+  top: 38.5%;
+  left: 36%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 16px;
+  border-radius: 4px;
+  z-index: 40;
+}
+
+.submenu {
+  display: none;
+}
+.submenu_admin {
+  display: none;
+}
+.item_submenu_admin {
+  position: relative;
+}
+.item_submenu_admin:hover .submenu_admin {
+  position: absolute;
+  top: 39%;
+  left: 10%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 16px;
+  border-radius: 4px;
+  z-index: 40;
+}
+
+.item_submenu:hover .submenu_admin {
+  position: absolute;
+  top: 39%;
+  left: 42%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 16px;
+  border-radius: 4px;
+}
+/* .navbarMy {
   width: 100%;
 }
 .linkMenu {
@@ -36,4 +149,4 @@
   color: var(--terracotta);
   text-decoration: none;
   font-size: 2em;
-}
+} */

@@ -4,6 +4,7 @@
 }
 .about_img img{
     border-radius: 7px;
+    height: 600px;
 }
 .about_img caption{
     color: var(--text-color);

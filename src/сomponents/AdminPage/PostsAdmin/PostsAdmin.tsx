@@ -71,7 +71,7 @@ export default function PostsAdmin() {
 
   return (
     <>
-      <div className={styles.bgndPost}></div>
+      {/* <div className={styles.bgndPost}></div> */}
 
       <div className={styles.headerContainer}>
         <button

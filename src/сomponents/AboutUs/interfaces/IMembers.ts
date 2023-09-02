@@ -1,4 +1,4 @@
- export interface IMember {
+export interface IMember {
 	id: number,
 	state: string,
 	name: string,

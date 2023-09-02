@@ -3,21 +3,17 @@ import styles from "./Header.module.css";
 // import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 // import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
 // import { NavDropdown } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
-import {
-  getLoginStatus,
-  logOut,
-} from "../UserLogin/helpers/userAuth/userOperation";
+import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
+import { NavLink } from "react-router-dom";
+// import { ROLE } from "../../statusAndRole/role";
 
 export default function Header(): JSX.Element {
-  const isUserLoggedIn = getLoginStatus();
-
-  console.log("🚀  isUserLoggedIn:", isUserLoggedIn);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useUserSelector();
@@ -43,12 +39,12 @@ export default function Header(): JSX.Element {
         </div>
       </div>
       {/* ////////////////// */}
-      <div>
-        <ul className={styles.nav_list}>
+      <div className={styles.nav}>
+        <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
           <li className={styles.item}>
-            <Link to="/posts" className={styles.title_nav}>
+            <NavLink to="/posts" className={styles.title_nav}>
               Blog
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.item}>
             <Link to="/events" className={styles.title_nav}>
@@ -60,7 +56,9 @@ export default function Header(): JSX.Element {
               Über uns
             </span>
             <div className={styles.submenu}>
-              <Link to="/contactUs">Kontaktieren Sie uns</Link>
+              <Link to="/contactUs" className={styles.line}>
+                Kontaktieren Sie uns
+              </Link>
               <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
             </div>
           </li>
@@ -69,42 +67,48 @@ export default function Header(): JSX.Element {
               Galerie
             </Link>
           </li>
+          {/* {user.role === ROLE.ADMIN ? ( */}
           <li className={`${styles.item} ${styles.item_submenu_admin}`}>
             <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
               fur test
             </span>
             <div className={styles.submenu_admin}>
-              <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/adminpage">AdminPage</Link>
+              {/* <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/postsadm">PostsAdmin</Link>
               <Link to="/eventsadm">EventsAdmin</Link>
               <Link to="/filesadm">FilesAdmin</Link>
               <Link to="/aboutusadmin">AboutUsAdmin</Link>
-
-              <Link to="/galleryadm">GalleryAdmin</Link>
-
+              <Link to="/galleryadm">GalleryAdmin</Link> */}
               <Link to="/accountpage">AccountPage</Link>
+
               <Link to="/usersadm">UsersAdmin</Link>
+
+          <Link to ="/teamadmin" >TeamAdmin</Link>
+
             </div>
           </li>
-          {!isUserLoggedIn ? (
-            <li>
+        </ul>
+
+        <div className={styles.account_container}>
+          {Object.keys(user).length === 0 ? (
+            <div>
               <Link to="/singUp">
                 <button type="button" className={styles.nav_login}>
                   Login
                 </button>
               </Link>
-            </li>
+            </div>
           ) : (
-            <li>
+            <div className={styles.account}>
               <span>{user.name}</span>
               <button type="button" onClick={handleLogOut}>
                 {" "}
                 <LuLogOut />
               </button>
-            </li>
+            </div>
           )}
-        </ul>
+        </div>
       </div>
     </div>
 

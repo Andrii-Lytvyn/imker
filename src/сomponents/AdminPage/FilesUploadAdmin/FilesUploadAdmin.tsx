@@ -68,7 +68,7 @@ export default function FilesUploadAdmin(): JSX.Element {
   };
 
   return (
-    <div className="container col-md-12 mt-3 mb-5">
+    <div className="container col-md-12 mt-3 mb-5 p-2 rounded bg-white">
       <p className="fs-4">Total files: {count}</p>
       <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
         <Pagination

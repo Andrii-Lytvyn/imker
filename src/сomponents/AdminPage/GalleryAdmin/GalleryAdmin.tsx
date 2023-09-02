@@ -77,58 +77,60 @@ export default function GalleryAdmin(): JSX.Element {
         <FilesUpload handleReload={() => handleReload()} />
       </div>
 
-      <div className="container col-md-12 mt-3 mb-5">
-        <p className="fs-4">Total files in gallery: {count}</p>
-        <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
-          <Pagination
-            count={pages}
-            page={currentPage}
-            size="large"
-            onChange={getAnotherPage}
-          />
-        </div>
+      <div className="container mt-3 mb-5 p-2 rounded bg-white">
+        <div className="col-md-12 mt-3 mb-5">
+          <p className="fs-4">Total files in gallery: {count}</p>
+          <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
+            <Pagination
+              count={pages}
+              page={currentPage}
+              size="large"
+              onChange={getAnotherPage}
+            />
+          </div>
 
-        <div className="row row-cols-1 row-cols-md-4 g-4">
-          {photos.map(({ id, linkToImg }) => (
-            <div key={id} className="col">
-              <div
-                className="card h-100 border"
-                style={{
-                  width: "100%",
-                }}
-              >
-                <img
-                  className="card-img-top mb-4"
-                  src={"/api/files/" + linkToImg}
-                  alt="image"
+          <div className="row row-cols-1 row-cols-md-4 g-4">
+            {photos.map(({ id, linkToImg }) => (
+              <div key={id} className="col">
+                <div
+                  className="card h-100 border"
                   style={{
                     width: "100%",
-                    height: "auto",
                   }}
-                />
-                <div className="card-body">
-                  <button
-                    className="btn btn-danger position-absolute bottom-0 m-2"
-                    onClick={() => {
-                      handleDelete(+id);
+                >
+                  <img
+                    className="card-img-top mb-4"
+                    src={"/api/files/" + linkToImg}
+                    alt="image"
+                    style={{
+                      width: "100%",
+                      height: "auto",
                     }}
-                  >
-                    Delete this image from gallery
-                  </button>
+                  />
+                  <div className="card-body">
+                    <button
+                      className="btn btn-danger position-absolute bottom-0 m-2"
+                      onClick={() => {
+                        handleDelete(+id);
+                      }}
+                    >
+                      Delete this image from gallery
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <hr />
-        <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
-          <Pagination
-            count={pages}
-            page={currentPage}
-            size="large"
-            onChange={getAnotherPage}
-          />
+          <hr />
+          <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
+            <Pagination
+              count={pages}
+              page={currentPage}
+              size="large"
+              onChange={getAnotherPage}
+            />
+          </div>
         </div>
       </div>
     </>

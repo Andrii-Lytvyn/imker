@@ -73,7 +73,7 @@ export default function GoogleMapAdmin(): JSX.Element {
 
   return (
     <>
-      <div className="col-md-12 d-flex align-items-center mt-3 mb-4">
+      <div className="col-md-12 d-flex align-items-center mt-3 mb-4 p-3 rounded bg-white">
         <label
           className="col-md-3 fs-4 me-2 text-start"
           htmlFor="googleMapLink"

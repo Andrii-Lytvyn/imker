@@ -8,8 +8,9 @@ import ContactUsAdmin from "./contactUsAdmin/ContactUsAdmin";
 import PostsAdmin from "./PostsAdmin/PostsAdmin";
 import FilesUploadAdmin from "./FilesUploadAdmin/FilesUploadAdmin";
 import GalleryAdmin from "./GalleryAdmin/GalleryAdmin";
-import EditAllEvents from "./EventsAdmin/EditAllEvents";
 import { Container } from "react-bootstrap";
+import styles from "../AdminPage/PostsAdmin/PostAdmin.module.css";
+import AddEventAdmin from "./EventsAdmin/AddEventAdmin";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,6 +47,7 @@ export default function AdminPage() {
 
   return (
     <>
+      <div className={styles.bgndPost}></div>
       <Container>
         <Box
           sx={{
@@ -74,7 +76,9 @@ export default function AdminPage() {
         <PostsAdmin />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <EditAllEvents />
+        <div className="container">
+          <AddEventAdmin />
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <ContactUsAdmin />

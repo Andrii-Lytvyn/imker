@@ -1,25 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IPostDto } from "../interfaces/IPostDTO";
+import { IPostDto, initIPostDto } from "../interfaces/IPostDTO";
 import DOMPurify from "dompurify";
-import {Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./Post.module.css";
-import {FaHome} from "react-icons/fa";
-import {Container, Nav} from "react-bootstrap";
-import {BsCalendar2Week} from "react-icons/bs";
-import {BiTimeFive} from "react-icons/bi";
-import linkToServer from "../../globalLinkToServer";
-
-
+import { FaHome } from "react-icons/fa";
+import { Container, Nav } from "react-bootstrap";
+import { BsCalendar2Week } from "react-icons/bs";
+import { BiTimeFive } from "react-icons/bi";
+import moment from "moment";
 
 export default function PostSingle(): JSX.Element {
-  const [post, setPost] = useState<IPostDto | undefined>();
+  const [
+    {
+      idPost,
+      creationTimePost,
+      titlePost,
+      linkToImg,
+      textOfPost,
+      authorName,
+    },
+    setPost,
+  ] = useState<IPostDto>(initIPostDto);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/posts/${id}`);
+        const response = await axios.get(`/api/posts/${id}`, {
+          withCredentials: true,
+        });
         const postDto = response.data;
         setPost(postDto);
       } catch (error) {
@@ -45,31 +55,31 @@ export default function PostSingle(): JSX.Element {
                     <Link to="/posts">POSTS</Link>
                 </Nav>
                 <span> | </span>
-                {post?.titlePost}
+                {titlePost}
             </div>
             <hr />
             <div className={styles.post_cont}>
                 <div className= {styles.single_post + " container"}>
                 <img
                     className={styles.post_img}
-                    src={linkToServer + "/api/files/" + post?.linkToImg}
-                    alt={"post img" + post?.idPost}
+                    src={"/api/files/" + linkToImg}
+                    alt={"post img" + idPost}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = "/img/imgNotFound.jpg";
                     }}
                   />
-                    <p className={styles.post_time}>{post?.creationTimePost}</p>
-                    <h2>{post?.titlePost}</h2>
+                    <p className={styles.post_time}>{moment(creationTimePost).format("D MMMM YYYY")}</p>
+                    <h2>{titlePost}</h2>
                     <div
                 className="container"
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(post?.textOfPost || ""),
+                  __html: DOMPurify.sanitize(textOfPost || ""),
                 }}
               />
               {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
                     <div className={styles.post_author}>
-                        <p><span>{post?.authorName}</span></p>
+                        <p><span>{authorName}</span></p>
                     </div>
                 </div>
 
@@ -100,7 +110,7 @@ export default function PostSingle(): JSX.Element {
                     </div>
                 </div>
             </div>
-        </Container>
+      </Container>
     </>
   );
 }

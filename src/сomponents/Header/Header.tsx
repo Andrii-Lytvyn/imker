@@ -27,6 +27,7 @@ export default function Header(): JSX.Element {
             <Link to="/posts" className={styles.title_nav}>
               Blog
             </Link>
+
           </li>
           <li className={styles.item}>
             <Link to="/events" className={styles.title_nav}>
@@ -65,6 +66,7 @@ export default function Header(): JSX.Element {
             </div>
           </li>
           <li>
+
             <Link to="/singUp">
               <button type="button" className={styles.nav_login}>
                 Login

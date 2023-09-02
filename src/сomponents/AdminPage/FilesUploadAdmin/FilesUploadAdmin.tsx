@@ -3,7 +3,6 @@ import { Button, Modal } from "react-bootstrap";
 import { IFilesListDto, initIFilesListDto } from "./interfaces/IFilesListDto";
 import { Pagination } from "@mui/material";
 import axios from "axios";
-import linkToServer from "../../globalLinkToServer";
 
 export default function FilesUploadAdmin(): JSX.Element {
   const [{ files, count, pages }, setFilesList] =
@@ -17,7 +16,10 @@ export default function FilesUploadAdmin(): JSX.Element {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/files?page=0&items=${itemsOnPage}`
+          `/api/files?page=0&items=${itemsOnPage}`,
+          {
+            withCredentials: true,
+          }
         );
         setFilesList(response.data);
         setCurrentPage(1);
@@ -31,7 +33,10 @@ export default function FilesUploadAdmin(): JSX.Element {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/api/files?page=${value - 1}&items=${itemsOnPage}`
+        `/api/files?page=${value - 1}&items=${itemsOnPage}`,
+        {
+          withCredentials: true,
+        }
       );
       setFilesList(await response.data);
       setCurrentPage(value);
@@ -43,12 +48,17 @@ export default function FilesUploadAdmin(): JSX.Element {
   const handleDelete = async () => {
     if (selectedFileId !== null) {
       try {
-        await axios.delete(`${linkToServer}/api/files/delete/${selectedFileId}`);
+        await axios.delete(`/api/files/delete/${selectedFileId}`, {
+          withCredentials: true,
+        });
         setShowConfirmModal(false);
         setSelectedFileId(null);
 
         const response = await axios.get(
-          `${linkToServer}/api/files?page=${currentPage - 1}&items=${itemsOnPage}`
+          `/api/files?page=${currentPage - 1}&items=${itemsOnPage}`,
+          {
+            withCredentials: true,
+          }
         );
         setFilesList(await response.data);
       } catch (error) {
@@ -69,7 +79,15 @@ export default function FilesUploadAdmin(): JSX.Element {
         />
       </div>
       {files.map(
-        ({ id, creationTime, category, originalName, storedName, fileType, size }) => (
+        ({
+          id,
+          creationTime,
+          category,
+          originalName,
+          storedName,
+          fileType,
+          size,
+        }) => (
           <div key={id}>
             <hr />
             <button
@@ -85,7 +103,7 @@ export default function FilesUploadAdmin(): JSX.Element {
             <div className="col-md-12 d-flex align-items-center mt-3 mb-4">
               <div className="col-md-5 m-2">
                 <img
-                  src={linkToServer + "/api/files/" + id}
+                  src={"/api/files/" + id}
                   alt="image"
                   style={{
                     maxWidth: "100%",
@@ -101,23 +119,28 @@ export default function FilesUploadAdmin(): JSX.Element {
                   <span style={{ fontWeight: "bold" }}>Image id:</span> {id}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>Category:</span> {category}
+                  <span style={{ fontWeight: "bold" }}>Category:</span>{" "}
+                  {category}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>Created: </span> 
+                  <span style={{ fontWeight: "bold" }}>Created: </span>
                   {new Date(creationTime).toLocaleString()}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>Original name:</span> {originalName}
+                  <span style={{ fontWeight: "bold" }}>Original name:</span>{" "}
+                  {originalName}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>Stored name:</span> {storedName}
+                  <span style={{ fontWeight: "bold" }}>Stored name:</span>{" "}
+                  {storedName}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>File type:</span> {fileType}
+                  <span style={{ fontWeight: "bold" }}>File type:</span>{" "}
+                  {fileType}
                 </p>
                 <p style={{ marginTop: "5px" }}>
-                  <span style={{ fontWeight: "bold" }}>File size:</span> {size} bytes
+                  <span style={{ fontWeight: "bold" }}>File size:</span> {size}{" "}
+                  bytes
                 </p>
               </div>
             </div>

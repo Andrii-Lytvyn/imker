@@ -62,7 +62,7 @@ export default function TeamAdmin(): JSX.Element {
     <>
       <Container>
         <button type="button">
-          <Link to="/aboutusadmin/addmember/">Add new</Link>
+          <Link to="/teamadmin/addmember/">Add new</Link>
         </button>
         <ul>
           {member.map(
@@ -79,7 +79,7 @@ export default function TeamAdmin(): JSX.Element {
               email
             }) => (
               <li key={id}>
-                <button onClick={() => navigate(`/aboutusadmin/teameditmemberadmin/${id}`)
+                <button onClick={() => navigate(`/teamadmin/teameditmemberadmin/${id}`)
                 }>
                   Edit
                 </button>

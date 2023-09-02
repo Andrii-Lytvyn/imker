@@ -90,7 +90,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   return (
     <div className={styles.form_container}>
       <button type="button">
-        <Link to="/aboutusadmin">Back</Link>
+        <Link to="/teamadmin">Back</Link>
       </button>
       <h2>Add New Member</h2>
       <form className={styles.form} onSubmit={memberFormData}>

@@ -91,7 +91,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
     editedMember(editMember);
 
-    navigate("/aboutusadmin");
+    navigate("/teamadmin");
     resetForm();
     window.location.reload();
   };
@@ -113,7 +113,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   return (
     <div className={styles.form_container}>
       <button type="button">
-        <Link to="/aboutusadmin">Back</Link>
+        <Link to="/teamadmin">Back</Link>
       </button>
       <h2>Edit Member</h2>
       

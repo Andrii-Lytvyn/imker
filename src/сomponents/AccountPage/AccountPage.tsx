@@ -2,7 +2,6 @@ import { Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
-import linkToServer from "../globalLinkToServer";
 import {
   IUserAccountInfo,
   initIUserAccountInfo,
@@ -49,7 +48,9 @@ export default function AccountPage(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/users/${id}`);
+        const response = await axios.get(`/api/me`, {
+          withCredentials: true,
+        });
         const userDto = response.data;
         setUserInfo(userDto);
       } catch (error) {
@@ -63,34 +64,51 @@ export default function AccountPage(): JSX.Element {
   return (
     <>
       <div className="container d-flex">
-        <div className="ssss">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ rotate: 360, scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 60,
-              damping: 10,
-            }}
-          >
-            <StyledBadge
-              overlap="circular"
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              variant="dot"
+        {userInfo?.email && (
+          <div className="d-flex flex-column align-items-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ rotate: 360, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 60,
+                damping: 10,
+              }}
             >
-              <Avatar
-                alt={userInfo?.name}
-                src={linkToServer + "/api/files/" + 5}
-                variant="rounded"
-                sx={{ width: 200, height: 250, margin: 5 }}
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar
+                  // alt={userInfo?.name}
+                  src={"/api/files/" + userInfo?.image}
+                  variant="rounded"
+                  sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
+                />
+              </StyledBadge>
+            </motion.div>
+            {userInfo.role === "MEMBER" && (
+              <img
+                src="/img/member.png"
+                alt="member"
+                style={{ marginTop: "-60px", zIndex: 3 }}
               />
-            </StyledBadge>
-          </motion.div>
+            )}
+            <p
+              className="fs-2"
+              style={{
+                fontStyle: "italic",
+                textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                marginTop: "-20px",
+              }}
+            >
+              {userInfo?.name}
+            </p>
+          </div>
+        )}
 
-          <p>{userInfo?.name}</p>
-        </div>
-
-          <AccountTabs />
+        <AccountTabs />
       </div>
     </>
   );

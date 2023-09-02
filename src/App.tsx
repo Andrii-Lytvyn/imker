@@ -9,6 +9,7 @@ import {
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
 import { userDataInfo } from "./redux/userStore/userSlice";
 
+
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
   () => import("./сomponents/Gallery/TopCallery/TopCallery")
@@ -55,6 +56,9 @@ const TeamAddMemberAdmin = lazy(
 );
 const TeamAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamAdmin")
+);
+const AboutUsAdmin = lazy(
+  () => import("./сomponents/AdminPage/AboutUsAdmin/AboutUsAdmin")
 );
 const FilesUploadAdmin = lazy(
   () => import("./сomponents/AdminPage/FilesUploadAdmin/FilesUploadAdmin")
@@ -116,13 +120,14 @@ function App(): JSX.Element {
           <Route path="*" element={<NoPage />} />
 
           <Route path="adminpage" element={<AdminPage />} />
-          <Route path="aboutusadmin" element={<TeamAdmin />} />
+          <Route path="teamadmin" element={<TeamAdmin />} />
+          <Route path="aboutusadmin" element={<AboutUsAdmin />} />
           <Route
-            path="aboutusadmin/addmember"
+            path="teamadmin/addmember"
             element={<TeamAddMemberAdmin />}
           />
           <Route
-            path="aboutusadmin/teameditmemberadmin/:id"
+            path="teamadmin/teameditmemberadmin/:id"
             element={<TeamEditMemberAdmin />}
           />
           <Route path="contactusadm" element={<ContactUsAdmin />} />

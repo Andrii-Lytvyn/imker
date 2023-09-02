@@ -7,10 +7,9 @@ import {
 } from "../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
 import { Pagination } from "@mui/material";
-import {Container} from "react-bootstrap";
-import {BsCalendar2Week} from "react-icons/bs";
-import {BiTimeFive} from "react-icons/bi";
-import linkToServer from "../globalLinkToServer";
+import { Container } from "react-bootstrap";
+import { BsCalendar2Week } from "react-icons/bs";
+import { BiTimeFive } from "react-icons/bi";
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
@@ -21,7 +20,9 @@ export default function Posts() {
     async function getListOfPosts() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`, {
+            withCredentials: true,
+          }
         );
         setPosts(response.data);
         setCurrentPage(1);
@@ -35,9 +36,11 @@ export default function Posts() {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/api/posts?page=${
+        `/api/posts?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`, {
+          withCredentials: true,
+        }
       );
       const postsData: IPostsDto = await response.data;
       setPosts(postsData);
@@ -49,115 +52,165 @@ export default function Posts() {
 
   return (
     <>
-      <div className={styles.post_bg + " d-flex align-items-center justify-content-center"}>
+      <div
+        className={
+          styles.post_bg + " d-flex align-items-center justify-content-center"
+        }
+      >
         <h2>BLOG</h2>
       </div>
       <Container>
         <div className={styles.post_container}>
           {posts && (
-        <div className="container">
-
-          {posts.posts.map(
-            ({
-              idPost,
-              creationTimePost,
-              titlePost,
-              linkToImg,
-              shortPostDescription,
-              // textOfPost,
-              authorName,
-            }) => (
-              <div key={idPost}>
-
-
-                <br />
-                <img
-                    className={styles.post_img}
-                  src={linkToServer + "/api/files/" + linkToImg}
-                  alt={"post img" + idPost}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/img/imgNotFound.jpg";
-                  }}
-                />
-                <p className={styles.post_event_date}>Gegründet: {creationTimePost}</p>
-                {authorName && (
-                    <p className={styles.post_event_date}> | Name des Autors:
-                      <span className={styles.post_span_author}>{authorName}</span>
+            <div className="container">
+              {posts.posts.map(
+                ({
+                  idPost,
+                  creationTimePost,
+                  titlePost,
+                  linkToImg,
+                  shortPostDescription,
+                  // textOfPost,
+                  authorName,
+                }) => (
+                  <div key={idPost}>
+                    <br />
+                    <img
+                      className={styles.post_img}
+                      src={"/api/files/" + linkToImg}
+                      alt={"post img" + idPost}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "/img/imgNotFound.jpg";
+                      }}
+                    />
+                    <p className={styles.post_event_date}>
+                      Gegründet: {creationTimePost}
                     </p>
-                )}
-                <div className={styles.post_clear}><h2 className={styles.post_h2}>
-                  <Link to={`/posts/${idPost}`} className="fs-4">
-                    {titlePost}
-                  </Link>
-                </h2>
-                </div>
-                {/*<p>Post id: {idPost}</p>*/}
+                    {authorName && (
+                      <p className={styles.post_event_date}>
+                        {" "}
+                        | Name des Autors:
+                        <span className={styles.post_span_author}>
+                          {authorName}
+                        </span>
+                      </p>
+                    )}
+                    <div className={styles.post_clear}>
+                      <h2 className={styles.post_h2}>
+                        <Link to={`/posts/${idPost}`} className="fs-4">
+                          {titlePost}
+                        </Link>
+                      </h2>
+                    </div>
+                    {/*<p>Post id: {idPost}</p>*/}
 
-                <div className={styles.post_event_text_temp}>
-                  {shortPostDescription}
-                </div>
-                <div className={styles.post_event_text_button}>
-                    <Link to={`/posts/${idPost}`} className="button_imker">
-                      Mehr lesen
-                    </Link>
-                </div>
-                <hr />
-              </div>
-            )
+                    <div className={styles.post_event_text_temp}>
+                      {shortPostDescription}
+                    </div>
+                    <div className={styles.post_event_text_button}>
+                      <Link to={`/posts/${idPost}`} className="button_imker">
+                        Mehr lesen
+                      </Link>
+                    </div>
+                    <hr />
+                  </div>
+                )
+              )}
+            </div>
           )}
-
-        </div>
-      )}
           <div className={styles.post_right_side}>
             <h2>VERANSTALTUNGEN</h2>
             <hr className={styles.post_hr} />
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
-              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
-              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
-              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <p className={styles.post_event_date}>
+                <BsCalendar2Week /> 15 November, 2023 - 17 November, 2023
+              </p>
+              <p className={styles.post_event_time}>
+                <BiTimeFive /> 10:00
+              </p>
+              <h4 className={styles.post_event_h4}>
+                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
+              </h4>
+              <p className={styles.post_event_text}>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu
+              </p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
-              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
-              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
-              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <p className={styles.post_event_date}>
+                <BsCalendar2Week /> 15 November, 2023 - 17 November, 2023
+              </p>
+              <p className={styles.post_event_time}>
+                <BiTimeFive /> 10:00
+              </p>
+              <h4 className={styles.post_event_h4}>
+                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
+              </h4>
+              <p className={styles.post_event_text}>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu
+              </p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
-              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
-              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
-              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <p className={styles.post_event_date}>
+                <BsCalendar2Week /> 15 November, 2023 - 17 November, 2023
+              </p>
+              <p className={styles.post_event_time}>
+                <BiTimeFive /> 10:00
+              </p>
+              <h4 className={styles.post_event_h4}>
+                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
+              </h4>
+              <p className={styles.post_event_text}>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu
+              </p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
-              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
-              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
-              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <p className={styles.post_event_date}>
+                <BsCalendar2Week /> 15 November, 2023 - 17 November, 2023
+              </p>
+              <p className={styles.post_event_time}>
+                <BiTimeFive /> 10:00
+              </p>
+              <h4 className={styles.post_event_h4}>
+                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
+              </h4>
+              <p className={styles.post_event_text}>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu
+              </p>
               <hr className={styles.post_hr} />
             </div>
             <div className="mb-2">
-              <p className={styles.post_event_date}><BsCalendar2Week /> 15 November, 2023 - 17 November, 2023</p>
-              <p className={styles.post_event_time}><BiTimeFive /> 10:00</p>
-              <h4 className={styles.post_event_h4}><Link to={"/"} >SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link></h4>
-              <p className={styles.post_event_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+              <p className={styles.post_event_date}>
+                <BsCalendar2Week /> 15 November, 2023 - 17 November, 2023
+              </p>
+              <p className={styles.post_event_time}>
+                <BiTimeFive /> 10:00
+              </p>
+              <h4 className={styles.post_event_h4}>
+                <Link to={"/"}>SWEET HONEY PACKS FRESH RAW AND UNFILTERED</Link>
+              </h4>
+              <p className={styles.post_event_text}>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu
+              </p>
               <hr className={styles.post_hr} />
             </div>
-
           </div>
         </div>
-      <Pagination
+        <Pagination
           className={styles.pagination_container}
           count={posts.pages}
           page={currentPage}
           size="large"
           onChange={getAnotherPage}
-      />
-
+        />
       </Container>
     </>
   );

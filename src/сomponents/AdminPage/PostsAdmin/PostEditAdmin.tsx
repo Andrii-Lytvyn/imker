@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from "react";
 import { IPostDto } from "../../Posts/interfaces/IPostDTO";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
-import linkToServer from "../../globalLinkToServer";
 
 interface PostEditAdminProps {
   location: {
@@ -51,8 +50,11 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
 
         try {
           const response = await axios.post(
-            `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=POST`,
-            formData
+            `/api/files/upload?width=${width}&height=${height}&category=POST`,
+            formData,
+            {
+              withCredentials: true,
+            }
           );
           linkVar = response.data.id.toString();
         } catch (error) {
@@ -61,13 +63,19 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
       }
 
       try {
-        await axios.put(`${linkToServer}/api/posts/update/${idPost}`, {
-          titlePost,
-          linkToImg: linkVar || linkToImg,
-          shortPostDescription,
-          textOfPost: text,
-          authorName,
-        });
+        await axios.put(
+          `/api/posts/update/${idPost}`,
+          {
+            titlePost,
+            linkToImg: linkVar || linkToImg,
+            shortPostDescription,
+            textOfPost: text,
+            authorName,
+          },
+          {
+            withCredentials: true,
+          }
+        );
       } catch (error) {
         console.error(
           "There was an error when sending a posts data to Back:",
@@ -126,6 +134,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
           <input
             className="form-control fs-5"
             name="shortPostDescription"
+            maxLength={350}
             defaultValue={shortPostDescription}
             onChange={collectNewPostData}
             required
@@ -151,7 +160,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
               Recommended resolution: {width}x{height}px
             </p>
             <img
-              src={linkToServer + "/api/files/" + linkToImg}
+              src={"/api/files/" + linkToImg}
               alt="image"
               style={{
                 width: "100%",

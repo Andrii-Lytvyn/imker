@@ -32,5 +32,5 @@ export const userData: IUserData = {
     plz: "",
     phone: "",
     image: "",
-    isLogin: false
+    // isLogin: false
 }

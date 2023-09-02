@@ -12,7 +12,7 @@ export const setLoginStatus = (isLogin: boolean) => {
 
 export const getLoginStatus = () => {
     const storedValue = localStorage.getItem('IMKER');
-    return storedValue === 'true'; // Вернет true, если isLogin был установлен как 'true', иначе вернет false
+    return storedValue === 'true';
 }
 
 
@@ -48,7 +48,14 @@ export const singInUser = async (userSingIn: string) => {
         }
     }
 };
-
+export const logOut = async () => {
+    try {
+        await axios.post("/api/logout")
+        setLoginStatus(false)
+    } catch (error) {
+        console.log("🚀  error:", error);
+    }
+}
 export const getUserData = async () => {
     try {
         const data = await axios.get(`/api/me`, {

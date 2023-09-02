@@ -1,14 +1,17 @@
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background: radial-gradient(
-    circle closest-corner at 50% 7%,
-    rgba(240, 208, 25, 1) 0%,
-    rgba(255, 107, 0, 1) 100%
+    ellipse farthest-corner at 17% 16%,
+    rgba(240, 208, 25, 0.86) 0%,
+    rgba(255, 0, 0, 0.73) 100%
   );
   padding-bottom: 30px;
 }
-.logo_container {
-  margin-bottom: 60px;
-}
+/* .logo_container { */
+/* margin-bottom: 60px; */
+/* } */
 .logo {
   display: flex;
   justify-content: center;
@@ -30,7 +33,7 @@
 }
 .nav_list {
   display: flex;
-  gap: 100px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
 }
@@ -39,15 +42,16 @@
 }
 .nav_login {
   padding: 8px 14px;
+  font-size: 20px;
   color: #fff;
-  background-color: #c74817;
+  background-color: #061d17;
   border: none;
   border-radius: 4px;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
 }
 .nav_login:hover {
   background-color: #e7ecde;
-  color: #c74817;
+  color: #252827;
 }
 .title_nav_menu {
   position: relative;
@@ -56,7 +60,7 @@
 .title_nav_menu .submenu {
   display: none;
   position: absolute;
-  top: 300%;
+  top: 0%;
   left: -20%;
   background: #e7ecde;
   width: 100px;
@@ -67,8 +71,8 @@
 
 .item_submenu:hover .submenu {
   position: absolute;
-  top: 38.5%;
-  left: 36%;
+  top: 14.5%;
+  left: 54%;
   background-color: white;
   display: flex;
   flex-direction: column;

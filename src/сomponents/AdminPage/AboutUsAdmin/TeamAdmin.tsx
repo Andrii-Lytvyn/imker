@@ -26,9 +26,9 @@ export default function TeamAdmin(): JSX.Element {
 
   async function deleteMember(idMember: number) {
     try {
-      const response = await axios.delete(`/api/members/${idMember}, {
-        withCredentials: true,
-      }`);
+      const response = await axios.delete(`/api/members/${idMember}`, 
+      {withCredentials: true,
+    });
       window.location.reload();
 
       if (response.status === 204) {

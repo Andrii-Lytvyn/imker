@@ -19,6 +19,7 @@
   --bg-color: #f7f3f0;
   --bold-text: #131313;
   --border-color: #545050;
+  --header-active-nav-btn: rgb(255, 107, 0);
 }
 a {
   color: var(--terracotta);

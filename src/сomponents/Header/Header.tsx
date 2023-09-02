@@ -1,11 +1,33 @@
+import { useUserSelector } from "../../redux/userStore/userSelector";
 import styles from "./Header.module.css";
 // import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 // import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { NavDropdown } from "react-bootstrap";
+import { LuLogOut } from "react-icons/lu";
+import {
+  getLoginStatus,
+  logOut,
+} from "../UserLogin/helpers/userAuth/userOperation";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { userDataInfo } from "../../redux/userStore/userSlice";
+import { userData } from "../../redux/userStore/interface/IUserData";
 
 export default function Header(): JSX.Element {
+  const isUserLoggedIn = getLoginStatus();
+
+  console.log("🚀  isUserLoggedIn:", isUserLoggedIn);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { user } = useUserSelector();
+
+  const handleLogOut = async () => {
+    await logOut();
+    dispatch(userDataInfo(userData));
+    navigate("/");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.logo_container}>
@@ -27,7 +49,6 @@ export default function Header(): JSX.Element {
             <Link to="/posts" className={styles.title_nav}>
               Blog
             </Link>
-
           </li>
           <li className={styles.item}>
             <Link to="/events" className={styles.title_nav}>
@@ -65,14 +86,23 @@ export default function Header(): JSX.Element {
               <Link to="/accountpage">AccountPage</Link>
             </div>
           </li>
-          <li>
-
-            <Link to="/singUp">
-              <button type="button" className={styles.nav_login}>
-                Login
+          {!isUserLoggedIn ? (
+            <li>
+              <Link to="/singUp">
+                <button type="button" className={styles.nav_login}>
+                  Login
+                </button>
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <span>{user.name}</span>
+              <button type="button" onClick={handleLogOut}>
+                {" "}
+                <LuLogOut />
               </button>
-            </Link>
-          </li>
+            </li>
+          )}
         </ul>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { Container } from "react-bootstrap";
 import styles from "../AdminPage/PostsAdmin/PostAdmin.module.css";
 import AddEventAdmin from "./EventsAdmin/AddEventAdmin";
 
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;

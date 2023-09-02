@@ -81,6 +81,9 @@ const RestorePassword = lazy(
   () =>
     import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
 );
+const UsersAdmin = lazy(
+  () => import("./сomponents/AdminPage/UserAdmin/UsersAdmin")
+);
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -138,6 +141,7 @@ function App(): JSX.Element {
           <Route path="eventsadm" element={<AddEventAdmin />} />
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
+          <Route path="usersadm" element={<UsersAdmin />} />
           <Route path="topgallery" element={<TopCallery />} />
           <Route path="/restore" element={<SecretAnswer />} />
           <Route path="/restoreAnswer" element={<RestoreAnswer />} />

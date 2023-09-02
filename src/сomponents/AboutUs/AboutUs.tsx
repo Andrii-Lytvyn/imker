@@ -7,6 +7,7 @@ import { IMember } from "./interfaces/IMembers";
 import baseURL from "../globalLinkToServer";
 import { IAboutUs } from "./interfaces/IAboutUs";
 import DOMPurify from "dompurify";
+import { SlEnvolope } from "react-icons/sl";
 
 
 export default function AboutUs(): JSX.Element {
@@ -116,7 +117,7 @@ export default function AboutUs(): JSX.Element {
                   <div className={styles.social}>
                     <a href={element.facebook}><FaFacebook className={styles.social_icons} /></a>
                     <a href={element.instagram}><FaInstagram className={styles.social_icons} /></a>
-                    <a href={element.email}><FaTwitter className={styles.social_icons} /></a>
+                    <a href={"mailto:" + element.email}><SlEnvolope className={styles.social_icons} /></a>
                   </div>
                 </div>
               </li>

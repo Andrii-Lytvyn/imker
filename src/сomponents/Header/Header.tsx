@@ -16,8 +16,12 @@ import { Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
-import { IUserAccountInfo, initIUserAccountInfo } from "../AccountPage/interfaces/IUserAccountInfo";
+import {
+  IUserAccountInfo,
+  initIUserAccountInfo,
+} from "../AccountPage/interfaces/IUserAccountInfo";
 import axios from "axios";
+import TabletMobile from "./TabletMobile/TabletMobile";
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 // import { position } from "@chakra-ui/styled-system";
 
@@ -53,32 +57,44 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export default function Header(): JSX.Element {
   // const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useUserSelector();
-  const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
-    initIUserAccountInfo
-  );
+  // const { user } = useUserSelector();
+  // const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
+  //   initIUserAccountInfo
+  // );
+  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
+  const { user, isLogin } = useUserSelector();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/api/me`, {
-          withCredentials: true,
-        });
-        const userDto = response.data;
-        setUserInfo(userDto);
-      } catch (error) {
-        console.error("Error during request execution:", error);
-      }
+    function handleResize() {
+      setIsWideScreen(window.innerWidth > 950);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
     };
-
-    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/me`, {
+  //         withCredentials: true,
+  //       });
+  //       const userDto = response.data;
+  //       setUserInfo(userDto);
+  //     } catch (error) {
+  //       console.error("Error during request execution:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const handleLogOut = async () => {
     await logOut();
     dispatch(userDataInfo(userData));
     // navigate("/");
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
@@ -97,58 +113,63 @@ export default function Header(): JSX.Element {
       </div>
       {/* ////////////////// */}
       <div className={styles.nav}>
-        <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
-          <li className={styles.item}>
-            <NavLink to="/posts" className={styles.title_nav}>
-              Blog
-            </NavLink>
-          </li>
-          <li className={styles.item}>
-            <Link to="/events" className={styles.title_nav}>
-              Veranstaltungen
-            </Link>
-          </li>
-          <li className={`${styles.item} ${styles.item_submenu}`}>
-            <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
-              Über uns
-            </span>
-            <div className={styles.submenu}>
-              <Link to="/contactUs" className={styles.line}>
-                Kontaktieren Sie uns
+        {isWideScreen ? (
+          <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
+            <li className={styles.item}>
+              <NavLink to="/posts" className={styles.title_nav}>
+                Blog
+              </NavLink>
+            </li>
+            <li className={styles.item}>
+              <Link to="/events" className={styles.title_nav}>
+                Veranstaltungen
               </Link>
-              <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
-            </div>
-          </li>
-          <li className={styles.item}>
-            <Link to="/gallery" className={styles.title_nav}>
-              Galerie
-            </Link>
-          </li>
-          {/* {user.role === ROLE.ADMIN ? ( */}
-          <li className={`${styles.item} ${styles.item_submenu_admin}`}>
-            <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
-              fur test
-            </span>
-            <div className={styles.submenu_admin}>
-              <Link to="/adminpage">AdminPage</Link>
-              {/* <Link to="/contactusadm">ContactUsAdmin</Link>
+            </li>
+            <li className={`${styles.item} ${styles.item_submenu}`}>
+              <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+                Über uns
+              </span>
+              <div className={styles.submenu}>
+                <Link to="/contactUs" className={styles.line}>
+                  Kontaktieren Sie uns
+                </Link>
+                <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
+              </div>
+            </li>
+            <li className={styles.item}>
+              <Link to="/gallery" className={styles.title_nav}>
+                Galerie
+              </Link>
+            </li>
+            {/* {user.role === ROLE.ADMIN ? ( */}
+            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+              <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+                fur test
+              </span>
+              <div className={styles.submenu_admin}>
+                <Link to="/adminpage">AdminPage</Link>
+                {/* <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/postsadm">PostsAdmin</Link>
               <Link to="/eventsadm">EventsAdmin</Link>
               <Link to="/filesadm">FilesAdmin</Link>
               <Link to="/aboutusadmin">AboutUsAdmin</Link>
               <Link to="/galleryadm">GalleryAdmin</Link> */}
-              <Link to="/accountpage">AccountPage</Link>
+                <Link to="/accountpage">AccountPage</Link>
 
-              <Link to="/usersadm">UsersAdmin</Link>
+                <Link to="/usersadm">UsersAdmin</Link>
 
-          <Link to ="/teamadmin" >TeamAdmin</Link>
-
-            </div>
-          </li>
-        </ul>
+                <Link to="/teamadmin">TeamAdmin</Link>
+              </div>
+            </li>
+          </ul>
+        ) : (
+          <div>
+            <TabletMobile />
+          </div>
+        )}
 
         <div className={styles.account_container}>
-          {Object.keys(user).length === 0 ? (
+          {isLogin ? (
             <div>
               <Link to="/singUp">
                 <button type="button" className={styles.nav_login}>
@@ -167,28 +188,31 @@ export default function Header(): JSX.Element {
           )}
         </div>
       </div>
-      {userInfo?.id!=-1 && (
-            <div style={{
-              position: 'absolute',
-              top: '22px',
-              right: '370px',
-              filter: 'drop-shadow(2px 2px 5px #f2bd41)',
-            }}>
-              <Link to="/accountpage">
+      {user?.id != -1 && (
+        <div
+          style={{
+            position: "absolute",
+            top: "22px",
+            right: "370px",
+            filter: "drop-shadow(2px 2px 5px #f2bd41)",
+          }}
+        >
+          <Link to="/accountpage">
             <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                variant="dot"
-              >
-                <Avatar
-                  alt={user?.name}
-                  // variant="rounded"
-                  src={"/api/files/" + userInfo?.image}
-                  sx={{ width: 90, height: 90}}
-                />
-              </StyledBadge></Link>
-            </div>
-          )}
+              overlap="circular"
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                alt={user?.name}
+                // variant="rounded"
+                src={"/api/files/" + user?.image}
+                sx={{ width: 90, height: 90 }}
+              />
+            </StyledBadge>
+          </Link>
+        </div>
+      )}
     </div>
 
     // <Navbar expand="lg" className="bg-body-tertiary justify-content-between">
@@ -254,3 +278,119 @@ export default function Header(): JSX.Element {
     // </Navbar>
   );
 }
+
+// export default function Header(): JSX.Element {
+//   const navigate = useNavigate();
+//   const dispatch = useAppDispatch();
+//   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
+//   const { user, isLogin } = useUserSelector();
+
+//   useEffect(() => {
+//     function handleResize() {
+//       setIsWideScreen(window.innerWidth > 950);
+//     }
+//     window.addEventListener("resize", handleResize);
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   const handleLogOut = async () => {
+//     await logOut();
+//     dispatch(userDataInfo(userData));
+//     dispatch(userIsLogin(false));
+//     navigate("/");
+//   };
+
+//   return (
+//     <div className={styles.container}>
+//       <div className={styles.logo_container}>
+//         <div className={styles.logo}>
+//           <Link to="/">
+//             {" "}
+//             <img src="./bee2.png" alt="bee" className={styles.logo_img} />
+//           </Link>
+//         </div>
+//         <div className={styles.title}>
+//           <NavLink to="/" className={styles.logo_title}>
+//             HONEY
+//           </NavLink>
+//           <span style={{ color: "#fff" }}>Sweet & Healty life </span>
+//         </div>
+//       </div>
+//       {/* ////////////////// */}
+//       <div className={styles.nav}>
+//         {isWideScreen ? (
+//           <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
+//             <li className={styles.item}>
+//               <NavLink to="/posts" className={styles.title_nav}>
+//                 Blog
+//               </NavLink>
+//             </li>
+//             <li className={styles.item}>
+//               <NavLink to="/events" className={styles.title_nav}>
+//                 Veranstaltungen
+//               </NavLink>
+//             </li>
+//             <li className={`${styles.item} ${styles.item_submenu}`}>
+//               <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+//                 Über uns
+//               </span>
+//               <div className={styles.submenu}>
+//                 <Link to="/contactUs" className={styles.line}>
+//                   Kontaktieren Sie uns
+//                 </Link>
+//                 <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
+//               </div>
+//             </li>
+//             <li className={styles.item}>
+//               <NavLink to="/gallery" className={styles.title_nav}>
+//                 Galerie
+//               </NavLink>
+//             </li>
+//             {/* {user.role === ROLE.ADMIN ? ( */}
+//             <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+//               <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+//                 fur test
+//               </span>
+//               <div className={styles.submenu_admin}>
+//                 <Link to="/adminpage">AdminPage</Link>
+//                 {/* <Link to="/contactusadm">ContactUsAdmin</Link>
+//               <Link to="/postsadm">PostsAdmin</Link>
+//               <Link to="/eventsadm">EventsAdmin</Link>
+//               <Link to="/filesadm">FilesAdmin</Link>
+//               <Link to="/aboutusadmin">AboutUsAdmin</Link>
+//               <Link to="/galleryadm">GalleryAdmin</Link> */}
+//                 <Link to="/accountpage">AccountPage</Link>
+
+//                 <Link to="/usersadm">UsersAdmin</Link>
+
+//                 <Link to="/teamadmin">TeamAdmin</Link>
+//               </div>
+//             </li>
+//           </ul>
+//         ) : (
+//           <div>
+//             <TabletMobile />
+//           </div>
+//         )}
+//         <div className={styles.account_container}>
+//           {!isLogin ? (
+//             <div className={styles.account}>
+//               <Link to="/singUp">
+//                 <button type="button" className={styles.nav_login}>
+//                   Login
+//                 </button>
+//               </Link>
+//             </div>
+//           ) : (
+//             <div className={styles.account}>
+//               <span>{user.name}</span>
+//               <button type="button" onClick={handleLogOut}>
+//                 <LuLogOut />
+//               </button>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>

@@ -1,0 +1,129 @@
+section {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.navbar .checkbox {
+  display: none;
+}
+.navbar .button,
+.navbar .background {
+  position: absolute;
+  top: 4.25rem;
+  right: 3rem;
+  text-align: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--button-burger-menu-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.navbar .button {
+  z-index: 2000;
+}
+.navbar .background {
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+  z-index: 1000;
+}
+.navbar .nav {
+  position: fixed;
+  top: 0;
+  right: -60vw;
+  width: 0;
+  height: 100vh;
+  transition: all 0.8s;
+  opacity: 0;
+  z-index: 1500;
+}
+.navbar .list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  list-style: none;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+.navbar .item {
+  font-size: 36px;
+  margin: 1rem;
+}
+.navbar .link {
+  display: inline-block;
+  font-family: inherit;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  padding: 1rem 2rem;
+  color: rgb(55, 60, 65);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.4s;
+}
+.navbar .link:hover,
+.link:active {
+  color: hsla(357, 92%, 47%, 1);
+  cursor: pointer;
+}
+.navbar .checkbox:checked ~ .background {
+  transform: scale(80);
+}
+.navbar .checkbox:checked ~ .nav {
+  right: 0;
+  width: 100%;
+  opacity: 1;
+}
+.navbar .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: all 0.2s;
+  transform: translate(-50%, -50%);
+}
+.navbar .icon,
+.navbar .icon::before,
+.navbar .icon::after {
+  display: inline-block;
+  width: 2rem;
+  height: 3px;
+  background-color: rgb(53, 55, 56);
+}
+.navbar .icon::before,
+.navbar .icon::after {
+  position: absolute;
+  left: 0;
+  content: "";
+  transition: all 0.2s;
+}
+.navbar .icon::before {
+  top: -0.65rem;
+}
+.navbar .icon::after {
+  top: 0.65rem;
+}
+.navbar .button:hover .icon,
+.navbar .button:hover .icon:before,
+.navbar .button:hover .icon::after {
+  background-color: hsla(357, 92%, 47%, 1);
+}
+.navbar .button:hover .icon:before {
+  top: -0.5rem;
+}
+.navbar .button:hover .icon::after {
+  top: 0.5rem;
+}
+.navbar .checkbox:checked + .button .icon {
+  background-color: transparent;
+}
+.navbar .checkbox:checked + .button .icon::before {
+  top: 0;
+  background-color: hsla(357, 92%, 47%, 1);
+  transform: rotate(135deg);
+}
+.navbar .checkbox:checked + .button .icon::after {
+  top: 0;
+  background-color: hsla(357, 92%, 47%, 1);
+  transform: rotate(-135deg);
+}
+.link:focus .link:hover {
+  color: var(--border-color);
+}

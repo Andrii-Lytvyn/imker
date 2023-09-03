@@ -60,7 +60,7 @@ export default function Header(): JSX.Element {
   //   initIUserAccountInfo
   // );
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
-  const { user, isLogin } = useUserSelector();
+  const { user } = useUserSelector();
 
   useEffect(() => {
     function handleResize() {
@@ -71,22 +71,6 @@ export default function Header(): JSX.Element {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/me`, {
-  //         withCredentials: true,
-  //       });
-  //       const userDto = response.data;
-  //       setUserInfo(userDto);
-  //     } catch (error) {
-  //       console.error("Error during request execution:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const handleLogOut = async () => {
     await logOut();
@@ -167,7 +151,7 @@ export default function Header(): JSX.Element {
         )}
 
         <div className={styles.account_container}>
-          {!isLogin ? (
+          {user.id === null ? (
             <div>
               <Link to="/singUp">
                 <button type="button" className={styles.nav_login}>
@@ -177,7 +161,7 @@ export default function Header(): JSX.Element {
             </div>
           ) : (
             <div className={styles.account}>
-              <div>
+              <div className={styles.account_name_avatar}>
                 <Link to="/accountpage">
                   <StyledBadge
                     overlap="circular"
@@ -188,45 +172,26 @@ export default function Header(): JSX.Element {
                       alt={user?.name}
                       // variant="rounded"
                       src={"/api/files/" + user?.image}
-                      sx={{ width: 40, height: 40 }}
+                      sx={{ width: 50, height: 50 }}
                     />
                   </StyledBadge>
                 </Link>
               </div>
-              <span>{user.name}</span>
-              <button type="button" onClick={handleLogOut}>
-                {" "}
-                <LuLogOut />
-              </button>
+              <div className={styles.name_logout}>
+                <span>{user.name}</span>
+                <button
+                  type="button"
+                  className={styles.logout}
+                  onClick={handleLogOut}
+                >
+                  {" "}
+                  <LuLogOut />
+                </button>
+              </div>
             </div>
           )}
         </div>
       </div>
-      {/* {user?.id && (
-        <div
-        // style={{
-        //   position: "absolute",
-        //   top: "22px",
-        //   right: "370px",
-        //   filter: "drop-shadow(2px 2px 5px #f2bd41)",
-        // }}
-        >
-          <Link to="/accountpage">
-            <StyledBadge
-              overlap="circular"
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              variant="dot"
-            >
-              <Avatar
-                alt={user?.name}
-                // variant="rounded"
-                src={"/api/files/" + user?.image}
-                sx={{ width: 90, height: 90 }}
-              />
-            </StyledBadge>
-          </Link>
-        </div>
-      )} */}
     </div>
 
     // <Navbar expand="lg" className="bg-body-tertiary justify-content-between">

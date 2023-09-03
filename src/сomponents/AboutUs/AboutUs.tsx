@@ -47,74 +47,76 @@ export default function AboutUs(): JSX.Element {
 
   return (
     <>
-      <Container>
-        <h1>Über uns</h1>
-      </Container>
+      <div className={styles.about_main}>
+          <Container>
+            <h1>Über uns</h1>
+          </Container>
 
-      <Container className="d-flex flex-column">
-        {aboutUs?.map((elem) => (
-          <>
-            <div className="mb-3">
-              <p className={styles.about_text}><h4>{elem.titleTop}</h4></p >
+          <Container className="d-flex flex-column">
+            {aboutUs?.map((elem) => (
+              <>
+                <div className="mb-3">
+                  <p className={styles.about_text}><h4>{elem.titleTop}</h4></p >
 
-              <div
-                className="container"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(elem.descriptionTop || ""),
-                }}
-              />
-            </div>
+                  <div
+                    className="container"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(elem.descriptionTop || ""),
+                    }}
+                  />
+                </div>
 
-            <div className="d-flex justify-content-around">
-              <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                <img src={"/api/files/" + elem.image1} width="90%" />
-                <caption>"Bright as a sunflower."</caption>
-              </div>
-              <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                <img src={"/api/files/" + elem.image2} width="90%" />
-                <caption>"Bright as a sunflower."</caption>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
-              <div
-                className="container"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(elem.descriptionBottom || ""),
-                }}
-              />
-            </div>
-          </>
-        ))
-        }
-      </Container >
-
-      <div className={styles.our_team}>
-        <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
-        <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
-      </div>
-      <Container className="d-flex">
-        <ul className={styles.about_ul}>
-          {member?.map((element, index) => (
-            element.state === "SHOW" ?
-              <li key={index}>
-                <div className={styles.about_members}>
-                  <img src={"/api/files/" + element.image} />
-                  <p className={styles.about_position}>{element.position}</p>
-                  <p className={styles.about_position_name}>{element.name}</p>
-                  <p className={styles.about_position_text}>{element.description}</p>
-                  <div className={styles.social}>
-                    <a href={element.facebook}><FaFacebook className={styles.social_icons} /></a>
-                    <a href={element.instagram}><FaInstagram className={styles.social_icons} /></a>
-                    <a href={"mailto:" + element.email}><SlEnvolope className={styles.social_icons} /></a>
+                <div className="d-flex justify-content-around">
+                  <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+                    <img src={"/api/files/" + elem.image1} width="90%" />
+                    <caption>"Bright as a sunflower."</caption>
+                  </div>
+                  <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+                    <img src={"/api/files/" + elem.image2} width="90%" />
+                    <caption>"Bright as a sunflower."</caption>
                   </div>
                 </div>
-              </li>
-              : ""
-          ))}
-        </ul>
-      </Container>
+
+                <div className="mb-3">
+                  <p className={styles.about_text}><h4>{elem.titleBottom}</h4></p >
+                  <div
+                    className="container"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(elem.descriptionBottom || ""),
+                    }}
+                  />
+                </div>
+              </>
+            ))
+            }
+          </Container >
+
+          <div className={styles.our_team}>
+            <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
+            <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
+          </div>
+          <Container className="d-flex">
+            <ul className={styles.about_ul}>
+              {member?.map((element, index) => (
+                element.state === "SHOW" ?
+                  <li key={index}>
+                    <div className={styles.about_members}>
+                      <img src={"/api/files/" + element.image} />
+                      <p className={styles.about_position}>{element.position}</p>
+                      <p className={styles.about_position_name}>{element.name}</p>
+                      <p className={styles.about_position_text}>{element.description}</p>
+                      <div className={styles.social}>
+                        <a href={element.facebook}><FaFacebook className={styles.social_icons} /></a>
+                        <a href={element.instagram}><FaInstagram className={styles.social_icons} /></a>
+                        <a href={"mailto:" + element.email}><SlEnvolope className={styles.social_icons} /></a>
+                      </div>
+                    </div>
+                  </li>
+                  : ""
+              ))}
+            </ul>
+          </Container>
+      </div>
     </>
   );
 }

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
@@ -12,31 +11,25 @@ import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IAddress, initIAddress } from "../ContactUs/interfaces/IAddress";
-
-// Получение  всех Events
-const getAllEventsFooter = async () => {
-  try {
-    //для Бека
-    const { data } = await axios.get(`/api/events/getAll`);
-    return data.events;
-  } catch (error) {
-    toast.error(`Ошибка сервера getAllEventsFooter ${error}`);
-  }
-};
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { getAllEventsFooter } from "../../redux/eventsStore/eventsOperation";
 
 export default function Footer(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [events, setEvents] = useState<IEvent[]>([]);
   const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
     useState<IAddress>(initIAddress);
 
   useEffect(() => {
-    const getEvents = async () => {
+    const getAllEvents = async () => {
       try {
         const requestEvent = await getAllEventsFooter();
-        if (requestEvent === undefined) {
+        if (requestEvent.events === undefined) {
           setEvents([eventData]);
         } else {
-          setEvents(requestEvent);
+          dispatch(getEvents(requestEvent.events));
+          setEvents(requestEvent.events);
         }
       } catch (error) {
         // console.log("🚀  error:", error);
@@ -50,8 +43,8 @@ export default function Footer(): JSX.Element {
         console.error("Error during request execution:", error);
       }
     };
-    getEvents();
-  }, []);
+    getAllEvents();
+  }, [dispatch]);
 
   return (
     <>

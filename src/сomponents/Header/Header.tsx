@@ -48,7 +48,8 @@ export default function Header(): JSX.Element {
   // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
-  const { user } = useUserSelector();
+  const { user, isLogin } = useUserSelector();
+  // const
 
   useEffect(() => {
     function handleResize() {
@@ -78,7 +79,7 @@ export default function Header(): JSX.Element {
         </div>
         <div className={styles.title}>
           <h2 className={styles.logo_title}>HONEY</h2>
-          <span style={{ color: "#fff" }}>Sweet & Healhty life </span>
+          <span className={styles.logo_slogan}>Sweet & Healhty life </span>
         </div>
       </div>
       {/* ////////////////// */}
@@ -113,15 +114,15 @@ export default function Header(): JSX.Element {
             </li>
             {/* это раскоментируем и получаем Админку */}
             {/* {user.role === ROLE.ADMIN ? ( */}
-            {/* <li className={`${styles.item} ${styles.item_submenu_admin}`}>
-               <Link to="/adminpage" className={styles.title_nav}>
-                 Admin
-               </Link>
-               {/* <div className={styles.submenu_admin}></div> */}
-            {/* </li> */}
+            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+              <Link to="/adminpage" className={styles.title_nav}>
+                Admin
+              </Link>
+              {/* <div className={styles.submenu_admin}></div> */}
+            </li>
             {/* ) : (
-                ""
-              )} */}
+              ""
+            )} */}
           </ul>
         ) : (
           <div>
@@ -130,10 +131,13 @@ export default function Header(): JSX.Element {
         )}
 
         <div className={styles.account_container}>
-          {user.id === null ? (
+          {!isLogin ? (
             <div>
               <Link to="/singUp">
-                <button type="button" className={styles.nav_login}>
+                <button
+                  type="button"
+                  className={`${styles.nav_login} button_imker`}
+                >
                   Login
                 </button>
               </Link>

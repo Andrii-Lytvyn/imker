@@ -23,7 +23,6 @@
   --button-burger-menu-bg: #dfe6e6;
 }
 
-  
 a {
   color: var(--terracotta);
   text-decoration: none;
@@ -158,4 +157,8 @@ body {
 .swiper-button-prev,
 .swiper-button-next {
   color: #fff;
+}
+
+.css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: var(--yellow) !important;
 }

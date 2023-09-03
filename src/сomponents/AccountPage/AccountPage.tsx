@@ -43,7 +43,6 @@ export default function AccountPage(): JSX.Element {
   const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
     initIUserAccountInfo
   );
-  const id = 3;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +58,7 @@ export default function AccountPage(): JSX.Element {
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
   return (
     <>

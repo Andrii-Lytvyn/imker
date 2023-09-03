@@ -5,6 +5,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { IEvent } from "../Events/interface/IEventsData";
 import { formatDate } from "../Events/helpers/formattedDate";
+import { Link } from "react-router-dom";
 
 export default function UserEvents(): JSX.Element {
   const [{ events }, setUserEvents] = useState<IUserEvents>(initIUserEvents);
@@ -113,9 +114,9 @@ export default function UserEvents(): JSX.Element {
                     <p>{formatDate(dateStart)?.month}</p>
                   </div>
                   <div className="text-left ms-2">
-                    <a rel="stylesheet" href={"/events/" + idEvent}>
+                    <Link to={"/events/" + idEvent}>
                       <p style={{ fontWeight: "bold" }}> {title} </p>
-                    </a>
+                    </Link>
                     <p>{shortDescription}</p>
                   </div>
                 </div>

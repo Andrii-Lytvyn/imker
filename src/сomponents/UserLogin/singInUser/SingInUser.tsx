@@ -17,7 +17,7 @@ import {
 import { initSingInUserData } from "./interface/ISingInUser";
 import { useNavigate } from "react-router-dom";
 import { getUserData, singInUser } from "../helpers/userAuth/userOperation";
-import { userDataInfo } from "../../../redux/userStore/userSlice";
+import { userDataInfo, userIsLogin } from "../../../redux/userStore/userSlice";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 const SingInUser = (): JSX.Element => {
@@ -46,6 +46,7 @@ const SingInUser = (): JSX.Element => {
         toast.success("Welcome");
         const userInfo = await getUserData();
         dispatch(userDataInfo(userInfo?.data));
+        dispatch(userIsLogin(true));
         navigate("/");
       }
     },

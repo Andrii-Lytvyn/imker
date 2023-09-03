@@ -1,3 +1,7 @@
+.about_main{
+    background: linear-gradient(0deg, rgb(236, 213, 196), rgb(247, 243, 240));
+    margin-top: -20px;
+}
 .about_text{
     color: var(--text-color);
     line-height: 1.3;

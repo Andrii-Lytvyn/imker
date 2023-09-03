@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
 import { SlEnvolope } from "react-icons/sl";
 
-export default function AboutUs(): JSX.Element {
+export default function Team(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
 
@@ -27,6 +27,7 @@ export default function AboutUs(): JSX.Element {
 
   return (
     <>
+      <div className={styles.team_main}>
       <div className={styles.our_team}>
         <h2 className="mt-3">UNSER EXPERTENTEAM</h2>
         <h4>Lernen Sie unser leidenschaftliches Team von Honigproduktionsprofis kennen</h4>
@@ -52,6 +53,7 @@ export default function AboutUs(): JSX.Element {
           ))}
         </ul>
       </Container>
+      </div>
     </>
   );
 }

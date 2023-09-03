@@ -15,7 +15,7 @@ import { Pagination } from "@mui/material";
 import LoaderStart from "../Loader/LoaderStart";
 import { Container } from "react-bootstrap";
 import { BsCalendar2Week, BsClock } from "react-icons/bs";
-import { FaUserGraduate } from "react-icons/fa6";
+// import { FaUserGraduate } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 
 // Получение  всех Events

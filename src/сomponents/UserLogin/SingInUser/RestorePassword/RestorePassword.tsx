@@ -26,7 +26,10 @@ import {
   restoreUserPassword,
   singInUser,
 } from "../../helpers/userAuth/userOperation";
-import { userDataInfo } from "../../../../redux/userStore/userSlice";
+import {
+  userDataInfo,
+  userIsLogin,
+} from "../../../../redux/userStore/userSlice";
 
 const RestorePassword = (): JSX.Element => {
   const navigate = useNavigate();
@@ -61,6 +64,7 @@ const RestorePassword = (): JSX.Element => {
           toast.success("Welcome");
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
+          dispatch(userIsLogin(true));
           navigate("/");
         }
         resetForm();

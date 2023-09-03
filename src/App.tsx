@@ -3,12 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
+
+// import { userDataInfo } from "./redux/userStore/userSlice";
+import RegisterUser from "./сomponents/UserLogin/RegisterUser/RegisterUser";
+import SingInUser from "./сomponents/UserLogin/SingInUser/SingInUser";
+import SecretAnswer from "./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer";
+import RestoreAnswer from "./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer";
+import RestorePassword from "./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword";
+import { userDataInfo } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
-import { userDataInfo } from "./redux/userStore/userSlice";
-
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
@@ -65,22 +71,22 @@ const FilesUploadAdmin = lazy(
 );
 const AccountPage = lazy(() => import("./сomponents/AccountPage/AccountPage"));
 
-const RegisterUser = lazy(
-  () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
-);
-const SingInUser = lazy(
-  () => import("./сomponents/UserLogin/SingInUser/SingInUser")
-);
-const SecretAnswer = lazy(
-  () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
-);
-const RestoreAnswer = lazy(
-  () => import("./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer")
-);
-const RestorePassword = lazy(
-  () =>
-    import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
-);
+// const RegisterUser = lazy(
+//   () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
+// );
+// const SingInUser = lazy(
+//   () => import("./сomponents/UserLogin/SingInUser/SingInUser")
+// );
+// const SecretAnswer = lazy(
+//   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
+// );
+// const RestoreAnswer = lazy(
+//   () => import("./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer")
+// );
+// const RestorePassword = lazy(
+//   () =>
+//     import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
+// );
 const UsersAdmin = lazy(
   () => import("./сomponents/AdminPage/UserAdmin/UsersAdmin")
 );
@@ -125,10 +131,7 @@ function App(): JSX.Element {
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="teamadmin" element={<TeamAdmin />} />
           <Route path="aboutusadmin" element={<AboutUsAdmin />} />
-          <Route
-            path="teamadmin/addmember"
-            element={<TeamAddMemberAdmin />}
-          />
+          <Route path="teamadmin/addmember" element={<TeamAddMemberAdmin />} />
           <Route
             path="teamadmin/teameditmemberadmin/:id"
             element={<TeamEditMemberAdmin />}

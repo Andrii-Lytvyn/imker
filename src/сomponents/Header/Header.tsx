@@ -1,4 +1,3 @@
-import { useUserSelector } from "../../redux/userStore/userSelector";
 import styles from "./Header.module.css";
 // import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
@@ -6,22 +5,21 @@ import styles from "./Header.module.css";
 // import { NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
-import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
+
 import { useAppDispatch } from "../../hooks/dispatch.selector";
-import { userDataInfo } from "../../redux/userStore/userSlice";
-import { userData } from "../../redux/userStore/interface/IUserData";
+
 import { NavLink } from "react-router-dom";
 // import { ROLE } from "../../statusAndRole/role";
 import { Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
-import {
-  IUserAccountInfo,
-  initIUserAccountInfo,
-} from "../AccountPage/interfaces/IUserAccountInfo";
-import axios from "axios";
+
 import TabletMobile from "./TabletMobile/TabletMobile";
+import { useUserSelector } from "../../redux/userStore/userSelector";
+import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
+import { userDataInfo } from "../../redux/userStore/userSlice";
+import { userData } from "../../redux/userStore/interface/IUserData";
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 // import { position } from "@chakra-ui/styled-system";
 

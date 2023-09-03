@@ -23,7 +23,7 @@
   background-repeat: no-repeat;
 }
 .wrapper {
-  width: 1130px;
+  /* width: 1130px; */
   display: flex;
   flex-direction: column;
   align-items: center;

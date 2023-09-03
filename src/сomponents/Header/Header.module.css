@@ -80,7 +80,7 @@
 .account_container {
   display: flex;
   align-items: center;
-  margin-left: 30px;
+  margin: 0 30px;
 }
 @media (min-width: 951px) {
   .account {
@@ -90,7 +90,7 @@
   }
 }
 @media (max-width: 950px) {
-  .account {
+  .account_container {
     display: flex;
     align-items: center;
     margin-right: 150px;

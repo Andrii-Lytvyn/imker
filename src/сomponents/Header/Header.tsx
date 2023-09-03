@@ -186,7 +186,7 @@ export default function Header(): JSX.Element {
           )}
         </div>
       </div>
-      {user?.id != -1 && (
+      {user?.id && (
         <div
           style={{
             position: "absolute",

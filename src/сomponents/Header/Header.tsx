@@ -182,9 +182,9 @@ export default function Header(): JSX.Element {
               >
                 <Avatar
                   alt={user?.name}
-                  variant="rounded"
+                  // variant="rounded"
                   src={"/api/files/" + userInfo?.image}
-                  sx={{ width: 100, height: 100}}
+                  sx={{ width: 90, height: 90}}
                 />
               </StyledBadge></Link>
             </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from "./TeamAdmin.module.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IMember } from "../../AboutUs/interfaces/IMembers"
+import { IMember } from "../../Team/interfaces/IMembers"
 
 const initMember = {
   id: 0,

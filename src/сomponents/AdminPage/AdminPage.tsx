@@ -31,7 +31,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3, minHeight: '600px' }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -42,7 +42,7 @@ function CustomTabPanel(props: TabPanelProps) {
 export default function AdminPage() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 

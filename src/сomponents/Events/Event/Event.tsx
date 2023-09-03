@@ -9,13 +9,13 @@ import { formatDate } from "../helpers/formattedDate";
 import { Container, Nav } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import linkToServer from "../../globalLinkToServer";
 import { IEvent } from "../interface/IEventsData";
 import LoaderStart from "../../Loader/LoaderStart";
+import UsersOnEvent from "../../UsersOnEvent/UsersOnEvent";
 
 const getEvent = async (id: string) => {
   try {
-    const { data } = await axios.get(`${linkToServer}/api/events/${id}`);
+    const { data } = await axios.get(`/api/events/${id}`);
     return data;
   } catch (error) {
     console.log("🚀  getEvent:", error);
@@ -62,7 +62,7 @@ const Event = (): JSX.Element => {
             <div className={styles.container}>
               <img
                 className={styles.img_container}
-                src={`${linkToServer}/api/files/${event?.photo}`}
+                src={`/api/files/${event?.photo}`}
                 alt={event?.title}
               />
               <p>{event?.description}</p>
@@ -129,6 +129,10 @@ const Event = (): JSX.Element => {
           </div>
         </Container>
       )}
+
+{event && event.dateEnd && (
+  <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
+)}
     </>
   );
 };

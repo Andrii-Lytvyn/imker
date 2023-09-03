@@ -63,8 +63,8 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
   // const [value, setValue] = useState<string>();
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const width = 900;
-  const height = 350;
+  const width = 200;
+  const height = 250;
 
   const collectNewUserData = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;

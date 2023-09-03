@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
+
+// import { userDataInfo } from "./redux/userStore/userSlice";
+
+import { userDataInfo } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
-import { userDataInfo } from "./redux/userStore/userSlice";
-
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
@@ -125,10 +127,7 @@ function App(): JSX.Element {
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="teamadmin" element={<TeamAdmin />} />
           <Route path="aboutusadmin" element={<AboutUsAdmin />} />
-          <Route
-            path="teamadmin/addmember"
-            element={<TeamAddMemberAdmin />}
-          />
+          <Route path="teamadmin/addmember" element={<TeamAddMemberAdmin />} />
           <Route
             path="teamadmin/teameditmemberadmin/:id"
             element={<TeamEditMemberAdmin />}

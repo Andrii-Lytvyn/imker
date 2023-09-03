@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 // import Nav from "react-bootstrap/Nav";
 // import Navbar from "react-bootstrap/Navbar";
 // import { NavDropdown } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
 import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
@@ -12,16 +12,73 @@ import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
 import { NavLink } from "react-router-dom";
 // import { ROLE } from "../../statusAndRole/role";
+import { Avatar } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
+import { useEffect, useState } from "react";
+import { IUserAccountInfo, initIUserAccountInfo } from "../AccountPage/interfaces/IUserAccountInfo";
+import axios from "axios";
+// import { AbsoluteCenter } from "@chakra-ui/layout";
+// import { position } from "@chakra-ui/styled-system";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
 
 export default function Header(): JSX.Element {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useUserSelector();
+  const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
+    initIUserAccountInfo
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/me`, {
+          withCredentials: true,
+        });
+        const userDto = response.data;
+        setUserInfo(userDto);
+      } catch (error) {
+        console.error("Error during request execution:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleLogOut = async () => {
     await logOut();
     dispatch(userDataInfo(userData));
-    navigate("/");
+    // navigate("/");
+    window.location.href = '/';
   };
 
   return (
@@ -30,12 +87,12 @@ export default function Header(): JSX.Element {
         <div className={styles.logo}>
           <Link to="/">
             {" "}
-            <img src="./bee2.png" alt="bee" className={styles.logo_img} />
+            <img src="img/bee2.png" alt="bee" className={styles.logo_img} />
           </Link>
         </div>
         <div className={styles.title}>
           <h2 className={styles.logo_title}>HONEY</h2>
-          <span style={{ color: "#fff" }}>Sweet & Healty life </span>
+          <span style={{ color: "#fff" }}>Sweet & Healhty life </span>
         </div>
       </div>
       {/* ////////////////// */}
@@ -110,6 +167,28 @@ export default function Header(): JSX.Element {
           )}
         </div>
       </div>
+      {userInfo?.id!=-1 && (
+            <div style={{
+              position: 'absolute',
+              top: '22px',
+              right: '370px',
+              filter: 'drop-shadow(2px 2px 5px #f2bd41)',
+            }}>
+              <Link to="/accountpage">
+            <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar
+                  alt={user?.name}
+                  variant="rounded"
+                  src={"/api/files/" + userInfo?.image}
+                  sx={{ width: 100, height: 100}}
+                />
+              </StyledBadge></Link>
+            </div>
+          )}
     </div>
 
     // <Navbar expand="lg" className="bg-body-tertiary justify-content-between">

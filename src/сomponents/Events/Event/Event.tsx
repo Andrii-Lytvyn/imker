@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import linkToServer from "../../globalLinkToServer";
 import { IEvent } from "../interface/IEventsData";
 import LoaderStart from "../../Loader/LoaderStart";
+import UsersOnEvent from "../../UsersOnEvent/UsersOnEvent";
 
 const getEvent = async (id: string) => {
   try {
@@ -129,6 +130,8 @@ const Event = (): JSX.Element => {
           </div>
         </Container>
       )}
+
+      <UsersOnEvent location={{ state: id }} />
     </>
   );
 };

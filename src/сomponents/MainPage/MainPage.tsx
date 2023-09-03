@@ -5,6 +5,7 @@ import OurMission from "../OurMission/OurMission";
 // import TopCallery from "../Gallery/TopCallery/TopCallery";
 // import Gallery from "../Gallery/Gallery";
 import AboutUs from "../AboutUs/AboutUs";
+import Team from "../Team/Team";
 
 export default function MainPage(): JSX.Element {
   return (
@@ -12,7 +13,7 @@ export default function MainPage(): JSX.Element {
       <Slider />
       <OurMission />
       <TypeOfHoney />
-      <AboutUs />
+      <Team />
     </>
   );
 }

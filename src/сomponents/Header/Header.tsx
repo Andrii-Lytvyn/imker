@@ -169,7 +169,7 @@ export default function Header(): JSX.Element {
         )}
 
         <div className={styles.account_container}>
-          {isLogin ? (
+          {!isLogin ? (
             <div>
               <Link to="/singUp">
                 <button type="button" className={styles.nav_login}>

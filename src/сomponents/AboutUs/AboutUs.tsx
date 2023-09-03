@@ -71,7 +71,8 @@ export default function AboutUs(): JSX.Element {
         ))
         }
       </Container >
-<TeamFrame />
+
+      <TeamFrame />
     </>
   );
 }

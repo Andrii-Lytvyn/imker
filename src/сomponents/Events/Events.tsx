@@ -1,59 +1,32 @@
 import styles from "./Events.module.css";
 import { currentDate, formatDate } from "./helpers/formattedDate";
 import { Link, useSearchParams } from "react-router-dom";
-// import Loader from "../Loader/Loader";
 import { useEventsSelector } from "../../redux/eventsStore/eventsSelector";
-import { ChangeEvent, useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "../../hooks/dispatch.selector";
-import { getEvents } from "../../redux/eventsStore/eventsSlice";
+import { ChangeEvent } from "react";
 import { EVENT_STATUS } from "./interface/IEventsData";
 // import PostsPanel from "../Posts/PostsPanel/PostsPanel";
-import linkToServer from "../globalLinkToServer";
 import { Pagination } from "@mui/material";
 import LoaderStart from "../Loader/LoaderStart";
 import { Container } from "react-bootstrap";
-import { BsCalendar2Week, BsClock } from "react-icons/bs";
-// import { FaUserGraduate } from "react-icons/fa6";
+import { BsClock } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
-
-// Получение  всех Events
-const getAllEvents = async (page: number) => {
-  try {
-    //для Бека
-    const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=4&page=${page}`
-    );
-    return data;
-  } catch (error) {
-    toast.error(`Ошибка сервера getAllEvents ${error}`);
-  }
-};
+import PastEvents from "./PastEvents";
 
 const Events = (): JSX.Element => {
   const { events } = useEventsSelector();
-  const dispatch = useAppDispatch();
-  const [count, setCount] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
+  const quantityOnPage = 5;
+  const startIndex = (Number(page) - 1) * quantityOnPage;
 
-  useEffect(() => {
-    const getEvt = async () => {
-      try {
-        const requestEvent = await getAllEvents(Number(page) - 1);
-        setCount(requestEvent.count);
-        dispatch(getEvents(requestEvent.events));
-      } catch (error) {
-        console.log("🚀  error:", error);
-      }
-    };
-    getEvt();
-  }, [dispatch, page]);
+  const futureEventFiltered = events.filter(
+    ({ dateStart }) => dateStart > currentDate()
+  );
 
   const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
     setSearchParams({ page: value.toString() });
   };
+
   return (
     <>
       <div
@@ -74,145 +47,117 @@ const Events = (): JSX.Element => {
             <div className={styles.post_container}>
               <div>
                 <ul className={styles.event_list}>
-                  {events.map(
-                    ({
-                      title,
-                      idEvent,
-                      dateStart,
-                      startTime,
-                      endTime,
-                      status,
-                      shortDescription,
-                      address,
-                    }) =>
-                      dateStart > currentDate() &&
-                      status === EVENT_STATUS.EXPECTED ? (
-                        <li key={`${idEvent}`} className={styles.events_list}>
-                          <div>
-                            <div className={styles.events_date}>
-                              <h5>{formatDate(dateStart)?.day}</h5>
-                              <p>{formatDate(dateStart)?.month}</p>
-                            </div>
-                          </div>
-                          <div className={styles.events_main_list}>
-                            <Link to={`/events/${idEvent}`}>
-                              <h4>{title}</h4>
-                            </Link>
+                  {futureEventFiltered
+                    .map(
+                      ({
+                        title,
+                        idEvent,
+                        dateStart,
+                        startTime,
+                        endTime,
+                        status,
+                        shortDescription,
+                        address,
+                      }) =>
+                        status === EVENT_STATUS.EXPECTED ? (
+                          <li key={`${idEvent}`} className={styles.events_list}>
                             <div>
-                              <p className={styles.events_short_description}>
-                                {shortDescription}
-                              </p>
+                              <div className={styles.events_date}>
+                                <h5>{formatDate(dateStart)?.day}</h5>
+                                <p>{formatDate(dateStart)?.month}</p>
+                              </div>
                             </div>
-                            <div
-                              className={styles.events_times + " d-flex mt-4"}
-                            >
-                              <BsClock className={styles.events_time} />
-                              <span>{`${startTime} - ${endTime}`}</span>
+                            <div className={styles.events_main_list}>
+                              <Link to={`/events/${idEvent}`}>
+                                <h4>{title}</h4>
+                              </Link>
+                              <div>
+                                <p className={styles.events_short_description}>
+                                  {shortDescription}
+                                </p>
+                              </div>
+                              <div
+                                className={styles.events_times + " d-flex mt-4"}
+                              >
+                                <BsClock className={styles.events_time} />
+                                <span>{`${startTime} - ${endTime}`}</span>
+                              </div>
+                              <div className={styles.events_times + " d-flex"}>
+                                <IoLocationOutline
+                                  className={styles.events_time}
+                                />
+                                <span>
+                                  <Link to={"/"}>{address}</Link>
+                                </span>
+                              </div>
+                              <hr />
                             </div>
-                            <div className={styles.events_times + " d-flex"}>
-                              <IoLocationOutline
-                                className={styles.events_time}
-                              />
-                              <span>
-                                <Link to={"/"}>{address}</Link>
-                              </span>
-                            </div>
-                            <hr />
-                          </div>
-                        </li>
-                      ) : (
-                        ""
-                      )
-                  )}
+                          </li>
+                        ) : (
+                          ""
+                        )
+                    )
+                    .slice(startIndex, startIndex + quantityOnPage)}
                 </ul>
-                <Pagination
-                  className={styles.pagination_container}
-                  count={count !== null ? Math.ceil(count / 3) : 0}
-                  page={Number(page)}
-                  size="large"
-                  onChange={getLinkParams}
-                />
+                {futureEventFiltered.length >= quantityOnPage + 1 ? (
+                  <Pagination
+                    className={styles.pagination_container}
+                    count={
+                      events !== null
+                        ? Math.ceil(futureEventFiltered.length / quantityOnPage)
+                        : 0
+                    }
+                    page={Number(page)}
+                    size="large"
+                    onChange={getLinkParams}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
-              <div className={styles.post_right_side}>
+              <PastEvents />
+              {/* <div className={styles.post_right_side}>
                 <h2>Vergangene Ereignisse</h2>
                 <hr className={styles.post_hr} />
-                {/*Выводим 5 записей*/}
-                <div className="mb-2">
-                  <p className={styles.post_event_date}>
-                    <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <h4 className={styles.post_event_h4}>
-                    <Link to={"/"}>
-                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                    </Link>
-                  </h4>
-                  <p className={styles.post_event_text}>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu
-                  </p>
-                  <hr className={styles.post_hr} />
-                </div>
-                <div className="mb-2">
-                  <p className={styles.post_event_date}>
-                    <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <h4 className={styles.post_event_h4}>
-                    <Link to={"/"}>
-                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                    </Link>
-                  </h4>
-                  <p className={styles.post_event_text}>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu
-                  </p>
-                  <hr className={styles.post_hr} />
-                </div>
-                <div className="mb-2">
-                  <p className={styles.post_event_date}>
-                    <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <h4 className={styles.post_event_h4}>
-                    <Link to={"/"}>
-                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                    </Link>
-                  </h4>
-                  <p className={styles.post_event_text}>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu
-                  </p>
-                  <hr className={styles.post_hr} />
-                </div>
-                <div className="mb-2">
-                  <p className={styles.post_event_date}>
-                    <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <h4 className={styles.post_event_h4}>
-                    <Link to={"/"}>
-                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                    </Link>
-                  </h4>
-                  <p className={styles.post_event_text}>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu
-                  </p>
-                  <hr className={styles.post_hr} />
-                </div>
-                <div className="mb-2">
-                  <p className={styles.post_event_date}>
-                    <BsCalendar2Week /> 15 November, 2023
-                  </p>
-                  <h4 className={styles.post_event_h4}>
-                    <Link to={"/"}>
-                      SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                    </Link>
-                  </h4>
-                  <p className={styles.post_event_text}>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu
-                  </p>
-                  <hr className={styles.post_hr} />
-                </div>
-              </div>
+                {events.map(({ dateStart, idEvent, shortDescription }) =>
+                  dateStart < currentDate() ? (
+                    <div key={`${idEvent}`} className="mb-2">
+                      <p className={styles.post_event_date}>
+                        <BsCalendar2Week />{" "}
+                        {`${formatDate(dateStart)?.day} ${
+                          formatDate(dateStart)?.month
+                        }, ${formatDate(dateStart)?.year}`}
+                      </p>
+                      <h4 className={styles.post_event_h4}>
+                        <Link to={`/events/${idEvent}`}>
+                          {shortDescription}
+                        </Link>
+                      </h4>
+                      <p className={styles.post_event_text}>
+                        {shortDescription.substring(0, 200)}...
+                      </p>
+                      <hr className={styles.post_hr} />
+                    </div>
+                  ) : (
+                    "".slice(startIndexPastEvent, endIndexPastEvent)
+                  )
+                )}
+                {pastEvt > 2 ? (
+                  <Pagination
+                    className={styles.pagination_container}
+                    count={
+                      events !== null ? Math.ceil(pastEvt / quantityOnPage) : 0
+                    }
+                    page={Number(pastEvent)}
+                    onChange={(_, pastEvent: number) =>
+                      handlePastEvent(pastEvent)
+                    }
+                    size="large"
+                  />
+                ) : (
+                  ""
+                )}
+              </div> */}
             </div>
           </>
         )}

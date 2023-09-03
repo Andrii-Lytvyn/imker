@@ -6,11 +6,12 @@ import { useAppDispatch } from "./hooks/dispatch.selector";
 
 // import { userDataInfo } from "./redux/userStore/userSlice";
 
-import { userDataInfo } from "./redux/userStore/userSlice";
+import { userDataInfo, userIsLogin } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
+import { useUserSelector } from "./redux/userStore/userSelector";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const TopCallery = lazy(
@@ -89,6 +90,7 @@ const UsersAdmin = lazy(
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { user } = useUserSelector();
 
   useEffect(() => {
     const isUserLoggedIn = getLoginStatus();
@@ -97,7 +99,9 @@ function App(): JSX.Element {
         try {
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
+          dispatch(userIsLogin(true));
         } catch (error) {
+          dispatch(userIsLogin(false));
           console.log("🚀  error:", error);
         }
       };
@@ -105,7 +109,7 @@ function App(): JSX.Element {
     } else {
       toast.info("Привет сладенький !!!");
     }
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IMember } from "../../AboutUs/interfaces/IMembers";
+import { IMember } from "../../Team/interfaces/IMembers";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function TeamAdmin(): JSX.Element {

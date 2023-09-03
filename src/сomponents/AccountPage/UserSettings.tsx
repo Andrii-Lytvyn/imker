@@ -6,8 +6,7 @@ import {
   IUserAccountInfo,
   initIUserAccountInfo,
 } from "./interfaces/IUserAccountInfo";
-import '../AdminPage/PostsAdmin/PostCreationAdmin.css';
-
+import "../AdminPage/PostsAdmin/PostCreationAdmin.css";
 
 export default function UserSettings(): JSX.Element {
   const [
@@ -105,15 +104,14 @@ export default function UserSettings(): JSX.Element {
       const url = URL.createObjectURL(file);
       setImageData(url);
     }
-
   };
 
   return (
     <>
       <div className="container">
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="name" className="col-md-2 me-2 text-end">
-            My name:
+        <div className="col-md-12 d-flex align-items-center fs-4 m-2">
+          <label htmlFor="name" className="col-md-4 me-2 text-end">
+          Mein Name:
           </label>
           <input
             className="form-control fs-5"
@@ -123,21 +121,9 @@ export default function UserSettings(): JSX.Element {
           />
         </div>
 
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="phone" className="col-md-2 me-2 text-end">
-            My phone:
-          </label>
-          <input
-            className="form-control fs-5"
-            name="phone"
-            defaultValue={phone}
-            onChange={collectNewUserData}
-          />
-        </div>
-
-        <div className="d-flex align-items-center fs-4 m-2">
-          <label htmlFor="plz" className="col-md-2 me-2 text-end">
-            My PLZ:
+        <div className="col-md-12 d-flex align-items-center fs-4 m-2">
+          <label htmlFor="plz" className="col-md-4 me-2 text-end">
+            My Postleitzahl:
           </label>
           <input
             className="form-control fs-5"
@@ -148,9 +134,21 @@ export default function UserSettings(): JSX.Element {
           />
         </div>
 
+        <div className="col-md-12 d-flex align-items-center fs-4 m-2">
+          <label htmlFor="phone" className="col-md-4 me-2 text-end">
+          Meine Telefonnummer:
+          </label>
+          <input
+            className="form-control fs-5"
+            name="phone"
+            defaultValue={phone}
+            onChange={collectNewUserData}
+          />
+        </div>
+
         <div className="d-flex align-items-center flex-column m-3">
           <label htmlFor="fileInput" className="file_upload">
-            Change my avatar image
+            Bild für mein Profilbild ändern
           </label>
           <input
             type="file"
@@ -160,23 +158,23 @@ export default function UserSettings(): JSX.Element {
             style={{ display: "none" }}
           />
           <p className="text-start fs-6">
-            Recommended resolution: {width}x{height}px
+            Empfohlene Auflösung: {width}x{height}px
           </p>
-        {imageData && (
-          <Avatar
-            src={imageData}
-            variant="rounded"
-            sx={{ width: 200, height: 250, margin: 0, fontSize: 60 }}
-          />
-        )}
+          {imageData && (
+            <Avatar
+              src={imageData}
+              variant="rounded"
+              sx={{ width: 200, height: 250, margin: 0, fontSize: 60 }}
+            />
+          )}
         </div>
 
         <button
           type="button"
-          className="btn btn-primary m-2"
+          className="button_imker m-2"
           onClick={handleSaveUser}
         >
-          Update my information
+          Meine Informationen aktualisieren
         </button>
       </div>
     </>

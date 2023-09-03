@@ -12,7 +12,7 @@ export default function UserInfo(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/me`, {
+          const response = await axios.get(`/api/me`, {
           withCredentials: true,
         });
         const userDto = response.data;
@@ -26,10 +26,10 @@ export default function UserInfo(): JSX.Element {
   }, []);
 
   return (
-    <div>
-      <p>E-mail: {email}</p>
-      <p>Phone: {phone}</p>
-      <p>Postleitzahlen: {plz}</p>
+    <div className="container">
+      <p className="fs-4 m-4">E-mail: {email}</p>
+      <p className="fs-4 m-4">Phone: {phone}</p>
+      <p className="fs-4 m-4">Postleitzahlen: {plz}</p>
     </div>
   );
 }

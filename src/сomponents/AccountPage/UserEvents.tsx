@@ -76,18 +76,8 @@ export default function UserEvents(): JSX.Element {
             ({
               idEvent,
               title,
-              // address,
-              // author,
-              // status,
-              // description,
               shortDescription,
-              // location,
-              // quantityOfMembers,
-              // photo,
               dateStart,
-              // dateEnd,
-              // startTime,
-              // endTime,
             }) => (
               <div
                 key={idEvent}
@@ -133,7 +123,10 @@ export default function UserEvents(): JSX.Element {
             )
           )
         ) : (
-          <p>No sheduled events</p>
+          <div>
+          <p className="fs-4 text-center mt-4">Es sind keine geplanten Veranstaltungen für Sie vorhanden</p>
+          <p className="fs-6 text-center" style={{ marginTop: '180px' }}>Hinweis: anmeldungen für unsere Veranstaltungen können nur von Mitgliedern unserer Gemeinschaft eingereicht werden</p>
+          </div>
         )}
       </div>
 

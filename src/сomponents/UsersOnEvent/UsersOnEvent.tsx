@@ -26,6 +26,9 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
   const [me, setMe] = useState<IUserDto>(initIUserDto);
   const [isInList, setIsInList] = useState<boolean | null>(null);
   const [isOutdated, setIsOutdated] = useState<boolean | null>(null);
+  const [isBtnShow, setIsBtnShow] = useState<boolean | null>(null);
+  const isLogined = localStorage.getItem("IMKER");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +39,7 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
         const userList = response.data;
         setUsersOnEvents(userList);
 
+        if (isLogined==="true") {
         const getMyId = await axios.get(`/api/me`, {
           withCredentials: true,
         });
@@ -43,6 +47,8 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
         setMe(userDto);
 
         setIsInList(users.some((obj) => obj.id === me.id));
+      }
+        setIsBtnShow(me.role==="ADMIN" || me.role==="MEMBER");
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -101,16 +107,16 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
         </AvatarGroup>
       )}
 
-      {isOutdated && (me.id!=-1) && (
+      {isOutdated && isBtnShow && (
         <>
           {!isInList && (
             <button className="btn btn-warning" onClick={followEvent}>
-              Follow Event
+              An diesem Event teilnehmen
             </button>
           )}
           {isInList && (
             <button className="btn btn-warning" onClick={unfollowEvent}>
-              Unfollow Event
+              Eventteilnahme stornieren
             </button>
           )}
         </>

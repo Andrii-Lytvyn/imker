@@ -43,25 +43,28 @@ export default function AccountPage(): JSX.Element {
   const [userInfo, setUserInfo] = useState<IUserAccountInfo | undefined>(
     initIUserAccountInfo
   );
+  const isLogined = localStorage.getItem("IMKER");
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(`/api/me`, {
-          withCredentials: true,
-        });
-        const userDto = response.data;
-        setUserInfo(userDto);
-      } catch (error) {
-        console.error("Error during request execution:", error);
+        try {
+          const response = await axios.get(`/api/me`, {
+            withCredentials: true,
+          });
+          const userDto = response.data;
+          setUserInfo(userDto);
+        } catch (error) {
+          console.error("Error during request execution:", error);
+        }
+      };
+      if (isLogined==="true") {
+        fetchData();
       }
-    };
-
-    fetchData();
-  }, []);
+  }, [isLogined]);
 
   return (
     <>
+    {isLogined==="true" && (
       <div className="container d-flex">
         {userInfo?.email && (
           <div className="d-flex flex-column align-items-center">
@@ -109,6 +112,7 @@ export default function AccountPage(): JSX.Element {
 
         <AccountTabs />
       </div>
+      )}
     </>
   );
 }

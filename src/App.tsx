@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
@@ -107,7 +107,7 @@ function App(): JSX.Element {
       };
       refreshUser();
     } else {
-      toast.info("Привет сладенький !!!");
+      // toast.info("Привет сладенький !!!");
     }
   }, [dispatch, user.id]);
 

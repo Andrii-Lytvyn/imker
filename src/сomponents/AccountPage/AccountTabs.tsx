@@ -1,10 +1,13 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import UserInfo from './UserInfo';
-import UserEvents from './UserEvents';
-import UserSettings from './UserSettings';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import UserInfo from "./UserInfo";
+import UserEvents from "./UserEvents";
+import UserSettings from "./UserSettings";
+import { FiSettings } from "react-icons/fi";
+import { LiaInfoSolid } from "react-icons/lia";
+import { GrSchedule } from "react-icons/gr";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -24,7 +27,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3, minHeight: '400px' }}>
+        <Box sx={{ p: 3, minHeight: "400px" }}>
           <div>{children}</div>
         </Box>
       )}
@@ -35,7 +38,7 @@ function CustomTabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -47,12 +50,43 @@ export default function AccountTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="My information" {...a11yProps(0)} />
-          <Tab label="My scheduled events" {...a11yProps(1)} />
-          <Tab label="My settings" {...a11yProps(2)} />
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          sx={{ display: "flex", justifyContent: "space-between" }}
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab
+            sx={{ flexGrow: 1 }}
+            label={
+              <span>
+                <LiaInfoSolid style={{ fontSize: "25px" }} /> My information
+              </span>
+            }
+            {...a11yProps(0)}
+          />
+          <Tab
+            sx={{ flexGrow: 1 }}
+            label={
+              <span>
+                <GrSchedule style={{ fontSize: "20px" }} /> My scheduled
+                events
+              </span>
+            }
+            {...a11yProps(1)}
+          />
+          <Tab
+            sx={{ flexGrow: 1 }}
+            label={
+              <span>
+                <FiSettings style={{ fontSize: "20px" }} /> My settings
+              </span>
+            }
+            // label="My settings"
+            {...a11yProps(2)}
+          />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

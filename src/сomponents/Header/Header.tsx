@@ -110,7 +110,7 @@ export default function Header(): JSX.Element {
         </div>
       </div>
       {/* ////////////////// */}
-      <div className={styles.nav}>
+      <div className={`${styles.nav} ${styles.nav_with}`}>
         {isWideScreen ? (
           <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
             <li className={styles.item}>
@@ -140,25 +140,25 @@ export default function Header(): JSX.Element {
               </Link>
             </li>
             {/* {user.role === ROLE.ADMIN ? ( */}
-            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+            {/* <li className={`${styles.item} ${styles.item_submenu_admin}`}>
               <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
                 fur test
               </span>
               <div className={styles.submenu_admin}>
                 <Link to="/adminpage">AdminPage</Link>
-                {/* <Link to="/contactusadm">ContactUsAdmin</Link>
+                <Link to="/contactusadm">ContactUsAdmin</Link>
               <Link to="/postsadm">PostsAdmin</Link>
               <Link to="/eventsadm">EventsAdmin</Link>
               <Link to="/filesadm">FilesAdmin</Link>
               <Link to="/aboutusadmin">AboutUsAdmin</Link>
-              <Link to="/galleryadm">GalleryAdmin</Link> */}
+              <Link to="/galleryadm">GalleryAdmin</Link>
                 <Link to="/accountpage">AccountPage</Link>
 
                 <Link to="/usersadm">UsersAdmin</Link>
 
                 <Link to="/teamadmin">TeamAdmin</Link>
               </div>
-            </li>
+            </li> */}
           </ul>
         ) : (
           <div>
@@ -177,6 +177,22 @@ export default function Header(): JSX.Element {
             </div>
           ) : (
             <div className={styles.account}>
+              <div>
+                <Link to="/accountpage">
+                  <StyledBadge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                    variant="dot"
+                  >
+                    <Avatar
+                      alt={user?.name}
+                      // variant="rounded"
+                      src={"/api/files/" + user?.image}
+                      sx={{ width: 40, height: 40 }}
+                    />
+                  </StyledBadge>
+                </Link>
+              </div>
               <span>{user.name}</span>
               <button type="button" onClick={handleLogOut}>
                 {" "}
@@ -186,14 +202,14 @@ export default function Header(): JSX.Element {
           )}
         </div>
       </div>
-      {user?.id && (
+      {/* {user?.id && (
         <div
-          style={{
-            position: "absolute",
-            top: "22px",
-            right: "370px",
-            filter: "drop-shadow(2px 2px 5px #f2bd41)",
-          }}
+        // style={{
+        //   position: "absolute",
+        //   top: "22px",
+        //   right: "370px",
+        //   filter: "drop-shadow(2px 2px 5px #f2bd41)",
+        // }}
         >
           <Link to="/accountpage">
             <StyledBadge
@@ -210,7 +226,7 @@ export default function Header(): JSX.Element {
             </StyledBadge>
           </Link>
         </div>
-      )}
+      )} */}
     </div>
 
     // <Navbar expand="lg" className="bg-body-tertiary justify-content-between">

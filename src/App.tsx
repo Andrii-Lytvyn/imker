@@ -5,11 +5,7 @@ import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
 
 // import { userDataInfo } from "./redux/userStore/userSlice";
-import RegisterUser from "./сomponents/UserLogin/RegisterUser/RegisterUser";
-import SingInUser from "./сomponents/UserLogin/SingInUser/SingInUser";
-import SecretAnswer from "./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer";
-import RestoreAnswer from "./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer";
-import RestorePassword from "./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword";
+
 import { userDataInfo } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
@@ -71,22 +67,22 @@ const FilesUploadAdmin = lazy(
 );
 const AccountPage = lazy(() => import("./сomponents/AccountPage/AccountPage"));
 
-// const RegisterUser = lazy(
-//   () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
-// );
-// const SingInUser = lazy(
-//   () => import("./сomponents/UserLogin/SingInUser/SingInUser")
-// );
-// const SecretAnswer = lazy(
-//   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
-// );
-// const RestoreAnswer = lazy(
-//   () => import("./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer")
-// );
-// const RestorePassword = lazy(
-//   () =>
-//     import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
-// );
+const RegisterUser = lazy(
+  () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
+);
+const SingInUser = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/SingInUser")
+);
+const SecretAnswer = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
+);
+const RestoreAnswer = lazy(
+  () => import("./сomponents/UserLogin/SingInUser/RestoreAnswer/RestoreAnswer")
+);
+const RestorePassword = lazy(
+  () =>
+    import("./сomponents/UserLogin/SingInUser/RestorePassword/RestorePassword")
+);
 const UsersAdmin = lazy(
   () => import("./сomponents/AdminPage/UserAdmin/UsersAdmin")
 );

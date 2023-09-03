@@ -1,15 +1,37 @@
 import { NavLink } from "react-router-dom";
 import styles from "./TabletMobile.module.css";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+const burgerRoot = document.getElementById("burger-menu-root");
 
 const TabletMobile = () => {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const closeMenu = () => {
     if (checkboxRef.current) {
       checkboxRef.current.checked = false;
+      setIsMenuOpen((prev) => !prev);
     }
   };
-  return (
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMenuOpen) {
+        document.body.classList.add("no-scroll");
+      } else {
+        document.body.classList.remove("no-scroll");
+      }
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMenuOpen]);
+  return createPortal(
     <div>
       <nav className={`${styles.navbar} ${styles.fixed_top} ${styles.navbar}`}>
         <div className={styles.container_fluid}>
@@ -22,6 +44,7 @@ const TabletMobile = () => {
           <label htmlFor="nav-toggle" className={styles.button}>
             <span className={styles.icon}></span>
           </label>
+
           <div className={styles.background}></div>
           <nav className={styles.nav}>
             <ul className={styles.list}>
@@ -74,8 +97,9 @@ const TabletMobile = () => {
           </nav>
         </div>
       </nav>
-      <section></section>
-    </div>
+      {/* <section></section> */}
+    </div>,
+    burgerRoot as HTMLElement
   );
 };
 

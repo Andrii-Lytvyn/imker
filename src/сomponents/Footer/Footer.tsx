@@ -17,9 +17,7 @@ import { IAddress, initIAddress } from "../ContactUs/interfaces/IAddress";
 const getAllEventsFooter = async () => {
   try {
     //для Бека
-    const { data } = await axios.get(
-      `${linkToServer}/api/events?orderBy=dateStart&desc=false&pageSize=2&page=0&desc=true`
-    );
+    const { data } = await axios.get(`/api/events/getAll`);
     return data.events;
   } catch (error) {
     toast.error(`Ошибка сервера getAllEventsFooter ${error}`);
@@ -28,8 +26,6 @@ const getAllEventsFooter = async () => {
 
 export default function Footer(): JSX.Element {
   const [events, setEvents] = useState<IEvent[]>([]);
-
-  console.log("🚀  events:", events);
   const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
     useState<IAddress>(initIAddress);
 
@@ -131,7 +127,7 @@ export default function Footer(): JSX.Element {
                               ""
                             )
                         )
-                        .slice(0, 6)}
+                        .slice(0, 2)}
                     </ul>
                   </div>
                 </div>

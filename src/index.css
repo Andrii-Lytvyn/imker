@@ -22,9 +22,8 @@
   --header-active-nav-btn: rgb(255, 107, 0);
   --button-burger-menu-bg: #dfe6e6;
 }
-body.no-scroll {
-  overflow: hidden;
-}
+
+  
 a {
   color: var(--terracotta);
   text-decoration: none;

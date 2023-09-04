@@ -70,7 +70,7 @@ export default function UserEvents(): JSX.Element {
 
   return (
     <div key={unFollowId.current} className="container">
-      <div style={{ minHeight: "26vh" }}>
+      <div style={{ minHeight: "30vh" }}>
         {currentEvents.length ? (
           currentEvents.map(
             ({

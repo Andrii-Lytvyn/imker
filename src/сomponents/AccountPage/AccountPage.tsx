@@ -47,71 +47,71 @@ export default function AccountPage(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-          const response = await axios.get(`/api/me`, {
-            withCredentials: true,
-          });
-          const userDto = response.data;
-          setUserInfo(userDto);
-        } catch (error) {
-          console.error("Error during request execution:", error);
-        }
-      };
-      if (isLogined==="true") {
-        fetchData();
+      try {
+        const response = await axios.get(`/api/me`, {
+          withCredentials: true,
+        });
+        const userDto = response.data;
+        setUserInfo(userDto);
+      } catch (error) {
+        console.error("Error during request execution:", error);
       }
-  }, [isLogined]);
+    };
+    if (isLogined === "true") {
+      fetchData();
+    }
+  }, [isLogined, userInfo?.id]);
 
   return (
     <>
-    {isLogined==="true" && (
-      <div className="container d-flex">
-        {userInfo?.email && (
-          <div className="d-flex flex-column align-items-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ rotate: 360, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 60,
-                damping: 10,
-              }}
-            >
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                variant="dot"
+      {isLogined === "true" && userInfo?.id != -1 && (
+        <div className="container d-flex">
+          {userInfo?.email && (
+            <div className="d-flex flex-column align-items-center">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ rotate: 360, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 10,
+                }}
               >
-                <Avatar
-                  // alt={userInfo?.name}
-                  src={"/api/files/" + userInfo?.image}
-                  variant="rounded"
-                  sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar
+                    // alt={userInfo?.name}
+                    src={"/api/files/" + userInfo?.image}
+                    variant="rounded"
+                    sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
+                  />
+                </StyledBadge>
+              </motion.div>
+              {userInfo.role === "MEMBER" && (
+                <img
+                  src="/img/member.png"
+                  alt="member"
+                  style={{ marginTop: "-60px", zIndex: 3 }}
                 />
-              </StyledBadge>
-            </motion.div>
-            {userInfo.role === "MEMBER" && (
-              <img
-                src="/img/member.png"
-                alt="member"
-                style={{ marginTop: "-60px", zIndex: 3 }}
-              />
-            )}
-            <p
-              className="fs-2"
-              style={{
-                fontStyle: "italic",
-                textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
-                marginTop: "-20px",
-              }}
-            >
-              {userInfo?.name}
-            </p>
-          </div>
-        )}
+              )}
+              <p
+                className="fs-2"
+                style={{
+                  fontStyle: "italic",
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                  marginTop: "-20px",
+                }}
+              >
+                {userInfo?.name}
+              </p>
+            </div>
+          )}
 
-        <AccountTabs />
-      </div>
+          <AccountTabs />
+        </div>
       )}
     </>
   );

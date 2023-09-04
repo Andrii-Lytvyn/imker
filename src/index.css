@@ -19,8 +19,10 @@
   --bg-color: #f7f3f0;
   --bold-text: #131313;
   --border-color: #545050;
-  --header-active-nav-btn: rgb(255, 107, 0);
+  --header-active-nav-btn: #ff6b00;
   --button-burger-menu-bg: #dfe6e6;
+  --button-past-events: #a5a5a5;
+  --button-singIn-register: #17583d;
 }
 
 a {

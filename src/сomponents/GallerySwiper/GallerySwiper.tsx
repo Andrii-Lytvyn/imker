@@ -37,33 +37,35 @@ export default function GallerySwiper(): JSX.Element {
 
   return (
     <>
-          {photos?.length > 0 && (
-      <Swiper
-        effect={"cube"}
-        cubeEffect={{
-          shadow: true,
-          slideShadows: true,
-          shadowOffset: 20,
-          shadowScale: 0.94,
-        }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: false,
-        }}
-        grabCursor={false}
-        navigation={false}
-        modules={[EffectCube, Autoplay, Navigation]}
-        style={{ pointerEvents: 'none'}}
-        className="mySwiper"
-      >
-        {photos.map((item) => (
-          <SwiperSlide style={{ opacity: 1, pointerEvents: 'none'}}>
-            <img src={"/api/files/" + item.linkToImg} 
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {photos?.length > 0 && (
+        <Swiper
+          effect={"cube"}
+          cubeEffect={{
+            shadow: true,
+            slideShadows: true,
+            shadowOffset: 20,
+            shadowScale: 0.94,
+          }}
+          autoplay={{
+            delay: 4500,
+            disableOnInteraction: true,
+            pauseOnMouseEnter: false,
+          }}
+          grabCursor={false}
+          navigation={false}
+          modules={[EffectCube, Autoplay, Navigation]}
+          style={{ pointerEvents: "none" }}
+          className="mySwiper"
+        >
+          {photos.map(({ linkToImg }, index) => (
+            <SwiperSlide
+              key={index}
+              style={{ opacity: 1, pointerEvents: "none" }}
+            >
+              <img src={`/api/files/${linkToImg}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       )}
     </>
   );

@@ -117,7 +117,17 @@ const SingInUser = (): JSX.Element => {
               </FormControl>
               <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
                 <Flex direction="row" gap="10px">
-                  <Button colorScheme="red" type="submit">
+                  <Button
+                    // style={{
+                    //   backgroundColor: "rgb(45, 111, 84,.9)",
+                    //   color: "white",
+                    //   transition: "background-color 0.3s, color 0.3s",
+                    // }}
+                    color={"#fff"}
+                    bg={"rgb(65, 125, 86,.8)"}
+                    _hover={{ bg: "#d3a863", color: "#fff" }}
+                    type="submit"
+                  >
                     Beitreten
                   </Button>
 
@@ -143,10 +153,6 @@ const SingInUser = (): JSX.Element => {
                 </Button>
               </Flex>
             </form>
-            {/* 
-            <button type="button" onClick={get}>
-              getUser
-            </button> */}
           </div>
         </div>
       </ChakraProvider>

@@ -19,9 +19,13 @@ const Events = (): JSX.Element => {
   const quantityOnPage = 5;
   const startIndex = (Number(page) - 1) * quantityOnPage;
 
-  const futureEventFiltered = events.filter(
-    ({ dateStart }) => dateStart > currentDate()
-  );
+  const futureEventFiltered = events
+    .filter(({ dateStart }) => dateStart > currentDate())
+    .sort((a, b) => {
+      const dateA = new Date(a.dateStart).getTime();
+      const dateB = new Date(b.dateStart).getTime();
+      return dateA - dateB;
+    });
 
   const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
     setSearchParams({ page: value.toString() });
@@ -116,48 +120,6 @@ const Events = (): JSX.Element => {
                 )}
               </div>
               <PastEvents />
-              {/* <div className={styles.post_right_side}>
-                <h2>Vergangene Ereignisse</h2>
-                <hr className={styles.post_hr} />
-                {events.map(({ dateStart, idEvent, shortDescription }) =>
-                  dateStart < currentDate() ? (
-                    <div key={`${idEvent}`} className="mb-2">
-                      <p className={styles.post_event_date}>
-                        <BsCalendar2Week />{" "}
-                        {`${formatDate(dateStart)?.day} ${
-                          formatDate(dateStart)?.month
-                        }, ${formatDate(dateStart)?.year}`}
-                      </p>
-                      <h4 className={styles.post_event_h4}>
-                        <Link to={`/events/${idEvent}`}>
-                          {shortDescription}
-                        </Link>
-                      </h4>
-                      <p className={styles.post_event_text}>
-                        {shortDescription.substring(0, 200)}...
-                      </p>
-                      <hr className={styles.post_hr} />
-                    </div>
-                  ) : (
-                    "".slice(startIndexPastEvent, endIndexPastEvent)
-                  )
-                )}
-                {pastEvt > 2 ? (
-                  <Pagination
-                    className={styles.pagination_container}
-                    count={
-                      events !== null ? Math.ceil(pastEvt / quantityOnPage) : 0
-                    }
-                    page={Number(pastEvent)}
-                    onChange={(_, pastEvent: number) =>
-                      handlePastEvent(pastEvent)
-                    }
-                    size="large"
-                  />
-                ) : (
-                  ""
-                )}
-              </div> */}
             </div>
           </>
         )}

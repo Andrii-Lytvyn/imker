@@ -38,6 +38,7 @@ const Event = (): JSX.Element => {
 
   return (
     <>
+    <div className={styles.event_main}>
       {event === undefined ? (
         <LoaderStart />
       ) : (
@@ -133,6 +134,7 @@ const Event = (): JSX.Element => {
 {event && event.dateEnd && (
   <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
 )}
+      </div>
     </>
   );
 };

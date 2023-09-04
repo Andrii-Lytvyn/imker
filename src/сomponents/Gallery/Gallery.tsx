@@ -8,6 +8,7 @@ import {
   IGalleryPhotos,
   initIFilesListDto,
 } from "../AdminPage/GalleryAdmin/interfaces/IGalleryPhotos";
+import GallerySwiper2 from "../GallerySwiper/GallerySwiper2";
 
 const Gallery = (): JSX.Element => {
   const [isModalShow, setIsModalShow] = useState(false);
@@ -57,9 +58,12 @@ const Gallery = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className={styles.gallery_main}>
       <h2>Our gallery</h2>
       <Container>
+
+      <GallerySwiper2 />
+      
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio
           perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus

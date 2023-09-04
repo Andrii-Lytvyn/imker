@@ -227,7 +227,7 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
         </div>
 
         <div className="d-flex align-items-center flex-column m-3">
-          <label htmlFor="fileInput" className="file_upload">
+          <label htmlFor="fileInput" className="button_imker">
             Change my avatar image
           </label>
           <input

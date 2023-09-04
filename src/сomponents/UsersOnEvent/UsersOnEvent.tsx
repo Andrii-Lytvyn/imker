@@ -110,12 +110,12 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
       {isOutdated && isBtnShow && (
         <>
           {!isInList && (
-            <button className="btn btn-warning" onClick={followEvent}>
+            <button className="button_imker" onClick={followEvent}>
               An diesem Event teilnehmen
             </button>
           )}
           {isInList && (
-            <button className="btn btn-warning" onClick={unfollowEvent}>
+            <button className="button_imker" onClick={unfollowEvent}>
               Eventteilnahme stornieren
             </button>
           )}

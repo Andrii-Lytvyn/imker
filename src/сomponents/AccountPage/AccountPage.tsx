@@ -111,6 +111,7 @@ export default function AccountPage(): JSX.Element {
           )}
 
           <AccountTabs />
+          
         </div>
       )}
     </>

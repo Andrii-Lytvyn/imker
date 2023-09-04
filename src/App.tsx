@@ -14,9 +14,6 @@ import {
 import { useUserSelector } from "./redux/userStore/userSelector";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
-const TopCallery = lazy(
-  () => import("./сomponents/Gallery/TopCallery/TopCallery")
-);
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
 const TeamEditMemberAdmin = lazy(
   () => import("./сomponents/AdminPage/AboutUsAdmin/TeamEditMemberAdmin")
@@ -145,7 +142,6 @@ function App(): JSX.Element {
           <Route path="eventsadm-edit/:editId" element={<EditEventAdmin />} />
           <Route path="eventsadm-edit" element={<EditAllEvents />} />
           <Route path="usersadm" element={<UsersAdmin />} />
-          <Route path="topgallery" element={<TopCallery />} />
           <Route path="/restore" element={<SecretAnswer />} />
           <Route path="/restoreAnswer" element={<RestoreAnswer />} />
           <Route path="/restorePassword" element={<RestorePassword />} />

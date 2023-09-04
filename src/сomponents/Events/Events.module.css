@@ -1,51 +1,66 @@
-.events_main{
-  background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+.events_main {
+  background: linear-gradient(
+    0deg,
+    var(--first-color-gradient),
+    var(--second-color-gradient)
+  );
   margin-bottom: -70px;
 }
+
 .event_loader {
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
 }
-.events_date{
+.events_date {
   display: flex;
   flex-direction: column;
-  background-color: var(--terracotta);
+  /* background-color: var(--terracotta); */
+  background: linear-gradient(
+    315deg,
+    rgb(238, 168, 48) 3%,
+    rgb(206, 182, 60) 38%,
+    rgb(199, 72, 23) 68%,
+    rgb(170, 10, 10) 98%
+  );
+  animation: gradient 15s ease infinite;
+  background-size: 200% 200%;
+  background-attachment: fixed;
   width: 100px;
   margin-bottom: 20px;
   margin-right: 20px;
   border-radius: 5px;
   min-height: 120px;
-  padding: 10px 0
+  padding: 10px 0;
 }
-.events_main_list{
+.events_main_list {
   display: flex;
   flex-direction: column;
   margin-top: -10px;
 }
-.events_main_list h4{
+.events_main_list h4 {
   text-align: left;
 }
-.events_short_description{
-color: var(--text-color);
+.events_short_description {
+  color: var(--text-color);
   font-size: 1em;
 }
-.events_date h5{
+.events_date h5 {
   font-size: 5em;
   color: white;
   text-align: center;
 }
-.events_date p{
+.events_date p {
   color: white;
   text-align: center;
 }
-.events_list{
+.events_list {
   display: flex;
 }
 .events_times span {
   color: var(--text-color);
 }
-.events_time{
+.events_time {
   margin-right: 10px;
   margin-bottom: 10px;
   color: var(--terracotta);
@@ -58,49 +73,49 @@ color: var(--text-color);
   gap: 8px;
   margin-bottom: 66px;
 }
-.post_bg{
+.post_bg {
   background-color: var(--terracotta);
   height: 250px;
   margin-bottom: 15px;
 }
-.post_bg h2{
+.post_bg h2 {
   color: white;
 }
-.container h2{
+.container h2 {
   font-size: 2.5em;
 }
-.single_post{
+.single_post {
   border-right: 1px solid #dbdbdb;
 }
-.post_time{
+.post_time {
   color: var(--terracotta);
   font-size: 0.8em;
 }
-.post_img{
+.post_img {
   width: 100%;
 }
-.post_event_date{
+.post_event_date {
   font-size: 0.8em;
   color: var(--text-color);
 }
-.post_event_user{
+.post_event_user {
   font-size: 0.8em;
   margin-top: -5px;
   color: var(--text-color);
 }
-.post_event_user span{
+.post_event_user span {
   color: var(--terracotta);
 }
-.post_event_h4{
+.post_event_h4 {
   text-align: justify;
 }
-.post_event_text_temp{
+.post_event_text_temp {
   color: var(--text-color);
   line-height: 25px;
   text-align: justify;
   min-height: 100px;
 }
-hr{
+hr {
   margin: 20px 0;
 }
 
@@ -112,10 +127,10 @@ hr{
   background-color: var(--yellow);
 }
 
-.post_hr{
-  color: #c74817 ;
+.post_hr {
+  color: #c74817;
 }
-.post_right_side{
+.post_right_side {
   background-color: #f7f3f0;
   padding: 15px 10px;
   border-radius: 5px;
@@ -124,12 +139,49 @@ hr{
   font-size: 1.4em;
 }
 .post_right_side div h4 {
-  font-size: 1.0em;
+  font-size: 1em;
   margin-top: 0;
 }
-.post_event_text{
+.post_event_text {
   color: var(--text-color);
   font-size: 0.8em;
   line-height: 15px;
 }
+.past_pagination {
+  margin-bottom: 20px;
+}
 
+.btn_nav_past_evt_cont {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.btn_nav_past_evt {
+  /* padding: 2px; */
+  border: none;
+  border-radius: 50%;
+  color: var(--terracotta);
+  /* background-color: var(--yellow); */
+  background-color: transparent;
+  transition: color 250ms ease-in;
+}
+.btn_nav_past_evt:hover {
+  /* background-color: var(--yellow); */
+  color: var(--yellow);
+}
+.grey {
+  border: none;
+  color: var(--button-past-events);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}

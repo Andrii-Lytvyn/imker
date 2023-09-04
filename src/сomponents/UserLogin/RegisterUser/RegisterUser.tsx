@@ -176,9 +176,11 @@ const RegisterUser = (): JSX.Element => {
               <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
                 <Flex direction="row" gap="20" alignItems="flex-start">
                   <Button
-                    colorScheme="red"
+                    // colorScheme="red"
                     type="submit"
-                    // _hover={{ bg: "#d3a863", color: "red" }}
+                    color={"#fff"}
+                    bg={"rgb(65, 125, 86,.9)"}
+                    _hover={{ bg: "#d3a863", color: "#fff" }}
                   >
                     Beitreten
                   </Button>

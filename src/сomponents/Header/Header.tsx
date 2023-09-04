@@ -85,7 +85,7 @@ export default function Header(): JSX.Element {
       {/* ////////////////// */}
       <div className={`${styles.nav} ${styles.nav_with}`}>
         {isWideScreen ? (
-          <ul className={`${styles.nav_list} ${styles.nav_list_line}`}>
+          <ul className={styles.nav_list}>
             <li className={styles.item}>
               <NavLink to="/posts" className={styles.title_nav}>
                 Blog
@@ -97,15 +97,23 @@ export default function Header(): JSX.Element {
               </Link>
             </li>
             <li className={`${styles.item} ${styles.item_submenu}`}>
-              <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+              <Link to="/aboutUs" className={styles.title_nav}>
                 Über uns
-              </span>
-              <div className={styles.submenu}>
+              </Link>
+              {/* <span className={`${styles.title_nav} ${styles.title_nav_menu}`}> */}
+              {/* Über uns
+              </span> */}
+              {/* <div className={styles.submenu}>
                 <Link to="/contactUs" className={styles.line}>
                   Kontaktieren Sie uns
                 </Link>
                 <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
-              </div>
+              </div> */}
+            </li>
+            <li className={styles.item}>
+              <Link to="/contactUs" className={styles.title_nav}>
+                Kontakt
+              </Link>
             </li>
             <li className={styles.item}>
               <Link to="/gallery" className={styles.title_nav}>
@@ -114,12 +122,12 @@ export default function Header(): JSX.Element {
             </li>
             {/* это раскоментируем и получаем Админку */}
             {/* {user.role === ROLE.ADMIN ? ( */}
-            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+            {/* <li className={`${styles.item} ${styles.item_submenu_admin}`}>
               <Link to="/adminpage" className={styles.title_nav}>
                 Admin
-              </Link>
-              {/* <div className={styles.submenu_admin}></div> */}
-            </li>
+              </Link> */}
+            {/* <div className={styles.submenu_admin}></div> */}
+            {/* </li> */}
             {/* ) : (
               ""
             )} */}

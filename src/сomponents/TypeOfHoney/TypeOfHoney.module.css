@@ -1,6 +1,6 @@
 .type_main_container{
     /*background-color: #f7f3f0;*/
-    background: linear-gradient(0deg, rgb(247, 243, 240), rgb(236, 213, 196));
+    background: linear-gradient(0deg, var(--second-color-gradient), var(--first-color-gradient));
     padding: 50px 0 70px;
     position: relative;
 }

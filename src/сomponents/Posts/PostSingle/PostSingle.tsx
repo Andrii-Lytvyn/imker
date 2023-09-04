@@ -42,6 +42,7 @@ export default function PostSingle(): JSX.Element {
 
   return (
     <>
+        <div className={styles.post_main}>
         <Container>
             <div className={styles.breadcrumbs}>
                 <Nav>
@@ -111,6 +112,7 @@ export default function PostSingle(): JSX.Element {
                 </div>
             </div>
       </Container>
+        </div>
     </>
   );
 }

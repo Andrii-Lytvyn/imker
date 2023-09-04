@@ -1,4 +1,7 @@
-
+.events_main{
+  background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+  margin-bottom: -70px;
+}
 .event_loader {
   display: flex;
   justify-content: center;

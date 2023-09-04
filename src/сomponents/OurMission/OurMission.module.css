@@ -1,6 +1,6 @@
 .our_mission_main_container{
     /*background-image: url("img/about-img2.jpg");*/
-    background: linear-gradient(0deg, rgb(236, 213, 196), rgb(247, 243, 240));
+    background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
     margin-top: -2px;
     padding-top: 5em;
 }

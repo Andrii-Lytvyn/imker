@@ -10,15 +10,10 @@ export default function OurMission(): JSX.Element {
     <>
       <div className={styles.our_mission_main_container + " back-ground-1"}>
         <Container>
-
-          <GallerySwiper2 />
-
-
-
           <Row>
             <Col>
               <div className={styles.our_mission_left_container}>
-                <div className={styles.our_mission_img}>
+                <div className={styles.our_mission_img+ " animate__animated animate__lightSpeedInLeft"}>
                   <img src="img/our_mission.jpg" />
                 </div>
                 <div className={styles.our_mission_texts}>
@@ -132,7 +127,6 @@ export default function OurMission(): JSX.Element {
                 </Link>
               </div>
               <Link to="/gallery">
-                <GallerySwiper />
               </Link>
             </Col>
           </Row>

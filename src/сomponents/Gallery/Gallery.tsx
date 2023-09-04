@@ -57,7 +57,7 @@ const Gallery = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className={styles.gallery_main}>
       <h2>Our gallery</h2>
       <Container>
         <p>

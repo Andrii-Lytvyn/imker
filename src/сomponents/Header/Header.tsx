@@ -97,9 +97,12 @@ export default function Header(): JSX.Element {
               </Link>
             </li>
             <li className={`${styles.item} ${styles.item_submenu}`}>
-              <span className={`${styles.title_nav} ${styles.title_nav_menu}`}>
+              <Link to="/aboutUs" className={styles.title_nav}>
                 Über uns
-              </span>
+              </Link>
+              {/* <span className={`${styles.title_nav} ${styles.title_nav_menu}`}> */}
+              {/* Über uns
+              </span> */}
               {/* <div className={styles.submenu}>
                 <Link to="/contactUs" className={styles.line}>
                   Kontaktieren Sie uns

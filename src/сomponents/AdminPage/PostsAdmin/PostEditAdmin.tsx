@@ -226,7 +226,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
 
         <button
           type="button"
-          className="btn btn-primary m-2"
+          className="button_imker m-2"
           onClick={handleSavePost}
         >
           Save post to Data Base

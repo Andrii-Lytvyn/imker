@@ -11,7 +11,7 @@ import GalleryAdmin from "./GalleryAdmin/GalleryAdmin";
 import { Container } from "react-bootstrap";
 import styles from "../AdminPage/PostsAdmin/PostAdmin.module.css";
 import AddEventAdmin from "./EventsAdmin/AddEventAdmin";
-
+import UsersAdmin from "./UserAdmin/UsersAdmin";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -31,7 +31,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3, minHeight: '600px' }}>
+        <Box sx={{ p: 3, minHeight: "600px" }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -69,6 +69,7 @@ export default function AdminPage() {
             <Tab className="fs-5" label="Kontaktieren Sie uns" />
             <Tab className="fs-5" label="Mitglieder der Gemeinschaft" />
             <Tab className="fs-5" label="Gallery" />
+            <Tab className="fs-5" label="Users" />
             <Tab className="fs-5" label="Files Upload" />
           </Tabs>
         </Box>
@@ -85,12 +86,17 @@ export default function AdminPage() {
         <ContactUsAdmin />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <TeamAdmin />
+        <div className="container">
+          <TeamAdmin />
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
         <GalleryAdmin />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
+        <UsersAdmin />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={6}>
         <FilesUploadAdmin />
       </CustomTabPanel>
     </>

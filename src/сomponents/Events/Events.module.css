@@ -1,6 +1,9 @@
-
-.events_main{
-  background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+.events_main {
+  background: linear-gradient(
+    0deg,
+    var(--first-color-gradient),
+    var(--second-color-gradient)
+  );
   margin-bottom: -70px;
 }
 
@@ -12,7 +15,17 @@
 .events_date {
   display: flex;
   flex-direction: column;
-  background-color: var(--terracotta);
+  /* background-color: var(--terracotta); */
+  background: linear-gradient(
+    315deg,
+    rgb(238, 168, 48) 3%,
+    rgb(206, 182, 60) 38%,
+    rgb(199, 72, 23) 68%,
+    rgb(170, 10, 10) 98%
+  );
+  animation: gradient 15s ease infinite;
+  background-size: 200% 200%;
+  background-attachment: fixed;
   width: 100px;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -159,4 +172,16 @@ hr {
 .grey {
   border: none;
   color: var(--button-past-events);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }

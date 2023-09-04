@@ -227,7 +227,7 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
         </div>
 
         <div className="d-flex align-items-center flex-column m-3">
-          <label htmlFor="fileInput" className="button_imker">
+          <label htmlFor="fileInput" className="file_upload">
             Change my avatar image
           </label>
           <input
@@ -244,7 +244,7 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
 
         <button
           type="button"
-          className="btn btn-primary m-2"
+          className="button_imker"
           onClick={handleSaveUser}
         >
           Save User to Data Base

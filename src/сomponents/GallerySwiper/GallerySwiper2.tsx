@@ -60,7 +60,7 @@ export default function GallerySwiper2(): JSX.Element {
           style={{ pointerEvents: "none", width: "100%", marginBottom: "20px" }}
         >
           {photos.map((item) => (
-            <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
+            <SwiperSlide key={item.id} style={{ opacity: 1, pointerEvents: "none" }}>
               <img src={"/api/files/" + item.linkToImg} />
             </SwiperSlide>
           ))}

@@ -199,7 +199,7 @@ export default function PostsCreationAdmin(): JSX.Element {
 
           <button
             type="submit"
-            className="btn btn-primary m-2"
+            className="button_imker m-2"
             onClick={() => handleSavePost}
           >
             Save post to Data Base

@@ -108,7 +108,7 @@ export default function AddressAdmin() {
             type="button"
             className={
               "col-md-3 btn m-2 " +
-              (isNoChange ? "btn-secondary" : "btn-primary")
+              (isNoChange ? "btn-secondary" : "button_imker")
             }
             onClick={handleSetNewAddress}
             disabled={isNoChange}

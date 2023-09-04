@@ -56,13 +56,13 @@ export default function AccountTabs() {
           sx={{ display: "flex", justifyContent: "space-between" }}
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="tabs"
         >
           <Tab
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <LiaInfoSolid style={{ fontSize: "25px" }} /> My information
+                <LiaInfoSolid style={{ fontSize: "25px" }} /> Meine Informationen
               </span>
             }
             {...a11yProps(0)}
@@ -71,8 +71,7 @@ export default function AccountTabs() {
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <GrSchedule style={{ fontSize: "20px" }} /> My scheduled
-                events
+                <GrSchedule style={{ fontSize: "20px", marginRight: "5px" }} /> Meine geplanten Veranstaltungen
               </span>
             }
             {...a11yProps(1)}
@@ -81,10 +80,9 @@ export default function AccountTabs() {
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <FiSettings style={{ fontSize: "20px" }} /> My settings
+                <FiSettings style={{ fontSize: "20px", marginRight: "5px" }} /> Meine Einstellungen
               </span>
             }
-            // label="My settings"
             {...a11yProps(2)}
           />
         </Tabs>

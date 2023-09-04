@@ -71,8 +71,6 @@ export default function PostsAdmin() {
 
   return (
     <>
-      {/* <div className={styles.bgndPost}></div> */}
-
       <div className={styles.headerContainer}>
         <button
           className={isListShow ? styles.headBtnActive : styles.headBtn}
@@ -142,7 +140,7 @@ export default function PostsAdmin() {
                 <p className={styles.postCreated}>
                   Created: {creationTimePost}
                 </p>
-                <hr />
+                {/* <hr /> */}
                 <div className={styles.titlePost}>{titlePost}</div>
                 <div className={styles.descriptionPost}>
                   {shortPostDescription}

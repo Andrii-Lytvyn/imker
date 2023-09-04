@@ -92,7 +92,7 @@ export default function GoogleMapAdmin(): JSX.Element {
           type="button"
           className={
             "col-md-2 btn m-2 " +
-            (btnDisabled ? "btn-secondary" : "btn-primary")
+            (btnDisabled ? "btn-secondary" : "button_imker")
           }
           onClick={updateGoogleMapLink}
           disabled={btnDisabled}

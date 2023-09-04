@@ -4,7 +4,6 @@ import axios from "axios";
 import { Pagination } from "@mui/material";
 import Modal from "./Modal/Modal";
 import { Container } from "react-bootstrap";
-import linkToServer from "../globalLinkToServer";
 import {
   IGalleryPhotos,
   initIFilesListDto,
@@ -23,7 +22,9 @@ const Gallery = (): JSX.Element => {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`
+          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+            withCredentials: true,
+          }
         );
         setFilesList(response.data);
         setCurrentPage(1);
@@ -37,9 +38,11 @@ const Gallery = (): JSX.Element => {
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `${linkToServer}/api/gallery?page=${
+        `/api/gallery?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`
+        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+          withCredentials: true,
+        }
       );
       setFilesList(await response.data);
       setCurrentPage(value);
@@ -85,7 +88,7 @@ const Gallery = (): JSX.Element => {
               <li key={item.id} className={styles.card}>
                 <img
                   id={item.id}
-                  src={linkToServer + "/api/files/" + item.linkToImg}
+                  src={"/api/files/" + item.linkToImg}
                   alt={item.id}
                   className={styles.card_item}
                   onClick={() => modalShow(item.linkToImg)}
@@ -106,7 +109,7 @@ const Gallery = (): JSX.Element => {
         {isModalShow && 
           <Modal
             setModalHide={setIsModalShow}
-            modalImage={linkToServer + "/api/files/" + modalImage}
+            modalImage={"/api/files/" + modalImage}
           />
         }
       </Container>

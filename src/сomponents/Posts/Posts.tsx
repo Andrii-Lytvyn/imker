@@ -20,7 +20,8 @@ export default function Posts() {
     async function getListOfPosts() {
       try {
         const response = await axios.get(
-          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`, {
+          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`,
+          {
             withCredentials: true,
           }
         );
@@ -38,7 +39,8 @@ export default function Posts() {
       const response = await axios.get(
         `/api/posts?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`, {
+        }&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`,
+        {
           withCredentials: true,
         }
       );

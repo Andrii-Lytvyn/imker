@@ -123,7 +123,7 @@ export default function UserSettings(): JSX.Element {
 
         <div className="col-md-12 d-flex align-items-center fs-4 m-2">
           <label htmlFor="plz" className="col-md-4 me-2 text-end">
-            My Postleitzahl:
+          Meine Postleitzahl:
           </label>
           <input
             className="form-control fs-5"

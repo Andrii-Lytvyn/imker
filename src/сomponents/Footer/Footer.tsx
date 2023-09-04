@@ -60,12 +60,9 @@ export default function Footer(): JSX.Element {
                     <SlHome className={styles.icons} />
                     <p className={styles.footer_contact_text}>
                       Adresse:{" "}
-                      <a
-                        target="_blank"
-                        href="https://goo.gl/maps/SfWkxnTKU4PFnHZu8"
-                      >
+                      <Link to="/contactUs">
                         {address}
-                      </a>
+                      </Link>
                     </p>
                   </div>
                   <div className="d-flex flex-row mb-2">

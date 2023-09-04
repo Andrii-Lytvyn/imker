@@ -37,6 +37,7 @@ export default function GallerySwiper(): JSX.Element {
 
   return (
     <>
+          {photos?.length > 0 && (
       <Swiper
         effect={"cube"}
         cubeEffect={{
@@ -63,6 +64,7 @@ export default function GallerySwiper(): JSX.Element {
           </SwiperSlide>
         ))}
       </Swiper>
+      )}
     </>
   );
 }

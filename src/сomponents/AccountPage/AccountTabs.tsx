@@ -53,7 +53,7 @@ export default function AccountTabs() {
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: "flex", justifyContent: "space-between", flexWrap: "nowrap" }}
           value={value}
           onChange={handleChange}
           aria-label="tabs"

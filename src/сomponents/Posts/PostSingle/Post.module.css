@@ -1,9 +1,12 @@
+.post_main{
+    background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+}
 .breadcrumbs{
     color: var(--terracotta);
     font-size: 1.2rem;
     display: flex;
     align-items: center;
-    margin: 15px 0;
+    margin: 0 0 15px 0;
 }
 .breadcrumbs span{
     margin: 0 10px;
@@ -33,10 +36,10 @@
     grid-template-rows: 1fr;
     grid-template-columns: 2fr 1fr;
     gap: 8px;
-    margin-bottom: 66px;
 }
 .single_post{
     border-right: 1px solid #dbdbdb;
+    min-height: 400px;
 }
 .post_time{
     color: var(--terracotta);

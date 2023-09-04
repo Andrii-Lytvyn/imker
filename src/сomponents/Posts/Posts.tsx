@@ -10,6 +10,7 @@ import { Pagination } from "@mui/material";
 import { Container } from "react-bootstrap";
 import { BsCalendar2Week } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
+import moment from "moment";
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
@@ -54,9 +55,10 @@ export default function Posts() {
 
   return (
     <>
+      <div className={styles.posts_main}>
       <div
         className={
-          styles.post_bg + " d-flex align-items-center justify-content-center"
+          styles.post_bg + " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
         }
       >
         <h2>BLOG</h2>
@@ -64,7 +66,7 @@ export default function Posts() {
       <Container>
         <div className={styles.post_container}>
           {posts && (
-            <div className="container">
+            <div className="container animate__animated animate__fadeInLeft">
               {posts.posts.map(
                 ({
                   idPost,
@@ -87,7 +89,7 @@ export default function Posts() {
                       }}
                     />
                     <p className={styles.post_event_date}>
-                      Gegründet: {creationTimePost}
+                      Gegründet: {moment(creationTimePost).format("D MMMM YYYY")}
                     </p>
                     {authorName && (
                       <p className={styles.post_event_date}>
@@ -121,7 +123,7 @@ export default function Posts() {
               )}
             </div>
           )}
-          <div className={styles.post_right_side}>
+          <div className={styles.post_right_side + " animate__animated animate__fadeInRight"}>
             <h2>VERANSTALTUNGEN</h2>
             <hr className={styles.post_hr} />
             <div className="mb-2">
@@ -214,6 +216,7 @@ export default function Posts() {
           onChange={getAnotherPage}
         />
       </Container>
+      </div>
     </>
   );
 }

@@ -14,37 +14,41 @@ export default function TypeOfHoney(): JSX.Element {
                     <h4>Erfahren Sie mehr über einige der Produkte, auf die wir besonders stolz sind.</h4>
                     <Row>
                         <Col>
-                            <div className={styles.tile_main}>
+                            <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_1.png"/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
-                                        <p>Forest honey</p>
+                                        <p>Honig aus dem Wald</p>
                                     </div>
                                     <div className={styles.tile_text}>
                                         <p>Waldhonig ist sehr gesund. Ugo sollte verwendet werden, wenn Sie Kopfschmerzen haben</p>
                                     </div>
                                     <div className={styles.tile_link}>
-                                        <p>Mehr lesen</p>
+                                        <p>
+                                            <Link to="posts/8">Mehr lesen</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </Col>
                         <Col>
-                            <div className={styles.tile_main}>
+                            <div className={styles.tile_main + " animate__animated animate__backInRight"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_2.png"/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
-                                        <p>Forest honey</p>
+                                        <p>Natürlicher Honig</p>
                                     </div>
                                     <div className={styles.tile_text}>
                                         <p>Waldhonig ist sehr gesund. Ugo sollte verwendet werden, wenn Sie Kopfschmerzen haben</p>
                                     </div>
                                     <div className={styles.tile_link}>
-                                        <p>Mehr lesen</p>
+                                        <p>
+                                            <Link to="posts/8">Mehr lesen</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -52,37 +56,41 @@ export default function TypeOfHoney(): JSX.Element {
                     </Row>
                     <Row>
                         <Col>
-                            <div className={styles.tile_main}>
+                            <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_3.png"/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
-                                        <p>Forest honey</p>
+                                        <p>Gesunder Honig</p>
                                     </div>
                                     <div className={styles.tile_text}>
                                         <p>Waldhonig ist sehr gesund. Ugo sollte verwendet werden, wenn Sie Kopfschmerzen haben</p>
                                     </div>
                                     <div className={styles.tile_link}>
-                                        <p>Mehr lesen</p>
+                                        <p>
+                                            <Link to="posts/8">Mehr lesen</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </Col>
                         <Col>
-                            <div className={styles.tile_main}>
+                            <div className={styles.tile_main + " animate__animated animate__backInRight"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_4.png"/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
-                                        <p>Forest honey</p>
+                                        <p>Organischer Honig</p>
                                     </div>
                                     <div className={styles.tile_text}>
                                         <p>Waldhonig ist sehr gesund. Ugo sollte verwendet werden, wenn Sie Kopfschmerzen haben</p>
                                     </div>
                                     <div className={styles.tile_link}>
-                                        <p>Mehr lesen</p>
+                                        <p>
+                                            <Link to="posts/8">Mehr lesen</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

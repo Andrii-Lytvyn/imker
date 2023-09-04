@@ -88,7 +88,8 @@ export default function Contacts(): JSX.Element {
 
   return (
     <>
-      <div className={styles.contacts_header}>
+      <div className={styles.contacts_main}>
+      <div className={styles.contacts_header + " animate__animated animate__pulse "}>
         <h2>Kontakt </h2>
       </div>
       <h4 className={styles.contacts_h4}>Haben Sie eine Frage an uns?</h4>
@@ -208,6 +209,7 @@ export default function Contacts(): JSX.Element {
           </div>
         </div>
       </Container>
+      </div>
     </>
   );
 }

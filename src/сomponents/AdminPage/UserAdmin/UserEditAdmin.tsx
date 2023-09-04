@@ -244,7 +244,7 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
 
         <button
           type="button"
-          className="btn btn-primary m-2"
+          className="button_imker"
           onClick={handleSaveUser}
         >
           Save User to Data Base

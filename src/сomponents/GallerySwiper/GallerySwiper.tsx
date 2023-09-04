@@ -53,6 +53,7 @@ export default function GallerySwiper(): JSX.Element {
         grabCursor={false}
         navigation={false}
         modules={[EffectCube, Autoplay, Navigation]}
+        style={{ pointerEvents: 'none'}}
         className="mySwiper"
       >
         {photos.map((item) => (

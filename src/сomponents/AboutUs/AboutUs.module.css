@@ -1,5 +1,5 @@
 .about_main{
-    background: linear-gradient(0deg, rgb(236, 213, 196), rgb(247, 243, 240));
+    background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
     margin-top: -20px;
 }
 .about_text{

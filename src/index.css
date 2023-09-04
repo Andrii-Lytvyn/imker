@@ -21,6 +21,8 @@
   --border-color: #545050;
   --header-active-nav-btn: rgb(255, 107, 0);
   --button-burger-menu-bg: #dfe6e6;
+  --first-color-gradient: rgb(236, 213, 196);
+  --second-color-gradient: rgb(247, 243, 240);
 }
 
 a {
@@ -46,6 +48,13 @@ h2 {
   font-size: 2.5em;
   font-weight: 600;
   text-transform: uppercase;
+}
+h3 {
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.5em;
+  font-weight: 300;
 }
 h4 {
   color: var(--terracotta);

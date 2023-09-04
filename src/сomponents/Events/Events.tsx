@@ -29,6 +29,7 @@ const Events = (): JSX.Element => {
 
   return (
     <>
+        <div className={styles.events_main}>
       <div
         className={
           styles.post_bg + " d-flex align-items-center justify-content-center"
@@ -162,6 +163,7 @@ const Events = (): JSX.Element => {
           </>
         )}
       </Container>
+        </div>
     </>
   );
 };

@@ -2,7 +2,6 @@ import styles from "./OurMission.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BsCalendar2Week } from "react-icons/bs";
-import GallerySwiper from "../GallerySwiper/GallerySwiper";
 import GallerySwiper2 from "../GallerySwiper/GallerySwiper2";
 
 export default function OurMission(): JSX.Element {
@@ -10,10 +9,7 @@ export default function OurMission(): JSX.Element {
     <>
       <div className={styles.our_mission_main_container + " back-ground-1"}>
         <Container>
-
           <GallerySwiper2 />
-
-
 
           <Row>
             <Col>
@@ -131,9 +127,6 @@ export default function OurMission(): JSX.Element {
                   <p>Mehr nachrichten zeigen</p>
                 </Link>
               </div>
-              <Link to="/gallery">
-                <GallerySwiper />
-              </Link>
             </Col>
           </Row>
         </Container>

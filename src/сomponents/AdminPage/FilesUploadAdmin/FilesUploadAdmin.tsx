@@ -11,12 +11,13 @@ export default function FilesUploadAdmin(): JSX.Element {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedFileId, setSelectedFileId] = useState<number | null>(null);
   const itemsOnPage = 5;
+  const [filter, setFilter] = useState("ALL");
 
   useEffect(() => {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `/api/files?page=0&items=${itemsOnPage}`,
+          `/api/files?page=0&items=${itemsOnPage}&filter=${filter}`,
           {
             withCredentials: true,
           }
@@ -28,12 +29,12 @@ export default function FilesUploadAdmin(): JSX.Element {
       }
     }
     getListOfFiles();
-  }, []);
+  }, [filter]);
 
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
       const response = await axios.get(
-        `/api/files?page=${value - 1}&items=${itemsOnPage}`,
+        `/api/files?page=${value - 1}&items=${itemsOnPage}&filter=${filter}`,
         {
           withCredentials: true,
         }
@@ -69,7 +70,61 @@ export default function FilesUploadAdmin(): JSX.Element {
 
   return (
     <div className="container col-md-12 mt-3 mb-5 p-2 rounded bg-white">
+
+      <div className="container mb-4 col-md-7 d-flex justify-content-between align-items-center align-items-center">
+        <p className="fs-4">Filter by category:</p>
+        <button
+          className={filter === "ALL" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("ALL");
+          }}
+        >
+          ALL
+        </button>
+        <button
+          className={filter === "AVATAR" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("AVATAR");
+          }}
+        >
+          AVATAR
+        </button>
+        <button
+          className={filter === "EVENT" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("EVENT");
+          }}
+        >
+          EVENT
+        </button>
+        <button
+          className={filter === "GALLERY" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("GALLERY");
+          }}
+        >
+          GALLERY
+        </button>
+        <button
+          className={filter === "POST" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("POST");
+          }}
+        >
+          POST
+        </button>
+        <button
+          className={filter === "NONE" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("NONE");
+          }}
+        >
+          NONE
+        </button>
+      </div>
+
       <p className="fs-4">Total files: {count}</p>
+
       <div className="col-md-12 d-flex justify-content-center mt-3 mb-4">
         <Pagination
           count={pages}

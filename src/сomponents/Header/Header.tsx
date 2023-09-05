@@ -1,12 +1,12 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import { LuLogOut } from "react-icons/lu";
+// import { LuLogOut } from "react-icons/lu";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { NavLink } from "react-router-dom";
 // import { ROLE } from "../../statusAndRole/role";
-import { Avatar } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
+// import { Avatar } from "@mui/material";
+// import { styled } from "@mui/material/styles";
+// import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 
 import TabletMobile from "./TabletMobile/TabletMobile";
@@ -14,42 +14,42 @@ import { useUserSelector } from "../../redux/userStore/userSelector";
 import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
+import AccountMenu from "./AccountMenu";
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
+// const StyledBadge = styled(Badge)(({ theme }) => ({
+//   "& .MuiBadge-badge": {
+//     backgroundColor: "#44b700",
+//     color: "#44b700",
+//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+//     "&::after": {
+//       position: "absolute",
+//       top: 0,
+//       left: 0,
+//       width: "100%",
+//       height: "100%",
+//       borderRadius: "50%",
+//       animation: "ripple 1.2s infinite ease-in-out",
+//       border: "1px solid currentColor",
+//       content: '""',
+//     },
+//   },
+//   "@keyframes ripple": {
+//     "0%": {
+//       transform: "scale(.8)",
+//       opacity: 1,
+//     },
+//     "100%": {
+//       transform: "scale(2.4)",
+//       opacity: 0,
+//     },
+//   },
+// }));
 
 export default function Header(): JSX.Element {
   // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
   const { user, isLogin } = useUserSelector();
-  // const
 
   useEffect(() => {
     function handleResize() {
@@ -153,7 +153,8 @@ export default function Header(): JSX.Element {
           ) : (
             <div className={styles.account}>
               <div className={styles.account_name_avatar}>
-                <Link to="/accountpage">
+                <AccountMenu userImg={user?.image} userLogOut={handleLogOut} />
+                {/* <Link to="/accountpage">
                   <StyledBadge
                     overlap="circular"
                     anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -166,10 +167,10 @@ export default function Header(): JSX.Element {
                       sx={{ width: 50, height: 50 }}
                     />
                   </StyledBadge>
-                </Link>
-              </div>
-              <div className={styles.name_logout}>
+                </Link> */}
                 <span>{user.name}</span>
+              </div>
+              {/* <div className={styles.name_logout}>
                 <button
                   type="button"
                   className={styles.logout}
@@ -178,7 +179,7 @@ export default function Header(): JSX.Element {
                   {" "}
                   <LuLogOut />
                 </button>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

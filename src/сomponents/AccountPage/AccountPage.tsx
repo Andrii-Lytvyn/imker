@@ -103,6 +103,8 @@ export default function AccountPage(): JSX.Element {
                   fontStyle: "italic",
                   textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
                   marginTop: "-20px",
+                  textAlign: "center",
+                  lineHeight: "1.2",
                 }}
               >
                 {userInfo?.name}

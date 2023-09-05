@@ -12,7 +12,6 @@ export default function MainPage(): JSX.Element {
   return (
     <>
       <GallerySwiper3 />
-      {/* <Slider /> */}
       <OurMission />
       <TypeOfHoney />
       <Team />

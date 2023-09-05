@@ -6,10 +6,13 @@ import {
 } from "../../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
 import linkToServer from "../../globalLinkToServer";
+import styles from "./PostsPanel.module.css"
+import {BsCalendar2Week} from "react-icons/bs";
+import moment from "moment";
 
 export default function PostsPanel() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
-  const itemsOnPage = 6;
+  const itemsOnPage = 4;
 
   useEffect(() => {
     async function getListOfPosts() {
@@ -40,23 +43,18 @@ export default function PostsPanel() {
               authorName,
             }) => (
               <div key={idPost}>
-                <hr />
-                <p>Post id: {idPost}</p>
-                <p>Created: {creationTimePost}</p>
-                {authorName && <p>Author name: {authorName}</p>}
-                <Link to={`/posts/${idPost}`} className="fs-4">
-                  {titlePost}
-                </Link>
-                <br />
-                {/* <img
-                  src={linkToServer + "/api/files/" + linkToImg}
-                  alt={"post img" + idPost}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/img/imgNotFound.png";
-                  }}
-                /> */}
-                <div>{shortPostDescription}</div>
+                <p className={styles.post_event_date}>
+                  <BsCalendar2Week /> {moment(creationTimePost).format("D MMMM YYYY")}
+                </p>
+                <h5 className={styles.post_event_h5}>
+                  <Link to={`/posts/${idPost}`}>
+                    {titlePost}
+                  </Link>
+                </h5>
+                <div>
+                  <p className={styles.post_event_text}>{shortPostDescription}</p>
+                  </div>
+                <hr className={styles.post_hr} />
               </div>
             )
           )}

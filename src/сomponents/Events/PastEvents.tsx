@@ -16,7 +16,7 @@ const PastEvents = (): JSX.Element => {
   const { events } = useEventsSelector();
   const [page, setPage] = useState(1);
 
-  const quantityOnPage = 2;
+  const quantityOnPage = 3;
   const startIndex = (Number(page) - 1) * quantityOnPage;
 
   const pastEventFiltered = events

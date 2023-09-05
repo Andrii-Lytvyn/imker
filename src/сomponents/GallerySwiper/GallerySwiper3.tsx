@@ -24,7 +24,7 @@ export default function GallerySwiper3(): JSX.Element {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+          `/api/slider?page=0&items=${itemsOnPage}&orderBy=creationTimeSlider&desk=false`,
           {
             withCredentials: true,
           }
@@ -56,7 +56,7 @@ export default function GallerySwiper3(): JSX.Element {
           }}
           className="mySwiper"
         >
-          {/* {photos.map((item) => (
+          {photos.map((item) => (
             <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
               <img src={"/api/files/" + item.linkToImg} />
             </SwiperSlide>
@@ -65,36 +65,6 @@ export default function GallerySwiper3(): JSX.Element {
             <img
               style={{ opacity: 1, pointerEvents: "none" }}
               src={"/api/files/" + photos[0]?.linkToImg}
-            />
-          </SwiperSlide> */}
-          <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src="/img/sliders/slider2.jpg"
-            />
-          </SwiperSlide>
-          <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src="/img/sliders/slider1.jpg"
-            />
-          </SwiperSlide>
-          <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src="/img/sliders/slider3.jpg"
-            />
-          </SwiperSlide>
-          <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src="/img/sliders/slider4.jpg"
-            />
-          </SwiperSlide>
-          <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src="/img/sliders/slider5.jpg"
             />
           </SwiperSlide>
         </Swiper>

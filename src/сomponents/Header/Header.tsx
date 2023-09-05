@@ -1,10 +1,10 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import { LuLogOut } from "react-icons/lu";
+// import { LuLogOut } from "react-icons/lu";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { NavLink } from "react-router-dom";
 // import { ROLE } from "../../statusAndRole/role";
-import { Avatar } from "@mui/material";
+// import { Avatar } from "@mui/material";
 // import { styled } from "@mui/material/styles";
 // import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ import { useUserSelector } from "../../redux/userStore/userSelector";
 import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
+import AccountMenu from "./AccountMenu";
 
 // const StyledBadge = styled(Badge)(({ theme }) => ({
 //   "& .MuiBadge-badge": {
@@ -144,23 +145,24 @@ export default function Header(): JSX.Element {
           ) : (
             <div className={styles.account}>
               <div className={styles.account_name_avatar}>
-                <Link to="/accountpage">
-                  {/* <StyledBadge
+                <AccountMenu userImg={user?.image} userLogOut={handleLogOut} />
+                {/* <Link to="/accountpage">
+                  <StyledBadge
                     overlap="circular"
                     anchorOrigin={{ vertical: "top", horizontal: "right" }}
                     variant="dot"
-                  > */}
+                  >
                     <Avatar
                       alt={user?.name}
                       // variant="rounded"
                       src={"/api/files/" + user?.image}
                       sx={{ width: 50, height: 50 }}
                     />
-                  {/* </StyledBadge> */}
-                </Link>
-              </div>
-              <div className={styles.name_logout}>
+                  </StyledBadge>
+                </Link> */}
                 <span>{user.name}</span>
+              </div>
+              {/* <div className={styles.name_logout}>
                 <button
                   type="button"
                   className={styles.logout}
@@ -169,7 +171,7 @@ export default function Header(): JSX.Element {
                   {" "}
                   <LuLogOut />
                 </button>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

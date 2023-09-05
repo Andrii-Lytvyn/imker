@@ -61,7 +61,7 @@ export default function Posts() {
           styles.post_bg + " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
         }
       >
-        <h2>BLOG</h2>
+        <h2 className="container animate__animated animate__fadeInUp">BLOG</h2>
       </div>
       <Container>
         <div className={styles.post_container}>

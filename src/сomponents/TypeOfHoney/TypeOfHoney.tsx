@@ -14,6 +14,7 @@ export default function TypeOfHoney(): JSX.Element {
                     <h4>Erfahren Sie mehr über einige der Produkte, auf die wir besonders stolz sind.</h4>
                     <Row>
                         <Col>
+                            <Link to="posts/8">
                             <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_1.png"/>
@@ -27,13 +28,15 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/8">Mehr lesen</Link>
+                                            Mehr lesen
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </Col>
                         <Col>
+                            <Link to="posts/8">
                             <div className={styles.tile_main + " animate__animated animate__backInRight"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_2.png"/>
@@ -52,10 +55,12 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
+                            <Link to="posts/8">
                             <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_3.png"/>
@@ -74,8 +79,10 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </Col>
                         <Col>
+                            <Link to="posts/8">
                             <div className={styles.tile_main + " animate__animated animate__backInRight"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_4.png"/>
@@ -94,6 +101,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         </Col>
                     </Row>
                 </Container>

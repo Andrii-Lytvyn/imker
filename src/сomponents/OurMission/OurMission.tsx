@@ -2,6 +2,7 @@ import styles from "./OurMission.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BsCalendar2Week } from "react-icons/bs";
+import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 
 export default function OurMission(): JSX.Element {
   return (
@@ -11,7 +12,7 @@ export default function OurMission(): JSX.Element {
           <Row>
             <Col>
               <div className={styles.our_mission_left_container}>
-                <div className={styles.our_mission_img+ " animate__animated animate__lightSpeedInLeft"}>
+                <div className={styles.our_mission_img}>
                   <img src="img/our_mission.jpg" />
                 </div>
                 <div className={styles.our_mission_texts}>
@@ -44,81 +45,7 @@ export default function OurMission(): JSX.Element {
                 <h3>NACHRICHTEN</h3>
                 <hr className={styles.post_hr} />
               </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <h5 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h5>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <h5 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h5>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <h5 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h5>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <h5 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h5>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <h5 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h5>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
+              <PostsPanel />
               <div className={styles.post_more}>
                 <Link to="/posts">
                   <p>Mehr nachrichten zeigen</p>

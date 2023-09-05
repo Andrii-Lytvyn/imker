@@ -165,7 +165,7 @@ export default function Footer(): JSX.Element {
               </a>
             </div>
             <div className={styles.footer_logo_bottom}>
-              <img src="img/bee2.png" height="60px" />
+
             </div>
           </Container>
         </div>

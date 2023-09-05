@@ -117,6 +117,7 @@ export default function UserSettings(): JSX.Element {
             className="form-control fs-5"
             name="name"
             defaultValue={name}
+            maxLength={30}
             onChange={collectNewUserData}
           />
         </div>
@@ -141,6 +142,7 @@ export default function UserSettings(): JSX.Element {
           <input
             className="form-control fs-5"
             name="phone"
+            maxLength={20}
             defaultValue={phone}
             onChange={collectNewUserData}
           />

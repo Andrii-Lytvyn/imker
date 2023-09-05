@@ -66,6 +66,7 @@ const RegisterUser = (): JSX.Element => {
               <FormControl mt="4">
                 <Input
                   name="name"
+                  maxLength={30}
                   value={values.name.trim()}
                   placeholder="Name"
                   focusBorderColor="lime"
@@ -75,6 +76,7 @@ const RegisterUser = (): JSX.Element => {
               <FormControl mt="4" isInvalid={!!errors.plz && touched.plz}>
                 <Input
                   name="plz"
+                  maxLength={5}
                   value={values.plz.trim()}
                   placeholder="PLZ"
                   focusBorderColor="lime"
@@ -90,6 +92,7 @@ const RegisterUser = (): JSX.Element => {
               >
                 <Input
                   name="phone"
+                  maxLength={20}
                   value={values.phone.trim()}
                   placeholder="+49"
                   focusBorderColor="lime"

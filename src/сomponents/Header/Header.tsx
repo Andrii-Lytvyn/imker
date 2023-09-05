@@ -1,12 +1,7 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-// import { LuLogOut } from "react-icons/lu";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { NavLink } from "react-router-dom";
-// import { ROLE } from "../../statusAndRole/role";
-// import { Avatar } from "@mui/material";
-// import { styled } from "@mui/material/styles";
-// import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 
 import TabletMobile from "./TabletMobile/TabletMobile";
@@ -15,35 +10,8 @@ import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
 import AccountMenu from "./AccountMenu";
-
-// const StyledBadge = styled(Badge)(({ theme }) => ({
-//   "& .MuiBadge-badge": {
-//     backgroundColor: "#44b700",
-//     color: "#44b700",
-//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-//     "&::after": {
-//       position: "absolute",
-//       top: 0,
-//       left: 0,
-//       width: "100%",
-//       height: "100%",
-//       borderRadius: "50%",
-//       animation: "ripple 1.2s infinite ease-in-out",
-//       border: "1px solid currentColor",
-//       content: '""',
-//     },
-//   },
-//   "@keyframes ripple": {
-//     "0%": {
-//       transform: "scale(.8)",
-//       opacity: 1,
-//     },
-//     "100%": {
-//       transform: "scale(2.4)",
-//       opacity: 0,
-//     },
-//   },
-// }));
+import { ROLE } from "../../statusAndRole/role";
+import logoBee from "/img/bee2.png"
 
 export default function Header(): JSX.Element {
   // const navigate = useNavigate();
@@ -64,7 +32,6 @@ export default function Header(): JSX.Element {
   const handleLogOut = async () => {
     await logOut();
     dispatch(userDataInfo(userData));
-    // navigate("/");
     window.location.href = "/";
   };
 
@@ -74,7 +41,7 @@ export default function Header(): JSX.Element {
         <div className={styles.logo}>
           <Link to="/">
             {" "}
-            <img src="img/bee2.png" alt="bee" className={styles.logo_img} />
+            <img src={logoBee} alt="bee" className={styles.logo_img} />
           </Link>
         </div>
         <div className={styles.title}>
@@ -121,16 +88,16 @@ export default function Header(): JSX.Element {
               </Link>
             </li>
             {/* это раскоментируем и получаем Админку */}
-            {/* {user.role === ROLE.ADMIN ? ( */}
-            {/* <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+            {user.role === ROLE.ADMIN ? (
+            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
               <Link to="/adminpage" className={styles.title_nav}>
                 Admin
-              </Link> */}
-            {/* <div className={styles.submenu_admin}></div> */}
-            {/* </li> */}
-            {/* ) : (
+              </Link>
+            <div className={styles.submenu_admin}></div>
+            </li>
+             ) : (
               ""
-            )} */}
+            )} 
           </ul>
         ) : (
           <div>
@@ -154,32 +121,8 @@ export default function Header(): JSX.Element {
             <div className={styles.account}>
               <div className={styles.account_name_avatar}>
                 <AccountMenu userImg={user?.image} userLogOut={handleLogOut} />
-                {/* <Link to="/accountpage">
-                  <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                    variant="dot"
-                  >
-                    <Avatar
-                      alt={user?.name}
-                      // variant="rounded"
-                      src={"/api/files/" + user?.image}
-                      sx={{ width: 50, height: 50 }}
-                    />
-                  </StyledBadge>
-                </Link> */}
                 <span>{user.name}</span>
               </div>
-              {/* <div className={styles.name_logout}>
-                <button
-                  type="button"
-                  className={styles.logout}
-                  onClick={handleLogOut}
-                >
-                  {" "}
-                  <LuLogOut />
-                </button>
-              </div> */}
             </div>
           )}
         </div>

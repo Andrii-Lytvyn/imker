@@ -15,6 +15,7 @@ import UsersAdmin from "./UserAdmin/UsersAdmin";
 import { IUserDto, initIUserDto } from "./UserAdmin/interfaces/IUserDto";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SliderAdmin from "./SliderAdmin/SliderAdmin";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -94,6 +95,7 @@ export default function AdminPage() {
                 <Tab className="fs-5" label="Kontaktieren Sie uns" />
                 <Tab className="fs-5" label="Mitglieder der Gemeinschaft" />
                 <Tab className="fs-5" label="Gallery" />
+                <Tab className="fs-5" label="Sliders" />
                 <Tab className="fs-5" label="Users" />
                 <Tab className="fs-5" label="Files Upload" />
               </Tabs>
@@ -119,9 +121,12 @@ export default function AdminPage() {
             <GalleryAdmin />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={5}>
-            <UsersAdmin />
+            <SliderAdmin />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={6}>
+            <UsersAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={7}>
             <FilesUploadAdmin />
           </CustomTabPanel>
         </div>

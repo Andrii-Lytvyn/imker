@@ -111,13 +111,13 @@ export default function Header(): JSX.Element {
               </div> */}
             </li>
             <li className={styles.item}>
-              <Link to="/contactUs" className={styles.title_nav}>
-                Kontakt
+              <Link to="/gallery" className={styles.title_nav}>
+                Galerie
               </Link>
             </li>
             <li className={styles.item}>
-              <Link to="/gallery" className={styles.title_nav}>
-                Galerie
+              <Link to="/contactUs" className={styles.title_nav}>
+                Kontakt
               </Link>
             </li>
             {/* это раскоментируем и получаем Админку */}

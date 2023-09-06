@@ -13,6 +13,7 @@ import { IEvent } from "../interface/IEventsData";
 import LoaderStart from "../../Loader/LoaderStart";
 import UsersOnEvent from "../../UsersOnEvent/UsersOnEvent";
 import CommentPanel from "../../CommentsPanel/CommentsPanel";
+import NewCommentBlock from "../../CommentsPanel/NewCommentBlock";
 
 const getEvent = async (id: string) => {
   try {
@@ -136,7 +137,8 @@ const Event = (): JSX.Element => {
           <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
         )}
 
-        <CommentPanel location={{ entity: "enent", entityId: id }}/>
+        <CommentPanel location={{ entity: "event", entityId: id }}/>
+        <NewCommentBlock />
       </div>
     </>
   );

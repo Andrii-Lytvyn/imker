@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { IEvent } from "../interface/IEventsData";
 import LoaderStart from "../../Loader/LoaderStart";
 import UsersOnEvent from "../../UsersOnEvent/UsersOnEvent";
+import CommentPanel from "../../CommentsPanel/CommentsPanel";
 
 const getEvent = async (id: string) => {
   try {
@@ -38,102 +39,104 @@ const Event = (): JSX.Element => {
 
   return (
     <>
-    <div className={styles.event_main}>
-      {event === undefined ? (
-        <LoaderStart />
-      ) : (
-        <Container>
-          <div className={styles.breadcrumbs}>
-            <Nav>
-              <Link to="/">
-                {" "}
-                <FaHome />
-              </Link>
-            </Nav>
-            <span> | </span>
-            <Nav>
-              <Link to="/events">VERANSTALTUNGEN</Link>
-            </Nav>
-            <span> | </span>
-            {event?.title}
-          </div>
-          <h2>{event?.title}</h2>
-          <hr />
-          <div className={styles.evt_container}>
-            <div className={styles.container}>
-              <img
-                className={styles.img_container}
-                src={`/api/files/${event?.photo}`}
-                alt={event?.title}
-              />
-              <p>{event?.description}</p>
-              <div className={styles.event_description}>
-                <p>
-                  Kontakt: <span>{event?.author}</span>
-                </p>
+      <div className={styles.event_main}>
+        {event === undefined ? (
+          <LoaderStart />
+        ) : (
+          <Container>
+            <div className={styles.breadcrumbs}>
+              <Nav>
+                <Link to="/">
+                  {" "}
+                  <FaHome />
+                </Link>
+              </Nav>
+              <span> | </span>
+              <Nav>
+                <Link to="/events">VERANSTALTUNGEN</Link>
+              </Nav>
+              <span> | </span>
+              {event?.title}
+            </div>
+            <h2>{event?.title}</h2>
+            <hr />
+            <div className={styles.evt_container}>
+              <div className={styles.container}>
+                <img
+                  className={styles.img_container}
+                  src={`/api/files/${event?.photo}`}
+                  alt={event?.title}
+                />
+                <p>{event?.description}</p>
+                <div className={styles.event_description}>
+                  <p>
+                    Kontakt: <span>{event?.author}</span>
+                  </p>
+                </div>
+              </div>
+              <div className={styles.item_container}>
+                <h6 className={styles.title_event}>Veranstaltungsdetails:</h6>
+                <ul>
+                  {[
+                    {
+                      title: "Date",
+                      icon: <BsCalendar2Week />,
+                      content: `${formatDate(event?.dateStart)?.day} ${
+                        formatDate(event?.dateStart)?.month
+                      } ${formatDate(event?.dateStart)?.year} - ${
+                        formatDate(event?.dateEnd)?.day
+                      } ${formatDate(event?.dateEnd)?.month} ${
+                        formatDate(event?.dateEnd)?.year
+                      }`,
+                    },
+                    {
+                      title: "Time",
+                      icon: <BiTimeFive />,
+                      content: `${event?.startTime} - ${event?.endTime}`,
+                    },
+                    {
+                      title: "Place",
+                      icon: <MdOutlinePlace />,
+                      content: event?.address,
+                    },
+                    {
+                      title: "Map",
+                      mapSrc: event?.location,
+                    },
+                  ].map((item, index) => (
+                    <li key={index} className={styles.item}>
+                      <p className={styles.title}>{item.title} :</p>
+                      {item.icon && (
+                        <span
+                          className={styles.icon}
+                          style={{ color: "#c74817" }}
+                        >
+                          {item.icon} {item.content}
+                        </span>
+                      )}
+                      {item.mapSrc && (
+                        <div className={styles.map}>
+                          <iframe
+                            src={srcLinkFromIframe(item.mapSrc)}
+                            className={styles.map}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                          ></iframe>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <div className={styles.item_container}>
-              <h6 className={styles.title_event}>Veranstaltungsdetails:</h6>
-              <ul>
-                {[
-                  {
-                    title: "Date",
-                    icon: <BsCalendar2Week />,
-                    content: `${formatDate(event?.dateStart)?.day} ${
-                      formatDate(event?.dateStart)?.month
-                    } ${formatDate(event?.dateStart)?.year} - ${
-                      formatDate(event?.dateEnd)?.day
-                    } ${formatDate(event?.dateEnd)?.month} ${
-                      formatDate(event?.dateEnd)?.year
-                    }`,
-                  },
-                  {
-                    title: "Time",
-                    icon: <BiTimeFive />,
-                    content: `${event?.startTime} - ${event?.endTime}`,
-                  },
-                  {
-                    title: "Place",
-                    icon: <MdOutlinePlace />,
-                    content: event?.address,
-                  },
-                  {
-                    title: "Map",
-                    mapSrc: event?.location,
-                  },
-                ].map((item, index) => (
-                  <li key={index} className={styles.item}>
-                    <p className={styles.title}>{item.title} :</p>
-                    {item.icon && (
-                      <span
-                        className={styles.icon}
-                        style={{ color: "#c74817" }}
-                      >
-                        {item.icon} {item.content}
-                      </span>
-                    )}
-                    {item.mapSrc && (
-                      <div className={styles.map}>
-                        <iframe
-                          src={srcLinkFromIframe(item.mapSrc)}
-                          className={styles.map}
-                          loading="lazy"
-                          referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Container>
-      )}
+          </Container>
+        )}
 
-{event && event.dateEnd && (
-  <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
-)}
+        {event && event.dateEnd && (
+          <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
+        )}
+
+        <CommentPanel location={{ entity: "enent", entityId: id }}/>
       </div>
     </>
   );

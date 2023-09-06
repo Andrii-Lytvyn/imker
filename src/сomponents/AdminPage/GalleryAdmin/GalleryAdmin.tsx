@@ -15,7 +15,10 @@ export default function GalleryAdmin(): JSX.Element {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`
+          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+          {
+            withCredentials: true,
+          }
         );
         setFilesList(response.data);
         setCurrentPage(1);

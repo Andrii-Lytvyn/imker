@@ -12,9 +12,11 @@
   margin: 0 10px;
 }
 .event_description{
-  position: absolute;
+  /* position: absolute;
   bottom: -3.5em;
-  left: 0;
+  left: 0; */
+  margin: 50px 0;
+
 }
 .event_description p{
   color: var(--bold-text)!important;

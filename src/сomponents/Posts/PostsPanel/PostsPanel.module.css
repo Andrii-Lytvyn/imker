@@ -72,13 +72,28 @@
     text-align: justify;
     margin-top: 5px;
     margin-bottom: 10px;
-    color: #000000 !important;
-    font-size: 1.0em;
+    font-size: 0.8em;
     line-height: 1.2em;
+    text-transform: uppercase;
+}
+.postpanel_span Link{
+    color: #131313!important;
+}
+.post_event_h5 a{
+    color: var(--bold-text)!important;
+    font-weight: 500;
+}
+.post_event_h5 a:hover{
+    color: var(--terracotta)!important;
+    font-weight: 500;
+}
+.postpanel_text{
+    max-height: 90px;
+    overflow: hidden;
 }
 .post_event_text{
     color: var(--text-color);
-    font-size: 1em;
+    font-size: 0.8em;
     line-height: 15px;
 }
 .post_hr{

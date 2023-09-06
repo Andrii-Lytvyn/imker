@@ -66,7 +66,7 @@ export default function Posts() {
       <Container>
         <div className={styles.post_container}>
           {posts && (
-            <div className="container animate__animated animate__fadeInLeft">
+            <div className="container">
               {posts.posts.map(
                 ({
                   idPost,
@@ -123,7 +123,7 @@ export default function Posts() {
               )}
             </div>
           )}
-          <div className={styles.post_right_side + " animate__animated animate__fadeInRight"}>
+          <div className={styles.post_right_side}>
             <h2>VERANSTALTUNGEN</h2>
             <hr className={styles.post_hr} />
             <div className="mb-2">

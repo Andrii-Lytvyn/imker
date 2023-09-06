@@ -14,7 +14,7 @@ export default function TypeOfHoney(): JSX.Element {
                     <h4>Erfahren Sie mehr über einige der Produkte, auf die wir besonders stolz sind.</h4>
                     <Row>
                         <Col>
-                            <Link to="posts/8">
+                            <Link to="posts/9">
                             <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_1.png"/>
@@ -50,7 +50,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/8">Mehr lesen</Link>
+                                            <Link to="posts/9">Mehr lesen</Link>
                                         </p>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/8">Mehr lesen</Link>
+                                            <Link to="posts/9">Mehr lesen</Link>
                                         </p>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/8">Mehr lesen</Link>
+                                            <Link to="posts/9">Mehr lesen</Link>
                                         </p>
                                     </div>
                                 </div>

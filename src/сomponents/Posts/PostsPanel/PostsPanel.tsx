@@ -51,9 +51,9 @@ export default function PostsPanel() {
                     {titlePost}
                   </Link>
                 </h5>
-                <div>
+                <div className={styles.postpanel_text}>
                   <p className={styles.post_event_text}>{shortPostDescription}</p>
-                  </div>
+                </div>
                 <hr className={styles.post_hr} />
               </div>
             )

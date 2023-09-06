@@ -13,7 +13,6 @@ import { IEvent } from "../interface/IEventsData";
 import LoaderStart from "../../Loader/LoaderStart";
 import UsersOnEvent from "../../UsersOnEvent/UsersOnEvent";
 import CommentPanel from "../../CommentsPanel/CommentsPanel";
-import { Divider } from "antd";
 
 const getEvent = async (id: string) => {
   try {
@@ -63,19 +62,22 @@ const Event = (): JSX.Element => {
             <hr />
             <div className={styles.evt_container}>
               <div className={styles.container}>
-                <img
-                  className={styles.img_container}
-                  src={`/api/files/${event?.photo}`}
-                  alt={event?.title}
-                />
-                <p>{event?.description}</p>
-                <div className={styles.event_description}>
-                  <p>
-                    Kontakt: <span>{event?.author}</span>
-                  </p>
+                <div style={{ minHeight: "50vh" }}>
+                  <img
+                    className={styles.img_container}
+                    src={`/api/files/${event?.photo}`}
+                    alt={event?.title}
+                  />
+                  <p>{event?.description}</p>
                 </div>
+                  <div className={styles.event_description}>
+                    <p>
+                      Kontakt: <span>{event?.author}</span>
+                    </p>
+                  </div>
 
-                <CommentPanel location={{ entity: "event", entityId: id }}/>
+                <CommentPanel location={{ entity: "event", entityId: id }} />
+                
               </div>
               <div className={styles.item_container}>
                 <h6 className={styles.title_event}>Veranstaltungsdetails:</h6>
@@ -132,7 +134,9 @@ const Event = (): JSX.Element => {
                 </ul>
 
                 {event && event.dateEnd && (
-                  <UsersOnEvent location={{ eventId: id, dateEnd: event.dateEnd }} />
+                  <UsersOnEvent
+                    location={{ eventId: id, dateEnd: event.dateEnd }}
+                  />
                 )}
 
               </div>

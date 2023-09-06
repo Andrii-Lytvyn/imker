@@ -93,11 +93,12 @@
     font-size: 1.2em;
     margin-top: 1em;
 }
-.item {
+/* .item {
 
-}
+} */
 .map {
   height: 300px;
+  width: 400px;
 }
 .title_event {
   text-align: left;
@@ -105,8 +106,8 @@
   color: var(--terracotta);
   font-weight: 500;
 }
-.icon {
+/* .icon { */
   /*display: flex;*/
   /*align-items: flex-end;*/
   /*gap: 10px;*/
-}
+/* } */

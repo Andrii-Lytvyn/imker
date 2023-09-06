@@ -29,7 +29,6 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
   const [isBtnShow, setIsBtnShow] = useState<boolean | null>(null);
   const isLogined = localStorage.getItem("IMKER");
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,16 +38,16 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
         const userList = response.data;
         setUsersOnEvents(userList);
 
-        if (isLogined==="true") {
-        const getMyId = await axios.get(`/api/me`, {
-          withCredentials: true,
-        });
-        const userDto = getMyId.data;
-        setMe(userDto);
+        if (isLogined === "true") {
+          const getMyId = await axios.get(`/api/me`, {
+            withCredentials: true,
+          });
+          const userDto = getMyId.data;
+          setMe(userDto);
 
-        setIsInList(users.some((obj) => obj.id === me.id));
-      }
-        setIsBtnShow(me.role==="ADMIN" || me.role==="MEMBER");
+          setIsInList(users.some((obj) => obj.id === me.id));
+        }
+        setIsBtnShow(me.role === "ADMIN" || me.role === "MEMBER");
       } catch (error) {
         console.error("Error during request execution:", error);
       }
@@ -93,22 +92,25 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
   };
 
   return (
-    <div className="container d-flex justify-content-between">
+    <div className="container mt-4">
       {users.length > 0 && (
-        <AvatarGroup max={4}>
-          {users.map(({ id, name, image }) => (
-            <Avatar
-              key={id}
-              alt={name}
-              src={"/api/files/" + image}
-              sx={{ width: 70, height: 70 }}
-            />
-          ))}
-        </AvatarGroup>
+        <div className="d-flex flex-column align-items-start">
+          <p className="mb-2">Teilnehmende Gemeinschaftsmitglieder:</p>
+          <AvatarGroup max={4}>
+            {users.map(({ id, name, image }) => (
+              <Avatar
+                key={id}
+                alt={name}
+                src={"/api/files/" + image}
+                sx={{ width: 70, height: 70 }}
+              />
+            ))}
+          </AvatarGroup>
+        </div>
       )}
 
       {isOutdated && isBtnShow && (
-        <>
+        <div className="mt-3 text-center">
           {!isInList && (
             <button className="button_imker" onClick={followEvent}>
               An diesem Event teilnehmen
@@ -119,7 +121,7 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
               Eventteilnahme stornieren
             </button>
           )}
-        </>
+        </div>
       )}
     </div>
   );

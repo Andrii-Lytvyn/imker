@@ -87,13 +87,11 @@ export default function Header(): JSX.Element {
                 Kontakt
               </Link>
             </li>
-            {/* это раскоментируем и получаем Админку */}
             {user.role === ROLE.ADMIN ? (
             <li className={`${styles.item} ${styles.item_submenu_admin}`}>
               <Link to="/adminpage" className={styles.title_nav}>
                 Admin
               </Link>
-            <div className={styles.submenu_admin}></div>
             </li>
              ) : (
               ""

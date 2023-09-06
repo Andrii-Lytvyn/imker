@@ -6,6 +6,7 @@ import {
   IUserAccountInfo,
   initIUserAccountInfo,
 } from "./interfaces/IUserAccountInfo";
+import styles from "./AccountPage.module.css";
 import axios from "axios";
 import AccountTabs from "./AccountTabs";
 import { motion } from "framer-motion";
@@ -64,6 +65,7 @@ export default function AccountPage(): JSX.Element {
 
   return (
     <>
+      <div className={styles.account_main}>
       {isLogined === "true" && userInfo?.id != -1 && (
         <div className="container d-flex">
           {userInfo?.email && (
@@ -116,6 +118,7 @@ export default function AccountPage(): JSX.Element {
           
         </div>
       )}
+      </div>
     </>
   );
 }

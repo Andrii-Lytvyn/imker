@@ -5,10 +5,10 @@ import {
   eventsStatus,
   statusEvt,
 } from "../../../redux/eventsStore/eventsSlice";
-
 import AllEvents from "./AllEventsAdmin";
 import EditEventAdmin from "./EditEventAdmin";
 import styles from "./EventNav.module.css";
+import { Container } from "react-bootstrap";
 
 const EventNav = () => {
   const dispatch = useAppDispatch();
@@ -53,11 +53,11 @@ const EventNav = () => {
           </button>
         </div>
 
-        <div>
+        <Container>
           {eventStatus === statusEvt.allEvnt ? <AllEvents /> : null}
           {eventStatus === statusEvt.addEvnt ? <AddEventAdmin /> : null}
           {eventStatus === statusEvt.editEvnt ? <EditEventAdmin /> : null}
-        </div>
+        </Container>
       </div>
     </>
   );

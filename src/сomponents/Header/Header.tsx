@@ -10,7 +10,7 @@ import { logOut } from "../UserLogin/helpers/userAuth/userOperation";
 import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
 import AccountMenu from "./AccountMenu";
-// import { ROLE } from "../../statusAndRole/role";
+import { ROLE } from "../../statusAndRole/role";
 import logoBee from "/img/bee2.png";
 
 export default function Header(): JSX.Element {
@@ -72,7 +72,9 @@ export default function Header(): JSX.Element {
             <li className={styles.item}>
               <Link
                 to="/events"
-                className={styles.title_nav}
+                className={`${styles.title_nav} ${
+                  activeLink === "events" ? styles.active : ""
+                }`}
                 onClick={() => setActiveLink("events")}
               >
                 Veranstaltungen
@@ -112,21 +114,21 @@ export default function Header(): JSX.Element {
               </Link>
             </li>
             {/* это раскоментируем и получаем Админку */}
-            {/* {user.role === ROLE.ADMIN ? ( */}
-            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
-              <Link
-                to="/adminpage"
-                className={`${styles.title_nav} ${
-                  activeLink === "adminpage" ? styles.active : ""
-                }`}
-                onClick={() => setActiveLink("adminpage")}
-              >
-                Admin
-              </Link>
-            </li>
-            {/* ) : (
+            {user.role === ROLE.ADMIN ? (
+              <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+                <Link
+                  to="/adminpage"
+                  className={`${styles.title_nav} ${
+                    activeLink === "adminpage" ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveLink("adminpage")}
+                >
+                  Admin
+                </Link>
+              </li>
+            ) : (
               ""
-            )} */}
+            )}
           </ul>
         ) : (
           <div>

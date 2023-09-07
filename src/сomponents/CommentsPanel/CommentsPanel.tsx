@@ -5,7 +5,7 @@ import { Divider } from "antd";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import { TextField } from "@mui/material";
+import { Button, Popover, TextField, Tooltip } from "@mui/material";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { EmojiData } from "emoji-mart";
@@ -61,7 +61,7 @@ function CommentBlock({
       </div>
       <Typography
         paragraph
-        className="ms-5"
+        className="ms-5 fs-5"
         style={{ overflowWrap: "break-word", maxWidth: "30vw" }}
       >
         {commentText}
@@ -87,6 +87,8 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
     postId: 0,
   });
   const maxCharacterCount = 950;
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     async function getListOfComments() {
@@ -123,8 +125,6 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
 
       setComment(e.target.value);
       setNewComment(newCommentData);
-      console.log("comment:" + comment);
-      console.log("newCommentData:" + newCommentData);
     }
   };
 
@@ -146,15 +146,26 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
   const handleSelectEmoji = (emoji: EmojiData) => {
     const updatedComment = comment + emoji.native;
     setComment(updatedComment);
-    
+
     const event = {
       target: {
         value: updatedComment,
       },
     };
-    
+
     handleCommentChange(event as ChangeEvent<HTMLInputElement>);
   };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
@@ -188,7 +199,9 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           value={comment}
           onChange={handleCommentChange}
         />
-        <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+
+        <div className="d-flex justify-content-between">
+          
         <button
           className="button_imker"
           style={{
@@ -198,6 +211,45 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
         >
           Kommentar hinzufügen
         </button>
+
+        <div>
+          <Tooltip className="fs-2" title="Emojis">
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            onClick={handleClick}
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              padding: 0,
+              minWidth: 0,
+              cursor: "pointer",
+              boxShadow: "none",
+            }}
+          >
+            😜
+          </Button>
+        </Tooltip>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+          >
+            <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+          </Popover>
+        </div>
+
+        </div>
+
       </Paper>
     </>
   );

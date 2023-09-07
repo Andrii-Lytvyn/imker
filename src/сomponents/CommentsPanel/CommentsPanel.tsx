@@ -38,47 +38,6 @@ interface CommentsProps {
   };
 }
 
-function CommentBlock({
-  userName,
-  commentText,
-  creationTime,
-  userLogo,
-}: IComment) {
-  return (
-    <Paper
-      elevation={3}
-      style={{
-        padding: "16px",
-        marginBottom: "16px",
-        backgroundColor: "rgba(247, 243, 240, 1)",
-        borderRadius: "20px",
-        width: "80%",
-      }}
-    >
-      <div className="d-flex mb-4">
-        <Avatar
-          src={userLogo ? "/api/files/" + userLogo : ""}
-          sx={{ width: 50, height: 50 }}
-        />
-        <Typography variant="subtitle1" gutterBottom className="fs-5 m-2">
-          {userName}
-        </Typography>
-      </div>
-      <Typography
-        paragraph
-        className="ms-5 fs-5"
-        style={{ overflowWrap: "break-word", maxWidth: "30vw" }}
-      >
-        {commentText}
-      </Typography>
-      <Divider />
-      <Typography variant="caption" color="textSecondary">
-        {moment(creationTime).format("D MMMM YYYY | HH:MM")}
-      </Typography>
-    </Paper>
-  );
-}
-
 export default function CommentPanel(props: CommentsProps): JSX.Element {
   const [entity] = useState(props.location.entity);
   const [entityId] = useState(props.location.entityId);
@@ -129,13 +88,13 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
         entity === "event"
           ? {
               commentText: e.target.value,
-              userId: 1,
+              userId: 3,
               eventId: Number(entityId),
               postId: 0,
             }
           : {
               commentText: e.target.value,
-              userId: 1,
+              userId: 3,
               eventId: 0,
               postId: Number(entityId),
             };
@@ -156,7 +115,6 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
       }
       setComment("");
       setIsNewData(!isNewData);
-      console.log(newComment);
     }
   };
 
@@ -187,6 +145,72 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  function CommentBlock({
+    userId,
+    userName,
+    commentText,
+    creationTime,
+    userLogo,
+  }: IComment) {
+    return (
+      <Paper
+        elevation={3}
+        style={{
+          padding: "16px",
+          marginBottom: "16px",
+          backgroundColor: "rgba(247, 243, 240, 1)",
+          borderRadius: "20px",
+          width: "80%",
+        }}
+      >
+        <div className="d-flex justify-content-between mb-4">
+          <div className="d-flex">
+            <Avatar
+              src={userLogo ? "/api/files/" + userLogo : ""}
+              sx={{ width: 50, height: 50 }}
+            />
+            <Typography variant="subtitle1" gutterBottom className="fs-5 m-2">
+              {userName}
+            </Typography>
+          </div>
+
+          {(me.role === "ADMIN" || me.id === userId) && (
+            <Tooltip className="fs-2" title="Diesen Kommentar löschen">
+              <button
+                className="fs-4"
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  padding: 0,
+                  minWidth: 0,
+                  cursor: "pointer",
+                  boxShadow: "none",
+                  margin: "5px",
+                  marginTop: "-5px",
+                  color: "grey",
+                  opacity: "0.5",
+                }}
+              >
+                ✖️
+              </button>
+            </Tooltip>
+          )}
+        </div>
+        <Typography
+          paragraph
+          className="ms-5 fs-5"
+          style={{ overflowWrap: "break-word", maxWidth: "30vw" }}
+        >
+          {commentText}
+        </Typography>
+        <Divider />
+        <Typography variant="caption" color="textSecondary">
+          {moment(creationTime).format("D MMMM YYYY | HH:MM")}
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <>

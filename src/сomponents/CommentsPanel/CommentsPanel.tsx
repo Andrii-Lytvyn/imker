@@ -8,7 +8,11 @@ import moment from "moment";
 import { Button, Popover, TextField, Tooltip } from "@mui/material";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { EmojiData } from "emoji-mart";
+// import { EmojiData } from "emoji-mart";
+
+import i18n from '@emoji-mart/data/i18n/de.json'
+import { de } from "date-fns/locale";
+i18n.search_no_results_1 = 'Aucun emoji'
 
 interface IComment {
   id: number;
@@ -143,7 +147,7 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
     }
   };
 
-  const handleSelectEmoji = (emoji: EmojiData) => {
+  const handleSelectEmoji = (emoji: data.Skin) => {
     const updatedComment = comment + emoji.native;
     setComment(updatedComment);
 
@@ -159,6 +163,11 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget as HTMLButtonElement);
+  };
+  
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -218,6 +227,8 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
             aria-describedby={id}
             variant="contained"
             onClick={handleClick}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
             style={{
               border: "none",
               backgroundColor: "transparent",
@@ -244,7 +255,16 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
               horizontal: 'left',
             }}
           >
-            <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+            <Picker 
+            data={data} 
+            onEmojiSelect={handleSelectEmoji} 
+            maxFrequentRows={3}
+            i18n={i18n}
+            set={'native'}
+            skinTonePosition={'none'}
+            dynamicWidth={false}
+            emojiVersion={14}
+            />
           </Popover>
         </div>
 

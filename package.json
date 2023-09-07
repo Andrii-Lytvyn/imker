@@ -12,6 +12,8 @@
   "dependencies": {
     "@ant-design/icons": "latest",
     "@chakra-ui/react": "^2.8.0",
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
@@ -25,6 +27,7 @@
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "dompurify": "^3.0.5",
+    "emoji-mart": "^5.5.2",
     "formik": "^2.4.2",
     "framer-motion": "^10.13.0",
     "intl": "^1.2.5",

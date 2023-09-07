@@ -6,6 +6,9 @@ import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import { TextField } from "@mui/material";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { EmojiData } from "emoji-mart";
 
 interface IComment {
   id: number;
@@ -120,6 +123,8 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
 
       setComment(e.target.value);
       setNewComment(newCommentData);
+      console.log("comment:" + comment);
+      console.log("newCommentData:" + newCommentData);
     }
   };
 
@@ -134,7 +139,21 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
       }
       setComment("");
       setIsNewData(!isNewData);
+      console.log(newComment);
     }
+  };
+
+  const handleSelectEmoji = (emoji: EmojiData) => {
+    const updatedComment = comment + emoji.native;
+    setComment(updatedComment);
+    
+    const event = {
+      target: {
+        value: updatedComment,
+      },
+    };
+    
+    handleCommentChange(event as ChangeEvent<HTMLInputElement>);
   };
 
   return (
@@ -169,6 +188,7 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           value={comment}
           onChange={handleCommentChange}
         />
+        <Picker data={data} onEmojiSelect={handleSelectEmoji} />
         <button
           className="button_imker"
           style={{

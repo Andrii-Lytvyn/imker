@@ -44,13 +44,13 @@ export default function GallerySwiper3(): JSX.Element {
           effect={"fade"}
           navigation={false}
           autoplay={{
-            delay: 3000,
+            delay: 10000,
             disableOnInteraction: false,
             pauseOnMouseEnter: false,
           }}
           modules={[EffectFade, Navigation, Pagination, Autoplay]}
           style={{
-            pointerEvents: "none",
+            // pointerEvents: "none",
             width: "100%",
             height: "400px",
           }}

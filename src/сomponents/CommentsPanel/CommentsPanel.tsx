@@ -8,11 +8,12 @@ import moment from "moment";
 import { Button, Popover, TextField, Tooltip } from "@mui/material";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-// import { EmojiData } from "emoji-mart";
-
-import i18n from '@emoji-mart/data/i18n/de.json'
-import { de } from "date-fns/locale";
-i18n.search_no_results_1 = 'Aucun emoji'
+import i18n from "@emoji-mart/data/i18n/de.json";
+import {
+  IUserDto,
+  initIUserDto,
+} from "../AdminPage/UserAdmin/interfaces/IUserDto";
+i18n.search_no_results_1 = "Aucun emoji";
 
 interface IComment {
   id: number;
@@ -93,6 +94,9 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
   const maxCharacterCount = 950;
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [me, setMe] = useState<IUserDto>(initIUserDto);
+  const [isPanelShow, setIsPanelShow] = useState<boolean | null>(null);
+  const isLogined = localStorage.getItem("IMKER");
 
   useEffect(() => {
     async function getListOfComments() {
@@ -101,12 +105,21 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           `/api/comment/${entity}?id=${entityId}`
         );
         setCommentsList(response.data.commentsList);
+
+        if (isLogined === "true") {
+          const getMyId = await axios.get(`/api/me`, {
+            withCredentials: true,
+          });
+          const userDto = getMyId.data;
+          setMe(userDto);
+        }
+        setIsPanelShow(me.role === "ADMIN" || me.role === "MEMBER");
       } catch (error) {
         console.error("Error during request execution:", error);
       }
     }
     getListOfComments();
-  }, [entity, entityId, isNewData]);
+  }, [entity, entityId, isLogined, isNewData, me.role]);
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
@@ -167,7 +180,6 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget as HTMLButtonElement);
   };
-  
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -186,91 +198,91 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
       ) : (
         <p className="m-2 mb-4 fs-4">Bisher keine Kommentare..</p>
       )}
-      <Paper
-        elevation={3}
-        style={{
-          padding: "10px",
-          marginBottom: "10px",
-          backgroundColor: "rgba(247, 243, 240, 1)",
-          borderRadius: "10px",
-          width: "90%",
-        }}
-      >
-        <TextField
-          style={{
-            marginRight: "10px",
-          }}
-          label="Neuer Kommentar"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={4}
-          value={comment}
-          onChange={handleCommentChange}
-        />
 
-        <div className="d-flex justify-content-between">
-          
-        <button
-          className="button_imker"
+      {isPanelShow && (
+        <Paper
+          elevation={3}
           style={{
-            marginTop: "10px",
+            padding: "10px",
+            marginBottom: "10px",
+            backgroundColor: "rgba(247, 243, 240, 1)",
+            borderRadius: "10px",
+            width: "90%",
           }}
-          onClick={handleAddComment}
         >
-          Kommentar hinzufügen
-        </button>
-
-        <div>
-          <Tooltip className="fs-2" title="Emojis">
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            onClick={handleClick}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
+          <TextField
             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              padding: 0,
-              minWidth: 0,
-              cursor: "pointer",
-              boxShadow: "none",
+              marginRight: "10px",
             }}
-          >
-            😜
-          </Button>
-        </Tooltip>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'center',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            <Picker 
-            data={data} 
-            onEmojiSelect={handleSelectEmoji} 
-            maxFrequentRows={3}
-            i18n={i18n}
-            set={'native'}
-            skinTonePosition={'none'}
-            dynamicWidth={false}
-            emojiVersion={14}
-            />
-          </Popover>
-        </div>
+            label="Neuer Kommentar"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={4}
+            value={comment}
+            onChange={handleCommentChange}
+          />
 
-        </div>
+          <div className="d-flex justify-content-between">
+            <button
+              className="button_imker"
+              style={{
+                marginTop: "10px",
+              }}
+              onClick={handleAddComment}
+            >
+              Kommentar hinzufügen
+            </button>
 
-      </Paper>
+            <div>
+              <Tooltip className="fs-2" title="Emojis">
+                <Button
+                  aria-describedby={id}
+                  variant="contained"
+                  onClick={handleClick}
+                  aria-haspopup="true"
+                  onMouseEnter={handlePopoverOpen}
+                  style={{
+                    border: "none",
+                    backgroundColor: "transparent",
+                    padding: 0,
+                    minWidth: 0,
+                    cursor: "pointer",
+                    boxShadow: "none",
+                  }}
+                >
+                  😜
+                </Button>
+              </Tooltip>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <Picker
+                  data={data}
+                  onEmojiSelect={handleSelectEmoji}
+                  maxFrequentRows={3}
+                  i18n={i18n}
+                  set={"native"}
+                  skinTonePosition={"none"}
+                  dynamicWidth={false}
+                  emojiVersion={14}
+                />
+              </Popover>
+            </div>
+          </div>
+        </Paper>
+      )}
     </>
   );
 }

@@ -114,6 +114,14 @@ export default function FilesUploadAdmin(): JSX.Element {
           POST
         </button>
         <button
+          className={filter === "SLIDER" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("SLIDER");
+          }}
+        >
+          SLIDER
+        </button>
+        <button
           className={filter === "NONE" ? "btn btn-warning" : "btn btn-light"}
           onClick={() => {
             setFilter("NONE");

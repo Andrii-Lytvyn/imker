@@ -58,17 +58,23 @@
 .create_btn {
   width: 150px;
 }
+.edit_block {
+  background-color: rgb(255, 255, 255);
+}
 .edit {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
   padding: 40px;
 }
 .edit_info {
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+}
+.edit_container {
+  min-height: 100px;
 }
 .photo {
   margin: 30px 0;
@@ -77,4 +83,25 @@
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+}
+.event_list {
+  padding: 10px;
+  margin: 10px;
+  border: 1px grey solid;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-align: start;
+}
+.edit_btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+}
+
+.img_btn_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

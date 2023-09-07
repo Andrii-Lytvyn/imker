@@ -11,13 +11,13 @@ import { userDataInfo } from "../../redux/userStore/userSlice";
 import { userData } from "../../redux/userStore/interface/IUserData";
 import AccountMenu from "./AccountMenu";
 import { ROLE } from "../../statusAndRole/role";
-import logoBee from "/img/bee2.png"
+import logoBee from "/img/bee2.png";
 
 export default function Header(): JSX.Element {
-  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
   const { user, isLogin } = useUserSelector();
+  const [activeLink, setActiveLink] = useState("/");
 
   useEffect(() => {
     function handleResize() {
@@ -41,7 +41,12 @@ export default function Header(): JSX.Element {
         <div className={styles.logo}>
           <Link to="/">
             {" "}
-            <img src={logoBee} alt="bee" className={styles.logo_img} />
+            <img
+              src={logoBee}
+              alt="bee"
+              className={styles.logo_img}
+              onClick={() => setActiveLink("/")}
+            />
           </Link>
         </div>
         <div className={styles.title}>
@@ -54,48 +59,76 @@ export default function Header(): JSX.Element {
         {isWideScreen ? (
           <ul className={styles.nav_list}>
             <li className={styles.item}>
-              <NavLink to="/posts" className={styles.title_nav}>
+              <NavLink
+                to="/posts"
+                className={`${styles.title_nav} ${
+                  activeLink === "posts" ? styles.active : ""
+                }`}
+                onClick={() => setActiveLink("posts")}
+              >
                 Blog
               </NavLink>
             </li>
             <li className={styles.item}>
-              <Link to="/events" className={styles.title_nav}>
+              <Link
+                to="/events"
+                className={`${styles.title_nav} ${
+                  activeLink === "events" ? styles.active : ""
+                }`}
+                onClick={() => setActiveLink("events")}
+              >
                 Veranstaltungen
               </Link>
             </li>
             <li className={`${styles.item} ${styles.item_submenu}`}>
-              <Link to="/aboutUs" className={styles.title_nav}>
+              <Link
+                to="/aboutUs"
+                className={`${styles.title_nav} ${
+                  activeLink === "aboutUs" ? styles.active : ""
+                }`}
+                onClick={() => setActiveLink("aboutUs")}
+              >
                 Über uns
               </Link>
-              {/* <span className={`${styles.title_nav} ${styles.title_nav_menu}`}> */}
-              {/* Über uns
-              </span> */}
-              {/* <div className={styles.submenu}>
-                <Link to="/contactUs" className={styles.line}>
-                  Kontaktieren Sie uns
-                </Link>
-                <Link to="/aboutUs">Mitglieder der Gemeinschaft</Link>
-              </div> */}
             </li>
             <li className={styles.item}>
-              <Link to="/gallery" className={styles.title_nav}>
+              <Link
+                to="/gallery"
+                className={`${styles.title_nav} ${
+                  activeLink === "gallery" ? styles.active : ""
+                }`}
+                onClick={() => setActiveLink("gallery")}
+              >
                 Galerie
               </Link>
             </li>
             <li className={styles.item}>
-              <Link to="/contactUs" className={styles.title_nav}>
+              <Link
+                to="/contactUs"
+                className={`${styles.title_nav} ${
+                  activeLink === "contactUs" ? styles.active : ""
+                }`}
+                onClick={() => setActiveLink("contactUs")}
+              >
                 Kontakt
               </Link>
             </li>
+            {/* это раскоментируем и получаем Админку */}
             {user.role === ROLE.ADMIN ? (
-            <li className={`${styles.item} ${styles.item_submenu_admin}`}>
-              <Link to="/adminpage" className={styles.title_nav}>
-                Admin
-              </Link>
-            </li>
-             ) : (
+              <li className={`${styles.item} ${styles.item_submenu_admin}`}>
+                <Link
+                  to="/adminpage"
+                  className={`${styles.title_nav} ${
+                    activeLink === "adminpage" ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveLink("adminpage")}
+                >
+                  Admin
+                </Link>
+              </li>
+            ) : (
               ""
-            )} 
+            )}
           </ul>
         ) : (
           <div>

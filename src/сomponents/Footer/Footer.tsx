@@ -59,10 +59,7 @@ export default function Footer(): JSX.Element {
                   <div className="d-flex flex-row mb-2">
                     <SlHome className={styles.icons} />
                     <p className={styles.footer_contact_text}>
-                      Adresse:{" "}
-                      <Link to="/contactUs">
-                        {address}
-                      </Link>
+                      Adresse: <Link to="/contactUs">{address}</Link>
                     </p>
                   </div>
                   <div className="d-flex flex-row mb-2">
@@ -164,9 +161,7 @@ export default function Footer(): JSX.Element {
                 <FaTwitter className={styles.social_icons} />
               </a>
             </div>
-            <div className={styles.footer_logo_bottom}>
-
-            </div>
+            <div className={styles.footer_logo_bottom}></div>
           </Container>
         </div>
       ) : (

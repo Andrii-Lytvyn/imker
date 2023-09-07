@@ -56,24 +56,11 @@ export default function GallerySwiper3(): JSX.Element {
           }}
           className="mySwiper"
         >
-          {photos.map((item) => (
-            <SwiperSlide key={item.id} style={{ opacity: 1, pointerEvents: "none" }}>
-              <img src={"/api/files/" + item.linkToImg} />
+          {photos.map(({ linkToImg, id }) => (
+            <SwiperSlide key={id} style={{ opacity: 1, pointerEvents: "none" }}>
+              <img src={`/api/files/${linkToImg}`} />
             </SwiperSlide>
           ))}
-
-          {photos.map((item) => (
-            <SwiperSlide key={item.id} style={{ opacity: 1, pointerEvents: "none" }}>
-              <img src={"/api/files/" + item.linkToImg} />
-            </SwiperSlide>
-          ))}
-
-          {/* <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
-            <img
-              style={{ opacity: 1, pointerEvents: "none" }}
-              src={"/api/files/" + photos[0]?.linkToImg}
-            />
-          </SwiperSlide> */}
         </Swiper>
       )}
     </>

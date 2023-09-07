@@ -201,55 +201,52 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
         />
 
         <div className="d-flex justify-content-between">
-          
-        <button
-          className="button_imker"
-          style={{
-            marginTop: "10px",
-          }}
-          onClick={handleAddComment}
-        >
-          Kommentar hinzufügen
-        </button>
-
-        <div>
-          <Tooltip className="fs-2" title="Emojis">
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            onClick={handleClick}
+          <button
+            className="button_imker"
             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              padding: 0,
-              minWidth: 0,
-              cursor: "pointer",
-              boxShadow: "none",
+              marginTop: "10px",
             }}
+            onClick={handleAddComment}
           >
-            😜
-          </Button>
-        </Tooltip>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'center',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            <Picker data={data} onEmojiSelect={handleSelectEmoji} />
-          </Popover>
-        </div>
+            Kommentar hinzufügen
+          </button>
 
+          <div>
+            <Tooltip className="fs-2" title="Emojis">
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                onClick={handleClick}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  padding: 0,
+                  minWidth: 0,
+                  cursor: "pointer",
+                  boxShadow: "none",
+                }}
+              >
+                😜
+              </Button>
+            </Tooltip>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "center",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+            </Popover>
+          </div>
         </div>
-
       </Paper>
     </>
   );

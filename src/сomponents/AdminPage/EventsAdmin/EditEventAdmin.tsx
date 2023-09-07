@@ -3,31 +3,23 @@ import styles from "./EventsAdmin.module.css";
 import DatePicker from "react-datepicker";
 import type { Dayjs } from "dayjs";
 import { TimePicker } from "antd";
-import { useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import axios from "axios";
-import { IEvent } from "../../Events/interface/IEventsData";
 import linkToServer from "../../globalLinkToServer";
-
-// Редактирование Eventа
-const editedEvent = async (editEvent: IEvent) => {
-  try {
-    const data = await axios.put(
-      `${linkToServer}/api/events/${editEvent.idEvent}`,
-      editEvent
-    );
-
-    console.log("🚀 editedEvent:", data);
-  } catch (error) {
-    toast.error(`Ошибка сервера getAllEvents ${error}`);
-  }
-};
+import { editedEvent } from "./eventsOperation/eventsOperation";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import {
+  eventsStatus,
+  statusEvt,
+  updateEvent,
+} from "../../../redux/eventsStore/eventsSlice";
 
 const EditEventAdmin = (): JSX.Element => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { event_edit } = useEventsSelector();
   const [eventEditForm, setEventEditForm] = useState(event_edit);
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
@@ -71,14 +63,14 @@ const EditEventAdmin = (): JSX.Element => {
               formData
             );
             linkVar = response.data.id.toString();
-            console.log("File uploaded:", linkVar);
+            // console.log("File uploaded:", linkVar);
           } catch (error) {
-            console.error("Error uploading file:", error);
+            console.error("Uploading file Error !!!");
           }
         } else {
           linkVar = eventEditForm.photo;
         }
-        const newEvent = {
+        const editEvent = {
           ...eventEditForm,
           dateStart: choosedDateStart,
           dateEnd: choosedDateEnd,
@@ -86,12 +78,12 @@ const EditEventAdmin = (): JSX.Element => {
           startTime: timeStart?.format("HH:mm") || "",
           endTime: timeEnd?.format("HH:mm") || "",
         };
-        toast.success("createNewEvent");
-        editedEvent(newEvent); // Отправка на бек
-        console.log("🚀  newEvent:", newEvent);
+        toast.success("Event Update");
+        editedEvent(editEvent); // Отправка на бек
         //////////////////////
-        navigate("/eventsadm");
         resetForm();
+        dispatch(updateEvent(editEvent));
+        dispatch(eventsStatus(statusEvt.allEvnt));
       } else {
         toast.warning("Datum kleiner als das aktuelle Datum", {
           autoClose: 3000,
@@ -263,6 +255,7 @@ const EditEventAdmin = (): JSX.Element => {
             onChange={collectEventsData}
           />
         </div>
+
         <div className={styles.photo}>
           <label htmlFor="fileInput" className="file-upload">
             Choose image
@@ -299,16 +292,8 @@ const EditEventAdmin = (): JSX.Element => {
           )}
         </div>
         <div>
-          <button type="submit" className={styles.create_btn}>
+          <button type="submit" className="button_imker">
             Save
-          </button>
-
-          <button
-            type="button"
-            className={styles.create_btn}
-            onClick={() => navigate("/eventsadm")}
-          >
-            back
           </button>
         </div>
       </form>

@@ -1,16 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IEvent } from "../../сomponents/Events/interface/IEventsData";
+export const statusEvt = {
+    addEvnt: "ADD",
+    allEvnt: "ALL",
+    editEvnt: "EDIT"
+}
 
 export interface EventsState {
     events: IEvent[] | [];
     event_edit: IEvent;
     count: string;
+    status: string
 }
 
 export const initEventsState: EventsState = {
     events: [],
     event_edit: {},
-    count: ""
+    count: "",
+    status: statusEvt.allEvnt
 }
 const eventsSlice = createSlice({
     name: "events",
@@ -24,7 +31,13 @@ const eventsSlice = createSlice({
                 return { ...state, event_edit: foundEvent };
             }
             return state;
-        }
+        },
+        eventsStatus: (state, { payload }) => ({ ...state, status: payload }),
+        updateEvent: (state, { payload }) => {
+            state.events = state.events.map((event) =>
+                event.idEvent === payload.idEvent ? { ...event, ...payload } : event
+            );
+        },
     }
 });
 export const eventsReducer = eventsSlice.reducer;
@@ -33,5 +46,7 @@ export const {
     getEvents,
     addEvent,
     getOneEvent,
+    eventsStatus,
+    updateEvent,
 } = eventsSlice.actions;
 

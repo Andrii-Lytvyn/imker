@@ -1,0 +1,27 @@
+
+.btn_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 80%;
+  margin: 10px auto;
+  text-align: center;
+}
+.btn_nav {
+  /* font-size: 20px; */
+  padding: 20px 24px;
+  /* border-radius: 4px; */
+  /* background-color: var(--bg-button-admin);
+  color: var(--bold-text); */
+  font-size: 1.3rem;
+  margin: 2px;
+  margin-bottom: -13px;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  border: none;
+  background-color: var(--bg-button-admin);
+}
+.btn_nav_not_active {
+  border-radius: 10px;
+}

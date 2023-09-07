@@ -6,8 +6,8 @@ import {
 } from "../../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
 import linkToServer from "../../globalLinkToServer";
-import styles from "./PostsPanel.module.css"
-import {BsCalendar2Week} from "react-icons/bs";
+import styles from "./PostsPanel.module.css";
+import { BsCalendar2Week } from "react-icons/bs";
 import moment from "moment";
 
 export default function PostsPanel() {
@@ -40,19 +40,20 @@ export default function PostsPanel() {
               // linkToImg,
               shortPostDescription,
               // textOfPost,
-              authorName,
+              // authorName,
             }) => (
               <div key={idPost}>
                 <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> {moment(creationTimePost).format("D MMMM YYYY")}
+                  <BsCalendar2Week />{" "}
+                  {moment(creationTimePost).format("D MMMM YYYY")}
                 </p>
                 <h5 className={styles.post_event_h5}>
-                  <Link to={`/posts/${idPost}`}>
-                    {titlePost}
-                  </Link>
+                  <Link to={`/posts/${idPost}`}>{titlePost}</Link>
                 </h5>
                 <div className={styles.postpanel_text}>
-                  <p className={styles.post_event_text}>{shortPostDescription}</p>
+                  <p className={styles.post_event_text}>
+                    {shortPostDescription}
+                  </p>
                 </div>
                 <hr className={styles.post_hr} />
               </div>

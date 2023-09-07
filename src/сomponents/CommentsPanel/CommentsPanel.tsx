@@ -5,7 +5,10 @@ import { Divider } from "antd";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import { TextField } from "@mui/material";
+import { Button, Popover, TextField, Tooltip } from "@mui/material";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { EmojiData } from "emoji-mart";
 
 interface IComment {
   id: number;
@@ -43,6 +46,8 @@ function CommentBlock({
         padding: "16px",
         marginBottom: "16px",
         backgroundColor: "rgba(247, 243, 240, 1)",
+        borderRadius: "20px",
+        width: "80%",
       }}
     >
       <div className="d-flex mb-4">
@@ -54,7 +59,11 @@ function CommentBlock({
           {userName}
         </Typography>
       </div>
-      <Typography paragraph className="ms-5">
+      <Typography
+        paragraph
+        className="ms-5 fs-5"
+        style={{ overflowWrap: "break-word", maxWidth: "30vw" }}
+      >
         {commentText}
       </Typography>
       <Divider />
@@ -72,11 +81,14 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
   const [commentsList, setCommentsList] = useState<IComment[]>();
   const [comment, setComment] = useState("");
   const [newComment, setNewComment] = useState<INewComment>({
-    commentText: '',
-    userId: 0, 
-    eventId: 0, 
-    postId: 0, 
+    commentText: "",
+    userId: 0,
+    eventId: 0,
+    postId: 0,
   });
+  const maxCharacterCount = 950;
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     async function getListOfComments() {
@@ -90,56 +102,80 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
       }
     }
     getListOfComments();
-  }, [entity, entityId,isNewData]);
+  }, [entity, entityId, isNewData]);
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newCommentData = entity === "event"
-    ? {
-        commentText: e.target.value,
-        userId: 1,
-        eventId: Number(entityId),
-        postId: 0,
-      }
-    : {
-        commentText: e.target.value,
-        userId: 1,
-        eventId: 0,
-        postId: Number(entityId),
-      };
+    const text = e.target.value;
 
-  setComment(e.target.value);
-  setNewComment(newCommentData);
+    if (text.length <= maxCharacterCount) {
+      const newCommentData =
+        entity === "event"
+          ? {
+              commentText: e.target.value,
+              userId: 1,
+              eventId: Number(entityId),
+              postId: 0,
+            }
+          : {
+              commentText: e.target.value,
+              userId: 1,
+              eventId: 0,
+              postId: Number(entityId),
+            };
+
+      setComment(e.target.value);
+      setNewComment(newCommentData);
+    }
   };
 
   const handleAddComment = async () => {
-    if (comment.trim().length>0){
-
+    if (comment.trim().length > 0) {
       try {
-        await axios.post(
-        "/api/comment", newComment,
-        {
+        await axios.post("/api/comment", newComment, {
           withCredentials: true,
-        }
-      );
-    } catch (error) {
-      console.error(
-        "There was an error when sending a comment:",
-        error
-      );
+        });
+      } catch (error) {
+        console.error("There was an error when sending a comment:", error);
+      }
+      setComment("");
+      setIsNewData(!isNewData);
+      console.log(newComment);
     }
-    setComment("");
-    setIsNewData(!isNewData);
-  }
   };
+
+  const handleSelectEmoji = (emoji: EmojiData) => {
+    const updatedComment = comment + emoji.native;
+    setComment(updatedComment);
+
+    const event = {
+      target: {
+        value: updatedComment,
+      },
+    };
+
+    handleCommentChange(event as ChangeEvent<HTMLInputElement>);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
-      {commentsList ? (
+      <p className="m-2">Kommentare von Community-Mitgliedern:</p>
+      {commentsList && commentsList.length > 0 ? (
         commentsList.map((comment, index) => (
           <CommentBlock key={index} {...comment} />
         ))
       ) : (
-        <p>Loading comments...</p>
+        <p className="m-2 mb-4 fs-4">Bisher keine Kommentare..</p>
       )}
       <Paper
         elevation={3}
@@ -147,18 +183,25 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           padding: "10px",
           marginBottom: "10px",
           backgroundColor: "rgba(247, 243, 240, 1)",
+          borderRadius: "10px",
+          width: "90%",
         }}
       >
         <TextField
           style={{
             marginRight: "10px",
           }}
-          label="Новый комментарий"
+          label="Neuer Kommentar"
           variant="outlined"
           fullWidth
+          multiline
+          rows={4}
           value={comment}
           onChange={handleCommentChange}
         />
+
+        <div className="d-flex justify-content-between">
+          
         <button
           className="button_imker"
           style={{
@@ -166,8 +209,47 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           }}
           onClick={handleAddComment}
         >
-          Добавить комментарий
+          Kommentar hinzufügen
         </button>
+
+        <div>
+          <Tooltip className="fs-2" title="Emojis">
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            onClick={handleClick}
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              padding: 0,
+              minWidth: 0,
+              cursor: "pointer",
+              boxShadow: "none",
+            }}
+          >
+            😜
+          </Button>
+        </Tooltip>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+          >
+            <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+          </Popover>
+        </div>
+
+        </div>
+
       </Paper>
     </>
   );

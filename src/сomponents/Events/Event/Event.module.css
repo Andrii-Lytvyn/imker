@@ -12,9 +12,11 @@
   margin: 0 10px;
 }
 .event_description{
-  position: absolute;
+  /* position: absolute;
   bottom: -3.5em;
-  left: 0;
+  left: 0; */
+  margin: 50px 0;
+
 }
 .event_description p{
   color: var(--bold-text)!important;
@@ -91,11 +93,12 @@
     font-size: 1.2em;
     margin-top: 1em;
 }
-.item {
+/* .item {
 
-}
+} */
 .map {
   height: 300px;
+  width: 400px;
 }
 .title_event {
   text-align: left;
@@ -103,8 +106,8 @@
   color: var(--terracotta);
   font-weight: 500;
 }
-.icon {
+/* .icon { */
   /*display: flex;*/
   /*align-items: flex-end;*/
   /*gap: 10px;*/
-}
+/* } */

@@ -6,8 +6,6 @@ import { Link, useParams } from "react-router-dom";
 import styles from "./Post.module.css";
 import { FaHome } from "react-icons/fa";
 import { Container, Nav } from "react-bootstrap";
-import { BsCalendar2Week } from "react-icons/bs";
-import { BiTimeFive } from "react-icons/bi";
 import moment from "moment";
 import PostPanelRightSide from "../PostPanelRightSide/PostPanelRightSide";
 
@@ -81,10 +79,8 @@ export default function PostSingle(): JSX.Element {
               </div>
             </div>
 
-                <div className={styles.post_right_side}>
-                    <PostPanelRightSide />
-                </div>
-
+            <div className={styles.post_right_side}>
+              <PostPanelRightSide />
             </div>
           </div>
         </Container>

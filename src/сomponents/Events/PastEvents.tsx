@@ -16,7 +16,7 @@ const PastEvents = (): JSX.Element => {
   const { events } = useEventsSelector();
   const [page, setPage] = useState(1);
 
-  const quantityOnPage = 5;
+  const quantityOnPage = 3;
   const startIndex = (Number(page) - 1) * quantityOnPage;
 
   const pastEventFiltered = events
@@ -39,29 +39,32 @@ const PastEvents = (): JSX.Element => {
       <div className={styles.post_right_side}>
         <h2>Vergangene Ereignisse</h2>
         <hr className={styles.post_hr} />
-        {pastEventFiltered
-          .map(({ dateStart, idEvent, shortDescription }) =>
-            dateStart < currentDate() ? (
-              <div key={`${idEvent}`} className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week />{" "}
-                  {`${formatDate(dateStart)?.day} ${
-                    formatDate(dateStart)?.month
-                  }, ${formatDate(dateStart)?.year}`}
-                </p>
-                <h4 className={styles.post_event_h4}>
-                  <Link to={`/events/${idEvent}`}>{shortDescription}</Link>
-                </h4>
-                <p className={styles.post_event_text}>
-                  {shortDescription.substring(0, 200)}...
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-            ) : (
-              ""
+        <div style={{ minHeight: "52vh" }}>
+          {pastEventFiltered
+            .map(({ dateStart, idEvent, shortDescription }) =>
+              dateStart < currentDate() ? (
+                <div key={`${idEvent}`} className="mb-2">
+                  <p className={styles.post_event_date}>
+                    <BsCalendar2Week />{" "}
+                    {`${formatDate(dateStart)?.day} ${
+                      formatDate(dateStart)?.month
+                    }, ${formatDate(dateStart)?.year}`}
+                  </p>
+                  <h4 className={styles.post_event_h4}>
+                    <Link to={`/events/${idEvent}`}>{shortDescription}</Link>
+                  </h4>
+                  <p className={styles.post_event_text}>
+                    {shortDescription.substring(0, 200)}...
+                  </p>
+                  <hr className={styles.post_hr} />
+                </div>
+              ) : (
+                ""
+              )
             )
-          )
-          .slice(startIndex, startIndex + quantityOnPage)}
+            .slice(startIndex, startIndex + quantityOnPage)}
+        </div>
+
         {pastEventFiltered.length >= quantityOnPage + 1 ? (
           <div
             className={`${styles.pagination_container_past} ${styles.past_pagination}`}
@@ -93,6 +96,7 @@ const PastEvents = (): JSX.Element => {
         ) : (
           ""
         )}
+
         <GallerySwiper />
       </div>
     </Container>

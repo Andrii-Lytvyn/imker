@@ -38,10 +38,7 @@ export default function AccountMenu(props: AccountMenuProps) {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar
-              // alt={user?.name}
-              // variant="rounded"
-              // src="/api/files/5"
-              src={"/api/files/" + userImg}
+              src={userImg ? "/api/files/" + userImg : ""}
               sx={{ width: 50, height: 50 }}
             />
           </IconButton>
@@ -87,9 +84,7 @@ export default function AccountMenu(props: AccountMenuProps) {
             handleClose();
           }}
         >
-          <Link to="/accountpage">
-            Mein Profil
-          </Link>
+          <Link to="/accountpage">Mein Profil</Link>
         </MenuItem>
         <Divider />
         <MenuItem

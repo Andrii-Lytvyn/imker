@@ -5,7 +5,6 @@ import {
   initIPostsDto,
 } from "../../AdminPage/PostsAdmin/interfaces/IPostsDto";
 import { Link } from "react-router-dom";
-import linkToServer from "../../globalLinkToServer";
 import styles from "./PostsPanel.module.css";
 import { BsCalendar2Week } from "react-icons/bs";
 import moment from "moment";
@@ -18,7 +17,7 @@ export default function PostsPanel() {
     async function getListOfPosts() {
       try {
         const response = await axios.get(
-          `${linkToServer}/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
+          `/api/posts?page=0&items=${itemsOnPage}&orderBy=creationTimePost&desk=true`
         );
         setPosts(response.data);
       } catch (error) {

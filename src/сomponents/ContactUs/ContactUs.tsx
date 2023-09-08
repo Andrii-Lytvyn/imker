@@ -4,7 +4,6 @@ import styles from "./ContactUs.module.css";
 import { initContacUsForm } from "./interfaces/IContactUsForm";
 import axios from "axios";
 import { toast } from "react-toastify";
-import linkToServer from "../globalLinkToServer";
 import { Container } from "react-bootstrap";
 import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
 import { TextField } from "@mui/material";
@@ -24,14 +23,14 @@ export default function Contacts(): JSX.Element {
   useEffect(() => {
     const getGoogleMapLink = async () => {
       try {
-        const response = await axios.get(`${linkToServer}/api/googlemap`);
+        const response = await axios.get(`/api/googlemap`);
         const { googleMapLink } = response.data;
         setGoogleMap(googleMapLink);
       } catch (error) {
         console.error("Error during request execution:", error);
       }
       try {
-        const response = await axios.get(`${linkToServer}/api/address`);
+        const response = await axios.get(`/api/address`);
         const getAddress = response.data;
         setAddress(getAddress);
       } catch (error) {

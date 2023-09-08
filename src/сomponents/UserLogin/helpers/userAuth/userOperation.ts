@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { IRestorePassword } from "../../SingInUser/RestorePassword/interface/IRestorePassword";
-import linkToServer from "../../../globalLinkToServer";
 import { IRestoreAnswer } from "../../SingInUser/RestoreAnswer/interface/IRestoreAnswer";
 import { IRegisterUser } from "../../RegisterUser/interface/IRegisterUser";
 import { IEmail } from "../../SingInUser/interface/ISingInUser";
@@ -19,7 +18,7 @@ export const getLoginStatus = () => {
 export const registerNewUser = async (createNewUser: IRegisterUser) => {
     try {
         const dataNewUser = await axios.post(
-            `${linkToServer}/api/register`,
+            `/api/register`,
             createNewUser
         );
         console.log("🚀  data:", dataNewUser);
@@ -71,7 +70,7 @@ export const getUserData = async () => {
 export const answerToRestore = async (restoreAnswer: IRestoreAnswer) => {
     try {
         const data = await axios.post(
-            `${linkToServer}/api/question`,
+            `/api/question`,
             restoreAnswer
         );
         // console.log("🚀  data:", data);
@@ -84,7 +83,7 @@ export const answerToRestore = async (restoreAnswer: IRestoreAnswer) => {
 
 export const emailToRestore = async (email: IEmail) => {
     try {
-        const data = await axios.post(`${linkToServer}/api/questions`, email);
+        const data = await axios.post(`/api/questions`, email);
         return data;
     } catch (error) {
         console.log("🚀  error:", error);

@@ -2,12 +2,15 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../Team/interfaces/IMembers";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { eventsStatus, statusEvt } from "../../../redux/eventsStore/eventsSlice";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 export default function TeamAdmin(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +50,10 @@ export default function TeamAdmin(): JSX.Element {
     }
   }
 
+  function EditMember() {
+    dispatch(eventsStatus(statusEvt.editEvnt));
+  }
+
   return (
     <>
       <br />
@@ -74,7 +81,7 @@ export default function TeamAdmin(): JSX.Element {
               email
             }) => (
               <li key={id}>
-                <button onClick={() => navigate(`/teamadmin/teameditmemberadmin/${id}`)
+                <button onClick={EditMember
                 }>
                   Bearbeiten
                 </button>

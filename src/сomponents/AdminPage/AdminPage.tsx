@@ -2,8 +2,8 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import TeamAdmin from "./AboutUsAdmin/TeamAdmin";
-import ContactUsAdmin from "./contactUsAdmin/ContactUsAdmin";
+// import TeamAdmin from "./AboutUsAdmin/TeamAdmin";
+// import ContactUsAdmin from "./contactUsAdmin/ContactUsAdmin";
 import PostsAdmin from "./PostsAdmin/PostsAdmin";
 import FilesUploadAdmin from "./FilesUploadAdmin/FilesUploadAdmin";
 import GalleryAdmin from "./GalleryAdmin/GalleryAdmin";
@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SliderAdmin from "./SliderAdmin/SliderAdmin";
 import EventNav from "./EventsAdmin/EventNav";
+import AboutUsNav from "./AboutUsAdmin/AboutUsNav";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -93,7 +94,7 @@ export default function AdminPage() {
               <Tab className="fs-5" label="BLOG" />
               <Tab className="fs-5" label="VERANSTALTUNGEN" />
               <Tab className="fs-5" label="Kontaktieren Sie uns" />
-              <Tab className="fs-5" label="Mitglieder der Gemeinschaft" />
+              <Tab className="fs-5" label="Über uns" />
               <Tab className="fs-5" label="Gallery" />
               <Tab className="fs-5" label="Sliders" />
               <Tab className="fs-5" label="Users" />
@@ -106,16 +107,15 @@ export default function AdminPage() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <div className="container">
-            {/* <AddEventAdmin /> */}
             <EventNav />
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <ContactUsAdmin />
+          <AboutUsNav />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
           <div className="container">
-            <TeamAdmin />
+            <AboutUsNav />
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>

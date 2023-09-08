@@ -88,13 +88,13 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
         entity === "event"
           ? {
               commentText: e.target.value,
-              userId: 3,
+              userId: me.id,
               eventId: Number(entityId),
               postId: 0,
             }
           : {
               commentText: e.target.value,
-              userId: 3,
+              userId: me.id,
               eventId: 0,
               postId: Number(entityId),
             };
@@ -143,10 +143,20 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
     setAnchorEl(null);
   };
 
+  const handleDelete = async (idDelete: number) => {
+    try {
+      await axios.delete(`/api/comment/delete/${idDelete}`);
+    } catch (error) {
+      console.error("Error during request execution:", error);
+    }
+    setIsNewData(!isNewData);
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   function CommentBlock({
+    id,
     userId,
     userName,
     commentText,
@@ -190,6 +200,9 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
                   marginTop: "-5px",
                   color: "grey",
                   opacity: "0.5",
+                }}
+                onClick={() => {
+                  handleDelete(id);
                 }}
               >
                 ✖️

@@ -9,6 +9,7 @@ import { Container, Nav } from "react-bootstrap";
 import { BsCalendar2Week } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
 import moment from "moment";
+import PostPanelRightSide from "../PostPanelRightSide/PostPanelRightSide";
 
 export default function PostSingle(): JSX.Element {
   const [
@@ -80,63 +81,10 @@ export default function PostSingle(): JSX.Element {
               </div>
             </div>
 
-            <div className={styles.post_right_side}>
-              <h2>VERANSTALTUNGEN</h2>
-              <hr className={styles.post_hr} />
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <p className={styles.post_event_time}>
-                  <BiTimeFive /> 10:00
-                </p>
-                <h4 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h4>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <p className={styles.post_event_time}>
-                  <BiTimeFive /> 10:00
-                </p>
-                <h4 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h4>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
-              <div className="mb-2">
-                <p className={styles.post_event_date}>
-                  <BsCalendar2Week /> 15 November, 2023
-                </p>
-                <p className={styles.post_event_time}>
-                  <BiTimeFive /> 10:00
-                </p>
-                <h4 className={styles.post_event_h4}>
-                  <Link to={"/"}>
-                    SWEET HONEY PACKS FRESH RAW AND UNFILTERED
-                  </Link>
-                </h4>
-                <p className={styles.post_event_text}>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu
-                </p>
-                <hr className={styles.post_hr} />
-              </div>
+                <div className={styles.post_right_side}>
+                    <PostPanelRightSide />
+                </div>
+
             </div>
           </div>
         </Container>

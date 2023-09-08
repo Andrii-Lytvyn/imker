@@ -30,7 +30,14 @@
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 1fr;
   gap: 8px;
-  margin-bottom: 66px;
+}
+.event_h2{
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2.5em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .post_cont{
   position: relative;

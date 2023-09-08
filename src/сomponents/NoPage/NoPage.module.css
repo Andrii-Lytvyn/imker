@@ -26,7 +26,7 @@
 .pageTop p{
     width: 60%;
     padding: 0 0 15px 0;
-    color: var(--bold-text);
+    color: var(--text-color);
 }
 .pageTop a{
     padding: 10px 15px;

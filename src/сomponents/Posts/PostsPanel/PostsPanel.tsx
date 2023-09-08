@@ -43,9 +43,9 @@ export default function PostsPanel() {
                   <BsCalendar2Week />{" "}
                   {moment(creationTimePost).format("D MMMM YYYY")}
                 </p>
-                <h5 className={styles.post_event_h5}>
+                <h4 className={styles.post_event_h5}>
                   <Link to={`/posts/${idPost}`}>{titlePost}</Link>
-                </h5>
+                </h4>
                 <div className={styles.postpanel_text}>
                   <p className={styles.post_event_text}>
                     {shortPostDescription}

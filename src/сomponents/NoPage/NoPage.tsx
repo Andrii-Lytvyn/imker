@@ -13,10 +13,9 @@ export default function NoPage(): JSX.Element {
         >
           <h4>404</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-            tellus, luctus nec.
+            Leider wurde die angeforderte Seite nicht gefunden. Möglicherweise sind Sie irrtümlich einem Link gefolgt oder die Ressource wurde gelöscht. Versuchen Sie, die Hauptseite aufzurufen
           </p>
-          <Link to="/">to Home page</Link>
+          <Link to="/">Hauptseite</Link>
         </div>
       </div>
     </>

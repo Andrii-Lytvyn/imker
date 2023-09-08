@@ -61,29 +61,30 @@ const Gallery = (): JSX.Element => {
 
   return (
     <div className={styles.gallery_main}>
-      <h2>Our gallery</h2>
+      <div
+          className={
+              styles.gallery_bg +
+              " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
+          }
+      >
+      <h2>Unsere Galerie</h2>
+      </div>
       <Container>
         <GallerySwiper2 />
 
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio
-          perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus
-          commodi ducimus nisi esse repellendus ratione molestias sit magni
-          soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet
-          consectetur adipisicing elit. Distinctio perspiciatis laboriosam
-          animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi
-          esse repellendus ratione molestias sit magni soluta perferendis vero
-          pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium
-          accusamus commodi ducimus nisi esse repellendus ratione molestias sit
-          magni soluta perferendis vero pariatur. Lorem ipsum dolor sit, amet
-          consectetur adipisicing elit. Distinctio perspiciatis laboriosam
-          animi, ipsum, dolorum ab laudantium accusamus commodi ducimus nisi
-          esse repellendus ratione molestias sit magni soluta perferendis vero
-          pariatur. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Distinctio perspiciatis laboriosam animi, ipsum, dolorum ab laudantium
-          accusamus commodi ducimus nisi esse repellendus ratione molestias
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          <span className={styles.gallery_title}>Willkommen in unserer Galerie.</span>
+          <br />
+          <br />
+
+          In unserer Galerie möchten wir Ihnen einen Einblick in die faszinierende Welt der Bienen und der Imkerei geben. Hier finden Sie eine Sammlung von beeindruckenden Fotos und Momentaufnahmen, die die Schönheit und Vielfalt unserer geflügelten Freunde sowie die Arbeit unserer engagierten Imkerinnen und Imker einfangen.
+          <br />
+          <br />
+
+          In dieser Galerie entdecken Sie atemberaubende Aufnahmen von Bienen in Aktion, wie sie emsig Blüten bestäuben und den süßen Nektar sammeln. Wir zeigen Ihnen auch, wie unsere Imkerinnen und Imker mit Hingabe und Leidenschaft für die Bienenpflege sorgen. Sie werden die faszinierende Welt der Bienenstöcke erkunden können und erfahren, wie der Honig geerntet und verarbeitet wird.
+          <br />
+          <br />
+          Wir laden Sie ein, unsere Galerie zu durchstöbern und sich von den wunderbaren Momenten und der Schönheit der Natur inspirieren zu lassen. Vielleicht entdecken Sie dabei auch Ihre eigene Leidenschaft für die Imkerei. Wenn Sie Fragen haben oder mehr über unsere Arbeit erfahren möchten, zögern Sie nicht, uns zu kontaktieren. Wir freuen uns darauf, Ihre Begeisterung für Bienen und Imkerei zu teilen.
         </p>
       </Container>
       <Container>

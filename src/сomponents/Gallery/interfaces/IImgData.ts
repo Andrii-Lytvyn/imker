@@ -1,4 +1,4 @@
 export interface IImgData {
-    img: string;
-    id: string;
+  img: string;
+  id: string;
 }

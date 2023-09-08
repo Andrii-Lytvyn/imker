@@ -1,5 +1,9 @@
-.gallery_main{
-  background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+.gallery_main {
+  background: linear-gradient(
+    0deg,
+    var(--first-color-gradient),
+    var(--second-color-gradient)
+  );
   margin-bottom: -90px;
 }
 .gallery_main p{
@@ -8,6 +12,7 @@
 .gallery_container {
   margin: 60px 40px 90px;
 }
+
 h2{
   margin-top: 0!important;
   color: white;

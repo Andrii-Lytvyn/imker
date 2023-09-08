@@ -53,7 +53,11 @@ export default function AccountTabs() {
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
-          sx={{ display: "flex", justifyContent: "space-between", flexWrap: "nowrap" }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "nowrap",
+          }}
           value={value}
           onChange={handleChange}
           aria-label="tabs"
@@ -62,7 +66,8 @@ export default function AccountTabs() {
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <LiaInfoSolid style={{ fontSize: "25px" }} /> Meine Informationen
+                <LiaInfoSolid style={{ fontSize: "25px" }} /> Meine
+                Informationen
               </span>
             }
             {...a11yProps(0)}
@@ -71,7 +76,8 @@ export default function AccountTabs() {
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <GrSchedule style={{ fontSize: "20px", marginRight: "5px" }} /> Meine geplanten Veranstaltungen
+                <GrSchedule style={{ fontSize: "20px", marginRight: "5px" }} />{" "}
+                Meine geplanten Veranstaltungen
               </span>
             }
             {...a11yProps(1)}
@@ -80,7 +86,8 @@ export default function AccountTabs() {
             sx={{ flexGrow: 1 }}
             label={
               <span>
-                <FiSettings style={{ fontSize: "20px", marginRight: "5px" }} /> Meine Einstellungen
+                <FiSettings style={{ fontSize: "20px", marginRight: "5px" }} />{" "}
+                Meine Einstellungen
               </span>
             }
             {...a11yProps(2)}

@@ -7,7 +7,6 @@ import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
-import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IAddress, initIAddress } from "../ContactUs/interfaces/IAddress";
@@ -36,7 +35,7 @@ export default function Footer(): JSX.Element {
       }
 
       try {
-        const response = await axios.get(`${linkToServer}/api/address`);
+        const response = await axios.get(`/api/address`);
         const getAddress = response.data;
         setAddress(getAddress);
       } catch (error) {

@@ -23,7 +23,8 @@ const Gallery = (): JSX.Element => {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+          {
             withCredentials: true,
           }
         );
@@ -41,7 +42,8 @@ const Gallery = (): JSX.Element => {
       const response = await axios.get(
         `/api/gallery?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+        {
           withCredentials: true,
         }
       );
@@ -54,7 +56,7 @@ const Gallery = (): JSX.Element => {
 
   const modalShow = (linkToImg: number) => {
     setIsModalShow(true);
-    setModalImage(""+linkToImg);
+    setModalImage("" + linkToImg);
   };
 
   return (
@@ -68,9 +70,8 @@ const Gallery = (): JSX.Element => {
       <h2>Unsere Galerie</h2>
       </div>
       <Container>
+        <GallerySwiper2 />
 
-      <GallerySwiper2 />
-      
         <p>
           <span className={styles.gallery_title}>Willkommen in unserer Galerie.</span>
           <br />
@@ -111,12 +112,12 @@ const Gallery = (): JSX.Element => {
             />
           </div>
         </div>
-        {isModalShow && 
+        {isModalShow && (
           <Modal
             setModalHide={setIsModalShow}
             modalImage={"/api/files/" + modalImage}
           />
-        }
+        )}
       </Container>
     </div>
   );

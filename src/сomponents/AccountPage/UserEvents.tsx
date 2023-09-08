@@ -73,12 +73,7 @@ export default function UserEvents(): JSX.Element {
       <div style={{ minHeight: "30vh" }}>
         {currentEvents.length ? (
           currentEvents.map(
-            ({
-              idEvent,
-              title,
-              shortDescription,
-              dateStart,
-            }) => (
+            ({ idEvent, title, shortDescription, dateStart }) => (
               <div
                 key={idEvent}
                 className="d-flex justify-content-between rounded bg-light p-2 mb-2"
@@ -124,8 +119,13 @@ export default function UserEvents(): JSX.Element {
           )
         ) : (
           <div>
-          <p className="fs-4 text-center mt-4">Es sind keine geplanten Veranstaltungen für Sie vorhanden</p>
-          <p className="fs-6 text-center" style={{ marginTop: '180px' }}>Hinweis: anmeldungen für unsere Veranstaltungen können nur von Mitgliedern unserer Gemeinschaft eingereicht werden</p>
+            <p className="fs-4 text-center mt-4">
+              Es sind keine geplanten Veranstaltungen für Sie vorhanden
+            </p>
+            <p className="fs-6 text-center" style={{ marginTop: "180px" }}>
+              Hinweis: anmeldungen für unsere Veranstaltungen können nur von
+              Mitgliedern unserer Gemeinschaft eingereicht werden
+            </p>
           </div>
         )}
       </div>

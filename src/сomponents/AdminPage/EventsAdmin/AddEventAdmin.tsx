@@ -8,7 +8,6 @@ import { TimePicker } from "antd";
 import { toast } from "react-toastify";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
-import linkToServer from "../../globalLinkToServer";
 import { createNewEvent } from "./eventsOperation/eventsOperation";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import {
@@ -59,7 +58,7 @@ const AddEventAdmin = (): JSX.Element => {
 
           try {
             const response = await axios.post(
-              `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=EVENT`,
+              `/api/files/upload?width=${width}&height=${height}&category=EVENT`,
               formData
             );
             linkVar = response.data.id.toString();

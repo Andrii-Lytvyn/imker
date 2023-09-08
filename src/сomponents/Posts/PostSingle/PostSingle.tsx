@@ -13,14 +13,7 @@ import PostPanelRightSide from "../PostPanelRightSide/PostPanelRightSide";
 
 export default function PostSingle(): JSX.Element {
   const [
-    {
-      idPost,
-      creationTimePost,
-      titlePost,
-      linkToImg,
-      textOfPost,
-      authorName,
-    },
+    { idPost, creationTimePost, titlePost, linkToImg, textOfPost, authorName },
     setPost,
   ] = useState<IPostDto>(initIPostDto);
   const { id } = useParams();
@@ -43,56 +36,59 @@ export default function PostSingle(): JSX.Element {
 
   return (
     <>
-        <div className={styles.post_main}>
+      <div className={styles.post_main}>
         <Container>
-            <div className={styles.breadcrumbs}>
-                <Nav>
-                    <Link to="/">
-                        {" "}
-                        <FaHome />
-                    </Link>
-                </Nav>
-                <span> | </span>
-                <Nav>
-                    <Link to="/posts">POSTS</Link>
-                </Nav>
-                <span> | </span>
-                {titlePost}
-            </div>
-            <hr />
-            <div className={styles.post_cont}>
-                <div className= {styles.single_post + " container"}>
-                <img
-                    className={styles.post_img}
-                    src={"/api/files/" + linkToImg}
-                    alt={"post img" + idPost}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "/img/imgNotFound.jpg";
-                    }}
-                  />
-                    <p className={styles.post_time}>{moment(creationTimePost).format("D MMMM YYYY")}</p>
-                    <h2>{titlePost}</h2>
-                    <div
+          <div className={styles.breadcrumbs}>
+            <Nav>
+              <Link to="/">
+                {" "}
+                <FaHome />
+              </Link>
+            </Nav>
+            <span> | </span>
+            <Nav>
+              <Link to="/posts">POSTS</Link>
+            </Nav>
+            <span> | </span>
+            {titlePost}
+          </div>
+          <hr />
+          <div className={styles.post_cont}>
+            <div className={styles.single_post + " container"}>
+              <img
+                className={styles.post_img}
+                src={"/api/files/" + linkToImg}
+                alt={"post img" + idPost}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/img/imgNotFound.jpg";
+                }}
+              />
+              <p className={styles.post_time}>
+                {moment(creationTimePost).format("D MMMM YYYY")}
+              </p>
+              <h2>{titlePost}</h2>
+              <div
                 className="container"
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(textOfPost || ""),
                 }}
               />
-              {/* <div className="container" dangerouslySetInnerHTML={{ __html: post!.textOfPost }} /> */}
-                    <div className={styles.post_author}>
-                        <p><span>{authorName}</span></p>
-                    </div>
-                </div>
-
+              <div className={styles.post_author}>
+                <p>
+                  <span>{authorName}</span>
+                </p>
+              </div>
+            </div>
 
                 <div className={styles.post_right_side}>
                     <PostPanelRightSide />
-
                 </div>
+
             </div>
-      </Container>
-        </div>
+          </div>
+        </Container>
+      </div>
     </>
   );
 }

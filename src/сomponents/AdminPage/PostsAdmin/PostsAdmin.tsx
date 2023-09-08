@@ -103,7 +103,7 @@ export default function PostsAdmin() {
         >
           Edit Post
         </button>
-        <hr />
+        {/* <hr /> */}
       </div>
 
       {isCreateShow && <PostsCreationAdmin />}
@@ -112,7 +112,7 @@ export default function PostsAdmin() {
 
       {isListShow && (
         <div className={styles.container}>
-          <p className={styles.totalCount}>Total count of posts: {count}</p>
+          <h4 className={styles.totalCount}>Total count of posts: {count}</h4>
 
           <Pagination
             count={pages}

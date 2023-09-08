@@ -35,7 +35,7 @@ const PastEvents = (): JSX.Element => {
   };
   const paginationCount = Math.ceil(pastEventFiltered.length / quantityOnPage);
   return (
-    <Container>
+    <Container className={styles.event_right_side}>
       <div className={styles.post_right_side}>
         <h2>Vergangene Ereignisse</h2>
         <hr className={styles.post_hr} />

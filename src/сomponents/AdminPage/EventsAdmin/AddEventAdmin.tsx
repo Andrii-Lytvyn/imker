@@ -5,25 +5,20 @@ import DatePicker from "react-datepicker";
 import { EventStatus } from "../../Events/interface/IEventsData";
 import type { Dayjs } from "dayjs";
 import { TimePicker } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ICreateEvents } from "./interface/ICreateEvents";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import linkToServer from "../../globalLinkToServer";
+import { createNewEvent } from "./eventsOperation/eventsOperation";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import {
+  addEvent,
+  eventsStatus,
+  statusEvt,
+} from "../../../redux/eventsStore/eventsSlice";
 
-//Функция отправки на бек
-const createNewEvent = async (createNewEvent: ICreateEvents) => {
-  try {
-    const data = await axios.post(`${linkToServer}/api/events`, createNewEvent);
-    console.log("🚀  data:", data);
-  } catch (error) {
-    console.log("🚀  newEventCreate", error);
-  }
-};
 const AddEventAdmin = (): JSX.Element => {
-  const navigate = useNavigate();
-  const { editId } = useParams();
+  const dispatch = useAppDispatch();
   const [eventForm, setEventForm] = useState(eventData);
   const [dateStartField, setDateStartField] = useState<Date | null>(null);
   const [dateEndField, setDateEndField] = useState<Date | null>(null);
@@ -68,7 +63,7 @@ const AddEventAdmin = (): JSX.Element => {
               formData
             );
             linkVar = response.data.id.toString();
-            console.log("File uploaded:", linkVar);
+            // console.log("File uploaded:", linkVar);
           } catch (error) {
             console.error("Error uploading file:", error);
           }
@@ -81,8 +76,10 @@ const AddEventAdmin = (): JSX.Element => {
             endTime: timeEnd?.format("HH:mm") || "",
           };
           toast.success("createNewEvent");
-          createNewEvent(newEvent); // Отправка на бек
-          console.log("🚀  newEvent:", newEvent);
+          createNewEvent(newEvent);
+          dispatch(addEvent(newEvent));
+          dispatch(eventsStatus(statusEvt.allEvnt));
+          // console.log("🚀  newEvent:", newEvent);
           //////////////////////
           resetForm();
         } else {
@@ -125,13 +122,6 @@ const AddEventAdmin = (): JSX.Element => {
   return (
     <div className={styles.form_container}>
       <h2>Create New Event</h2>
-      {editId ? (
-        ""
-      ) : (
-        <button type="button" onClick={() => navigate("/eventsadm-edit")}>
-          Edit Event
-        </button>
-      )}
       <form className={styles.form} onSubmit={eventFormData}>
         <div className={styles.item}>
           <div className={styles.form_field}>
@@ -292,7 +282,7 @@ const AddEventAdmin = (): JSX.Element => {
             />
           )}
         </div>
-        <button type="submit" className={styles.create_btn}>
+        <button type="submit" className="button_imker">
           Create
         </button>
       </form>

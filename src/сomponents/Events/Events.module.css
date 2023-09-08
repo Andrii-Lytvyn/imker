@@ -185,7 +185,7 @@ hr {
 
 .event_right_side {
   position: relative;
-  animation: slideInFromBottom 3.5s ease-in-out forwards;
+  animation: slideInFromBottom 1.5s ease-in-out forwards;
   filter: blur(20%);
 }
 @keyframes fadeInFromBlur {

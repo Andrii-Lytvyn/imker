@@ -58,7 +58,7 @@ const Event = (): JSX.Element => {
               <span> | </span>
               {event?.title}
             </div>
-            <h2>{event?.title}</h2>
+            <h2 className={styles.event_h2}>{event?.title}</h2>
             <hr />
             <div className={styles.evt_container}>
               <div className={styles.container}>

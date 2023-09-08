@@ -44,6 +44,12 @@
 .post_hr{
     color: #c74817 ;
 }
+.post_main{
+    background-color: #f7f3f0;
+    padding: 15px 10px;
+    border-radius: 5px;
+    min-width: 400px;
+}
 .post_title h3{
     color: var(--terracotta);
     font-weight: 500;

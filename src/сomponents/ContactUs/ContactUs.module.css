@@ -27,11 +27,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--terracotta);
-  height: 200px;
+  background-image: url("img/blog-single.jpg");
+  height: 250px;
+  margin-bottom: 15px;
 }
 .contacts_header h2{
   color: white;
+  font-size: 4.5em;
 }
 .contacts_input_div{
   margin-bottom: 20px;

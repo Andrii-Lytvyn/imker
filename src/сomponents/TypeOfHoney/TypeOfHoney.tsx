@@ -15,7 +15,7 @@ export default function TypeOfHoney(): JSX.Element {
                     <Row>
                         <Col>
                             <Link to="posts/9">
-                            <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
+                            <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_1.png"/>
                                 </div>
@@ -36,8 +36,8 @@ export default function TypeOfHoney(): JSX.Element {
                             </Link>
                         </Col>
                         <Col>
-                            <Link to="posts/8">
-                            <div className={styles.tile_main + " animate__animated animate__backInRight"}>
+                            <Link to="posts/9">
+                            <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_2.png"/>
                                 </div>
@@ -50,7 +50,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/9">Mehr lesen</Link>
+                                           Mehr lesen
                                         </p>
                                     </div>
                                 </div>
@@ -60,8 +60,8 @@ export default function TypeOfHoney(): JSX.Element {
                     </Row>
                     <Row>
                         <Col>
-                            <Link to="posts/8">
-                            <div className={styles.tile_main + " animate__animated animate__backInLeft"}>
+                            <Link to="posts/9">
+                            <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_3.png"/>
                                 </div>
@@ -74,7 +74,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/9">Mehr lesen</Link>
+                                            Mehr lesen
                                         </p>
                                     </div>
                                 </div>
@@ -82,8 +82,8 @@ export default function TypeOfHoney(): JSX.Element {
                             </Link>
                         </Col>
                         <Col>
-                            <Link to="posts/8">
-                            <div className={styles.tile_main + " animate__animated animate__backInRight"}>
+                            <Link to="posts/9">
+                            <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
                                     <img src="img/tile/tile_4.png"/>
                                 </div>
@@ -96,7 +96,7 @@ export default function TypeOfHoney(): JSX.Element {
                                     </div>
                                     <div className={styles.tile_link}>
                                         <p>
-                                            <Link to="posts/9">Mehr lesen</Link>
+                                           Mehr lesen
                                         </p>
                                     </div>
                                 </div>

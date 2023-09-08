@@ -15,6 +15,7 @@ import { IUserDto, initIUserDto } from "./UserAdmin/interfaces/IUserDto";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SliderAdmin from "./SliderAdmin/SliderAdmin";
+import ContactUsAdmin from "./contactUsAdmin/ContactUsAdmin"
 import EventNav from "./EventsAdmin/EventNav";
 import AboutUsNav from "./AboutUsAdmin/AboutUsNav";
 
@@ -111,7 +112,7 @@ export default function AdminPage() {
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <AboutUsNav />
+          <ContactUsAdmin />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
           <div className="container">

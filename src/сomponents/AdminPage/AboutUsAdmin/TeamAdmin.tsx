@@ -9,7 +9,6 @@ import { useAppDispatch } from "../../../hooks/dispatch.selector";
 export default function TeamAdmin(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
-  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

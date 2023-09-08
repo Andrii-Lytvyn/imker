@@ -36,10 +36,7 @@ export default function PostsPanel() {
               idPost,
               creationTimePost,
               titlePost,
-              // linkToImg,
               shortPostDescription,
-              // textOfPost,
-              // authorName,
             }) => (
               <div key={idPost}>
                 <p className={styles.post_event_date}>

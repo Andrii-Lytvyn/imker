@@ -103,7 +103,7 @@ export default function PostsAdmin() {
         >
           Edit Post
         </button>
-        {/* <hr /> */}
+        <hr />
       </div>
 
       {isCreateShow && <PostsCreationAdmin />}
@@ -129,7 +129,6 @@ export default function PostsAdmin() {
               linkToImg,
               shortPostDescription,
               authorName,
-              // textOfPost,
             }) => (
               <div key={idPost} className={styles.postContainer}>
                 <p className={styles.postData}>Post id: {idPost}</p>
@@ -140,7 +139,7 @@ export default function PostsAdmin() {
                 <p className={styles.postCreated}>
                   Created: {creationTimePost}
                 </p>
-                {/* <hr /> */}
+                <hr />
                 <div className={styles.titlePost}>{titlePost}</div>
                 <div className={styles.descriptionPost}>
                   {shortPostDescription}

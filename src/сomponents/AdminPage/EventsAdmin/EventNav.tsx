@@ -52,6 +52,7 @@ const EventNav = () => {
             Edit Event
           </button>
         </div>
+          <hr />
 
         <Container>
           {eventStatus === statusEvt.allEvnt ? <AllEvents /> : null}

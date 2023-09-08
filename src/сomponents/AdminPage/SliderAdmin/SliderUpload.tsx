@@ -84,7 +84,7 @@ export default function SliderUpload({
   return (
     <div>
       <p className="col-md-7 mb-2 text-start fs-5">
-      Recommended resolution: {width}x{height}px
+        Recommended resolution: {width}x{height}px
       </p>
       <input type="file" onChange={handleFileChange} />
       {selectedFile && (

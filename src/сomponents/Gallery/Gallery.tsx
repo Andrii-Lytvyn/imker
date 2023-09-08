@@ -23,7 +23,8 @@ const Gallery = (): JSX.Element => {
     async function getListOfFiles() {
       try {
         const response = await axios.get(
-          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+          `/api/gallery?page=0&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+          {
             withCredentials: true,
           }
         );
@@ -41,7 +42,8 @@ const Gallery = (): JSX.Element => {
       const response = await axios.get(
         `/api/gallery?page=${
           value - 1
-        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`, {
+        }&items=${itemsOnPage}&orderBy=creationTimePhoto&desk=true`,
+        {
           withCredentials: true,
         }
       );
@@ -54,16 +56,15 @@ const Gallery = (): JSX.Element => {
 
   const modalShow = (linkToImg: number) => {
     setIsModalShow(true);
-    setModalImage(""+linkToImg);
+    setModalImage("" + linkToImg);
   };
 
   return (
     <div className={styles.gallery_main}>
       <h2>Our gallery</h2>
       <Container>
+        <GallerySwiper2 />
 
-      <GallerySwiper2 />
-      
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio
           perspiciatis laboriosam animi, ipsum, dolorum ab laudantium accusamus
@@ -110,12 +111,12 @@ const Gallery = (): JSX.Element => {
             />
           </div>
         </div>
-        {isModalShow && 
+        {isModalShow && (
           <Modal
             setModalHide={setIsModalShow}
             modalImage={"/api/files/" + modalImage}
           />
-        }
+        )}
       </Container>
     </div>
   );

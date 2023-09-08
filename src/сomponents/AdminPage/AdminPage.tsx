@@ -104,13 +104,13 @@ export default function AdminPage() {
             <PostsAdmin />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-              <EventNav />
+            <EventNav />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
             <ContactUsAdmin />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={3}>
-              <TeamAdmin />
+            <TeamAdmin />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={4}>
             <GalleryAdmin />

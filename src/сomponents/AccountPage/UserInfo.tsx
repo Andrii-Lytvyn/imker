@@ -12,7 +12,7 @@ export default function UserInfo(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const response = await axios.get(`/api/me`, {
+        const response = await axios.get(`/api/me`, {
           withCredentials: true,
         });
         const userDto = response.data;

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ICreateEvents } from "../interface/ICreateEvents";
-import linkToServer from "../../../globalLinkToServer";
 import { IEvent } from "../../../Events/interface/IEventsData";
 import { toast } from "react-toastify";
 
@@ -16,7 +15,7 @@ export const createNewEvent = async (createNewEvent: ICreateEvents) => {
 export const editedEvent = async (editEvent: IEvent) => {
     try {
         const data = await axios.put(
-            `${linkToServer}/api/events/${editEvent.idEvent}`,
+            `/api/events/${editEvent.idEvent}`,
             editEvent
         );
         return data

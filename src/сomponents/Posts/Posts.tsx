@@ -110,8 +110,6 @@ export default function Posts() {
                           </Link>
                         </h2>
                       </div>
-                      {/*<p>Post id: {idPost}</p>*/}
-
                       <div className={styles.post_event_text_temp}>
                         {shortPostDescription}
                       </div>

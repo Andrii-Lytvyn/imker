@@ -1,3 +1,7 @@
-.account_main{
-    background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+.account_main {
+  background: linear-gradient(
+    0deg,
+    var(--first-color-gradient),
+    var(--second-color-gradient)
+  );
 }

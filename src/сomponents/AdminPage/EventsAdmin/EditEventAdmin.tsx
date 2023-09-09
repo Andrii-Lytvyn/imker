@@ -9,7 +9,6 @@ import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import axios from "axios";
-import linkToServer from "../../globalLinkToServer";
 import { editedEvent } from "./eventsOperation/eventsOperation";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import {
@@ -59,7 +58,7 @@ const EditEventAdmin = (): JSX.Element => {
 
           try {
             const response = await axios.post(
-              `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=EVENT`,
+              `/api/files/upload?width=${width}&height=${height}&category=EVENT`,
               formData
             );
             linkVar = response.data.id.toString();
@@ -282,7 +281,7 @@ const EditEventAdmin = (): JSX.Element => {
             />
           ) : (
             <img
-              src={`${linkToServer}/api/files/${eventEditForm?.photo}`}
+              src={`/api/files/${eventEditForm?.photo}`}
               alt="Image"
               style={{
                 width: "50%",

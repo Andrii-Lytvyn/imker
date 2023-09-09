@@ -1,62 +1,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Actor&family=Archivo+Black&display=swap");
 
-.contacts_main{
-  background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
+.contacts_main {
+  background: linear-gradient(
+    0deg,
+    var(--first-color-gradient),
+    var(--second-color-gradient)
+  );
 }
 .topImgContainer {
   height: 250px;
   background-size: contain;
   background-position: bottom;
 }
-.contacts_form{
+.contacts_form {
   width: 100%;
 }
-.contacts_right, .contacts_left{
+.contacts_right,
+.contacts_left {
   width: 45%;
 }
-.contacts_left h4{
+.contacts_left h4 {
   text-align: left;
 }
-.contacts_right h4{
+.contacts_right h4 {
   text-align: left;
 }
-.contacts_left p{
-  color: var(--text-color) ;
+.contacts_left p {
+  color: var(--text-color);
 }
-.contacts_header{
+.contacts_header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--terracotta);
-  height: 200px;
+  background-image: url("img/blog-single.jpg");
+  height: 250px;
+  margin-bottom: 15px;
 }
-.contacts_header h2{
+.contacts_header h2 {
   color: white;
+  font-size: 4.5em;
 }
-.contacts_input_div{
+.contacts_input_div {
   margin-bottom: 20px;
   width: 100%;
 }
-.contacts_info{
+.contacts_info {
   color: #c74817;
   font-size: 1rem;
   margin-top: -10px;
   text-align: center;
 }
-.contacts_info_charLeft{
+.contacts_info_charLeft {
   color: #c74817;
   font-size: 0.8rem;
   margin-left: 10px;
 }
-.contacts_info_charLeft span{
+.contacts_info_charLeft span {
   font-weight: 900;
 }
-.icons{
+.icons {
   color: var(--terracotta);
   font-size: 1.2em;
   margin-right: 12px;
 }
-.contacts_h4{
+.contacts_h4 {
   font-weight: 600;
 }
 .askText {

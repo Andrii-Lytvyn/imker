@@ -1,7 +1,6 @@
 import styles from "./OurMission.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { BsCalendar2Week } from "react-icons/bs";
 import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 
 export default function OurMission(): JSX.Element {
@@ -21,17 +20,10 @@ export default function OurMission(): JSX.Element {
                   </div>
                   <div className={styles.our_mission_text}>
                     <p>
-                      Die Bienen leben so, wie sie es von Natur aus tun würden,
-                      und ihr Nutzen erreicht mehr Menschen. Unser Ziel ist es,
-                      die Bienenpopulation von San Diego in der ganzen Stadt zu
-                      erhöhen und gleichzeitig das Bewusstsein in der
-                      Bevölkerung zu schärfen.
+                      Unsere Mission als engagierte Gemeinschaft von Imkern ist es, die Gesundheit und das Wohlbefinden der Bienenvölker zu fördern und gleichzeitig die wichtige Rolle dieser faszinierenden Insekten in unserer natürlichen Umwelt zu schützen. Wir sind leidenschaftlich daran interessiert, die Bienenpopulation zu erhalten und zu vermehren, um die Bestäubung von Pflanzen zu sichern und hochwertige Bienenprodukte zu gewinnen.
                       <br />
                       <br />
-                      Wir hoffen, dass diese Bienenstöcke in den Hinterhöfen den
-                      Dialog zwischen Nachbarn, Freunden, Familie und der
-                      Gemeinschaft insgesamt über die enorme Bedeutung der
-                      Bienen erleichtern werden.
+                      Wir setzen uns dafür ein, nachhaltige Praktiken in der Bienenhaltung zu fördern, die die Bedürfnisse der Bienen respektieren. Dies beinhaltet die Pflege gesunder Bienenstöcke, die Förderung von Blühflächen und die Schulung von Imkern in bewährten Verfahren. Unsere Mission ist es, das Bewusstsein für die Bedeutung der Bienen für die Lebensmittelproduktion und die Umwelt zu schärfen und die Zusammenarbeit zwischen Imkern und Landwirten zu stärken, um eine blühende Zukunft für unsere Welt zu sichern.
                     </p>
                   </div>
                   <div className={styles.our_mission_signature}>
@@ -41,6 +33,7 @@ export default function OurMission(): JSX.Element {
               </div>
             </Col>
             <Col lg="3">
+              <div className={styles.post_main}>
               <div className={styles.post_title}>
                 <h3>NACHRICHTEN</h3>
                 <hr className={styles.post_hr} />
@@ -50,6 +43,7 @@ export default function OurMission(): JSX.Element {
                 <Link to="/posts">
                   <p>Mehr nachrichten zeigen</p>
                 </Link>
+              </div>
               </div>
 
             </Col>

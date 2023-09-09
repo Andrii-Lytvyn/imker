@@ -111,7 +111,7 @@ export default function UserSettings(): JSX.Element {
       <div className="container">
         <div className="col-md-12 d-flex align-items-center fs-4 m-2">
           <label htmlFor="name" className="col-md-4 me-2 text-end">
-          Mein Name:
+            Mein Name:
           </label>
           <input
             className="form-control fs-5"
@@ -124,7 +124,7 @@ export default function UserSettings(): JSX.Element {
 
         <div className="col-md-12 d-flex align-items-center fs-4 m-2">
           <label htmlFor="plz" className="col-md-4 me-2 text-end">
-          Meine Postleitzahl:
+            Meine Postleitzahl:
           </label>
           <input
             className="form-control fs-5"
@@ -137,7 +137,7 @@ export default function UserSettings(): JSX.Element {
 
         <div className="col-md-12 d-flex align-items-center fs-4 m-2">
           <label htmlFor="phone" className="col-md-4 me-2 text-end">
-          Meine Telefonnummer:
+            Meine Telefonnummer:
           </label>
           <input
             className="form-control fs-5"

@@ -36,7 +36,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 
 		}
 	} else {
-		// command === 'build'
+		command === 'build'
 		return {
 			plugins: [react()],
 			server: {

@@ -182,7 +182,6 @@ export default function PostsCreationAdmin(): JSX.Element {
             initialValue={initText}
             value={value}
             init={{
-              // "a11ychecker advcode advtable autocorrect casechange checklist editimage export footnotes formatpainter inlinecss mediaembed mentions mergetags pageembed permanentpen powerpaste tableofcontents tinymcespellchecker typography"
               plugins:
                 "advlist anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss  insertdatetime link linkchecker lists media nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive visualblocks visualchars wordcount",
               toolbar1:

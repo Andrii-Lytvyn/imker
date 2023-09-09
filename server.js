@@ -6,7 +6,8 @@ async function startServer() {
 
   // Создаем сервер разработки Vite
   const vite = await createViteServer({
-    server: { middlewareMode: 'ssr' }, // Режим middleware для SSR (если требуется)
+    server: { middlewareMode: true }, // Устанавливаем middlewareMode в true
+    appType: 'custom' // Устанавливаем appType в 'custom'
   });
 
   // Используем Vite в качестве middleware

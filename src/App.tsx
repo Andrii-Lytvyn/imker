@@ -32,7 +32,7 @@ const RegisterUser = lazy(
   () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
 );
 const SingInUser = lazy(
-  () => import("./сomponents/UserLogin/SingInUser/SingInUser")
+  () => import("./сomponents/UserLogin/SingInUser/SignInUser")
 ); 
 const SecretAnswer = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")

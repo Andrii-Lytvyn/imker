@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { IRestorePassword } from "../../SingInUser/RestorePassword/interface/IRestorePassword";
 import { IRestoreAnswer } from "../../SingInUser/RestoreAnswer/interface/IRestoreAnswer";
 import { IRegisterUser } from "../../RegisterUser/interface/IRegisterUser";
-import { IEmail } from "../../SingInUser/interface/ISingInUser";
+import { IEmail } from "../../SingInUser/interface/ISingUser";
 
 export const setLoginStatus = (isLogin: boolean) => {
     localStorage.setItem('IMKER', isLogin ? 'true' : 'false');

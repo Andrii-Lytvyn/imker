@@ -11,7 +11,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 
-import { initSingInUserEmail } from "../interface/ISingInUser";
+import { initSingInUserEmail } from "../interface/ISingUser";
 import { useNavigate } from "react-router-dom";
 import { getQuestion } from "../../../../redux/userStore/userSlice";
 import { useAppDispatch } from "../../../../hooks/dispatch.selector";

@@ -14,7 +14,7 @@ import {
   Flex,
   ChakraProvider,
 } from "@chakra-ui/react";
-import { initSingInUserData } from "./interface/ISingInUser";
+import { initSingInUserData } from "./interface/ISingUser";
 import { useNavigate } from "react-router-dom";
 import { getUserData, singInUser } from "../helpers/userAuth/userOperation";
 import { userDataInfo, userIsLogin } from "../../../redux/userStore/userSlice";

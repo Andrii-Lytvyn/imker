@@ -25,7 +25,6 @@ const SingInUser = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
 
-  //Валинация полей формы с помощью validationSchemaYup
   const {
     touched,
     errors,
@@ -52,14 +51,12 @@ const SingInUser = (): JSX.Element => {
     },
   });
 
-  // Обьект одинаковых настроек для всех инпутов
   const inputSettings = {
     fontSize: "20",
     p: "6",
     boxShadow: "2xl",
     bg: "white",
     border: "1px",
-    // borderRadius: "0",
     autoComplete: "on",
     onChange: handleChange,
     onBlur: handleBlur,
@@ -118,11 +115,6 @@ const SingInUser = (): JSX.Element => {
               <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
                 <Flex direction="row" gap="10px">
                   <Button
-                    // style={{
-                    //   backgroundColor: "rgb(45, 111, 84,.9)",
-                    //   color: "white",
-                    //   transition: "background-color 0.3s, color 0.3s",
-                    // }}
                     color={"#fff"}
                     bg={"rgb(65, 125, 86,.8)"}
                     _hover={{ bg: "#d3a863", color: "#fff" }}

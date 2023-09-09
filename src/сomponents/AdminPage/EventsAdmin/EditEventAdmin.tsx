@@ -78,11 +78,12 @@ const EditEventAdmin = (): JSX.Element => {
           endTime: timeEnd?.format("HH:mm") || "",
         };
         toast.success("Event Update");
-        editedEvent(editEvent); // Отправка на бек
-        //////////////////////
-        resetForm();
-        dispatch(updateEvent(editEvent));
-        dispatch(eventsStatus(statusEvt.allEvnt));
+        const data = await editedEvent(editEvent);
+        if (data?.status === 200) {
+          resetForm();
+          dispatch(updateEvent(editEvent));
+          dispatch(eventsStatus(statusEvt.allEvnt));
+        }
       } else {
         toast.warning("Datum kleiner als das aktuelle Datum", {
           autoClose: 3000,
@@ -191,7 +192,7 @@ const EditEventAdmin = (): JSX.Element => {
               name="status"
               value="ARCHIVE"
               onChange={collectEventsData}
-              checked={event_edit.status === "ARCHIVE"}
+              checked={eventEditForm.status === "ARCHIVE"}
             />
             <label htmlFor="option3">ARCHIVE</label>
           </div>
@@ -256,7 +257,7 @@ const EditEventAdmin = (): JSX.Element => {
         </div>
 
         <div className={styles.photo}>
-          <label htmlFor="fileInput" className="file-upload">
+          <label htmlFor="fileInput" className={styles.file_upload}>
             Choose image
           </label>
           <input

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { eventsReducer, initEventsState } from "./eventsStore/eventsSlice";
 import { initUserState, userReducer } from "./userStore/userSlice";
+import { initNavState, navReducer } from "./navigatinOnPage/navigatinOnPageSlice";
 
 export const initState = {
     event: initEventsState,
-    user: initUserState
+    user: initUserState,
+    nav: initNavState
 };
 
 export const store = configureStore({
@@ -12,6 +14,7 @@ export const store = configureStore({
     reducer: {
         event: eventsReducer,
         user: userReducer,
+        nav: navReducer
     }
 })
 

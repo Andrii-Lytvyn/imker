@@ -37,41 +37,45 @@ const AllEvents = (): JSX.Element => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.edit_block}>
+        <>
           <h4>Total count of events : {events.length}</h4>
-          <Pagination
-            count={
-              events.length !== null
-                ? Math.ceil(events.length / quantityOnPage)
-                : 0
-            }
-            page={Number(page)}
-            size="large"
-            onChange={getLinkParams}
-          />
-          <ul className={styles.edit}>
-            {events
-              ?.map(({ name, idEvent, dateStart, shortDescription }, index) => (
-                <li key={index} className={styles.event_list}>
-                  <div className={styles.edit_info}>
-                    <span>{name}</span>
-                    <span>{dateStart}</span>
-                    <p className={styles.edit_container}>
-                      {shortDescription.substring(0, 200)}...
-                    </p>
-                    <button
-                      className={styles.edit_btn}
-                      type="button"
-                      onClick={() => editCurrentEvent(idEvent)}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </li>
-              ))
-              .slice(startIndex, startIndex + quantityOnPage)}
-          </ul>
-        </div>
+          <div className={styles.edit_block}>
+            <Pagination
+              count={
+                events.length !== null
+                  ? Math.ceil(events.length / quantityOnPage)
+                  : 0
+              }
+              page={Number(page)}
+              size="large"
+              onChange={getLinkParams}
+            />
+            <ul className={styles.edit}>
+              {events
+                ?.map(
+                  ({ name, idEvent, dateStart, shortDescription }, index) => (
+                    <li key={index} className={styles.event_list}>
+                      <div className={styles.edit_info}>
+                        <span>{name}</span>
+                        <span>{dateStart}</span>
+                        <p className={styles.edit_container}>
+                          {shortDescription.substring(0, 200)}...
+                        </p>
+                        <button
+                          className={styles.edit_btn}
+                          type="button"
+                          onClick={() => editCurrentEvent(idEvent)}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </li>
+                  )
+                )
+                .slice(startIndex, startIndex + quantityOnPage)}
+            </ul>
+          </div>
+        </>
       )}
     </div>
   );

@@ -12,12 +12,17 @@ import { userData } from "../../redux/userStore/interface/IUserData";
 import AccountMenu from "./AccountMenu";
 import { ROLE } from "../../statusAndRole/role";
 import logoBee from "/img/bee2.png";
+import {
+  navStatus,
+  setLinkPage,
+} from "../../redux/navigatinOnPage/navigatinOnPageSlice";
+import { useNavPageSelector } from "../../redux/navigatinOnPage/navigatinOnPageSelector";
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { navPageLink } = useNavPageSelector();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
   const { user, isLogin } = useUserSelector();
-  const [activeLink, setActiveLink] = useState("/");
 
   useEffect(() => {
     function handleResize() {
@@ -45,7 +50,7 @@ export default function Header(): JSX.Element {
               src={logoBee}
               alt="bee"
               className={styles.logo_img}
-              onClick={() => setActiveLink("/")}
+              onClick={() => dispatch(navStatus(setLinkPage.main))}
             />
           </Link>
         </div>
@@ -54,7 +59,7 @@ export default function Header(): JSX.Element {
           <span className={styles.logo_slogan}>Sweet & Healhty life </span>
         </div>
       </div>
-      {/* ////////////////// */}
+
       <div className={`${styles.nav} ${styles.nav_with}`}>
         {isWideScreen ? (
           <ul className={styles.nav_list}>
@@ -62,9 +67,9 @@ export default function Header(): JSX.Element {
               <NavLink
                 to="/posts"
                 className={`${styles.title_nav} ${
-                  activeLink === "posts" ? styles.active : ""
+                  navPageLink === "/posts" ? styles.active : ""
                 }`}
-                onClick={() => setActiveLink("posts")}
+                onClick={() => dispatch(navStatus(setLinkPage.posts))}
               >
                 Blog
               </NavLink>
@@ -73,9 +78,9 @@ export default function Header(): JSX.Element {
               <Link
                 to="/events"
                 className={`${styles.title_nav} ${
-                  activeLink === "events" ? styles.active : ""
+                  navPageLink === "/events" ? styles.active : ""
                 }`}
-                onClick={() => setActiveLink("events")}
+                onClick={() => dispatch(navStatus(setLinkPage.events))}
               >
                 Veranstaltungen
               </Link>
@@ -84,9 +89,9 @@ export default function Header(): JSX.Element {
               <Link
                 to="/aboutUs"
                 className={`${styles.title_nav} ${
-                  activeLink === "aboutUs" ? styles.active : ""
+                  navPageLink === "/aboutUs" ? styles.active : ""
                 }`}
-                onClick={() => setActiveLink("aboutUs")}
+                onClick={() => dispatch(navStatus(setLinkPage.aboutUs))}
               >
                 Über uns
               </Link>
@@ -95,9 +100,9 @@ export default function Header(): JSX.Element {
               <Link
                 to="/gallery"
                 className={`${styles.title_nav} ${
-                  activeLink === "gallery" ? styles.active : ""
+                  navPageLink === "/gallery" ? styles.active : ""
                 }`}
-                onClick={() => setActiveLink("gallery")}
+                onClick={() => dispatch(navStatus(setLinkPage.gallery))}
               >
                 Galerie
               </Link>
@@ -106,22 +111,21 @@ export default function Header(): JSX.Element {
               <Link
                 to="/contactUs"
                 className={`${styles.title_nav} ${
-                  activeLink === "contactUs" ? styles.active : ""
+                  navPageLink === "/contactUs" ? styles.active : ""
                 }`}
-                onClick={() => setActiveLink("contactUs")}
+                onClick={() => dispatch(navStatus(setLinkPage.contactUs))}
               >
                 Kontakt
               </Link>
             </li>
-            {/* это раскоментируем и получаем Админку */}
             {user.role === ROLE.ADMIN ? (
               <li className={`${styles.item} ${styles.item_submenu_admin}`}>
                 <Link
                   to="/adminpage"
                   className={`${styles.title_nav} ${
-                    activeLink === "adminpage" ? styles.active : ""
+                    navPageLink === "/adminpage" ? styles.active : ""
                   }`}
-                  onClick={() => setActiveLink("adminpage")}
+                  onClick={() => dispatch(navStatus(setLinkPage.adminpage))}
                 >
                   Admin
                 </Link>
@@ -143,6 +147,7 @@ export default function Header(): JSX.Element {
                 <button
                   type="button"
                   className={`${styles.nav_login} button_imker`}
+                  onClick={() => dispatch(navStatus(setLinkPage.singUp))}
                 >
                   Login
                 </button>

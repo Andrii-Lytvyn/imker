@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+// import { toast } from "react-toastify";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
@@ -11,6 +12,7 @@ import {
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
 import { useUserSelector } from "./redux/userStore/userSelector";
+import { navStatus } from "./redux/navigatinOnPage/navigatinOnPageSlice";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
@@ -33,7 +35,7 @@ const RegisterUser = lazy(
 );
 const SingInUser = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SingUser")
-); 
+);
 const SecretAnswer = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
 );
@@ -47,6 +49,7 @@ const RestorePassword = lazy(
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
   const { user } = useUserSelector();
 
   useEffect(() => {
@@ -57,14 +60,17 @@ function App(): JSX.Element {
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
           dispatch(userIsLogin(true));
+          dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));
         } catch (error) {
           dispatch(userIsLogin(false));
           console.log("🚀  error:", error);
         }
       };
       refreshUser();
-    } 
-  }, [dispatch, user.id]);
+    } else {
+      // toast.info("Привет сладенький !!!");
+    }
+  }, [dispatch, pathname, user.id]);
 
   return (
     <>

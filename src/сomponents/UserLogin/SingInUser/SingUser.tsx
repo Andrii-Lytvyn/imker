@@ -1,4 +1,4 @@
-import styles from "./SingInUser.module.css";
+import styles from "./SingUser.module.css";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";

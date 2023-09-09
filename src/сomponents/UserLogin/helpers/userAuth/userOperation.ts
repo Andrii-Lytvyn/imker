@@ -22,12 +22,15 @@ export const registerNewUser = async (createNewUser: IRegisterUser) => {
             `${linkToServer}/api/register`,
             createNewUser
         );
+
         console.log("🚀  data:", dataNewUser);
         return dataNewUser;
     } catch (error) {
         toast.error(`Ошибка сервера ${error}`);
     }
 };
+
+
 
 export const singInUser = async (userSingIn: string) => {
     try {

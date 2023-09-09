@@ -37,10 +37,12 @@ const RegisterUser = (): JSX.Element => {
     onSubmit: async (createNewUser) => {
       console.log("🚀  createNewUser:", createNewUser); //Log для бека
       const dataNewUser = await registerNewUser(createNewUser);
-      if (dataNewUser?.status === 201) {
+      if (dataNewUser?.status === 201 && dataNewUser?.data !== "") {
         toast.success(`Success`);
         resetForm();
         navigate("/singUp");
+      } else {
+        toast.info(" неправильное имя или пароль");
       }
     },
   });

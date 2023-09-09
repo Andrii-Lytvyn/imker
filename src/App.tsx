@@ -1,5 +1,5 @@
 // import { toast } from "react-toastify";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
@@ -12,6 +12,7 @@ import {
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
 import { useUserSelector } from "./redux/userStore/userSelector";
+import { navStatus } from "./redux/navigatinOnPage/navigatinOnPageSlice";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
@@ -48,6 +49,7 @@ const RestorePassword = lazy(
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
   const { user } = useUserSelector();
 
   useEffect(() => {
@@ -58,6 +60,7 @@ function App(): JSX.Element {
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
           dispatch(userIsLogin(true));
+          dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));
         } catch (error) {
           dispatch(userIsLogin(false));
           console.log("🚀  error:", error);
@@ -67,7 +70,7 @@ function App(): JSX.Element {
     } else {
       // toast.info("Привет сладенький !!!");
     }
-  }, [dispatch, user.id]);
+  }, [dispatch, pathname, user.id]);
 
   return (
     <>

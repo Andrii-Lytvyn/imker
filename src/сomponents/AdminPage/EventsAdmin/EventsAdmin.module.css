@@ -1,5 +1,5 @@
 .form_container {
-  margin: 20px 0 50px;
+  margin: 0px 0 50px;
 }
 .form {
   display: flex;
@@ -7,6 +7,7 @@
   padding: 20px 40px;
   /* width: 50%; */
   column-gap: 20px;
+  background-color: rgb(255, 255, 255);
 }
 .item {
   display: flex;
@@ -104,4 +105,14 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+.file_upload {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }

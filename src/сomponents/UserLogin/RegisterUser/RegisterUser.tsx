@@ -51,7 +51,6 @@ const RegisterUser = (): JSX.Element => {
     boxShadow: "2xl",
     bg: "white",
     border: "1px",
-    // borderRadius: "0",
     autoComplete: "on",
     onChange: handleChange,
     onBlur: handleBlur,
@@ -86,10 +85,7 @@ const RegisterUser = (): JSX.Element => {
                   <FormErrorMessage>{errors.plz}</FormErrorMessage>
                 )}
               </FormControl>
-              <FormControl
-                mt="4"
-                // isInvalid={!!errors.phone && touched.phone}
-              >
+              <FormControl mt="4">
                 <Input
                   name="phone"
                   maxLength={20}
@@ -98,13 +94,9 @@ const RegisterUser = (): JSX.Element => {
                   focusBorderColor="lime"
                   {...inputSettings}
                 />
-                {/* {errors.phone && touched.phone && (
-                  <FormErrorMessage>{errors.phone}</FormErrorMessage>
-                )} */}
               </FormControl>
               <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
                 <Input
-                  // mt={errors.email && touched.email ? "4" : "4"}
                   name="email"
                   value={values.email}
                   placeholder="Email"
@@ -146,10 +138,7 @@ const RegisterUser = (): JSX.Element => {
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 )}
               </FormControl>
-              <FormControl
-                mt="4"
-                // isInvalid={!!errors.question && touched.question}
-              >
+              <FormControl mt="4">
                 <Input
                   name="secretQuestion"
                   value={values.secretQuestion.trim()}
@@ -157,14 +146,8 @@ const RegisterUser = (): JSX.Element => {
                   focusBorderColor="lime"
                   {...inputSettings}
                 />
-                {/* {errors.question && touched.question && (
-                  <FormErrorMessage>{errors.question}</FormErrorMessage>
-                )} */}
               </FormControl>
-              <FormControl
-                mt="4"
-                // isInvalid={!!errors.answer && touched.answer}
-              >
+              <FormControl mt="4">
                 <Input
                   name="answerSecretQuestion"
                   value={values.answerSecretQuestion.trim()}
@@ -172,14 +155,10 @@ const RegisterUser = (): JSX.Element => {
                   focusBorderColor="lime"
                   {...inputSettings}
                 />
-                {/* {errors.answer && touched.answer && (
-                  <FormErrorMessage>{errors.answer}</FormErrorMessage>
-                )} */}
               </FormControl>
               <WrapItem mt={errors.password && touched.password ? "4" : "6"}>
                 <Flex direction="row" gap="20" alignItems="flex-start">
                   <Button
-                    // colorScheme="red"
                     type="submit"
                     color={"#fff"}
                     bg={"rgb(65, 125, 86,.9)"}

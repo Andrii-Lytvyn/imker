@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 
 export const createNewEvent = async (createNewEvent: ICreateEvents) => {
     try {
-        await axios.post(`${linkToServer}/api/events`, createNewEvent);
+        const data = await axios.post(`/api/events`, createNewEvent);
+        return data;
     } catch (error) {
         console.log("Server Error !!!");
     }
@@ -14,10 +15,11 @@ export const createNewEvent = async (createNewEvent: ICreateEvents) => {
 
 export const editedEvent = async (editEvent: IEvent) => {
     try {
-        await axios.put(
+        const data = await axios.put(
             `${linkToServer}/api/events/${editEvent.idEvent}`,
             editEvent
         );
+        return data
 
     } catch (error) {
         toast.error(`Server Error !!!`);

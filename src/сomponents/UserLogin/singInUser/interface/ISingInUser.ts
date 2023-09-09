@@ -1,4 +1,3 @@
-
 export interface ISignInUser {
     [key: string]: string
 }

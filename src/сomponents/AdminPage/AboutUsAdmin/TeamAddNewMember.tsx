@@ -1,9 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import styles from "./TeamAdmin.module.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
+import { eventsStatus, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 
 const memberData = {
@@ -37,6 +39,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   const width = 300;
   const height = 300;
   const category = "AVATAR";
+  const dispatch = useAppDispatch();
 
   const collectMembersData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,6 +78,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
     toast.success("New Member created");
     addNewMember(createNewMember);
     setMemberForm(memberData);
+    dispatch(eventsStatus(statusEvt.allMembers));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,9 +93,9 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
   return (
     <div className={styles.form_container}>
-      <button type="button">
+      {/* <button type="button">
         <Link to="/teamadmin">Zurück</Link>
-      </button>
+      </button> */}
       <h2>Add Neues Mitglied</h2>
       <form className={styles.form} onSubmit={memberFormData}>
         <div>

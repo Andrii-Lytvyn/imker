@@ -1,19 +1,16 @@
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import TeamAddNewMember from "./TeamAddNewMember";
-import {
-  eventsStatus,
-  statusEvt,
-} from "../../../redux/eventsStore/eventsSlice";
 import AllMembers from "./TeamAdmin";
 import TeamEditMemberAdmin from "./TeamEditMemberAdmin";
 import AboutUsAdmin from "./AboutUsAdmin"
 import styles from "../EventsAdmin/EventNav.module.css";
 import { Container } from "react-bootstrap";
+import { eventsStatus, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
 
 const AboutUsNav = () => {
   const dispatch = useAppDispatch();
-  const { eventStatus } = useEventsSelector();
+  const { eventStatus } = useAboutUsSelector();
 
   return (
     <>
@@ -21,56 +18,59 @@ const AboutUsNav = () => {
         <div className={styles.btn_container}>
           <button
             type="button"
-            onClick={() => dispatch(eventsStatus(statusEvt.allEvnt))}
+            onClick={() => dispatch(eventsStatus(statusEvt.allMembers))}
             className={
-              eventStatus === statusEvt.allEvnt
+              eventStatus === statusEvt.allMembers
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
           >
-            All Members
+            Alle Mitglieder
           </button>
+
           <button
             type="button"
-            onClick={() => dispatch(eventsStatus(statusEvt.addEvnt))}
+            onClick={() => dispatch(eventsStatus(statusEvt.addMember))}
             className={
-              eventStatus === statusEvt.addEvnt
+              eventStatus === statusEvt.addMember
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
           >
-            Add Member
+            Mitglied hinzufügen
           </button>
+
           <button
             type="button"
-            disabled={eventStatus !== statusEvt.editEvnt ? true : false}
+            disabled={eventStatus !== statusEvt.editMember ? true : false}
             className={
-              eventStatus === statusEvt.editEvnt
+              eventStatus === statusEvt.editMember
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
           >
-            Edit Member
+            Mitglied bearbeiten
           </button>
+
           <button
             type="button"
-            disabled={eventStatus !== statusEvt.editEvnt ? true : false}
+            onClick={() => dispatch(eventsStatus(statusEvt.editAboutUs))}
             className={
-              styles.btn_nav
-              // eventStatus === statusEvt.editEvnt
-              //   ? `${styles.btn_nav}`
-              //   : `${styles.btn_nav} ${styles.btn_nav_not_active}`
+              // styles.btn_nav
+              eventStatus === statusEvt.editAboutUs
+                ? `${styles.btn_nav}`
+                : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
           >
-            Edit About Us
+            Seite bearbeiten Über uns
           </button>
         </div>
 
         <Container>
-          {eventStatus === statusEvt.allEvnt ? <AllMembers/> : null}
-          {eventStatus === statusEvt.addEvnt ? <TeamAddNewMember /> : null}
-          {eventStatus === statusEvt.editEvnt ? <TeamEditMemberAdmin /> : null}
-          {eventStatus === statusEvt.editEvnt ? <AboutUsAdmin /> : null}
+          {eventStatus === statusEvt.allMembers ? <AllMembers /> : null}
+          {eventStatus === statusEvt.addMember ? <TeamAddNewMember /> : null}
+          {eventStatus === statusEvt.editMember ? <TeamEditMemberAdmin /> : null}
+          {eventStatus === statusEvt.editAboutUs ? <AboutUsAdmin /> : null}
         </Container>
       </div>
     </>

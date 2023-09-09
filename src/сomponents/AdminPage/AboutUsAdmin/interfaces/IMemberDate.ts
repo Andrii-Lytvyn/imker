@@ -18,3 +18,16 @@ export interface IMemberDate {
    facebook: string,
    instagram: string
 }
+
+export const initMember = {
+   id: 0,
+   state: "",
+   name: "",
+   position: "",
+   description: "",
+   image: "",
+   phone: "",
+   facebook: "",
+   instagram: "",
+   email: ""
+ }

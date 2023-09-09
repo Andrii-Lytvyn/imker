@@ -1,22 +1,14 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import styles from "./TeamAdmin.module.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+// import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IMember } from "../../Team/interfaces/IMembers"
-
-const initMember = {
-  id: 0,
-  state: "",
-  name: "",
-  position: "",
-  description: "",
-  image: "",
-  phone: "",
-  facebook: "",
-  instagram: "",
-  email: ""
-}
+import { initMember } from "./interfaces/IMemberDate";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
+import { eventsStatus, statusEvt, updateMember } from "../../../redux/aboutUsStore/AboutUsSlice";
+ 
 
 // Edit Member
 const editedMember = async (editMember: IMember) => {
@@ -32,28 +24,32 @@ const editedMember = async (editMember: IMember) => {
 };
 
 const TeamEditMemberAdmin = (): JSX.Element => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [memberEditForm, setMemberEditForm] = useState(initMember);
+  // const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const { edit_member } = useAboutUsSelector();
+  // const editedMember = edit_member;
+
+  // const navigate = useNavigate();
+  const [memberEditForm, setMemberEditForm] = useState(edit_member);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const width = 300;
   const height = 300;
   const category = "AVATAR";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/api/members/${id}`, {
-          withCredentials: true,
-        });
-        setMemberEditForm(response.data);
-      } catch (error) {
-        console.error("Fehler bei der Anforderungsausführung:", error);
-      }
-    }
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/members/${id}`, {
+  //         withCredentials: true,
+  //       });
+  //       setMemberEditForm(response.data);
+  //     } catch (error) {
+  //       console.error("Fehler bei der Anforderungsausführung:", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [id]);
 
   const collectMembersData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -88,11 +84,13 @@ const TeamEditMemberAdmin = (): JSX.Element => {
       ...memberEditForm,
       image: linkVar || memberEditForm.image,
     };
-
+    toast.success("Mitglied erfolgreich bearbeitet");
     editedMember(editMember);
-    navigate("/teamadmin");
+    // navigate("/teamadmin");
     resetForm();
-    window.location.reload();
+    dispatch(updateMember(editMember));
+    dispatch(eventsStatus(statusEvt.allMembers));
+    // window.location.reload();
   };
 
   const resetForm = () => {
@@ -111,9 +109,9 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
   return (
     <div className={styles.form_container}>
-      <button type="button">
+      {/* <button type="button">
         <Link to="/teamadmin">Back</Link>
-      </button>
+      </button> */}
       <h2>Edit Member</h2>
 
       <form className={styles.form} onSubmit={memberFormData}>
@@ -123,7 +121,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="id"
-              value={id}
+              value={memberEditForm.id}
               readOnly
             />
           </div>

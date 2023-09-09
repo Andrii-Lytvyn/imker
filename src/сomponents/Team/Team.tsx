@@ -5,10 +5,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
 import { SlEnvolope } from "react-icons/sl";
+import { useAppDispatch } from "../../hooks/dispatch.selector";
+import { getMembers } from "../../redux/aboutUsStore/AboutUsSlice";
 
 export default function Team(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +22,7 @@ export default function Team(): JSX.Element {
         });
         const memberDto = await response.data;
         setMember(memberDto.members);
+        dispatch(getMembers(memberDto.members));
       } catch (error) {
         console.error("Fehler bei der Ausführung der Anfrage:", error);
       }

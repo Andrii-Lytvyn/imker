@@ -1,9 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./TeamAdmin.module.css";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import { eventsStatus, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
 
 const initAboutUs = {
   id: 1,
@@ -31,26 +33,29 @@ const editedAboutUs = async (editAboutUs: IAboutUs) => {
 export default function AboutUsAdmin(): JSX.Element {
 
   const id = 1;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [aboutUsEditForm, setAboutUsEditForm] = useState(initAboutUs);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const width = 600;
   const height = 600;
   const category = "AVATAR";
-
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/aboutus/${id}`);
         setAboutUsEditForm(response.data);
+        console.log("🚀 ~ file: AboutUsAdmin.tsx:48 ~ fetchData ~ response:", response)
       } catch (error) {
         console.error("Fehler bei der Ausführung der Anfrage:", error);
       }
     }
     fetchData();
   }, [id]);
+
+
 
   const collectAboutUsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -86,9 +91,10 @@ export default function AboutUsAdmin(): JSX.Element {
     };
 
     editedAboutUs(editAboutUs);
-    navigate("/aboutusadmin");
+    // navigate("/aboutusadmin");
     resetForm();
-    window.location.reload();
+    dispatch(eventsStatus(statusEvt.allMembers));
+    // window.location.reload();
   };
 
   const resetForm = () => {
@@ -107,9 +113,9 @@ export default function AboutUsAdmin(): JSX.Element {
 
   return (
     <div className={styles.form_container}>
-      <button type="button">
+      {/* <button type="button">
         <Link to="/teamadmin/">Bearbeiten eines Teams</Link>
-      </button>
+      </button> */}
 
       <h2>SEITE ÜBER UNS BEARBEITEN</h2>
 

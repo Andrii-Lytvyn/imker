@@ -62,7 +62,7 @@ const RegisterUser = (): JSX.Element => {
       <ChakraProvider>
         <div className={css.container}>
           <div className={css.wrapper}>
-            <h2 className={css.register_title}>Register</h2>
+            <h2>Register</h2>
             <form onSubmit={handleSubmit}>
               <FormControl mt="4">
                 <Input
@@ -163,7 +163,7 @@ const RegisterUser = (): JSX.Element => {
                   <Button
                     type="submit"
                     color={"#fff"}
-                    bg={"rgb(65, 125, 86,.9)"}
+                    bg={"rgb(199,72,23)"}
                     _hover={{ bg: "#d3a863", color: "#fff" }}
                   >
                     Beitreten

@@ -3,9 +3,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
-
-// import { userDataInfo } from "./redux/userStore/userSlice";
-
 import { userDataInfo, userIsLogin } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
@@ -52,7 +49,10 @@ function App(): JSX.Element {
   const { pathname } = useLocation();
   const { user } = useUserSelector();
 
+  console.log("🚀  pathname:", pathname);
+
   useEffect(() => {
+    dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));
     const isUserLoggedIn = getLoginStatus();
     if (isUserLoggedIn) {
       const refreshUser = async () => {
@@ -60,7 +60,6 @@ function App(): JSX.Element {
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
           dispatch(userIsLogin(true));
-          dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));
         } catch (error) {
           dispatch(userIsLogin(false));
           console.log("🚀  error:", error);

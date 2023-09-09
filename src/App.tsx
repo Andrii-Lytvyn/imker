@@ -33,7 +33,7 @@ const RegisterUser = lazy(
 );
 const SingInUser = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SingInUser")
-);
+); 
 const SecretAnswer = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
 );

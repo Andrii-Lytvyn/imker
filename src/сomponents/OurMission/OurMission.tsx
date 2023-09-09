@@ -1,7 +1,6 @@
 import styles from "./OurMission.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { BsCalendar2Week } from "react-icons/bs";
 import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 
 export default function OurMission(): JSX.Element {

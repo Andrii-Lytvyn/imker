@@ -67,7 +67,7 @@ const SingInUser = (): JSX.Element => {
       <ChakraProvider>
         <div className={styles.container}>
           <div className={styles.wrapper}>
-            <h2 className={styles.login_title}>Sing In</h2>
+            <h2 >Sing In</h2>
             <form onSubmit={handleSubmit}>
               <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
                 <Input
@@ -116,7 +116,7 @@ const SingInUser = (): JSX.Element => {
                 <Flex direction="row" gap="10px">
                   <Button
                     color={"#fff"}
-                    bg={"rgb(65, 125, 86,.8)"}
+                    bg={"rgb(199,72,23)"}
                     _hover={{ bg: "#d3a863", color: "#fff" }}
                     type="submit"
                   >

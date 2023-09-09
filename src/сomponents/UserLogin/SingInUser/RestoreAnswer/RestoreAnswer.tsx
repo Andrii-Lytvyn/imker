@@ -36,8 +36,12 @@ const RestoreAnswer = (): JSX.Element => {
       id: question.id,
       email: question.email,
     };
+    console.log("check -request", restoreAnswerRequest);
 
     const response = await answerToRestore(restoreAnswerRequest);
+
+    console.log("🚀 ~ file: RestoreAnswer.tsx:42 ~ handleSubmit ~ response:", response)
+
 
     if (response?.status === 200) {
       navigate("/restorePassword");
@@ -73,10 +77,10 @@ const RestoreAnswer = (): JSX.Element => {
               <label key={index} className={styles.question}>
                 <input
                   type="radio"
-                  name="secretQuestions"
+                  name="secretQuestion"
                   onChange={handleSecretAnswer}
                   value={item}
-                  checked={restoreAnswer.secretQuestions === item}
+                  checked={restoreAnswer.secretQuestion === item}
                 />
                 {item}
               </label>
@@ -88,10 +92,10 @@ const RestoreAnswer = (): JSX.Element => {
             <FormControl>
               <InputGroup size="md">
                 <Input
-                  value={restoreAnswer.answer}
+                  value={restoreAnswer.secretQuestionAnswer}
                   {...inputSettings}
                   type="text"
-                  name="answer"
+                  name="secretQuestionAnswer"
                   onChange={handleSecretAnswer}
                 />
               </InputGroup>

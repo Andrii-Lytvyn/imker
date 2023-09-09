@@ -1,12 +1,12 @@
 
 export const initRestoreAnswer = {
-    secretQuestions: "",
-    answer: "",
+    secretQuestion: "",
+    secretQuestionAnswer: "",
 }
 
 export interface IRestoreAnswer {
     id: number | null;
     email: string;
-    answer: string;
-    secretQuestions: string;
+    secretQuestionAnswer: string;
+    secretQuestion: string;
 }

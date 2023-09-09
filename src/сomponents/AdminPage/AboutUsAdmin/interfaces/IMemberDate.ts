@@ -1,4 +1,3 @@
-
 export const MEMBER_STATE = {
    SHOW: "SHOW",
    HIDDEN: "HIDDEN"
@@ -30,4 +29,4 @@ export const initMember = {
    facebook: "",
    instagram: "",
    email: ""
- }
+}

@@ -31,50 +31,50 @@ export default function AboutUs(): JSX.Element {
   return (
     <>
       <div className={styles.about_main}>
-          <Container>
-            <h1>Über uns</h1>
-          </Container>
+        <Container>
+          <h1>Über uns</h1>
+        </Container>
 
-          <Container className="d-flex flex-column">
-              <>
-              <div key={aboutUsRes.id}>
-                <div  className="mb-3">
-                  <h4>{aboutUsRes.titleTop}</h4>
+        <Container className="d-flex flex-column">
+          <>
+            <div key={aboutUsRes.id}>
+              <div className="mb-3">
+                <h4>{aboutUsRes.titleTop}</h4>
 
-                  <div 
-                    className="container" 
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(aboutUsRes.descriptionTop || ""),
-                    }}
-                  />
+                <div
+                  className="container"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(aboutUsRes.descriptionTop || ""),
+                  }}
+                />
+              </div>
+
+              <div className="d-flex justify-content-around">
+                <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+                  <img src={"/api/files/" + aboutUsRes.image1} width="90%" />
+                  <caption>"Bright as a sunflower."</caption>
                 </div>
-
-                <div className="d-flex justify-content-around">
-                  <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                    <img src={"/api/files/" + aboutUsRes.image1} width="90%" />
-                    <caption>"Bright as a sunflower."</caption>
-                  </div>
-                  <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
-                    <img src={"/api/files/" + aboutUsRes.image2} width="90%" />
-                    <caption>"Bright as a sunflower."</caption>
-                  </div>
+                <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
+                  <img src={"/api/files/" + aboutUsRes.image2} width="90%" />
+                  <caption>"Bright as a sunflower."</caption>
                 </div>
+              </div>
 
-            <div className="mb-3">
-              <h4>{aboutUsRes.titleBottom}</h4>
-              <div
-                className="container"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(aboutUsRes.descriptionBottom || ""),
-                }}
-              />
-            </div>
+              <div className="mb-3">
+                <h4>{aboutUsRes.titleBottom}</h4>
+                <div
+                  className="container"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(aboutUsRes.descriptionBottom || ""),
+                  }}
+                />
+              </div>
             </div>
           </>
-        ))
-      </Container >
-      <TeamFrame />
-    </div>
-   </>
+          ))
+        </Container >
+        <TeamFrame />
+      </div>
+    </>
   );
 }

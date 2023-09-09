@@ -53,8 +53,6 @@ export default function AboutUsAdmin(): JSX.Element {
     fetchData();
   }, [id]);
 
-
-
   const collectAboutUsData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

@@ -32,7 +32,6 @@ export default function TeamAdmin(): JSX.Element {
         {
           withCredentials: true,
         });
-      // window.location.reload();
 
       if (response.status === 204) {
         const index = member.findIndex(member => member.id === idMember);

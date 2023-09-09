@@ -9,7 +9,7 @@ export interface IAboutUs {
 }
 
 export const initIAboutUs = {
-    id:"" ,
+    id: "",
     titleTop: "",
     descriptionTop: "",
     titleBottom: "",

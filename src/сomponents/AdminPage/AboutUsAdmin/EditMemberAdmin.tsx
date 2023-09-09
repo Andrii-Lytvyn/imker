@@ -32,20 +32,6 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   const height = 300;
   const category = "AVATAR";
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/members/${id}`, {
-  //         withCredentials: true,
-  //       });
-  //       setMemberEditForm(response.data);
-  //     } catch (error) {
-  //       console.error("Fehler bei der Anforderungsausführung:", error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [id]);
-
   const collectMembersData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

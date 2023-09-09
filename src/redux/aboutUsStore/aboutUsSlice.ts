@@ -22,6 +22,7 @@ export const initAboutUsState: AboutUsState = {
   edit_member: initMember,
   status: statusesAbUs.allMembers
 }
+
 const aboutUsSlice = createSlice({
   name: "aboutUs",
   initialState: initAboutUsState,

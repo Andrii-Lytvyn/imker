@@ -121,7 +121,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             </div>
           </div>
           <div className={styles.form_field}>
-          <label style={{ color: "red" }}>Name (Required *)</label>
+            <label style={{ color: "red" }}>Name (Required *)</label>
             <input
               type="text"
               name="name"

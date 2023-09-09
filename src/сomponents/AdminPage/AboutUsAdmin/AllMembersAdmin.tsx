@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../Team/interfaces/IMembers";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { eventsStatus, getOneMember, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 
 
 export default function TeamAdmin(): JSX.Element {
@@ -51,7 +51,7 @@ export default function TeamAdmin(): JSX.Element {
   }
 
   function EditMember(id: number) {
-    dispatch(eventsStatus(statusEvt.editMember));
+    dispatch(aboutUsAction(statusesAbUs.editMember));
     dispatch(getOneMember(id));
   }
 

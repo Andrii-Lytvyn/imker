@@ -1,16 +1,16 @@
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import TeamAddNewMember from "./TeamAddNewMember";
-import AllMembers from "./TeamAdmin";
-import TeamEditMemberAdmin from "./TeamEditMemberAdmin";
+import AddNewMember from "./AddNewMember";
+import AllMembers from "./AllMembersAdmin";
+import EditMemberAdmin from "./EditMemberAdmin";
 import AboutUsAdmin from "./AboutUsAdmin"
 import styles from "../EventsAdmin/EventNav.module.css";
 import { Container } from "react-bootstrap";
-import { eventsStatus, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
 
 const AboutUsNav = () => {
   const dispatch = useAppDispatch();
-  const { eventStatus } = useAboutUsSelector();
+  const { aboutUsStatus } = useAboutUsSelector();
 
   return (
     <>
@@ -18,9 +18,9 @@ const AboutUsNav = () => {
         <div className={styles.btn_container}>
           <button
             type="button"
-            onClick={() => dispatch(eventsStatus(statusEvt.allMembers))}
+            onClick={() => dispatch(aboutUsAction(statusesAbUs.allMembers))}
             className={
-              eventStatus === statusEvt.allMembers
+              aboutUsStatus === statusesAbUs.allMembers
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
@@ -30,9 +30,9 @@ const AboutUsNav = () => {
 
           <button
             type="button"
-            onClick={() => dispatch(eventsStatus(statusEvt.addMember))}
+            onClick={() => dispatch(aboutUsAction(statusesAbUs.addMember))}
             className={
-              eventStatus === statusEvt.addMember
+              aboutUsStatus === statusesAbUs.addMember
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
@@ -42,9 +42,9 @@ const AboutUsNav = () => {
 
           <button
             type="button"
-            disabled={eventStatus !== statusEvt.editMember ? true : false}
+            disabled={aboutUsStatus !== statusesAbUs.editMember ? true : false}
             className={
-              eventStatus === statusEvt.editMember
+              aboutUsStatus === statusesAbUs.editMember
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
@@ -54,10 +54,9 @@ const AboutUsNav = () => {
 
           <button
             type="button"
-            onClick={() => dispatch(eventsStatus(statusEvt.editAboutUs))}
+            onClick={() => dispatch(aboutUsAction(statusesAbUs.editAboutUs))}
             className={
-              // styles.btn_nav
-              eventStatus === statusEvt.editAboutUs
+              aboutUsStatus === statusesAbUs.editAboutUs
                 ? `${styles.btn_nav}`
                 : `${styles.btn_nav} ${styles.btn_nav_not_active}`
             }
@@ -67,10 +66,10 @@ const AboutUsNav = () => {
         </div>
 
         <Container>
-          {eventStatus === statusEvt.allMembers ? <AllMembers /> : null}
-          {eventStatus === statusEvt.addMember ? <TeamAddNewMember /> : null}
-          {eventStatus === statusEvt.editMember ? <TeamEditMemberAdmin /> : null}
-          {eventStatus === statusEvt.editAboutUs ? <AboutUsAdmin /> : null}
+          {aboutUsStatus === statusesAbUs.allMembers ? <AllMembers /> : null}
+          {aboutUsStatus === statusesAbUs.addMember ? <AddNewMember /> : null}
+          {aboutUsStatus === statusesAbUs.editMember ? <EditMemberAdmin /> : null}
+          {aboutUsStatus === statusesAbUs.editAboutUs ? <AboutUsAdmin /> : null}
         </Container>
       </div>
     </>

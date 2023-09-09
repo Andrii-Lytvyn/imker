@@ -1,61 +1,50 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
-import styles from "./TeamAdmin.module.css";
-// import { Link, useNavigate, useParams } from "react-router-dom";
+import styles from "./AllMembersAdmin.module.css";
 import { toast } from "react-toastify";
-import { IMember } from "../../Team/interfaces/IMembers"
-import { initMember } from "./interfaces/IMemberDate";
+import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
+import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
-import { eventsStatus, statusEvt, updateMember } from "../../../redux/aboutUsStore/AboutUsSlice";
- 
 
-// Edit Member
-const editedMember = async (editMember: IMember) => {
+
+const memberData = {
+  state: MEMBER_STATE.SHOW,
+  name: "",
+  position: "",
+  description: "",
+  image: "",
+  phone: "",
+  email: "",
+  facebook: "",
+  instagram: "",
+};
+
+const addNewMember = async (newMember: IMemberDate) => {
   try {
-    const { data } = await axios.put(`/api/members/update/${editMember.id}`, editMember, {
+    const data = await axios.post(`/api/members`, newMember, {
       withCredentials: true,
-    }
-    );
-    console.log("🚀 (Received)editedMember:", data);
+    });
+    console.log("🚀  data:", data);
   } catch (error) {
-    toast.error(`Serverfehler getAllMembers ${error}`);
+    console.log("Fehler addNewMember", error);
   }
 };
 
-const TeamEditMemberAdmin = (): JSX.Element => {
-  // const { id } = useParams();
-  const dispatch = useAppDispatch();
-  const { edit_member } = useAboutUsSelector();
-  // const editedMember = edit_member;
+const TeamAddMemberAdmin = (): JSX.Element => {
 
-  // const navigate = useNavigate();
-  const [memberEditForm, setMemberEditForm] = useState(edit_member);
+  const [memberForm, setMemberForm] = useState(memberData);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const width = 300;
   const height = 300;
   const category = "AVATAR";
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/members/${id}`, {
-  //         withCredentials: true,
-  //       });
-  //       setMemberEditForm(response.data);
-  //     } catch (error) {
-  //       console.error("Fehler bei der Anforderungsausführung:", error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [id]);
+  const dispatch = useAppDispatch();
 
   const collectMembersData = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setMemberEditForm((prev) => ({ ...prev, [name]: value }));
+    setMemberForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
@@ -76,25 +65,19 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         );
         linkVar = response.data.id.toString();
       } catch (error) {
-        console.error("Fehler beim Hochladen der Datei: ", error);
+        console.error("Fehler beim Hochladen der Datei:", error);
       }
     }
 
-    const editMember = {
-      ...memberEditForm,
-      image: linkVar || memberEditForm.image,
+    const createNewMember = {
+      ...memberForm,
+      image: linkVar,
     };
-    toast.success("Mitglied erfolgreich bearbeitet");
-    editedMember(editMember);
-    // navigate("/teamadmin");
-    resetForm();
-    dispatch(updateMember(editMember));
-    dispatch(eventsStatus(statusEvt.allMembers));
-    // window.location.reload();
-  };
 
-  const resetForm = () => {
-    setMemberEditForm(initMember);
+    toast.success("Neues Mitglied erstellt");
+    addNewMember(createNewMember);
+    setMemberForm(memberData);
+    dispatch(aboutUsAction(statusesAbUs.allMembers));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,23 +92,9 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
   return (
     <div className={styles.form_container}>
-      {/* <button type="button">
-        <Link to="/teamadmin">Back</Link>
-      </button> */}
-      <h2>Edit Member</h2>
-
+      <h2>Add Neues Mitglied</h2>
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
-          <div className={styles.form_field}>
-            <label>id</label>
-            <input
-              type="text"
-              name="id"
-              value={memberEditForm.id}
-              readOnly
-            />
-          </div>
-
           <div className={styles.status_container}>
             <label>Visible state</label>
             <div className={styles.status}>
@@ -135,7 +104,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
                 name="state"
                 onChange={collectMembersData}
                 value="SHOW"
-                checked={memberEditForm.state === "SHOW"}
+                checked={memberForm.state === "SHOW"}
               />
               <label htmlFor="option1">SHOW</label>
             </div>
@@ -146,18 +115,19 @@ const TeamEditMemberAdmin = (): JSX.Element => {
                 name="state"
                 value="HIDDEN"
                 onChange={collectMembersData}
-                checked={memberEditForm.state === "HIDDEN"}
+                checked={memberForm.state === ("HIDDEN" as MemberState)}
               />
               <label htmlFor="option2">HIDDEN</label>
             </div>
           </div>
           <div className={styles.form_field}>
-            <label>Name</label>
+          <label style={{ color: "red" }}>Name (Required *)</label>
             <input
               type="text"
               name="name"
-              value={memberEditForm.name}
+              value={memberForm.name}
               onChange={collectMembersData}
+              required
             />
           </div>
           <div className={styles.form_field}>
@@ -165,7 +135,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="position"
-              value={memberEditForm.position}
+              value={memberForm.position}
               onChange={collectMembersData}
             />
           </div>
@@ -174,7 +144,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             <textarea
               name="description"
               rows={3}
-              value={memberEditForm.description}
+              value={memberForm.description}
               onChange={collectMembersData}
             />
           </div>
@@ -185,7 +155,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
               type="text"
               name="phone"
               placeholder="+49 1234 1234567"
-              value={memberEditForm.phone}
+              value={memberForm.phone}
               onChange={collectMembersData}
             />
           </div>
@@ -195,28 +165,30 @@ const TeamEditMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="email"
-              placeholder="+49 1234 1234567"
-              value={memberEditForm.email}
+              placeholder="name@gmail.com"
+              value={memberForm.email}
               onChange={collectMembersData}
             />
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Facebook (example: https://www.facebook.com/FacebookId)</label>
+            <label>Facebook (beispiel: https://www.facebook.com/FacebookId)</label>
             <input
               type="text"
               name="facebook"
-              value={memberEditForm.facebook}
+              placeholder="https://www.facebook.com/FacebookId"
+              value={memberForm.facebook}
               onChange={collectMembersData}
             />
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Instagram (example: https://www.instagram.com/InstagramId)</label>
+            <label>Instagram (beispiel: https://www.instagram.com/InstagramId)</label>
             <input
               type="text"
               name="instagram"
-              value={memberEditForm.instagram}
+              placeholder="https://www.instagram.com/InstagramId"
+              value={memberForm.instagram}
               onChange={collectMembersData}
             />
             <br />
@@ -225,46 +197,32 @@ const TeamEditMemberAdmin = (): JSX.Element => {
 
         <div className={styles.photo}>
           <label>Photo </label>
-          <img
-            src={"/api/files/" + memberEditForm.image}
-            alt={memberEditForm.name + memberEditForm.position}
-            style={{
-              width: "400px",
-              maxWidth: "400px",
-              height: "auto",
-            }}
-          />
+
+          <input
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            name="image"
+            onChange={handleFileChange} />
+          <br /> <br />
+          {imageData && (
+            <img
+              src={imageData}
+              alt="Image"
+              style={{
+                width: "300px",
+                maxWidth: "300px",
+                height: "auto",
+              }}
+            />
+          )}
         </div>
-
-        <label htmlFor="fileInput" className="file-upload">
-          Wählen Sie ein anderes Bild
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          onChange={handleFileChange}
-          accept=".jpg, .jpeg, .png"
-          style={{ display: "none" }}
-        />
-        <br />
-        {imageData && (
-          <img
-            src={imageData}
-            alt="Image"
-            style={{
-              width: "400px",
-              maxWidth: "400px",
-              height: "auto",
-            }}
-          />
-        )}
-
+        <br /> <br />
         <button type="submit" className={styles.create_btn}>
-          Änderungen speichern
+          Neues Mitglied hinzufügen
         </button>
       </form>
     </div>
   );
 };
 
-export default TeamEditMemberAdmin;
+export default TeamAddMemberAdmin;

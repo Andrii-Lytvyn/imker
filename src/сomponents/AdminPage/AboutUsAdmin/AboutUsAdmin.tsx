@@ -1,11 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import styles from "./TeamAdmin.module.css";
-// import { Link, useNavigate } from "react-router-dom";
+import styles from "./AllMembersAdmin.module.css";
 import { toast } from "react-toastify";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { eventsStatus, statusEvt } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 
 const initAboutUs = {
   id: 1,
@@ -33,7 +32,6 @@ const editedAboutUs = async (editAboutUs: IAboutUs) => {
 export default function AboutUsAdmin(): JSX.Element {
 
   const id = 1;
-  // const navigate = useNavigate();
   const [aboutUsEditForm, setAboutUsEditForm] = useState(initAboutUs);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
@@ -91,10 +89,8 @@ export default function AboutUsAdmin(): JSX.Element {
     };
 
     editedAboutUs(editAboutUs);
-    // navigate("/aboutusadmin");
     resetForm();
-    dispatch(eventsStatus(statusEvt.allMembers));
-    // window.location.reload();
+    dispatch(aboutUsAction(statusesAbUs.allMembers));
   };
 
   const resetForm = () => {
@@ -113,24 +109,10 @@ export default function AboutUsAdmin(): JSX.Element {
 
   return (
     <div className={styles.form_container}>
-      {/* <button type="button">
-        <Link to="/teamadmin/">Bearbeiten eines Teams</Link>
-      </button> */}
-
       <h2>SEITE ÜBER UNS BEARBEITEN</h2>
 
       <form className={styles.form} onSubmit={aboutUsFormData}>
         <div>
-          {/* <div className={styles.form_field}>
-            <label>id</label>
-            <input
-              type="text"
-              name="id"
-              value={id}
-              readOnly
-            />
-          </div> */}
-
           <div className={styles.description}>
             <label>Titel oben</label>
             <input
@@ -224,7 +206,6 @@ export default function AboutUsAdmin(): JSX.Element {
         id="fileInput"
         onChange={handleFileChange}
         accept=".jpg, .jpeg, .png"
-      // style={{ display: "none" }}
       />
       <br />
       <div className={styles.form_field}>

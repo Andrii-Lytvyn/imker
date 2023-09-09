@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { IAboutUs, initIAboutUs } from "../../сomponents/AboutUs/interfaces/IAboutUs";
 import { IMember } from "../../сomponents/Team/interfaces/IMembers";
 import { initMember } from "../../сomponents/AdminPage/AboutUsAdmin/interfaces/IMemberDate";
 
 
-export const statusEvt = {
+export const statusesAbUs = {
   allMembers: "ALL",
   addMember: "ADD",
   editMember: "EDIT",
@@ -15,15 +14,13 @@ export const statusEvt = {
 export interface AboutUsState {
   members: IMember[] | [];
   edit_member: IMember;
-  // edit_aboutUs: null | IAboutUs;
   status: string
 }
 
 export const initAboutUsState: AboutUsState = {
   members: [],
   edit_member: initMember,
-  // edit_aboutUs: null,
-  status: statusEvt.allMembers
+  status: statusesAbUs.allMembers
 }
 const aboutUsSlice = createSlice({
   name: "aboutUs",
@@ -39,13 +36,11 @@ const aboutUsSlice = createSlice({
       return state;
     },
     updateMember: (state, { payload }) => {
-      console.log("🚀 ~ file: AboutUsSlice.ts:42 ~ updateMember:", updateMember)
       state.members = state.members.map((member) =>
         member.id === payload.id ? { ...member, ...payload } : member
       );
     },
-    // getAboutUs: (state, { payload }) => ({ ...state, edit_aboutUs: payload }),
-    eventsStatus: (state, { payload }) => ({ ...state, status: payload }),
+    aboutUsAction: (state, { payload }) => ({ ...state, status: payload }),
   }
 });
 
@@ -55,7 +50,6 @@ export const {
   getMembers,
   addMember,
   getOneMember,
-  eventsStatus,
+  aboutUsAction,
   updateMember,
-  // getAboutUs,
 } = aboutUsSlice.actions;

@@ -49,7 +49,7 @@ function App(): JSX.Element {
   const { pathname } = useLocation();
   const { user } = useUserSelector();
 
-  console.log("🚀  pathname:", pathname);
+  // console.log("🚀  pathname:", pathname);
 
   useEffect(() => {
     dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));

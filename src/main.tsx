@@ -8,7 +8,7 @@ import { store } from "./redux/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="/imker">
       <App />
     </BrowserRouter>
   </Provider>

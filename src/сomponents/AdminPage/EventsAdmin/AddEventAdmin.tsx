@@ -8,7 +8,6 @@ import { TimePicker } from "antd";
 import { toast } from "react-toastify";
 import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
-import linkToServer from "../../globalLinkToServer";
 import { createNewEvent } from "./eventsOperation/eventsOperation";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import {
@@ -59,11 +58,10 @@ const AddEventAdmin = (): JSX.Element => {
 
           try {
             const response = await axios.post(
-              `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=EVENT`,
+              `/api/files/upload?width=${width}&height=${height}&category=EVENT`,
               formData
             );
             linkVar = response.data.id.toString();
-            // console.log("File uploaded:", linkVar);
           } catch (error) {
             console.error("Error uploading file:", error);
           }
@@ -75,13 +73,14 @@ const AddEventAdmin = (): JSX.Element => {
             startTime: timeStart?.format("HH:mm") || "",
             endTime: timeEnd?.format("HH:mm") || "",
           };
-          toast.success("createNewEvent");
-          createNewEvent(newEvent);
-          dispatch(addEvent(newEvent));
-          dispatch(eventsStatus(statusEvt.allEvnt));
-          // console.log("🚀  newEvent:", newEvent);
-          //////////////////////
-          resetForm();
+
+          const data = await createNewEvent(newEvent);
+          if (data?.status === 201) {
+            toast.success("createNewEvent");
+            dispatch(addEvent(newEvent));
+            dispatch(eventsStatus(statusEvt.allEvnt));
+            resetForm();
+          }
         } else {
           toast.warning("Datum kleiner als das aktuelle Datum", {
             autoClose: 3000,
@@ -258,7 +257,7 @@ const AddEventAdmin = (): JSX.Element => {
         </div>
 
         <div className={styles.photo}>
-          <label htmlFor="fileInput" className="file-upload">
+          <label htmlFor="fileInput" className={styles.file_upload}>
             Choose image
           </label>
           <input

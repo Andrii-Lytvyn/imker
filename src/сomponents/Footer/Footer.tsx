@@ -7,13 +7,16 @@ import { SlEnvolope, SlHome, SlPhone } from "react-icons/sl";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { currentDate, formatDate } from "../Events/helpers/formattedDate";
 import { EVENT_STATUS, IEvent } from "../Events/interface/IEventsData";
-import linkToServer from "../globalLinkToServer";
 import { eventData } from "../Events/helpers/eventData";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IAddress, initIAddress } from "../ContactUs/interfaces/IAddress";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
 import { getEvents } from "../../redux/eventsStore/eventsSlice";
 import { getAllEventsFooter } from "../../redux/eventsStore/eventsOperation";
+import {
+  navStatus,
+  setLinkPage,
+} from "../../redux/navigatinOnPage/navigatinOnPageSlice";
 
 export default function Footer(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,7 +39,7 @@ export default function Footer(): JSX.Element {
       }
 
       try {
-        const response = await axios.get(`${linkToServer}/api/address`);
+        const response = await axios.get(`/api/address`);
         const getAddress = response.data;
         setAddress(getAddress);
       } catch (error) {
@@ -126,22 +129,38 @@ export default function Footer(): JSX.Element {
                 <div>
                   <h3 className={styles.card_title}>Über uns</h3>
                   <p className={styles.about_links}>
-                    <Link className={styles.about_links} to="/posts">
+                    <Link
+                      className={styles.about_links}
+                      to="/posts"
+                      onClick={() => dispatch(navStatus(setLinkPage.posts))}
+                    >
                       BLOG
                     </Link>
                   </p>
                   <p className={styles.about_links}>
-                    <Link className={styles.about_links} to="/events">
+                    <Link
+                      className={styles.about_links}
+                      to="/events"
+                      onClick={() => dispatch(navStatus(setLinkPage.events))}
+                    >
                       VERANSTALTUNGEN
                     </Link>
                   </p>
                   <p className={styles.about_links}>
-                    <Link className={styles.about_links} to="/aboutUs">
+                    <Link
+                      className={styles.about_links}
+                      to="/aboutUs"
+                      onClick={() => dispatch(navStatus(setLinkPage.aboutUs))}
+                    >
                       Mitglieder der Gemeinschaft
                     </Link>
                   </p>
                   <p className={styles.about_links}>
-                    <Link className={styles.about_links} to="/gallery">
+                    <Link
+                      className={styles.about_links}
+                      to="/gallery"
+                      onClick={() => dispatch(navStatus(setLinkPage.gallery))}
+                    >
                       GALERIE
                     </Link>
                   </p>

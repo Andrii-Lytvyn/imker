@@ -9,7 +9,6 @@ import FilesUploadAdmin from "./FilesUploadAdmin/FilesUploadAdmin";
 import GalleryAdmin from "./GalleryAdmin/GalleryAdmin";
 import { Container } from "react-bootstrap";
 import styles from "../AdminPage/PostsAdmin/PostAdmin.module.css";
-// import AddEventAdmin from "./EventsAdmin/AddEventAdmin";
 import UsersAdmin from "./UserAdmin/UsersAdmin";
 import { IUserDto, initIUserDto } from "./UserAdmin/interfaces/IUserDto";
 import { useEffect, useState } from "react";
@@ -74,65 +73,122 @@ export default function AdminPage() {
 
   return (
     <>
-      {/* {me.role === "ADMIN" && ( */}
-      <div>
-        <div className={styles.bgndPost}></div>
-        <Container>
-          <Box
-            sx={{
-              maxWidth: { xs: 320, sm: "100%" },
-              bgcolor: "background.paper",
-            }}
-            className="d-flex justify-content-center mt-4 p-2 fs-2"
-          >
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              aria-label="scrollable auto tabs example"
+      {me.role === "ADMIN" && (
+        <div>
+          <div className={styles.bgndPost}></div>
+          <Container>
+            <Box
+              sx={{
+                maxWidth: { xs: 320, sm: "100%" },
+                bgcolor: "background.paper",
+              }}
+              className="d-flex justify-content-center mt-4 p-2 fs-2"
             >
-              <Tab className="fs-5" label="BLOG" />
-              <Tab className="fs-5" label="VERANSTALTUNGEN" />
-              <Tab className="fs-5" label="Kontaktieren Sie uns" />
-              <Tab className="fs-5" label="Über uns" />
-              <Tab className="fs-5" label="Gallery" />
-              <Tab className="fs-5" label="Sliders" />
-              <Tab className="fs-5" label="Users" />
-              <Tab className="fs-5" label="Files Upload" />
-            </Tabs>
-          </Box>
-        </Container>
-        <CustomTabPanel value={value} index={0}>
-          <PostsAdmin />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <div className="container">
+
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="scrollable auto tabs example"
+              >
+                <Tab className="fs-5" label="BLOG" />
+                <Tab className="fs-5" label="VERANSTALTUNGEN" />
+                <Tab className="fs-5" label="Kontaktieren Sie uns" />
+                <Tab className="fs-5" label="Über uns" />
+                <Tab className="fs-5" label="Gallery" />
+                <Tab className="fs-5" label="Sliders" />
+                <Tab className="fs-5" label="Users" />
+                <Tab className="fs-5" label="Files Upload" />
+              </Tabs>
+            </Box>
+          </Container>
+          <CustomTabPanel value={value} index={0}>
+            <PostsAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <div className="container">
+              <EventNav />
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <ContactUsAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
+            <div className="container">
+              <AboutUsNav />
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={4}>
+            <GalleryAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={5}>
+            <SliderAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            <UsersAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={7}>
+            <FilesUploadAdmin />
+          </CustomTabPanel>
+        </div>
+      )}
+      {me.role === "ADMIN" && (
+        <div>
+          <div className={styles.bgndPost}></div>
+          <Container>
+            <Box
+              sx={{
+                maxWidth: { xs: 320, sm: "100%" },
+                bgcolor: "background.paper",
+              }}
+              className="d-flex justify-content-center mt-4 p-2 fs-2"
+            >
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="scrollable auto tabs example"
+              >
+                <Tab className="fs-5" label="BLOG" />
+                <Tab className="fs-5" label="VERANSTALTUNGEN" />
+                <Tab className="fs-5" label="Kontaktieren Sie uns" />
+                <Tab className="fs-5" label="Über uns" />
+                <Tab className="fs-5" label="Gallery" />
+                <Tab className="fs-5" label="Sliders" />
+                <Tab className="fs-5" label="Users" />
+                <Tab className="fs-5" label="Files Upload" />
+              </Tabs>
+            </Box>
+          </Container>
+          <CustomTabPanel value={value} index={0}>
+            <PostsAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
             <EventNav />
-          </div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <ContactUsAdmin />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <div className="container">
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <ContactUsAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
             <AboutUsNav />
-          </div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={4}>
-          <GalleryAdmin />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={5}>
-          <SliderAdmin />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={6}>
-          <UsersAdmin />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={7}>
-          <FilesUploadAdmin />
-        </CustomTabPanel>
-      </div>
-      {/* )} */}
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={4}>
+            <GalleryAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={5}>
+            <SliderAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            <UsersAdmin />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={7}>
+            <FilesUploadAdmin />
+          </CustomTabPanel>
+        </div>
+      )}
+
     </>
   );
 }

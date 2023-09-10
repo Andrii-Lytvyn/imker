@@ -1,17 +1,15 @@
 // import { toast } from "react-toastify";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
 import { useAppDispatch } from "./hooks/dispatch.selector";
-
-// import { userDataInfo } from "./redux/userStore/userSlice";
-
 import { userDataInfo, userIsLogin } from "./redux/userStore/userSlice";
 import {
   getLoginStatus,
   getUserData,
 } from "./сomponents/UserLogin/helpers/userAuth/userOperation";
 import { useUserSelector } from "./redux/userStore/userSelector";
+import { navStatus } from "./redux/navigatinOnPage/navigatinOnPageSlice";
 
 const AdminPage = lazy(() => import("./сomponents/AdminPage/AdminPage"));
 const MainPage = lazy(() => import("./сomponents/MainPage/MainPage"));
@@ -33,7 +31,7 @@ const RegisterUser = lazy(
   () => import("./сomponents/UserLogin/RegisterUser/RegisterUser")
 );
 const SingInUser = lazy(
-  () => import("./сomponents/UserLogin/SingInUser/SingInUser")
+  () => import("./сomponents/UserLogin/SingInUser/SingUser")
 );
 const SecretAnswer = lazy(
   () => import("./сomponents/UserLogin/SingInUser/SecretAnswer/SecretAnswer")
@@ -48,9 +46,13 @@ const RestorePassword = lazy(
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
   const { user } = useUserSelector();
 
+  // console.log("🚀  pathname:", pathname);
+
   useEffect(() => {
+    dispatch(navStatus(pathname.replace(/(\/[^/]+)(\/.*)/, "$1")));
     const isUserLoggedIn = getLoginStatus();
     if (isUserLoggedIn) {
       const refreshUser = async () => {
@@ -67,7 +69,7 @@ function App(): JSX.Element {
     } else {
       // toast.info("Привет сладенький !!!");
     }
-  }, [dispatch, user.id]);
+  }, [dispatch, pathname, user.id]);
 
   return (
     <>

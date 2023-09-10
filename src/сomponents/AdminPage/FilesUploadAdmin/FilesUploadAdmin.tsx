@@ -70,7 +70,6 @@ export default function FilesUploadAdmin(): JSX.Element {
 
   return (
     <div className="container col-md-12 mt-3 mb-5 p-2 rounded bg-white">
-
       <div className="container mb-4 col-md-7 d-flex justify-content-between align-items-center align-items-center">
         <p className="fs-4">Filter by category:</p>
         <button
@@ -112,6 +111,14 @@ export default function FilesUploadAdmin(): JSX.Element {
           }}
         >
           POST
+        </button>
+        <button
+          className={filter === "SLIDER" ? "btn btn-warning" : "btn btn-light"}
+          onClick={() => {
+            setFilter("SLIDER");
+          }}
+        >
+          SLIDER
         </button>
         <button
           className={filter === "NONE" ? "btn btn-warning" : "btn btn-light"}

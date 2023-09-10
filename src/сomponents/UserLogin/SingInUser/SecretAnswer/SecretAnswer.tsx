@@ -11,7 +11,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 
-import { initSingInUserEmail } from "../interface/ISingInUser";
+import { initSingInUserEmail } from "../interface/ISingUser";
 import { useNavigate } from "react-router-dom";
 import { getQuestion } from "../../../../redux/userStore/userSlice";
 import { useAppDispatch } from "../../../../hooks/dispatch.selector";
@@ -73,7 +73,7 @@ const SecretAnswer = (): JSX.Element => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <ChakraProvider>
-          <h4>Enter email</h4>
+          <h2>Enter email</h2>
           <form onSubmit={handleSubmit}>
             <FormControl mt="4" isInvalid={!!errors.email && touched.email}>
               <Input
@@ -102,10 +102,12 @@ const SecretAnswer = (): JSX.Element => {
                 </Button>
                 <Button
                   isDisabled={values.email === "" ? true : false}
-                  colorScheme="red"
+                  color={"#fff"}
+                  bg={"rgb(199,72,23)"}
+                  _hover={{ bg: "#d3a863", color: "#fff" }}
                   type="submit"
                 >
-                  Send
+                  Senden Sie
                 </Button>
               </Flex>
             </WrapItem>

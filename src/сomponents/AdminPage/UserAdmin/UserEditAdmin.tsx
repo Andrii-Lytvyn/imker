@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { IUserDto } from "../../AdminPage/UserAdmin/interfaces/IUserDto";
-// import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
 import { Select } from "@chakra-ui/react";
 import { Avatar } from "@mui/material";
@@ -58,9 +57,6 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
     },
     setNewEditFormData,
   ] = useState<IUserDto>(props.location.state);
-  // const [text, setText] = useState("");
-  // const initText = textOfPost;
-  // const [value, setValue] = useState<string>();
   const [imageData, setImageData] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const width = 200;
@@ -71,8 +67,6 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
     setNewEditFormData((prev) => ({
       ...prev,
       [name]: value,
-      // textOfPost: text,
-      // authorId: "1",
     }));
     console.log("role:", { role }, "state", { state });
 
@@ -124,10 +118,8 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
       progress: undefined,
       theme: "light",
     });
-    // setValue("");
     window.location.reload();
   }
-
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -148,7 +140,6 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
           variant="dot"
         >
           <Avatar
-            // alt={userInfo?.name}
             src={"/api/files/" + image}
             variant="rounded"
             sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}

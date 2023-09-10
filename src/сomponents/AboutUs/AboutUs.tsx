@@ -31,9 +31,19 @@ export default function AboutUs(): JSX.Element {
   return (
     <>
       <div className={styles.about_main}>
-        <Container>
-          <h1>Über uns</h1>
-        </Container>
+
+          <div
+              className={
+                  styles.about_bg +
+                  " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
+              }
+          >
+                <h2>Über uns</h2>
+          </div>
+          <Container>
+
+          </Container>
+
 
         <Container className="d-flex flex-column">
           <>

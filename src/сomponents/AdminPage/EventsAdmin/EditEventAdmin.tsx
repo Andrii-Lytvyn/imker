@@ -9,7 +9,6 @@ import { eventData } from "../../Events/helpers/eventData";
 import { currentDate } from "../../Events/helpers/formattedDate";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import axios from "axios";
-import linkToServer from "../../globalLinkToServer";
 import { editedEvent } from "./eventsOperation/eventsOperation";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import {
@@ -59,7 +58,7 @@ const EditEventAdmin = (): JSX.Element => {
 
           try {
             const response = await axios.post(
-              `${linkToServer}/api/files/upload?width=${width}&height=${height}&category=EVENT`,
+              `/api/files/upload?width=${width}&height=${height}&category=EVENT`,
               formData
             );
             linkVar = response.data.id.toString();
@@ -79,11 +78,12 @@ const EditEventAdmin = (): JSX.Element => {
           endTime: timeEnd?.format("HH:mm") || "",
         };
         toast.success("Event Update");
-        editedEvent(editEvent); // Отправка на бек
-        //////////////////////
-        resetForm();
-        dispatch(updateEvent(editEvent));
-        dispatch(eventsStatus(statusEvt.allEvnt));
+        const data = await editedEvent(editEvent);
+        if (data?.status === 200) {
+          resetForm();
+          dispatch(updateEvent(editEvent));
+          dispatch(eventsStatus(statusEvt.allEvnt));
+        }
       } else {
         toast.warning("Datum kleiner als das aktuelle Datum", {
           autoClose: 3000,
@@ -192,7 +192,7 @@ const EditEventAdmin = (): JSX.Element => {
               name="status"
               value="ARCHIVE"
               onChange={collectEventsData}
-              checked={event_edit.status === "ARCHIVE"}
+              checked={eventEditForm.status === "ARCHIVE"}
             />
             <label htmlFor="option3">ARCHIVE</label>
           </div>
@@ -257,7 +257,7 @@ const EditEventAdmin = (): JSX.Element => {
         </div>
 
         <div className={styles.photo}>
-          <label htmlFor="fileInput" className="file-upload">
+          <label htmlFor="fileInput" className={styles.file_upload}>
             Choose image
           </label>
           <input
@@ -281,7 +281,7 @@ const EditEventAdmin = (): JSX.Element => {
             />
           ) : (
             <img
-              src={`${linkToServer}/api/files/${eventEditForm?.photo}`}
+              src={`/api/files/${eventEditForm?.photo}`}
               alt="Image"
               style={{
                 width: "50%",

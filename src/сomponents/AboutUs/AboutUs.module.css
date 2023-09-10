@@ -2,6 +2,15 @@
     background: linear-gradient(0deg, var(--first-color-gradient), var(--second-color-gradient));
     margin-top: -20px;
 }
+.about_bg{
+    background-image: url("img/blog-single.jpg");
+    height: 250px;
+    margin-bottom: 15px;
+}
+.about_bg h2{
+    color: white;
+    font-size: 4.5em;
+}
 .about_text{
     color: var(--text-color);
     line-height: 1.3;

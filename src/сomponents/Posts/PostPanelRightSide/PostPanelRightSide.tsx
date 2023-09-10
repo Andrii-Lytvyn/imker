@@ -4,8 +4,14 @@ import { BiTimeFive } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useEventsSelector } from "../../../redux/eventsStore/eventsSelector";
 import { currentDate, formatDate } from "../../Events/helpers/formattedDate";
+import {
+  navStatus,
+  setLinkPage,
+} from "../../../redux/navigatinOnPage/navigatinOnPageSlice";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 const PostPanelRightSide = () => {
+  const dispatch = useAppDispatch();
   const { events } = useEventsSelector();
   const quantityOnPage = 5;
   const futureEventFiltered = events
@@ -18,7 +24,7 @@ const PostPanelRightSide = () => {
 
   return (
     <div className={styles.post_right_side}>
-      <h2>VERANSTALTUNGEN</h2>
+      <h2 className={styles.postpanel_h2}>VERANSTALTUNGEN</h2>
       <hr className={styles.post_hr} />
       {futureEventFiltered
         .map(
@@ -43,7 +49,12 @@ const PostPanelRightSide = () => {
                 <BiTimeFive /> {startTime}
               </p>
               <h4 className={styles.post_event_h4}>
-                <Link to={"/"}>{title}</Link>
+                <Link
+                  to={`/events/${idEvent}`}
+                  onClick={() => dispatch(navStatus(setLinkPage.events))}
+                >
+                  {title}
+                </Link>
               </h4>
               <p className={styles.post_event_text}>
                 {shortDescription.substring(0, 100)}...

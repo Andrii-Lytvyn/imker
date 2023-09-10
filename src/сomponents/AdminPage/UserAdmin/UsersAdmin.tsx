@@ -4,7 +4,6 @@ import { Pagination } from "@mui/material";
 import { IUsersDto, initIUsersDto } from "./interfaces/IUsersDto";
 import { IUserDto } from "../../AdminPage/UserAdmin/interfaces/IUserDto";
 import UserEditAdmin from "./UserEditAdmin";
-// import UsersCreationAdmin from "./UsersCreationAdmin";
 import styles from "./UserAdmin.module.css";
 
 export default function UsersAdmin() {
@@ -12,25 +11,10 @@ export default function UsersAdmin() {
     useState<IUsersDto>(initIUsersDto);
   const [user, setUser] = useState<IUserDto>();
   const [isEditShow, setIsEditShow] = useState<boolean>(false);
-  // const [isCreateShow, setIsCreateShow] = useState<boolean>(false);
   const [isListShow, setIsListShow] = useState<boolean>(true);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsOnPage = 5;
-
-  // const getUserData = async () => {
-  //   try {
-  //     const data = await axios.get(`/api/me`, {
-  //       withCredentials: true,
-  //     });
-  //     console.log("🚀  getUserData:", data);
-  //     // return data;
-  //   } catch (error) {
-  //     console.log("🚀 getUserData error:", error);
-  //   }
-  // };
-
-  // getUserData();
 
   useEffect(() => {
     async function getListOfUsers() {
@@ -77,35 +61,21 @@ export default function UsersAdmin() {
 
   return (
     <>
-      <div className={styles.bgndPost}></div>
-
       <div className={styles.headerContainer}>
         <button
           className={isListShow ? styles.headBtnActive : styles.headBtn}
           onClick={() => {
             setIsEditShow(false);
             setIsListShow(true);
-            // setIsCreateShow(false);
           }}
         >
           View list of Users
         </button>
-        {/* <button
-          className={isCreateShow ? styles.headBtnActive : styles.headBtn}
-          onClick={() => {
-            setIsEditShow(false);
-            setIsListShow(false);
-            setIsCreateShow(true);
-          }}
-        >
-          Create new user
-        </button> */}
         <button
           className={isEditShow ? styles.headBtnActive : styles.headBtn}
           onClick={() => {
             setIsEditShow(true);
             setIsListShow(false);
-            // setIsCreateShow(false);
           }}
           disabled={isLoaded ? false : true}
         >
@@ -113,8 +83,6 @@ export default function UsersAdmin() {
         </button>
         <hr />
       </div>
-
-      {/* {isCreateShow && <UsersCreationAdmin />} */}
 
       {isEditShow && <UserEditAdmin location={{ state: user! }} />}
 
@@ -151,7 +119,6 @@ export default function UsersAdmin() {
                 <p className={styles.postData}>User plz: {plz}</p>
                 <p className={styles.postData}>User role: {role}</p>
                 <p className={styles.postData}>User state: {state}</p>
-                {/* <hr />            */}
                 <button
                   className={styles.editBtn}
                   onClick={() => handleLoadData(+id)}

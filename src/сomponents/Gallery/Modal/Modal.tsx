@@ -10,17 +10,14 @@ interface IModal {
 
 const Modal = ({ setModalHide, modalImage }: IModal): JSX.Element => {
   useEffect(() => {
-    // console.log('монтируем');
     window.addEventListener("keydown", addKeyDown);
     return () => {
-      // console.log('размонтируем');
       window.removeEventListener("keydown", addKeyDown);
     };
   });
 
   const addKeyDown = (evt: KeyboardEvent) => {
     if (evt.code === "Escape") {
-      // console.log('закрить');
       setModalHide(false);
     }
   };

@@ -2,6 +2,7 @@ import styles from "./OurMission.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PostsPanel from "../Posts/PostsPanel/PostsPanel";
+import mission from "/img/our_mission.jpg";
 
 export default function OurMission(): JSX.Element {
   return (
@@ -12,7 +13,8 @@ export default function OurMission(): JSX.Element {
             <Col>
               <div className={styles.our_mission_left_container}>
                 <div className={styles.our_mission_img}>
-                  <img src="img/our_mission.jpg" />
+                  <img src={mission} />
+                  {/* <img src="img/our_mission.jpg" /> */}
                 </div>
                 <div className={styles.our_mission_texts}>
                   <div className={styles.our_mission_title}>

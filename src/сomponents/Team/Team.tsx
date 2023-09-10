@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IMember } from "./interfaces/IMembers";
 import { SlEnvolope } from "react-icons/sl";
 import { useAppDispatch } from "../../hooks/dispatch.selector";
-import { getMembers } from "../../redux/aboutUsStore/AboutUsSlice";
+import { getMembers } from "../../redux/aboutUsStore/aboutUsSlice";
 
 export default function Team(): JSX.Element {
 

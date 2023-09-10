@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../Team/interfaces/IMembers";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/aboutUsSlice";
 
 
 export default function TeamAdmin(): JSX.Element {

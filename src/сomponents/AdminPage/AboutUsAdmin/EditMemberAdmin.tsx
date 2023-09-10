@@ -6,7 +6,7 @@ import { IMember } from "../../Team/interfaces/IMembers"
 import { initMember } from "./interfaces/IMemberDate";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
-import { aboutUsAction, statusesAbUs, updateMember } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, statusesAbUs, updateMember } from "../../../redux/aboutUsStore/aboutUsSlice";
 
 
 // Edit Member

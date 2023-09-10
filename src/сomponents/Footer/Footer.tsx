@@ -21,6 +21,8 @@ import {
 export default function Footer(): JSX.Element {
   const dispatch = useAppDispatch();
   const [events, setEvents] = useState<IEvent[]>([]);
+
+  console.log("🚀  events:", events);
   const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
     useState<IAddress>(initIAddress);
 
@@ -48,6 +50,13 @@ export default function Footer(): JSX.Element {
     };
     getAllEvents();
   }, [dispatch]);
+  const futureEventFiltered = events
+    .filter(({ dateStart }) => dateStart > currentDate())
+    .sort((a, b) => {
+      const dateA = new Date(a.dateStart).getTime();
+      const dateB = new Date(b.dateStart).getTime();
+      return dateA - dateB;
+    });
 
   return (
     <>
@@ -87,7 +96,7 @@ export default function Footer(): JSX.Element {
                   <h3 className={styles.card_title}>VERANSTALTUNGEN</h3>
                   <div>
                     <ul>
-                      {events
+                      {futureEventFiltered
                         .map(
                           ({ idEvent, dateStart, title, startTime, status }) =>
                             dateStart > currentDate() &&

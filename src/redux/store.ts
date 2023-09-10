@@ -8,7 +8,7 @@ import { aboutUsReducer, initAboutUsState } from "./aboutUsStore/AboutUsSlice";
 export const initState = {
     event: initEventsState,
     user: initUserState,
-    nav: initNavState
+    nav: initNavState,
     aboutUs: initAboutUsState,
 };
 
@@ -18,7 +18,7 @@ export const store = configureStore({
         event: eventsReducer,
         user: userReducer,
 
-        nav: navReducer
+        nav: navReducer,
        aboutUs: aboutUsReducer,
 
     }

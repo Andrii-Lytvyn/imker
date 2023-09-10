@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./AboutUsAdmin.module.css";
 import { toast } from "react-toastify";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
+import { Container } from "react-bootstrap";
 // import { useAppDispatch } from "../../../hooks/dispatch.selector";
 // import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 
@@ -101,127 +102,130 @@ export default function AboutUsAdmin(): JSX.Element {
   };
 
   return (
-    <div className={styles.form_container}>
-      <h2>SEITE ÜBER UNS BEARBEITEN</h2>
+    <div className={styles.edit_block}>
+      <div className={styles.form_container}>
+        <h2>SEITE ÜBER UNS BEARBEITEN</h2>
+          <form className={styles.form} onSubmit={aboutUsFormData}>
+            <div>
+              <div className={styles.description}>
+                <label>Titel oben</label>
+                <input
+                  type="text"
+                  name="titleTop"
+                  value={aboutUsEditForm.titleTop}
+                  onChange={collectAboutUsData}
+                />
+              </div>
+              <div className={styles.description}>
+                <label>Beschreibung Oben</label>
+                <textarea
+                  name="descriptionTop"
+                  rows={30}
+                  value={aboutUsEditForm.descriptionTop}
+                  onChange={collectAboutUsData}
+                />
+              </div>
 
-      <form className={styles.form} onSubmit={aboutUsFormData}>
-        <div>
-          <div className={styles.description}>
-            <label>Titel oben</label>
-            <input
-              type="text"
-              name="titleTop"
-              value={aboutUsEditForm.titleTop}
-              onChange={collectAboutUsData}
-            />
-          </div>
-          <div className={styles.description}>
-            <label>Beschreibung Oben</label>
-            <textarea
-              name="descriptionTop"
-              rows={30}
-              value={aboutUsEditForm.descriptionTop}
-              onChange={collectAboutUsData}
-            />
-          </div>
+              <div>
+              </div>
+              <div className={styles.description}>
+                <label>Titel unten</label>
+                <input
+                  type="text"
+                  name="titleBottom"
+                  value={aboutUsEditForm.titleBottom}
+                  onChange={collectAboutUsData}
+                />
+              </div>
+              <div className={styles.description}>
+                <label>Beschreibung unten</label>
+                <textarea
+                  name="descriptionBottom"
+                  rows={30}
+                  value={aboutUsEditForm.descriptionBottom}
+                  onChange={collectAboutUsData}
+                />
+              </div>
+            </div>
 
-          <div>
-          </div>
-          <div className={styles.description}>
-            <label>Titel unten</label>
-            <input
-              type="text"
-              name="titleBottom"
-              value={aboutUsEditForm.titleBottom}
-              onChange={collectAboutUsData}
-            />
-          </div>
-          <div className={styles.description}>
-            <label>Beschreibung unten</label>
-            <textarea
-              name="descriptionBottom"
-              rows={30}
-              value={aboutUsEditForm.descriptionBottom}
-              onChange={collectAboutUsData}
-            />
-          </div>
-        </div>
+            <h2>Foto ändern</h2>
 
-        <h2>Foto ändern</h2>
+            <div className={styles.photo}>
+              <img
+                src={"/api/files/" + aboutUsEditForm.image1}
+                alt=""
+                style={{
+                  width: "300px",
+                  maxWidth: "300px",
+                  height: "auto",
+                }}
+              />
+              <img
+                src={"/api/files/" + aboutUsEditForm.image2}
+                alt=""
+                style={{
+                  width: "300px",
+                  maxWidth: "300px",
+                  height: "auto",
+                }}
+              />
+              <br />
+              <label>Geben Sie eine neue Nummer für Foto 1 ein:</label>
+              <input
+                type="text"
+                name="image1"
+                value={aboutUsEditForm.image1}
+                onChange={collectAboutUsData}
+              />
+              <div className={styles.photo}>
+                <label>Geben Sie eine neue Nummer für Foto 2 ein: </label>
+                <input
+                  type="text"
+                  name="image2"
+                  value={aboutUsEditForm.image2}
+                  onChange={collectAboutUsData}
+                />
+              </div>
+            </div>
 
-        <div className={styles.photo}>
-          <img
-            src={"/api/files/" + aboutUsEditForm.image1}
-            alt=""
-            style={{
-              width: "300px",
-              maxWidth: "300px",
-              height: "auto",
-            }}
-          />
-          <img
-            src={"/api/files/" + aboutUsEditForm.image2}
-            alt=""
-            style={{
-              width: "300px",
-              maxWidth: "300px",
-              height: "auto",
-            }}
+            <h3>Alle Änderungen speichern</h3>
+            <button className="button_imker" type="submit" >
+              Änderungen speichern
+            </button>
+          </form>
+
+        <Container>
+          <h3>Neues Foto laden</h3>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            accept=".jpg, .jpeg, .png"
           />
           <br />
-          <label>Geben Sie eine neue Nummer für Foto 1 ein:</label>
-          <input
-            type="text"
-            name="image1"
-            value={aboutUsEditForm.image1}
-            onChange={collectAboutUsData}
-          />
-          <div className={styles.photo}>
-            <label>Geben Sie eine neue Nummer für Foto 2 ein: </label>
+          <div className={styles.form_field}>
+            <label>neue № für Foto </label>
             <input
               type="text"
-              name="image2"
-              value={aboutUsEditForm.image2}
-              onChange={collectAboutUsData}
+              name="linkVar"
+              value={linkVar}
+              readOnly
             />
           </div>
-        </div>
-
-        <h2>Alle Änderungen speichern</h2>
-        <button type="submit" className={styles.create_btn}>
-          Änderungen speichern
-        </button>
-      </form>
-
-      <h2>Neues Foto laden</h2>
-      <input
-        type="file"
-        id="fileInput"
-        onChange={handleFileChange}
-        accept=".jpg, .jpeg, .png"
-      />
-      <br />
-      <div className={styles.form_field}>
-        <label>neue № für Foto </label>
-        <input
-          type="text"
-          name="linkVar"
-          value={linkVar}
-          readOnly
-        />
+          <button className="button_imker" onClick={() => handleFileUploading()}>Datei senden</button>
+          {imageData && (
+            <img
+              src={imageData}
+              alt="Image"
+              style={{
+                width: "300px",
+                maxWidth: "300px",
+                height: "auto",
+              }}
+            />
+          )}
+        </Container>
       </div>
-      <button onClick={() => handleFileUploading()}>Datei senden</button>
-      {imageData && (
-        <img
-          src={imageData}
-          alt="Image"
-          style={{
-            width: "300px",
-            maxWidth: "300px",
-            height: "auto",
-          }}
-        />
-      )}
     </div>
   );
 }

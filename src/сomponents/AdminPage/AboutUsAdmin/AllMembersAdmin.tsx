@@ -3,8 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../Team/interfaces/IMembers";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
-
+import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/aboutUsSlice";
+import styles from "./AboutUsAdmin.module.css";
 
 export default function TeamAdmin(): JSX.Element {
 
@@ -58,6 +58,7 @@ export default function TeamAdmin(): JSX.Element {
     <>
       <br />
       <Container>
+      <div className={styles.edit_block}>
         <ul>
           {member.map(
             ({
@@ -97,6 +98,7 @@ export default function TeamAdmin(): JSX.Element {
               </li>
             ))}
         </ul>
+        </div>
       </Container>
     </>
   );

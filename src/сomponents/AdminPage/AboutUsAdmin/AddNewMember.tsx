@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from "./AboutUsAdmin.module.css";
 import { toast } from "react-toastify";
 import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
-import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/aboutUsSlice";
 import { useAppDispatch } from "../../../hooks/dispatch.selector";
 
 
@@ -91,6 +91,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   };
 
   return (
+    <div className={styles.edit_block}>
     <div className={styles.form_container}>
       <h2>Add Neues Mitglied</h2>
       <form className={styles.form} onSubmit={memberFormData}>
@@ -221,6 +222,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           Neues Mitglied hinzufügen
         </button>
       </form>
+    </div>
     </div>
   );
 };

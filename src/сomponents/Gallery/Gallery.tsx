@@ -105,7 +105,7 @@ const Gallery = (): JSX.Element => {
               <li key={item.id} className={styles.card}>
                 <img
                   id={item.id}
-                  src={"https://imker-app-j9zrk.ondigitalocean.app/api/files/" + item.linkToImg}
+                  src={"/api/files/" + item.linkToImg}
                   alt={item.id}
                   className={styles.card_item}
                   onClick={() => modalShow(item.linkToImg)}

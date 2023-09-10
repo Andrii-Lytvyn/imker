@@ -1,37 +1,31 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
-import styles from "./TeamAdmin.module.css";
-import { Link } from "react-router-dom";
+import styles from "./AboutUsAdmin.module.css";
 import { toast } from "react-toastify";
-import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
+import { IMember } from "../../Team/interfaces/IMembers"
+import { initMember } from "./interfaces/IMemberDate";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
+import { aboutUsAction, statusesAbUs, updateMember } from "../../../redux/aboutUsStore/AboutUsSlice";
 
 
-const memberData = {
-  state: MEMBER_STATE.SHOW,
-  name: "",
-  position: "",
-  description: "",
-  image: "",
-  phone: "",
-  email: "",
-  facebook: "",
-  instagram: "",
-};
-
-const addNewMember = async (newMember: IMemberDate) => {
+// Edit Member
+const editedMember = async (editMember: IMember) => {
   try {
-    const data = await axios.post(`/api/members`, newMember, {
+    const { data } = await axios.put(`/api/members/update/${editMember.id}`, editMember, {
       withCredentials: true,
-    });
-    console.log("🚀  data:", data);
+    }
+    );
+    console.log("🚀 (Received)editedMember:", data);
   } catch (error) {
-    console.log("Fehler addNewMember", error);
+    toast.error(`Serverfehler getAllMembers ${error}`);
   }
 };
 
-const TeamAddMemberAdmin = (): JSX.Element => {
-
-  const [memberForm, setMemberForm] = useState(memberData);
+const TeamEditMemberAdmin = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { edit_member } = useAboutUsSelector();
+  const [memberEditForm, setMemberEditForm] = useState(edit_member);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const width = 300;
@@ -42,7 +36,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setMemberForm((prev) => ({ ...prev, [name]: value }));
+    setMemberEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const memberFormData = async (event: FormEvent<HTMLFormElement>) => {
@@ -63,18 +57,23 @@ const TeamAddMemberAdmin = (): JSX.Element => {
         );
         linkVar = response.data.id.toString();
       } catch (error) {
-        console.error("Fehler beim Hochladen der Datei:", error);
+        console.error("Fehler beim Hochladen der Datei: ", error);
       }
     }
 
-    const createNewMember = {
-      ...memberForm,
-      image: linkVar,
+    const editMember = {
+      ...memberEditForm,
+      image: linkVar || memberEditForm.image,
     };
+    toast.success("Mitglied erfolgreich bearbeitet");
+    editedMember(editMember);
+    resetForm();
+    dispatch(updateMember(editMember));
+    dispatch(aboutUsAction(statusesAbUs.allMembers));
+  };
 
-    toast.success("New Member created");
-    addNewMember(createNewMember);
-    setMemberForm(memberData);
+  const resetForm = () => {
+    setMemberEditForm(initMember);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,12 +88,20 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
   return (
     <div className={styles.form_container}>
-      <button type="button">
-        <Link to="/teamadmin">Zurück</Link>
-      </button>
-      <h2>Add Neues Mitglied</h2>
+      <h2>Edit Member</h2>
+
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
+          <div className={styles.form_field}>
+            <label>id</label>
+            <input
+              type="text"
+              name="id"
+              value={memberEditForm.id}
+              readOnly
+            />
+          </div>
+
           <div className={styles.status_container}>
             <label>Visible state</label>
             <div className={styles.status}>
@@ -104,7 +111,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
                 name="state"
                 onChange={collectMembersData}
                 value="SHOW"
-                checked={memberForm.state === "SHOW"}
+                checked={memberEditForm.state === "SHOW"}
               />
               <label htmlFor="option1">SHOW</label>
             </div>
@@ -115,19 +122,18 @@ const TeamAddMemberAdmin = (): JSX.Element => {
                 name="state"
                 value="HIDDEN"
                 onChange={collectMembersData}
-                checked={memberForm.state === ("HIDDEN" as MemberState)}
+                checked={memberEditForm.state === "HIDDEN"}
               />
               <label htmlFor="option2">HIDDEN</label>
             </div>
           </div>
           <div className={styles.form_field}>
-          <label style={{ color: "red" }}>Name (Required *)</label>
+            <label>Name</label>
             <input
               type="text"
               name="name"
-              value={memberForm.name}
+              value={memberEditForm.name}
               onChange={collectMembersData}
-              required
             />
           </div>
           <div className={styles.form_field}>
@@ -135,7 +141,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="position"
-              value={memberForm.position}
+              value={memberEditForm.position}
               onChange={collectMembersData}
             />
           </div>
@@ -144,7 +150,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             <textarea
               name="description"
               rows={3}
-              value={memberForm.description}
+              value={memberEditForm.description}
               onChange={collectMembersData}
             />
           </div>
@@ -155,7 +161,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
               type="text"
               name="phone"
               placeholder="+49 1234 1234567"
-              value={memberForm.phone}
+              value={memberEditForm.phone}
               onChange={collectMembersData}
             />
           </div>
@@ -165,30 +171,28 @@ const TeamAddMemberAdmin = (): JSX.Element => {
             <input
               type="text"
               name="email"
-              placeholder="name@gmail.com"
-              value={memberForm.email}
+              placeholder="+49 1234 1234567"
+              value={memberEditForm.email}
               onChange={collectMembersData}
             />
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Facebook (beispiel: https://www.facebook.com/FacebookId)</label>
+            <label>Facebook (example: https://www.facebook.com/FacebookId)</label>
             <input
               type="text"
               name="facebook"
-              placeholder="https://www.facebook.com/FacebookId"
-              value={memberForm.facebook}
+              value={memberEditForm.facebook}
               onChange={collectMembersData}
             />
           </div>
           <br />
           <div className={styles.form_field}>
-            <label>Instagram (beispiel: https://www.instagram.com/InstagramId)</label>
+            <label>Instagram (example: https://www.instagram.com/InstagramId)</label>
             <input
               type="text"
               name="instagram"
-              placeholder="https://www.instagram.com/InstagramId"
-              value={memberForm.instagram}
+              value={memberEditForm.instagram}
               onChange={collectMembersData}
             />
             <br />
@@ -197,32 +201,46 @@ const TeamAddMemberAdmin = (): JSX.Element => {
 
         <div className={styles.photo}>
           <label>Photo </label>
-
-          <input
-            type="file"
-            accept=".jpg, .jpeg, .png"
-            name="image"
-            onChange={handleFileChange} />
-          <br /> <br />
-          {imageData && (
-            <img
-              src={imageData}
-              alt="Image"
-              style={{
-                width: "300px",
-                maxWidth: "300px",
-                height: "auto",
-              }}
-            />
-          )}
+          <img
+            src={"/api/files/" + memberEditForm.image}
+            alt={memberEditForm.name + memberEditForm.position}
+            style={{
+              width: "400px",
+              maxWidth: "400px",
+              height: "auto",
+            }}
+          />
         </div>
-        <br /> <br />
+
+        <label htmlFor="fileInput" className="file-upload">
+          Wählen Sie ein anderes Bild
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          onChange={handleFileChange}
+          accept=".jpg, .jpeg, .png"
+          style={{ display: "none" }}
+        />
+        <br />
+        {imageData && (
+          <img
+            src={imageData}
+            alt="Image"
+            style={{
+              width: "400px",
+              maxWidth: "400px",
+              height: "auto",
+            }}
+          />
+        )}
+
         <button type="submit" className={styles.create_btn}>
-          Neues Mitglied hinzufügen
+          Änderungen speichern
         </button>
       </form>
     </div>
   );
 };
 
-export default TeamAddMemberAdmin;
+export default TeamEditMemberAdmin;

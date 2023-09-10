@@ -2,12 +2,14 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IMember } from "../../Team/interfaces/IMembers";
-import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks/dispatch.selector";
+import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
+
 
 export default function TeamAdmin(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,10 +28,10 @@ export default function TeamAdmin(): JSX.Element {
 
   async function deleteMember(idMember: number) {
     try {
-      const response = await axios.delete(`/api/members/${idMember}`, 
-      {withCredentials: true,
-    });
-      window.location.reload();
+      const response = await axios.delete(`/api/members/${idMember}`,
+        {
+          withCredentials: true,
+        });
 
       if (response.status === 204) {
         const index = member.findIndex(member => member.id === idMember);
@@ -47,18 +49,15 @@ export default function TeamAdmin(): JSX.Element {
     }
   }
 
+  function EditMember(id: number) {
+    dispatch(aboutUsAction(statusesAbUs.editMember));
+    dispatch(getOneMember(id));
+  }
+
   return (
     <>
       <br />
-      <button type="button">
-        <Link to="/aboutusadmin/">Bearbeiten die Beschreibung „Über uns“.</Link>
-      </button>
-      <br /><br />
       <Container>
-        <button type="button">
-          <Link to="/teamadmin/addmember/">Neues Mitglied hinzufügen</Link>
-        </button>
-        <br /><br />
         <ul>
           {member.map(
             ({
@@ -74,11 +73,10 @@ export default function TeamAdmin(): JSX.Element {
               email
             }) => (
               <li key={id}>
-                <button onClick={() => navigate(`/teamadmin/teameditmemberadmin/${id}`)
-                }>
+                <button className="button_imker" onClick={() => EditMember(id)}>
                   Bearbeiten
                 </button>
-                <button onClick={() => deleteMember(+id)}>
+                <button className="button_imker" onClick={() => deleteMember(+id)}>
                   Löschen
                 </button>
                 <div >

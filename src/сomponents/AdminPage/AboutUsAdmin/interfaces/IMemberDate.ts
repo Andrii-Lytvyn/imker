@@ -1,4 +1,3 @@
-
 export const MEMBER_STATE = {
    SHOW: "SHOW",
    HIDDEN: "HIDDEN"
@@ -17,4 +16,17 @@ export interface IMemberDate {
    email: string,
    facebook: string,
    instagram: string
+}
+
+export const initMember = {
+   id: 0,
+   state: "",
+   name: "",
+   position: "",
+   description: "",
+   image: "",
+   phone: "",
+   facebook: "",
+   instagram: "",
+   email: ""
 }

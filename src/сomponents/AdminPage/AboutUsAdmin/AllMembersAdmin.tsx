@@ -77,7 +77,7 @@ export default function TeamAdmin(): JSX.Element {
                 <button className="button_imker" onClick={() => EditMember(id)}>
                   Bearbeiten
                 </button>
-                <button className="button_imker" onClick={() => deleteMember(+id)}>
+                <button className={styles.button_imker_red} onClick={() => deleteMember(+id)}>
                   Löschen
                 </button>
                 <div >

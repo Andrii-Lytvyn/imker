@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import styles from "./AllMembersAdmin.module.css";
+import styles from "./AboutUsAdmin.module.css";
 import { toast } from "react-toastify";
 import { IAboutUs } from "../../AboutUs/interfaces/IAboutUs";
-import { useAppDispatch } from "../../../hooks/dispatch.selector";
-import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
+// import { useAppDispatch } from "../../../hooks/dispatch.selector";
+// import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
 
 const initAboutUs = {
   id: 1,
@@ -38,7 +38,7 @@ export default function AboutUsAdmin(): JSX.Element {
   const width = 600;
   const height = 600;
   const category = "AVATAR";
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,12 +87,7 @@ export default function AboutUsAdmin(): JSX.Element {
     };
 
     editedAboutUs(editAboutUs);
-    resetForm();
-    dispatch(aboutUsAction(statusesAbUs.allMembers));
-  };
-
-  const resetForm = () => {
-    setAboutUsEditForm(initAboutUs);
+    // dispatch(aboutUsAction(statusesAbUs.allMembers));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

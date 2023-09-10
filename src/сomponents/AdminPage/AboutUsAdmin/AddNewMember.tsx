@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
-import styles from "./AllMembersAdmin.module.css";
+import styles from "./AboutUsAdmin.module.css";
 import { toast } from "react-toastify";
 import { MEMBER_STATE, MemberState, IMemberDate } from "./interfaces/IMemberDate";
 import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";

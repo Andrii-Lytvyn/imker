@@ -8,7 +8,7 @@
 }
 .about_img img{
     border-radius: 7px;
-    height: 600px;
+    height: 90%;
 }
 .about_img caption{
     color: var(--text-color);

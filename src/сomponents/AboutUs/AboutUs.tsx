@@ -40,7 +40,6 @@ export default function AboutUs(): JSX.Element {
             <div key={aboutUsRes.id}>
               <div className="mb-3">
                 <h4>{aboutUsRes.titleTop}</h4>
-
                 <div
                   className="container"
                   dangerouslySetInnerHTML={{
@@ -52,11 +51,11 @@ export default function AboutUs(): JSX.Element {
               <div className="d-flex justify-content-around">
                 <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
                   <img src={"/api/files/" + aboutUsRes.image1} width="90%" />
-                  <caption>"Bright as a sunflower."</caption>
+                  <caption>"Hell wie eine Sonnenblume."</caption>
                 </div>
                 <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
                   <img src={"/api/files/" + aboutUsRes.image2} width="90%" />
-                  <caption>"Bright as a sunflower."</caption>
+                  <caption>"Hell wie eine Sonnenblume."</caption>
                 </div>
               </div>
 
@@ -71,7 +70,7 @@ export default function AboutUs(): JSX.Element {
               </div>
             </div>
           </>
-          ))
+          {/* )) */}
         </Container >
         <TeamFrame />
       </div>

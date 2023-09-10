@@ -21,8 +21,6 @@ import {
 export default function Footer(): JSX.Element {
   const dispatch = useAppDispatch();
   const [events, setEvents] = useState<IEvent[]>([]);
-
-  console.log("🚀  events:", events);
   const [{ address, phone: phoneAddr, email: emailAddr }, setAddress] =
     useState<IAddress>(initIAddress);
 

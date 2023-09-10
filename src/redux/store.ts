@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { eventsReducer, initEventsState } from "./eventsStore/eventsSlice";
 import { initUserState, userReducer } from "./userStore/userSlice";
 import { initNavState, navReducer } from "./navigatinOnPage/navigatinOnPageSlice";
-import { aboutUsReducer, initAboutUsState } from "./aboutUsStore/AboutUsSlice";
+import { aboutUsReducer, initAboutUsState } from "./aboutUsStore/aboutUsSlice";
 
 
 export const initState = {

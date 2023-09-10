@@ -62,7 +62,7 @@ const AllEvents = (): JSX.Element => {
                           {shortDescription.substring(0, 200)}...
                         </p>
                         <button
-                          className={styles.edit_btn}
+                          className="button_imker"
                           type="button"
                           onClick={() => editCurrentEvent(idEvent)}
                         >

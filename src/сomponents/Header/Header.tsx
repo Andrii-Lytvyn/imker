@@ -21,12 +21,12 @@ import { useNavPageSelector } from "../../redux/navigatinOnPage/navigatinOnPageS
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const { navPageLink } = useNavPageSelector();
-  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
+  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 980);
   const { user, isLogin } = useUserSelector();
 
   useEffect(() => {
     function handleResize() {
-      setIsWideScreen(window.innerWidth > 950);
+      setIsWideScreen(window.innerWidth > 980);
     }
     window.addEventListener("resize", handleResize);
     return () => {

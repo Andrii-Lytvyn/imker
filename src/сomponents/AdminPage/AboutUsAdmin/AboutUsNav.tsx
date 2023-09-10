@@ -5,7 +5,7 @@ import EditMemberAdmin from "./EditMemberAdmin";
 import AboutUsAdmin from "./AboutUsAdmin"
 import styles from "../EventsAdmin/EventNav.module.css";
 import { Container } from "react-bootstrap";
-import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/AboutUsSlice";
+import { aboutUsAction, statusesAbUs } from "../../../redux/aboutUsStore/aboutUsSlice";
 import { useAboutUsSelector } from "../../../redux/aboutUsStore/aboutUsSelector";
 
 const AboutUsNav = () => {

@@ -58,11 +58,11 @@ export default function AboutUs(): JSX.Element {
               <div className="d-flex justify-content-around">
                 <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
                   <img src={"/api/files/" + aboutUsRes.image1} width="90%" />
-                  <caption>"Hell wie eine Sonnenblume."</caption>
+                  <div className={styles.img_description}>"Hell wie eine Sonnenblume."</div>
                 </div>
                 <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
                   <img src={"/api/files/" + aboutUsRes.image2} width="90%" />
-                  <caption>"Hell wie eine Sonnenblume."</caption>
+                  <div className={styles.img_description}>"Hell wie eine Sonnenblume."</div>
                 </div>
               </div>
 

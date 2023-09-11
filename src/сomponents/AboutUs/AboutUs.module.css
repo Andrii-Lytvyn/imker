@@ -103,3 +103,9 @@ p {
     line-height: 30px;
     text-align: justify;
 }
+.img_description {
+    color: var(--text-color);
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.8em;
+}

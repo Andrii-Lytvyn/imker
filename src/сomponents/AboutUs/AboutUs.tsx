@@ -21,7 +21,6 @@ export default function AboutUs(): JSX.Element {
         const aboutUsResponse = await response.data;
         const aboutUsRes = aboutUsResponse.aboutUsAll?.[0];
         setaboutUsRes(aboutUsRes);
-        console.log("🚀 ~ 23 ~ aboutUsRes:", aboutUsRes[0])
       } catch (error) {
         console.error("Fehler bei der Ausführung der Anfrage:", error);
       }

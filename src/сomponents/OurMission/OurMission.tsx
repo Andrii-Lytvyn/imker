@@ -14,7 +14,7 @@ export default function OurMission(): JSX.Element {
               <div className={styles.our_mission_left_container}>
                 <div className={styles.our_mission_img}>
                   <img src={mission} />
-                  {/* <img src="img/our_mission.jpg" /> */}
+                  {/* <img src="/img/our_mission.jpg" /> */}
                 </div>
                 <div className={styles.our_mission_texts}>
                   <div className={styles.our_mission_title}>
@@ -29,7 +29,7 @@ export default function OurMission(): JSX.Element {
                     </p>
                   </div>
                   <div className={styles.our_mission_signature}>
-                    <img src="img/signature.png" />
+                    <img src="/img/signature.png" />
                   </div>
                 </div>
               </div>

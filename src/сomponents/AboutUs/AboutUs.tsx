@@ -40,10 +40,6 @@ export default function AboutUs(): JSX.Element {
           >
                 <h2>Über uns</h2>
           </div>
-          <Container>
-
-          </Container>
-
 
         <Container className="d-flex flex-column">
           <>

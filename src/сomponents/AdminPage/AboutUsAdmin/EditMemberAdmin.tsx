@@ -89,7 +89,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
   return (
     <div className={styles.form_container}>
       <h2>Edit Member</h2>
-
+      <div className={styles.edit_block}>
       <form className={styles.form} onSubmit={memberFormData}>
         <div>
           <div className={styles.form_field}>
@@ -239,6 +239,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
           Änderungen speichern
         </button>
       </form>
+      </div>
     </div>
   );
 };

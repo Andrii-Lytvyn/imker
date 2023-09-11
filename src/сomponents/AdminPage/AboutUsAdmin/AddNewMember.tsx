@@ -91,6 +91,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
   };
 
   return (
+    <div className={styles.edit_block}>
     <div className={styles.form_container}>
       <h2>Add Neues Mitglied</h2>
       <form className={styles.form} onSubmit={memberFormData}>
@@ -221,6 +222,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           Neues Mitglied hinzufügen
         </button>
       </form>
+    </div>
     </div>
   );
 };

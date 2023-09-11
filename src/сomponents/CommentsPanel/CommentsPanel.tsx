@@ -293,7 +293,7 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
                     boxShadow: "none",
                   }}
                 >
-                  🍯
+                  😜
                 </Button>
               </Tooltip>
               <Popover

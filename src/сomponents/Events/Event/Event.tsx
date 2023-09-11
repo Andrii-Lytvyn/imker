@@ -28,6 +28,7 @@ const Event = (): JSX.Element => {
   const [event, setEvent] = useState<IEvent | undefined>();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getEvt = async () => {
       if (id !== undefined) {
         const dataEvent = await getEvent(id);

@@ -21,6 +21,7 @@ export default function Contacts(): JSX.Element {
     useState<IAddress>(initIAddress);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getGoogleMapLink = async () => {
       try {
         const response = await axios.get(`/api/googlemap`);

@@ -20,6 +20,7 @@ const Gallery = (): JSX.Element => {
   const itemsOnPage = 12;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function getListOfFiles() {
       try {
         const response = await axios.get(

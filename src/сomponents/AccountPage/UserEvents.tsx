@@ -14,6 +14,7 @@ export default function UserEvents(): JSX.Element {
   const eventsPerPage = 3;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/events/myeventslist`, {

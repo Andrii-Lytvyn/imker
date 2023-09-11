@@ -50,6 +50,7 @@ export default function AdminPage() {
   const isLogined = localStorage.getItem("IMKER");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         if (isLogined === "true") {

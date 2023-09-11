@@ -56,7 +56,7 @@ export default function Header(): JSX.Element {
         </div>
         <div className={styles.title}>
           <h2 className={styles.logo_title}>HONEY</h2>
-          <span className={styles.logo_slogan}>Sweet & Healhty life </span>
+          <span className={styles.logo_slogan}>Sweet & Healhy life </span>
         </div>
       </div>
 

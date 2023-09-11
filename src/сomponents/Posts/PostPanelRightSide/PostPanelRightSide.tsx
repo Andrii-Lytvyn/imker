@@ -23,7 +23,7 @@ const PostPanelRightSide = () => {
     });
 
   return (
-    <div className={styles.post_right_side}>
+    <div className={styles.post_right_side} style={{height: 'fit-content'}}>
       <h2 className={styles.postpanel_h2}>VERANSTALTUNGEN</h2>
       <hr className={styles.post_hr} />
       {futureEventFiltered

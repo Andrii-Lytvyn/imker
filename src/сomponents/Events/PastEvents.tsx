@@ -37,7 +37,7 @@ const PastEvents = (): JSX.Element => {
   return (
     <Container className={styles.event_right_side}>
       <div className={styles.post_right_side}>
-        <h2>Vergangene Ereignisse</h2>
+        <h2 className={styles.past_title}>Vergangene Ereignisse</h2>
         <hr className={styles.post_hr} />
         <div style={{ minHeight: "52vh" }}>
           {pastEventFiltered

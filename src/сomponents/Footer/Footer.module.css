@@ -53,10 +53,13 @@ padding-bottom: 25px;
     text-transform: uppercase;
     text-align: left;
 }
-.social{
+.social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 50px;
     margin: 20px 0;
-}
+  }
 .social svg{
     margin: 0 10px;
     padding: 7px;

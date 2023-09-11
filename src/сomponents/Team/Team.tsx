@@ -14,6 +14,7 @@ export default function Team(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/members`, {

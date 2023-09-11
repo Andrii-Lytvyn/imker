@@ -13,6 +13,7 @@ export default function TeamAdmin(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/members`, {
@@ -78,7 +79,7 @@ export default function TeamAdmin(): JSX.Element {
                 <button className="button_imker" onClick={() => EditMember(id)}>
                   Bearbeiten
                 </button>
-                <button className="button_imker" onClick={() => deleteMember(+id)}>
+                <button className={styles.button_imker_red} onClick={() => deleteMember(+id)}>
                   Löschen
                 </button>
                 <div >

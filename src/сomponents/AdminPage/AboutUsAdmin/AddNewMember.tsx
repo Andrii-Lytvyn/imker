@@ -218,7 +218,7 @@ const TeamAddMemberAdmin = (): JSX.Element => {
           )}
         </div>
         <br /> <br />
-        <button type="submit" className={styles.create_btn}>
+        <button type="submit" className="button_imker">
           Neues Mitglied hinzufügen
         </button>
       </form>

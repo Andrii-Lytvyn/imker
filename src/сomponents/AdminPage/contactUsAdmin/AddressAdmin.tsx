@@ -9,6 +9,7 @@ export default function AddressAdmin() {
   const [isNoChange, setIsNoChange] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getAddress = async () => {
       try {
         const response = await axios.get(`/api/address`, {

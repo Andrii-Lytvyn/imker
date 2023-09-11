@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-        <div style={{minHeight: '100vh'}}>
+        <div style={{minHeight: '60vh'}}>
       <Suspense fallback={<LoaderStart />}>
 
         <Outlet />

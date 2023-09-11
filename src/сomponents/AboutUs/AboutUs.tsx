@@ -35,7 +35,7 @@ export default function AboutUs(): JSX.Element {
           <div
               className={
                   styles.about_bg +
-                  " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
+                  " d-flex align-items-center justify-content-center animate__animated animate__pulse"
               }
           >
                 <h2>Über uns</h2>

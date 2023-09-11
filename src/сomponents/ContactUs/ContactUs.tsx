@@ -90,7 +90,7 @@ export default function Contacts(): JSX.Element {
       <div className={styles.contacts_main}>
         <div
           className={
-            styles.contacts_header + " animate__animated animate__pulse "
+            styles.contacts_header + " animate__animated animate__pulse"
           }
         >
           <h2>Kontakt </h2>

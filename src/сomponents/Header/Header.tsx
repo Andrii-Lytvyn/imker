@@ -66,9 +66,8 @@ export default function Header(): JSX.Element {
             <li className={styles.item}>
               <NavLink
                 to="/posts"
-                className={`${styles.title_nav} ${
-                  navPageLink === "/posts" ? styles.active : ""
-                }`}
+                className={`${styles.title_nav} ${navPageLink === "/posts" ? styles.active : ""
+                  }`}
                 onClick={() => dispatch(navStatus(setLinkPage.posts))}
               >
                 Blog
@@ -77,9 +76,8 @@ export default function Header(): JSX.Element {
             <li className={styles.item}>
               <Link
                 to="/events"
-                className={`${styles.title_nav} ${
-                  navPageLink === "/events" ? styles.active : ""
-                }`}
+                className={`${styles.title_nav} ${navPageLink === "/events" ? styles.active : ""
+                  }`}
                 onClick={() => dispatch(navStatus(setLinkPage.events))}
               >
                 Veranstaltungen
@@ -88,9 +86,8 @@ export default function Header(): JSX.Element {
             <li className={`${styles.item} ${styles.item_submenu}`}>
               <Link
                 to="/aboutUs"
-                className={`${styles.title_nav} ${
-                  navPageLink === "/aboutUs" ? styles.active : ""
-                }`}
+                className={`${styles.title_nav} ${navPageLink === "/aboutUs" ? styles.active : ""
+                  }`} id="aboutUsHeader"
                 onClick={() => dispatch(navStatus(setLinkPage.aboutUs))}
               >
                 Über uns
@@ -99,9 +96,8 @@ export default function Header(): JSX.Element {
             <li className={styles.item}>
               <Link
                 to="/gallery"
-                className={`${styles.title_nav} ${
-                  navPageLink === "/gallery" ? styles.active : ""
-                }`}
+                className={`${styles.title_nav} ${navPageLink === "/gallery" ? styles.active : ""
+                  }`}
                 onClick={() => dispatch(navStatus(setLinkPage.gallery))}
               >
                 Galerie
@@ -110,9 +106,8 @@ export default function Header(): JSX.Element {
             <li className={styles.item}>
               <Link
                 to="/contactUs"
-                className={`${styles.title_nav} ${
-                  navPageLink === "/contactUs" ? styles.active : ""
-                }`}
+                className={`${styles.title_nav} ${navPageLink === "/contactUs" ? styles.active : ""
+                  }`}
                 onClick={() => dispatch(navStatus(setLinkPage.contactUs))}
               >
                 Kontakt
@@ -122,9 +117,8 @@ export default function Header(): JSX.Element {
               <li className={`${styles.item} ${styles.item_submenu_admin}`}>
                 <Link
                   to="/adminpage"
-                  className={`${styles.title_nav} ${
-                    navPageLink === "/adminpage" ? styles.active : ""
-                  }`}
+                  className={`${styles.title_nav} ${navPageLink === "/adminpage" ? styles.active : ""
+                    }`}
                   onClick={() => dispatch(navStatus(setLinkPage.adminpage))}
                 >
                   Admin

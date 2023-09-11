@@ -227,3 +227,7 @@ hr {
     filter: blur(0);
   }
 }
+
+.past_title {
+  color: var(--terracotta);
+}

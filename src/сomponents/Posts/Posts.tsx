@@ -91,7 +91,6 @@ export default function Posts() {
                         }}
                       />
                       <p className={styles.post_event_date}>
-                        Gegründet:{" "}
                         {moment(creationTimePost).format("D MMMM YYYY")}
                       </p>
                       {authorName && (

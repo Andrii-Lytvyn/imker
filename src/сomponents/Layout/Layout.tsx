@@ -8,9 +8,12 @@ const Layout = () => {
   return (
     <>
       <Header />
+        <div style={{minHeight: '100vh'}}>
       <Suspense fallback={<LoaderStart />}>
+
         <Outlet />
       </Suspense>
+        </div>
       <Footer />
     </>
   );

@@ -95,6 +95,7 @@
     background-color: #f7f3f0;
     padding: 15px 10px;
     border-radius: 5px;
+    height: fit-content;
 }
 
 .img_container {

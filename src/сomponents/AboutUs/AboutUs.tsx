@@ -46,7 +46,7 @@ export default function AboutUs(): JSX.Element {
           <>
             <div key={aboutUsRes.id}>
               <div className="mb-3">
-                <h4>{aboutUsRes.titleTop}</h4>
+                <h3>{aboutUsRes.titleTop}</h3>
                 <div
                   className="container"
                   dangerouslySetInnerHTML={{
@@ -67,7 +67,7 @@ export default function AboutUs(): JSX.Element {
               </div>
 
               <div className="mb-3">
-                <h4>{aboutUsRes.titleBottom}</h4>
+                <h3>{aboutUsRes.titleBottom}</h3>
                 <div
                   className="container"
                   dangerouslySetInnerHTML={{

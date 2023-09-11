@@ -97,4 +97,9 @@
     margin: 15px 0 22px;
     color: #5b5858;
 }
-
+p {
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 30px;
+    text-align: justify;
+}

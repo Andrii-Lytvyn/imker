@@ -120,7 +120,7 @@ export default function AboutUsAdmin(): JSX.Element {
               <label>Beschreibung Oben</label>
               <textarea
                 name="descriptionTop"
-                rows={20}
+                rows={15}
                 value={aboutUsEditForm.descriptionTop}
                 onChange={collectAboutUsData}
               />
@@ -141,7 +141,7 @@ export default function AboutUsAdmin(): JSX.Element {
               <label>Beschreibung unten</label>
               <textarea
                 name="descriptionBottom"
-                rows={20}
+                rows={15}
                 value={aboutUsEditForm.descriptionBottom}
                 onChange={collectAboutUsData}
               />

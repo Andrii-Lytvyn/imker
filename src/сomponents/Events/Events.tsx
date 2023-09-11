@@ -26,6 +26,7 @@ const Events = (): JSX.Element => {
       const dateB = new Date(b.dateStart).getTime();
       return dateA - dateB;
     });
+    window.scrollTo(0, 0);
 
   const getLinkParams = (_: ChangeEvent<unknown>, value: number) => {
     setSearchParams({ page: value.toString() });

@@ -17,6 +17,7 @@ export default function UsersAdmin() {
   const itemsOnPage = 5;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function getListOfUsers() {
       try {
         const response = await axios.get(

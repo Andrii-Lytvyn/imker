@@ -15,6 +15,7 @@ export default function FilesUploadAdmin(): JSX.Element {
   const [isReloading, setIsReloading] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function getListOfFiles() {
       try {
         const response = await axios.get(

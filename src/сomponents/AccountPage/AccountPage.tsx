@@ -47,6 +47,7 @@ export default function AccountPage(): JSX.Element {
   const isLogined = localStorage.getItem("IMKER");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/me`, {

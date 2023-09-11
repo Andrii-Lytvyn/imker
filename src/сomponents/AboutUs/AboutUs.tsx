@@ -12,6 +12,7 @@ export default function AboutUs(): JSX.Element {
   const [aboutUsRes, setaboutUsRes] = useState<IAboutUs>(initIAboutUs);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/aboutus/`, {

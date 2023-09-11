@@ -18,6 +18,7 @@ export default function PostSingle(): JSX.Element {
   const { id } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/posts/${id}`, {
@@ -66,7 +67,7 @@ export default function PostSingle(): JSX.Element {
               <p className={styles.post_time}>
                 {moment(creationTimePost).format("D MMMM YYYY")}
               </p>
-              <h2>{titlePost}</h2>
+              <h2 className={styles.main_post_title}>{titlePost}</h2>
               <div
                 className="container"
                 dangerouslySetInnerHTML={{

@@ -19,6 +19,7 @@ export default function PostsAdmin() {
   const itemsOnPage = 5;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function getListOfPosts() {
       try {
         const response = await axios.get(

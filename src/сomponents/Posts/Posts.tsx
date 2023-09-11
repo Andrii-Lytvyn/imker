@@ -17,6 +17,7 @@ export default function Posts() {
   const itemsOnPage = 3;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function getListOfPosts() {
       try {
         const response = await axios.get(

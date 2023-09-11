@@ -125,8 +125,11 @@
   color: var(--terracotta);
   font-weight: 500;
 }
-.icon {
-  /*display: flex;*/
-  /*align-items: flex-end;*/
-  /*gap: 10px;*/
+.main_post_title{
+  color: var(--terracotta);
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2.5em;
+  font-weight: 600;
+  text-transform: uppercase;
 }

@@ -19,6 +19,7 @@ export default function UserSettings(): JSX.Element {
   const height = 250;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/me`, {

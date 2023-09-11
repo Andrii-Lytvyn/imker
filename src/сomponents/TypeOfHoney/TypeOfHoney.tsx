@@ -10,7 +10,7 @@ export default function TypeOfHoney(): JSX.Element {
                     <img src="/img/body_left.png"/>
                 </div>
                 <Container>
-                    <h2>HONIGSORTEN</h2>
+                    <h2 className={styles.main_honey_title}>HONIGSORTEN</h2>
                     <h4>Erfahren Sie mehr über einige der Produkte, auf die wir besonders stolz sind.</h4>
                     <Row>
                         <Col>

@@ -48,11 +48,18 @@ export default function Footer(): JSX.Element {
     };
     getAllEvents();
   }, [dispatch]);
+  const futureEventFiltered = events
+    .filter(({ dateStart }) => dateStart > currentDate())
+    .sort((a, b) => {
+      const dateA = new Date(a.dateStart).getTime();
+      const dateB = new Date(b.dateStart).getTime();
+      return dateA - dateB;
+    });
 
   return (
     <>
       {events.length !== 0 ? (
-        <div className={styles.footer}>
+        <div className={styles.footer + " animate__animated animate__fadeInUpBig animate__slower"}>
           <Container className="d-flex justify-content-between pt-3">
             {/*Contacts*/}
             <Card className={styles.my_card}>
@@ -87,7 +94,7 @@ export default function Footer(): JSX.Element {
                   <h3 className={styles.card_title}>VERANSTALTUNGEN</h3>
                   <div>
                     <ul>
-                      {events
+                      {futureEventFiltered
                         .map(
                           ({ idEvent, dateStart, title, startTime, status }) =>
                             dateStart > currentDate() &&

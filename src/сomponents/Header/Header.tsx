@@ -21,12 +21,12 @@ import { useNavPageSelector } from "../../redux/navigatinOnPage/navigatinOnPageS
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const { navPageLink } = useNavPageSelector();
-  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 950);
+  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 980);
   const { user, isLogin } = useUserSelector();
 
   useEffect(() => {
     function handleResize() {
-      setIsWideScreen(window.innerWidth > 950);
+      setIsWideScreen(window.innerWidth > 980);
     }
     window.addEventListener("resize", handleResize);
     return () => {
@@ -56,7 +56,7 @@ export default function Header(): JSX.Element {
         </div>
         <div className={styles.title}>
           <h2 className={styles.logo_title}>HONEY</h2>
-          <span className={styles.logo_slogan}>Sweet & Healhty life </span>
+          <span className={styles.logo_slogan}>Sweet & Healhy life </span>
         </div>
       </div>
 

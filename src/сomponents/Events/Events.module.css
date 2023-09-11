@@ -76,7 +76,7 @@
   margin-bottom: 66px;
 }
 .post_bg {
-  background-image: url("img/blog-single.jpg");
+  background-image: url("/img/blog-single.jpg");
   height: 250px;
   margin-bottom: 15px;
 }
@@ -226,4 +226,8 @@ hr {
     opacity: 1;
     filter: blur(0);
   }
+}
+
+.past_title {
+  color: var(--terracotta);
 }

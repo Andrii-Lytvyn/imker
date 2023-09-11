@@ -43,7 +43,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 				open: true,
 				proxy: {
 					'/api': {
-						target: '/',
+						target: 'https://imker-app-j9zrk.ondigitalocean.app',
 					},
 				},
 			},
@@ -51,7 +51,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 				outDir: 'build',
 				sourcemap: true,
 			},
-			base: './',
+			base: "/imker",
+			// base: './',
 			test: {
 				globals: true,
 				environment: 'jsdom',

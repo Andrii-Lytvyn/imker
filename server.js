@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.static('public'));
+
 // get our port
 const port = process.env.PORT || 3000;
 

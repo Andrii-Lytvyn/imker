@@ -19,7 +19,7 @@ h2{
   font-size: 4.5em;
 }
 .gallery_bg{
-  background-image: url("img/blog-single.jpg");
+  background-image: url("/img/blog-single.jpg");
   height: 250px;
   margin-bottom: 15px;
 }

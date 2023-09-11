@@ -62,10 +62,10 @@ const Gallery = (): JSX.Element => {
   return (
     <div className={styles.gallery_main}>
       <div
-        className={
-          styles.gallery_bg +
-          " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
-        }
+          className={
+              styles.gallery_bg +
+              " d-flex align-items-center justify-content-center animate__animated animate__pulse"
+          }
       >
         <h2>Galerie</h2>
       </div>

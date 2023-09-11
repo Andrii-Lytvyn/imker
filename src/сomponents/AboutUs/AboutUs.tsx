@@ -35,13 +35,13 @@ export default function AboutUs(): JSX.Element {
           <div
               className={
                   styles.about_bg +
-                  " d-flex align-items-center justify-content-center animate__animated animate__fadeInDown"
+                  " d-flex align-items-center justify-content-center animate__animated animate__pulse mt-3"
               }
           >
                 <h2>Über uns</h2>
           </div>
 
-        <Container className="d-flex flex-column">
+        <Container className="d-flex flex-column mb-5">
           <>
             <div key={aboutUsRes.id}>
               <div className="mb-3">

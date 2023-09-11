@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../hooks/dispatch.selector";
 import { aboutUsAction, getOneMember, statusesAbUs } from "../../../redux/aboutUsStore/aboutUsSlice";
 import styles from "./AboutUsAdmin.module.css";
 
+
 export default function TeamAdmin(): JSX.Element {
 
   const [member, setMember] = useState<IMember[]>([]);

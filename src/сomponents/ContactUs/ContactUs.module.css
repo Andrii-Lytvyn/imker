@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("img/blog-single.jpg");
+  background-image: url("/img/blog-single.jpg");
   height: 250px;
   margin-bottom: 15px;
 }

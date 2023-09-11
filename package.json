@@ -2,8 +2,9 @@
   "name": "imker",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
+    "build:digitalocean": "npm install --production=false && npm run build && npm ci",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -65,5 +66,9 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.8.1"
   }
 }

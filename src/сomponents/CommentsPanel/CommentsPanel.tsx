@@ -227,13 +227,18 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
 
   return (
     <>
-      <p className="m-2">Kommentare von Community-Mitgliedern:</p>
+      <p className="mt-5 mb-2">Kommentare von Community-Mitgliedern:</p>
       {commentsList && commentsList.length > 0 ? (
         commentsList.map((comment, index) => (
           <CommentBlock key={index} {...comment} />
         ))
       ) : (
-        <p className="m-2 mb-4 fs-4">Bisher keine Kommentare..</p>
+        <p
+          className="m-2 mb-4 fs-5"
+          style={{ color: "gray", fontStyle: "italic" }}
+        >
+          Bisher keine Kommentare..
+        </p>
       )}
 
       {isPanelShow && (
@@ -288,7 +293,7 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
                     boxShadow: "none",
                   }}
                 >
-                  😜
+                  🍯
                 </Button>
               </Tooltip>
               <Popover

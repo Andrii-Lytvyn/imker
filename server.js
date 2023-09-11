@@ -1,45 +1,12 @@
-import express from 'express';
-import { createServer as createViteServer } from 'vite';
+const express = require('express');
+const app = express();
 
-async function startServer() {
-  const app = express();
+app.use(express.static('public'));
 
-  // Создаем сервер разработки Vite
-  const vite = await createViteServer({
-    server: { middlewareMode: true }, // Устанавливаем middlewareMode в true
-    appType: 'custom' // Устанавливаем appType в 'custom'
-  });
+// get our port
+const port = process.env.PORT || 3000;
 
-  // Используем Vite в качестве middleware
-  app.use(vite.middlewares);
+// applicaton code goes here
 
-  // Обрабатываем все запросы через Vite
-  app.all('*', async (req, res) => {
-    try {
-      const url = req.originalUrl;
-
-      // Рендерим приложение Vite на сервере (если требуется)
-      let template;
-      if (vite.ssr) {
-        template = await vite.ssr.loadModule('/src/index.html');
-      }
-
-      // Возвращаем ответ с рендерингом
-      const { render } = (await vite.ssrLoadModule('/src/entry-server.js')).default;
-      const { appHtml, state } = await render(url, template);
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(appHtml);
-    } catch (e) {
-      vite.ssrFixStacktrace(e);
-      console.error(e);
-      res.status(500).end(e.message);
-    }
-  });
-
-  // Запускаем сервер
-  app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
-  });
-}
-
-startServer();
+// have node listen on our port
+app.listen(port, () => console.log(`App listening on port ${port}!`));

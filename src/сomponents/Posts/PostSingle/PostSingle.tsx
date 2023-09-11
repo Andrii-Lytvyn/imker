@@ -8,6 +8,7 @@ import { FaHome } from "react-icons/fa";
 import { Container, Nav } from "react-bootstrap";
 import moment from "moment";
 import PostPanelRightSide from "../PostPanelRightSide/PostPanelRightSide";
+import CommentPanel from "../../CommentsPanel/CommentsPanel";
 
 export default function PostSingle(): JSX.Element {
   const [
@@ -77,6 +78,8 @@ export default function PostSingle(): JSX.Element {
                   <span>{authorName}</span>
                 </p>
               </div>
+              <CommentPanel location={{ entity: "post", entityId: id }} />
+
             </div>
 
             <div className={styles.post_right_side}>

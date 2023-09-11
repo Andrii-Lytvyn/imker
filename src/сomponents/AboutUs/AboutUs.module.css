@@ -3,7 +3,7 @@
     margin-top: -20px;
 }
 .about_bg{
-    background-image: url("img/blog-single.jpg");
+    background-image: url("/img/blog-single.jpg");
     height: 250px;
     margin-bottom: 15px;
 }
@@ -17,7 +17,7 @@
 }
 .about_img img{
     border-radius: 7px;
-    height: 600px;
+    height: 90%;
 }
 .about_img caption{
     color: var(--text-color);

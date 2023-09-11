@@ -98,8 +98,16 @@
     color: #5b5858;
 }
 p {
-    font-size: 18px;
-    letter-spacing: 0;
     line-height: 30px;
     text-align: justify;
+}
+.img_description {
+    color: var(--text-color);
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.8em;
+}
+h4 {
+    text-transform: uppercase;
+    font-weight: 500; 
 }

@@ -12,6 +12,7 @@ export default function FilesUploadAdmin(): JSX.Element {
   const [selectedFileId, setSelectedFileId] = useState<number | null>(null);
   const itemsOnPage = 5;
   const [filter, setFilter] = useState("ALL");
+  const [isReloading, setIsReloading] = useState(false);
 
   useEffect(() => {
     async function getListOfFiles() {
@@ -29,7 +30,7 @@ export default function FilesUploadAdmin(): JSX.Element {
       }
     }
     getListOfFiles();
-  }, [filter]);
+  }, [filter, isReloading]);
 
   const getAnotherPage = async (_: ChangeEvent<unknown>, value: number) => {
     try {
@@ -54,14 +55,17 @@ export default function FilesUploadAdmin(): JSX.Element {
         });
         setShowConfirmModal(false);
         setSelectedFileId(null);
+        setIsReloading(!isReloading);
 
-        const response = await axios.get(
-          `/api/files?page=${currentPage - 1}&items=${itemsOnPage}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setFilesList(await response.data);
+        // const response = await axios.get(
+        //   `/api/files?page=${currentPage - 1}&items=${itemsOnPage}`,
+        //   {
+        //     withCredentials: true,
+        //   }
+        // );
+        // setFilesList(await response.data);
+        // console.log(files);
+        // console.log(count);
       } catch (error) {
         console.error("Error during file deletion:", error);
       }
@@ -69,7 +73,7 @@ export default function FilesUploadAdmin(): JSX.Element {
   };
 
   return (
-    <div className="container col-md-12 mt-3 mb-5 p-2 rounded bg-white">
+    <div key={count} className="container col-md-12 mt-3 mb-5 p-2 rounded bg-white">
       <div className="container mb-4 col-md-7 d-flex justify-content-between align-items-center align-items-center">
         <p className="fs-4">Filter by category:</p>
         <button

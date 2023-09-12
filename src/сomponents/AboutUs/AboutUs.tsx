@@ -31,7 +31,6 @@ export default function AboutUs(): JSX.Element {
   return (
     <>
       <div className={styles.about_main}>
-
           <div
               className={
                   styles.about_bg +
@@ -40,7 +39,6 @@ export default function AboutUs(): JSX.Element {
           >
                 <h2>Über uns</h2>
           </div>
-
         <Container className="d-flex flex-column mb-5">
           <>
             <div key={aboutUsRes.id}>
@@ -54,7 +52,6 @@ export default function AboutUs(): JSX.Element {
                   }}
                 />
               </div>
-
               <div className="d-flex justify-content-around">
                 <div className={styles.about_img + " d-flex flex-column justify-around p-3"}>
                   <img src={"/api/files/" + aboutUsRes.image1} width="90%" />
@@ -65,7 +62,6 @@ export default function AboutUs(): JSX.Element {
                   <div className={styles.img_description}>"Hell wie eine Sonnenblume."</div>
                 </div>
               </div>
-
               <div className="mb-3">
                 <h4>{aboutUsRes.titleBottom}</h4>
                 <br/><br/>
@@ -78,7 +74,6 @@ export default function AboutUs(): JSX.Element {
               </div>
             </div>
           </>
-          {/* )) */}
         </Container >
         <TeamFrame />
       </div>

@@ -178,7 +178,8 @@ export default function CommentPanel(props: CommentsProps): JSX.Element {
           <div className="d-flex">
             <Avatar
               src={userLogo ? "/api/files/" + userLogo : ""}
-              sx={{ width: 50, height: 50 }}
+              sx={{ width: 60, height: 70 }}
+              variant="rounded"
             />
             <Typography variant="subtitle1" gutterBottom className="fs-5 m-2">
               {userName}

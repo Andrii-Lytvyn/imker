@@ -86,8 +86,12 @@ export default function AccountPage(): JSX.Element {
                     variant="dot"
                   >
                     <Avatar
-                      src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + userInfo?.image}
+                      src={
+                        "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                        userInfo?.image
+                      }
                       variant="rounded"
+                      onContextMenu={(e) => e.preventDefault()}
                       sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
                     />
                   </StyledBadge>

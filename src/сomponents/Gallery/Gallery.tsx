@@ -63,10 +63,10 @@ const Gallery = (): JSX.Element => {
   return (
     <div className={styles.gallery_main}>
       <div
-          className={
-              styles.gallery_bg +
-              " d-flex align-items-center justify-content-center animate__animated animate__pulse"
-          }
+        className={
+          styles.gallery_bg +
+          " d-flex align-items-center justify-content-center animate__animated animate__pulse"
+        }
       >
         <h2>Galerie</h2>
       </div>
@@ -106,10 +106,14 @@ const Gallery = (): JSX.Element => {
               <li key={item.id} className={styles.card}>
                 <img
                   id={item.id}
-                  src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + item.linkToImg}
+                  src={
+                    "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                    item.linkToImg
+                  }
                   alt={item.id}
                   className={styles.card_item}
                   onClick={() => modalShow(item.linkToImg)}
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               </li>
             ))}
@@ -127,7 +131,7 @@ const Gallery = (): JSX.Element => {
         {isModalShow && (
           <Modal
             setModalHide={setIsModalShow}
-            modalImage={"/api/files/" + modalImage}
+            modalImage={modalImage}
           />
         )}
       </Container>

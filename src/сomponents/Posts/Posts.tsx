@@ -86,6 +86,7 @@ export default function Posts() {
                         className={styles.post_img}
                         src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`}
                         alt={"post img" + idPost}
+                        onContextMenu={(e) => e.preventDefault()}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.src = "/img/imgNotFound.jpg";

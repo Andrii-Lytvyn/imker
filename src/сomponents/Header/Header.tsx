@@ -37,7 +37,7 @@ export default function Header(): JSX.Element {
   const handleLogOut = async () => {
     await logOut();
     dispatch(userDataInfo(userData));
-    window.location.href = "/";
+    window.location.href = "/singUp";
   };
 
   return (

@@ -72,7 +72,7 @@ function App(): JSX.Element {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/imker" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route path="posts/{post-id}" element={<MainPage />} />
           <Route path="posts" element={<Posts />} />

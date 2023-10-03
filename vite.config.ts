@@ -52,7 +52,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
 				sourcemap: true,
 			},
 			base: "/imker",
-			// base: '/',
+			// base: './',
 			test: {
 				globals: true,
 				environment: 'jsdom',

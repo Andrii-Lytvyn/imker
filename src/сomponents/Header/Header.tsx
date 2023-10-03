@@ -44,7 +44,7 @@ export default function Header(): JSX.Element {
     <div className={styles.container}>
       <div className={styles.logo_container}>
         <div className={styles.logo}>
-          <Link to="/">
+          <Link to="/imker">
             {" "}
             <img
               src={logoBee}

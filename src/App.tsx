@@ -1,4 +1,3 @@
-// import { toast } from "react-toastify";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import { Layout } from "./сomponents/Layout/Layout";
@@ -60,13 +59,11 @@ function App(): JSX.Element {
           dispatch(userIsLogin(true));
         } catch (error) {
           dispatch(userIsLogin(false));
-          console.log("🚀  error:", error);
+          // console.log("🚀  error:", error);
         }
       };
       refreshUser();
-    } else {
-      // toast.info("Привет сладенький !!!");
-    }
+    } 
   }, [dispatch, pathname, user.id]);
 
   return (
@@ -74,7 +71,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="posts/{post-id}" element={<MainPage />} />
+          <Route path="/imker" element={<MainPage />} />
           <Route path="posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostSingle />} />
           <Route path="/events" element={<Events />} />

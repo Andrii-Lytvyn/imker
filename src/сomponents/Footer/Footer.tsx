@@ -59,7 +59,7 @@ export default function Footer(): JSX.Element {
   return (
     <>
       {events.length !== 0 ? (
-        <div className={styles.footer + " animate__animated animate__fadeInUpBig animate__slower"}>
+        <div className={styles.footer}>
           <Container className="d-flex justify-content-between pt-3">
             {/*Contacts*/}
             <Card className={styles.my_card}>

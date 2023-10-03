@@ -30,7 +30,12 @@ const Modal = ({ setModalHide, modalImage }: IModal): JSX.Element => {
 
   return createPortal(
     <div className={css.overlay} onClick={addOverlay}>
-      <img src={modalImage} alt="" className={css.modal_container} />
+      <img
+        src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + modalImage}
+        alt={modalImage}
+        className={css.modal_container}
+        onContextMenu={(e) => e.preventDefault()}
+      />
     </div>,
     modalRoot as HTMLElement
   );

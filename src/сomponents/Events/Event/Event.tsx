@@ -66,19 +66,19 @@ const Event = (): JSX.Element => {
                 <div style={{ minHeight: "50vh" }}>
                   <img
                     className={styles.img_container}
-                    src={`/api/files/${event?.photo}`}
+                    src={`https://imker.fra1.cdn.digitaloceanspaces.com/${event?.photo}`}
                     alt={event?.title}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                   <p>{event?.description}</p>
                 </div>
-                  <div className={styles.event_description}>
-                    <p>
-                      Kontakt: <span>{event?.author}</span>
-                    </p>
-                  </div>
+                <div className={styles.event_description}>
+                  <p>
+                    Kontakt: <span>{event?.author}</span>
+                  </p>
+                </div>
 
                 <CommentPanel location={{ entity: "event", entityId: id }} />
-                
               </div>
               <div className={styles.item_container}>
                 <h6 className={styles.title_event}>Veranstaltungsdetails:</h6>
@@ -139,7 +139,6 @@ const Event = (): JSX.Element => {
                     location={{ eventId: id, dateEnd: event.dateEnd }}
                   />
                 )}
-
               </div>
             </div>
           </Container>

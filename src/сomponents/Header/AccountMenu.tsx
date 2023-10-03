@@ -38,8 +38,13 @@ export default function AccountMenu(props: AccountMenuProps) {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar
-              src={userImg ? "/api/files/" + userImg : ""}
+              src={
+                userImg
+                  ? "https://imker.fra1.cdn.digitaloceanspaces.com/" + userImg
+                  : ""
+              }
               sx={{ width: 50, height: 50 }}
+              onContextMenu={(e) => e.preventDefault()}
             />
           </IconButton>
         </Tooltip>

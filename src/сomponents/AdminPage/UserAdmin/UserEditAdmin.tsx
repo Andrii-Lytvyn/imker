@@ -140,7 +140,7 @@ export default function UserEditAdmin(props: UserEditAdminProps): JSX.Element {
           variant="dot"
         >
           <Avatar
-            src={"/api/files/" + image}
+            src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + image}
             variant="rounded"
             sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
           />

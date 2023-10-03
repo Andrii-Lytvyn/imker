@@ -15,15 +15,14 @@ const initAboutUs = {
   descriptionBottom: "",
   image1: "",
   image2: "",
-}
+};
 
 // Edit About Us
 const editedAboutUs = async (editAboutUs: IAboutUs) => {
   try {
     const { data } = await axios.put(`api/aboutus/update/1`, editAboutUs, {
       withCredentials: true,
-    }
-    );
+    });
     console.log("🚀 (Received)editedAboutUs:", data);
   } catch (error) {
     toast.error(`Serverfehler getAllAboutUs ${error}`);
@@ -31,7 +30,6 @@ const editedAboutUs = async (editAboutUs: IAboutUs) => {
 };
 
 export default function AboutUsAdmin(): JSX.Element {
-
   const id = 1;
   const [aboutUsEditForm, setAboutUsEditForm] = useState(initAboutUs);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -47,11 +45,14 @@ export default function AboutUsAdmin(): JSX.Element {
       try {
         const response = await axios.get(`/api/aboutus/${id}`);
         setAboutUsEditForm(response.data);
-        console.log("🚀 ~ file: AboutUsAdmin.tsx:48 ~ fetchData ~ response:", response)
+        console.log(
+          "🚀 ~ file: AboutUsAdmin.tsx:48 ~ fetchData ~ response:",
+          response
+        );
       } catch (error) {
         console.error("Fehler bei der Ausführung der Anfrage:", error);
       }
-    }
+    };
     fetchData();
   }, [id]);
 
@@ -127,8 +128,7 @@ export default function AboutUsAdmin(): JSX.Element {
               />
             </div>
 
-            <div>
-            </div>
+            <div></div>
             <div className={styles.description}>
               <label>Titel unten</label>
               <input
@@ -153,7 +153,10 @@ export default function AboutUsAdmin(): JSX.Element {
 
           <div className={styles.photo}>
             <img
-              src={"/api/files/" + aboutUsEditForm.image1}
+              src={
+                "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                aboutUsEditForm.image1
+              }
               alt=""
               style={{
                 width: "300px",
@@ -162,7 +165,10 @@ export default function AboutUsAdmin(): JSX.Element {
               }}
             />
             <img
-              src={"/api/files/" + aboutUsEditForm.image2}
+              src={
+                "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                aboutUsEditForm.image2
+              }
               alt=""
               style={{
                 width: "300px",
@@ -170,15 +176,17 @@ export default function AboutUsAdmin(): JSX.Element {
                 height: "auto",
               }}
             />
-            <br /><br />
+            <br />
+            <br />
 
-            <div className={styles.description}>Um Fotos zu ersetzen, laden Sie sie in den Datei-Upload-Block
+            <div className={styles.description}>
+              Um Fotos zu ersetzen, laden Sie sie in den Datei-Upload-Block
               (Neues Foto laden) hoch, der sich unten befindet. Laden Sie das
-              Foto hoch und geben Sie dann aus der Zelle „Neue Nr.
-              für Foto“ die Nummer in die entsprechende Zelle „Neue Nummer für
-              Foto 1“ oder 2 ein. Wenn Sie beide Fotos ändern, laden Sie die
-              Fotos einzeln hoch.
-              </div>
+              Foto hoch und geben Sie dann aus der Zelle „Neue Nr. für Foto“ die
+              Nummer in die entsprechende Zelle „Neue Nummer für Foto 1“ oder 2
+              ein. Wenn Sie beide Fotos ändern, laden Sie die Fotos einzeln
+              hoch.
+            </div>
             <label>Neue nummer für foto 1 :</label>
             <input
               type="text"
@@ -196,8 +204,9 @@ export default function AboutUsAdmin(): JSX.Element {
               />
             </div>
           </div>
-          <br /><br />
-          <button className="button_imker" type="submit" >
+          <br />
+          <br />
+          <button className="button_imker" type="submit">
             Alle Änderungen speichern
           </button>
         </form>
@@ -205,9 +214,10 @@ export default function AboutUsAdmin(): JSX.Element {
         <Container>
           <h3>Neues Foto laden</h3>
           <p>Wählen Sie ein neues Foto zum Hochladen aus:</p>
-          <div className={styles.description}>WICHTIG!!! Die Größe des Bildes sollte 600x600 betragen. 
-            Wenn es größer ist, wird es auf die Größe 600 x 600 
-            zugeschnitten.</div>
+          <div className={styles.description}>
+            WICHTIG!!! Die Größe des Bildes sollte 600x600 betragen. Wenn es
+            größer ist, wird es auf die Größe 600 x 600 zugeschnitten.
+          </div>
           <input
             type="file"
             id="fileInput"
@@ -215,23 +225,26 @@ export default function AboutUsAdmin(): JSX.Element {
             accept=".jpg, .jpeg, .png"
           />
           <br /> <br />
-          <div className={styles.description}>Nachdem Sie auf die Schaltfläche „Hochladen“ geklickt haben,
-            wird das Foto hochgeladen und Sie sehen eine neue Nummer,
-            die Sie in die Zellen „Neue nummer für foto 1“ oder „Neue nummer für foto 2“ eingeben können.
+          <div className={styles.description}>
+            Nachdem Sie auf die Schaltfläche „Hochladen“ geklickt haben, wird
+            das Foto hochgeladen und Sie sehen eine neue Nummer, die Sie in die
+            Zellen „Neue nummer für foto 1“ oder „Neue nummer für foto 2“
+            eingeben können.
           </div>
-          <button className="button_imker" onClick={() => handleFileUploading()}>Datei senden</button>
-
-          <br /><br />
+          <button
+            className="button_imker"
+            onClick={() => handleFileUploading()}
+          >
+            Datei senden
+          </button>
+          <br />
+          <br />
           <div className={styles.form_field}>
-            <p><label>Neue nummer für foto: </label></p>
-            <input
-              type="text"
-              name="linkVar"
-              value={linkVar}
-              readOnly
-            />
+            <p>
+              <label>Neue nummer für foto: </label>
+            </p>
+            <input type="text" name="linkVar" value={linkVar} readOnly />
           </div>
-
           {imageData && (
             <img
               src={imageData}

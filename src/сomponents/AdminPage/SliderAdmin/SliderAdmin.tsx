@@ -101,7 +101,7 @@ export default function SliderAdmin(): JSX.Element {
                 >
                   <img
                     className="card-img-top mb-4"
-                    src={"/api/files/" + linkToImg}
+                    src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + linkToImg}
                     alt="image"
                     style={{
                       width: "100%",

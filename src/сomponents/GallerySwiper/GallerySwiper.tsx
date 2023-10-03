@@ -61,7 +61,10 @@ export default function GallerySwiper(): JSX.Element {
               key={index}
               style={{ opacity: 1, pointerEvents: "none" }}
             >
-              <img src={`/api/files/${linkToImg}`} />
+              <img
+                src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`}
+                onContextMenu={(e) => e.preventDefault()}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

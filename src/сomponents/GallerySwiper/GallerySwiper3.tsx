@@ -58,7 +58,7 @@ export default function GallerySwiper3(): JSX.Element {
         >
           {photos.map(({ linkToImg, id }) => (
             <SwiperSlide key={id} style={{ opacity: 1, pointerEvents: "none" }}>
-              <img src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`} />
+              <img src={`https://imker.fra1.digitaloceanspaces.com/${linkToImg}`} />
             </SwiperSlide>
           ))}
         </Swiper>

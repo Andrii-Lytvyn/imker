@@ -10,6 +10,7 @@ import { Pagination } from "@mui/material";
 import { Container } from "react-bootstrap";
 import moment from "moment";
 import PostPanelRightSide from "./PostPanelRightSide/PostPanelRightSide";
+import imgNotFound from "/img/imgNotFound.jpg";
 
 export default function Posts() {
   const [posts, setPosts] = useState<IPostsDto>(initIPostsDto);
@@ -84,12 +85,12 @@ export default function Posts() {
                       <br />
                       <img
                         className={styles.post_img}
-                        src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`}
+                        src={`https://imker.fra1.digitaloceanspaces.com/${linkToImg}`}
                         alt={"post img" + idPost}
                         onContextMenu={(e) => e.preventDefault()}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = "/img/imgNotFound.jpg";
+                          target.src = imgNotFound;
                         }}
                       />
                       <p className={styles.post_event_date}>

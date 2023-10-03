@@ -170,7 +170,7 @@ export default function FilesUploadAdmin(): JSX.Element {
             <div className="col-md-12 d-flex align-items-center mt-3 mb-4">
               <div className="col-md-5 m-2">
                 <img
-                  src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + id}
+                  src={"https://imker.fra1.digitaloceanspaces.com/" + id}
                   alt="image"
                   style={{
                     maxWidth: "100%",

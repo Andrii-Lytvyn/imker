@@ -47,7 +47,7 @@ export default function Team(): JSX.Element {
                   <div className={styles.about_members}>
                     <img
                       src={
-                        "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                        "https://imker.fra1.digitaloceanspaces.com/" +
                         element.image
                       }
                       onContextMenu={(e) => e.preventDefault()}

@@ -98,7 +98,7 @@ export default function TeamAdmin(): JSX.Element {
                     </div>
                     <img
                       src={
-                        "https://imker.fra1.cdn.digitaloceanspaces.com/" + image
+                        "https://imker.fra1.digitaloceanspaces.com/" + image
                       }
                       alt={name + position}
                       width="300px"

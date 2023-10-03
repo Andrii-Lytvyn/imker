@@ -40,7 +40,7 @@ export default function AccountMenu(props: AccountMenuProps) {
             <Avatar
               src={
                 userImg
-                  ? "https://imker.fra1.cdn.digitaloceanspaces.com/" + userImg
+                  ? "https://imker.fra1.digitaloceanspaces.com/" + userImg
                   : ""
               }
               sx={{ width: 50, height: 50 }}

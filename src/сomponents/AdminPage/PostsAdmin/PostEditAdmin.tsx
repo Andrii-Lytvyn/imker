@@ -160,7 +160,7 @@ export default function PostEditAdmin(props: PostEditAdminProps): JSX.Element {
               Recommended resolution: {width}x{height}px
             </p>
             <img
-              src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + linkToImg}
+              src={"https://imker.fra1.digitaloceanspaces.com/" + linkToImg}
               alt="image"
               style={{
                 width: "100%",

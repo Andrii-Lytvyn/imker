@@ -66,7 +66,7 @@ const Event = (): JSX.Element => {
                 <div style={{ minHeight: "50vh" }}>
                   <img
                     className={styles.img_container}
-                    src={`https://imker.fra1.cdn.digitaloceanspaces.com/${event?.photo}`}
+                    src={`https://imker.fra1.digitaloceanspaces.com/${event?.photo}`}
                     alt={event?.title}
                     onContextMenu={(e) => e.preventDefault()}
                   />

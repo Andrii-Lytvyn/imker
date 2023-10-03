@@ -281,7 +281,7 @@ const EditEventAdmin = (): JSX.Element => {
             />
           ) : (
             <img
-              src={`https://imker.fra1.cdn.digitaloceanspaces.com/${eventEditForm?.photo}`}
+              src={`https://imker.fra1.digitaloceanspaces.com/${eventEditForm?.photo}`}
               alt="Image"
               style={{
                 width: "50%",

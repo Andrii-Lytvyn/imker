@@ -3,6 +3,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PostsPanel from "../Posts/PostsPanel/PostsPanel";
 import mission from "/img/our_mission.jpg";
+import signature from "/img/signature.png";
+
 
 export default function OurMission(): JSX.Element {
   return (
@@ -29,7 +31,7 @@ export default function OurMission(): JSX.Element {
                     </p>
                   </div>
                   <div className={styles.our_mission_signature}>
-                    <img src="/img/signature.png" />
+                    <img src={signature} />
                   </div>
                 </div>
               </div>

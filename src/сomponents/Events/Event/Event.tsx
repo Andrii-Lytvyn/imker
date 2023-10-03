@@ -47,7 +47,7 @@ const Event = (): JSX.Element => {
           <Container>
             <div className={styles.breadcrumbs}>
               <Nav>
-                <Link to="/">
+                <Link to="/imker">
                   {" "}
                   <FaHome />
                 </Link>

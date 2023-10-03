@@ -102,7 +102,7 @@ const Events = (): JSX.Element => {
                                     className={styles.events_time}
                                   />
                                   <span>
-                                    <Link to={"/"}>{address}</Link>
+                                    <Link to={"/imker"}>{address}</Link>
                                   </span>
                                 </div>
                                 <hr />

@@ -65,7 +65,7 @@ const RestorePassword = (): JSX.Element => {
           const userInfo = await getUserData();
           dispatch(userDataInfo(userInfo?.data));
           dispatch(userIsLogin(true));
-          navigate("/");
+          navigate("/imker");
         }
         resetForm();
       }

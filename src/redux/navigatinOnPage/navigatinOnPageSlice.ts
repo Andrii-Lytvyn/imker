@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const setLinkPage = {
-    main: "/",
+    main: "/imker",
     posts: "/posts",
     events: "/events",
     aboutUs: "/aboutUs",

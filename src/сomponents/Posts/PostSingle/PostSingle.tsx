@@ -9,6 +9,7 @@ import { Container, Nav } from "react-bootstrap";
 import moment from "moment";
 import PostPanelRightSide from "../PostPanelRightSide/PostPanelRightSide";
 import CommentPanel from "../../CommentsPanel/CommentsPanel";
+import imgNotFound from "/img/imgNotFound.jpg";
 
 export default function PostSingle(): JSX.Element {
   const [
@@ -62,7 +63,7 @@ export default function PostSingle(): JSX.Element {
                 onContextMenu={(e) => e.preventDefault()}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "/img/imgNotFound.jpg";
+                  target.src = imgNotFound;
                 }}
               />
               <p className={styles.post_time}>

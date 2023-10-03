@@ -69,13 +69,13 @@ export default function GallerySwiper2(): JSX.Element {
               key={item.id}
               style={{ opacity: 1, pointerEvents: "none" }}
             >
-              <img src={"/api/files/" + item.linkToImg} />
+              <img src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + item.linkToImg} />
             </SwiperSlide>
           ))}
           <SwiperSlide style={{ opacity: 1, pointerEvents: "none" }}>
             <img
               style={{ opacity: 1, pointerEvents: "none" }}
-              src={"/api/files/" + photos[0]?.linkToImg}
+              src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + photos[0]?.linkToImg}
             />
           </SwiperSlide>
         </Swiper>

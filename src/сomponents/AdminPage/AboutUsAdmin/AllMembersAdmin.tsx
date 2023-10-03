@@ -88,7 +88,7 @@ export default function TeamAdmin(): JSX.Element {
                       <p >Facebook: {facebook}</p>
                       <p >Instagram: {instagram}</p>
                     </div>
-                    <img src={"/api/files/" + image} alt={name + position} width="300px" /> <br />
+                    <img src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + image} alt={name + position} width="300px" /> <br />
                   </div>
                   <br /><br />
                 </li>

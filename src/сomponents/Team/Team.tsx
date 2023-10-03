@@ -43,7 +43,7 @@ export default function Team(): JSX.Element {
               element.state === "SHOW" ?
                 <li key={index}>
                   <div className={styles.about_members}>
-                    <img src={"/api/files/" + element.image} />
+                    <img src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + element.image} />
                     <p className={styles.about_position}>{element.position}</p>
                     <p className={styles.about_position_name}>{element.name}</p>
                     <p className={styles.about_position_text}>{element.description}</p>

@@ -84,7 +84,7 @@ export default function Posts() {
                       <br />
                       <img
                         className={styles.post_img}
-                        src={`/api/files/${linkToImg}`}
+                        src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`}
                         alt={"post img" + idPost}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;

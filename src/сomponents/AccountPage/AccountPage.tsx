@@ -86,7 +86,7 @@ export default function AccountPage(): JSX.Element {
                     variant="dot"
                   >
                     <Avatar
-                      src={"/api/files/" + userInfo?.image}
+                      src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + userInfo?.image}
                       variant="rounded"
                       sx={{ width: 200, height: 250, margin: 5, fontSize: 60 }}
                     />

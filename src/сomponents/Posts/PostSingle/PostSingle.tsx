@@ -57,7 +57,7 @@ export default function PostSingle(): JSX.Element {
             <div className={styles.single_post + " container"}>
               <img
                 className={styles.post_img}
-                src={"/api/files/" + linkToImg}
+                src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + linkToImg}
                 alt={"post img" + idPost}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;

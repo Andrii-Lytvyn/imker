@@ -66,7 +66,7 @@ const Event = (): JSX.Element => {
                 <div style={{ minHeight: "50vh" }}>
                   <img
                     className={styles.img_container}
-                    src={`/api/files/${event?.photo}`}
+                    src={`https://imker.fra1.cdn.digitaloceanspaces.com/${event?.photo}`}
                     alt={event?.title}
                   />
                   <p>{event?.description}</p>

@@ -101,7 +101,7 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
               <Avatar
                 key={id}
                 alt={name}
-                src={"/api/files/" + image}
+                src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + image}
                 sx={{ width: 70, height: 70 }}
               />
             ))}

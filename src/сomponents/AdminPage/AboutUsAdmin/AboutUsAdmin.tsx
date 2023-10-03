@@ -153,7 +153,7 @@ export default function AboutUsAdmin(): JSX.Element {
 
           <div className={styles.photo}>
             <img
-              src={"/api/files/" + aboutUsEditForm.image1}
+              src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + aboutUsEditForm.image1}
               alt=""
               style={{
                 width: "300px",
@@ -162,7 +162,7 @@ export default function AboutUsAdmin(): JSX.Element {
               }}
             />
             <img
-              src={"/api/files/" + aboutUsEditForm.image2}
+              src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + aboutUsEditForm.image2}
               alt=""
               style={{
                 width: "300px",

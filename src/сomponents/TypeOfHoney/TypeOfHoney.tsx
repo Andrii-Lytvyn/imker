@@ -1,13 +1,18 @@
 import styles from "./TypeOfHoney.module.css";
 import {Col, Container, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import tile1 from "/img/tile/tile_1.png";
+import tile2 from "/img/tile/tile_2.png";
+import tile3 from "/img/tile/tile_3.png";
+import tile4 from "/img/tile/tile_4.png";
+import flower from "/img/body_left.png";
 
 export default function TypeOfHoney(): JSX.Element {
     return (
         <>
             <div className={styles.type_main_container}>
                 <div className={styles.tile_background}>
-                    <img src="/img/body_left.png"/>
+                    <img src={flower}/>
                 </div>
                 <Container>
                     <h2 className={styles.main_honey_title}>HONIGSORTEN</h2>
@@ -17,7 +22,7 @@ export default function TypeOfHoney(): JSX.Element {
                             <Link to="posts/9">
                             <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
-                                    <img src="/img/tile/tile_1.png"/>
+                                    <img src={tile1}/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
@@ -39,7 +44,7 @@ export default function TypeOfHoney(): JSX.Element {
                             <Link to="posts/9">
                             <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
-                                    <img src="/img/tile/tile_2.png"/>
+                                    <img src={tile2}/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
@@ -63,7 +68,7 @@ export default function TypeOfHoney(): JSX.Element {
                             <Link to="posts/9">
                             <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
-                                    <img src="/img/tile/tile_3.png"/>
+                                    <img src={tile3}/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>
@@ -85,7 +90,7 @@ export default function TypeOfHoney(): JSX.Element {
                             <Link to="posts/9">
                             <div className={styles.tile_main + " animate__animated animate__fadeInUp"}>
                                 <div className={styles.tile_img}>
-                                    <img src="/img/tile/tile_4.png"/>
+                                    <img src={tile4}/>
                                 </div>
                                 <div className={styles.tile_texts}>
                                     <div className={styles.tile_title}>

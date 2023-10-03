@@ -37,14 +37,14 @@ export default function Header(): JSX.Element {
   const handleLogOut = async () => {
     await logOut();
     dispatch(userDataInfo(userData));
-    window.location.href = "/imker";
+    window.location.href = "/";
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.logo_container}>
         <div className={styles.logo}>
-          <Link to="/imker">
+          <Link to="/">
             {" "}
             <img
               src={logoBee}

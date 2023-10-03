@@ -41,7 +41,7 @@ export default function PostSingle(): JSX.Element {
         <Container>
           <div className={styles.breadcrumbs}>
             <Nav>
-              <Link to="/imker">
+              <Link to="/">
                 {" "}
                 <FaHome />
               </Link>

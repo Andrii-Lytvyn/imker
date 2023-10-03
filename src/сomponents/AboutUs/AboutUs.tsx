@@ -59,7 +59,7 @@ export default function AboutUs(): JSX.Element {
                 >
                   <img
                     src={
-                      "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                      "https://imker.fra1.digitaloceanspaces.com/" +
                       aboutUsRes.image1
                     }
                     width="90%"
@@ -76,7 +76,7 @@ export default function AboutUs(): JSX.Element {
                 >
                   <img
                     src={
-                      "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                      "https://imker.fra1.digitaloceanspaces.com/" +
                       aboutUsRes.image2
                     }
                     width="90%"

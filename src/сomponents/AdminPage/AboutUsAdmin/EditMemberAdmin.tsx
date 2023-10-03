@@ -202,7 +202,7 @@ const TeamEditMemberAdmin = (): JSX.Element => {
         <div className={styles.photo}>
           <label>Photo </label>
           <img
-            src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + memberEditForm.image}
+            src={"https://imker.fra1.digitaloceanspaces.com/" + memberEditForm.image}
             alt={memberEditForm.name + memberEditForm.position}
             style={{
               width: "400px",

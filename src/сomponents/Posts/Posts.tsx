@@ -84,7 +84,7 @@ export default function Posts() {
                       <br />
                       <img
                         className={styles.post_img}
-                        src={`https://imker.fra1.cdn.digitaloceanspaces.com/${linkToImg}`}
+                        src={`https://imker.fra1.digitaloceanspaces.com/${linkToImg}`}
                         alt={"post img" + idPost}
                         onContextMenu={(e) => e.preventDefault()}
                         onError={(e) => {

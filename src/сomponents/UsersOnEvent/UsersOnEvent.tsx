@@ -101,7 +101,7 @@ export default function UsersOnEvent(props: UsersOnEventsProps): JSX.Element {
               <Avatar
                 key={id}
                 alt={name}
-                src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + image}
+                src={"https://imker.fra1.digitaloceanspaces.com/" + image}
                 sx={{ width: 70, height: 70 }}
                 onContextMenu={(e) => e.preventDefault()}
               />

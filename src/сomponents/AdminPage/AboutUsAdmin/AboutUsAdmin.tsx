@@ -154,7 +154,7 @@ export default function AboutUsAdmin(): JSX.Element {
           <div className={styles.photo}>
             <img
               src={
-                "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                "https://imker.fra1.digitaloceanspaces.com/" +
                 aboutUsEditForm.image1
               }
               alt=""
@@ -166,7 +166,7 @@ export default function AboutUsAdmin(): JSX.Element {
             />
             <img
               src={
-                "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                "https://imker.fra1.digitaloceanspaces.com/" +
                 aboutUsEditForm.image2
               }
               alt=""

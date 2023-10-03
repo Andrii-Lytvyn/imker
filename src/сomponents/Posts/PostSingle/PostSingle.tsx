@@ -57,7 +57,7 @@ export default function PostSingle(): JSX.Element {
             <div className={styles.single_post + " container"}>
               <img
                 className={styles.post_img}
-                src={"https://imker.fra1.cdn.digitaloceanspaces.com/" + linkToImg}
+                src={"https://imker.fra1.digitaloceanspaces.com/" + linkToImg}
                 alt={"post img" + idPost}
                 onContextMenu={(e) => e.preventDefault()}
                 onError={(e) => {

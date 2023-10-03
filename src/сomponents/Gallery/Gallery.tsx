@@ -107,7 +107,7 @@ const Gallery = (): JSX.Element => {
                 <img
                   id={item.id}
                   src={
-                    "https://imker.fra1.cdn.digitaloceanspaces.com/" +
+                    "https://imker.fra1.digitaloceanspaces.com/" +
                     item.linkToImg
                   }
                   alt={item.id}
